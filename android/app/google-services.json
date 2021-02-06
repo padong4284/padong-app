@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "791018205277",
+    "project_id": "padong",
+    "storage_bucket": "padong.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791018205277:android:203f20a45c04fa8c8e5db4",
+        "android_client_info": {
+          "package_name": "app.padong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791018205277-7mosco8608ipp8qqhmj4s2vh1v40p1jv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7x8TWypQdJC-kyDjqUu0TX0BesylkVMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791018205277-7mosco8608ipp8qqhmj4s2vh1v40p1jv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

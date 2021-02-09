@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
+import 'font_sizes.dart';
 
 class AppTheme {
   static const colors = AppColors();
+  static const fontSizes = FontSizes();
   const AppTheme._();
 
   static ThemeData define() {

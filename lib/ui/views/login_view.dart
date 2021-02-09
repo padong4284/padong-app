@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -13,7 +14,9 @@ class _LoginViewState extends State<LoginView> {
         title: Center(child: Text('Login'))
       ),
       body: Container(
-        child: Text('Login Body')
+        child: Text('Login Body',
+            style: TextStyle(fontSize: AppTheme.fontSizes.giant),
+),
       )
     );
   }

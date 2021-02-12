@@ -64,49 +64,49 @@ class _LoginViewState extends State<LoginView>
 
     return Scaffold(
         body: SafeArea(
-      top: false, // only Sign In & Up View
-      child: Stack(children: <Widget>[
-        ClipPath(
-          child: Container(
-            color: AppTheme.colors.semiPrimary,
-            height: 700,
-            padding: const EdgeInsets.only(right: 50.0),
-            child: Container(
-                alignment: Alignment.centerRight,
-                child: Text('Welcome\nBack',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: AppTheme.fontSizes.xlarge,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.colors.support))),
-          ),
-          clipper: WaveClipper(secondaryWave),
-        ),
-        ClipPath(
-          child: Container(
-              color: AppTheme.colors.primary,
-              height: 400,
-              padding: const EdgeInsets.only(left: 50.0),
+          top: false, // only Sign In & Up View
+          child: Stack(children: <Widget>[
+            ClipPath(
               child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text('PADONG',
-                    style: TextStyle(
-                        fontSize: AppTheme.fontSizes.giant,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.colors.base)),
-              )),
-          clipper: WaveClipper(primaryWave),
-        ),
-        Container(
-            alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
-            child: Button(
-              title: 'Sign Up',
-              color: AppTheme.colors.support,
-              type: ButtonType.STADIUM,
-              buttonSize: ButtonSize.LARGE,
-            ))
-      ]),
-    ));
+                color: AppTheme.colors.semiPrimary,
+                height: 700,
+                padding: const EdgeInsets.only(right: 50.0),
+                child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Text('Welcome\nBack',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                            fontSize: AppTheme.fontSizes.xlarge,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.colors.support))),
+              ),
+              clipper: WaveClipper(secondaryWave),
+            ),
+            ClipPath(
+              child: Container(
+                  color: AppTheme.colors.primary,
+                  height: 400,
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('PADONG',
+                        style: TextStyle(
+                            fontSize: AppTheme.fontSizes.giant,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.colors.base)),
+                  )),
+              clipper: WaveClipper(primaryWave),
+            ),
+            Container(
+                alignment: Alignment.bottomLeft,
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
+                child: Button(
+                  title: 'Sign Up',
+                  color: AppTheme.colors.support,
+                  type: ButtonType.STADIUM,
+                  buttonSize: ButtonSize.LARGE,
+                ))
+          ]),
+        ));
   }
 }

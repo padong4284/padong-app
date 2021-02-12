@@ -12,14 +12,9 @@ class Button extends StatelessWidget {
   IconData icon;
   ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
 
-  Button({ String title, @required ButtonSize buttonSize, Color color, Color borderColor, ButtonType type, IconData icon }) {
-    this.title = title;
-    this.color = color ?? AppTheme.colors.primary;
-    this.borderColor = borderColor;
+  Button({ this.title, @required this.buttonSize, color, this.borderColor, type, this.icon }):
+    this.color = color ?? AppTheme.colors.primary,
     this.type = type ?? ButtonType.STADIUM;
-    this.buttonSize = buttonSize;
-    this.icon = icon;
-  }
 
   final buttonSizes = {
     "ButtonSize.GIANT": ButtonProperties(

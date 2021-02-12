@@ -6,10 +6,5 @@ class ButtonProperties {
   double fontSize;
   double roundedEdge;
 
-  ButtonProperties({ double height, double width, double padding = 0, double fontSize }) {
-    this.height = height;
-    this.width = width;
-    this.padding = padding;
-    this.fontSize = fontSize;
-  }
+  ButtonProperties({ this.height, this.width, this.padding = 0, this.fontSize });
 }

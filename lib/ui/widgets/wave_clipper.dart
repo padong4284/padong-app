@@ -28,7 +28,7 @@ class WaveClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper oldClipper)
   {
-    return null;
+    return true;
   }
 
 }

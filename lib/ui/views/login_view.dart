@@ -53,11 +53,17 @@ class _LoginViewState extends State<LoginView> {
               ),
               clipper: PrimaryWaveClipper(),
             ),
-            Button(
-              title: 'Sign Up',
-              color: AppTheme.colors.primary,
-              type: ButtonType.STADIUM,
-              buttonSize: ButtonSize.SMALL,
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 50, right: 50, bottom: 60),
+                child:Button(
+                  title: 'Sign Up',
+                  color: AppTheme.colors.support,
+                  type: ButtonType.STADIUM,
+                  buttonSize: ButtonSize.LARGE,
+                )
+              )
             )
           ]
         ),

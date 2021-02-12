@@ -10,6 +10,7 @@ class AppColors {
   final pointYellow = const Color(0xFFF5B510);
   final pointRed = const Color(0xFFF51525);
   final base = const Color(0xFFFFFFFF);
+  final transparent = const Color(0x00FFFFFF);
   final fontPalette = const [
     const Color(0xFF000510),
     const Color(0xFF202530),

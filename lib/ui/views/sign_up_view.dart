@@ -6,12 +6,12 @@ import '../utils/wave/wave_clipper.dart';
 import '../utils/wave/wave.dart';
 import '../shared/types.dart';
 
-class LoginView extends StatefulWidget {
+class SignUpView extends StatefulWidget {
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _SignUpViewState createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView>
+class _SignUpViewState extends State<SignUpView>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation animation;
@@ -36,7 +36,7 @@ class _LoginViewState extends State<LoginView>
     });
 
     this.animation.addListener(() {
-      setState(() {
+      this.setState(() {
         if (this.startAnimate) {
           this.startAnimate = false;
           this.animateWave();
@@ -72,7 +72,7 @@ class _LoginViewState extends State<LoginView>
             padding: const EdgeInsets.only(right: 50.0),
             child: Container(
                 alignment: Alignment.centerRight,
-                child: Text('Welcome\nBack',
+                child: Text('Welcome',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: AppTheme.fontSizes.xlarge,
@@ -100,11 +100,11 @@ class _LoginViewState extends State<LoginView>
             alignment: Alignment.bottomLeft,
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
             child: Button(
-              title: 'Sign Up',
+              title: 'Sign In',
               color: AppTheme.colors.support,
               type: ButtonType.STADIUM,
               buttonSize: ButtonSize.LARGE,
-              callback: () => Navigator.pushNamed(context, '/sign_up'),
+              callback: () => Navigator.pop(context),
             ))
       ]),
     ));

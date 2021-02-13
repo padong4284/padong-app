@@ -12,25 +12,28 @@ class Input extends StatelessWidget {
 
   Input(
       {this.hintText,
-        this.icon,
-        this.type = InputType.UNDERLINE,
-        double fontSize,
-        Function onPressIcon,
-        void Function(String str) onChanged})
+      this.icon,
+      this.type = InputType.UNDERLINE,
+      double fontSize,
+      Function onPressIcon,
+      void Function(String str) onChanged})
       : this.fontSize = fontSize ?? AppTheme.fontSizes.regular,
         this.onPressIcon = onPressIcon,
         this.onChanged = onChanged;
 
+  @override
   Widget build(BuildContext context) {
+    Widget input;
     if (this.type == InputType.ROUNDED) {
-      return _buildRoundedInput();
+      input = _buildRoundedInput();
     } else if (this.type == InputType.UNDERLINE) {
-      return _buildOtherInput();
+      input = _buildOtherInput();
     } else {
-      return _buildOtherInput(plain: true);
+      input = _buildOtherInput(plain: true);
     }
+    return new Scaffold(
+        backgroundColor: AppTheme.colors.transparent, body: input);
   }
-
 
   Widget _buildRoundedInput() {
     return TextField(
@@ -44,11 +47,11 @@ class Input extends StatelessWidget {
           suffixIcon: this.icon == null
               ? SizedBox.shrink()
               : IconButton(
-            onPressed: this.onPressIcon ?? () {}, // callback
-            icon: this.icon,
-          ),
+                  onPressed: this.onPressIcon ?? () {}, // callback
+                  icon: this.icon,
+                ),
           contentPadding:
-          const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
+              const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppTheme.colors.primary),
             borderRadius: BorderRadius.circular(14.0),

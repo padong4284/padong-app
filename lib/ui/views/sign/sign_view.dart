@@ -18,8 +18,7 @@ class SignView extends StatefulWidget {
   SignView(this.isSignIn, this.welcomeMsg, this.forms);
 
   @override
-  _SignViewState createState() =>
-      _SignViewState();
+  _SignViewState createState() => _SignViewState();
 }
 
 class _SignViewState extends State<SignView>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import '../bottom_navigation_bar.dart';
+import '../../widgets/post_card.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -18,7 +19,10 @@ class _MainViewState extends State<MainView> {
         body: Container(
             padding: EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
             child: Column(
-              children: [_buildTopBar()],
+              children: [
+                this._buildTopBar(),
+                PostCard('0321'),
+              ],
             )),
         bottomNavigationBar: PadongBottomNavigationBar());
   }

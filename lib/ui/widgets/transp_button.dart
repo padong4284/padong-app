@@ -33,28 +33,25 @@ class TranspButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ButtonProperties buttonProperty = buttonSizes[this.buttonSize.toString()];
-    return this.icon != null
-        ? FlatButton.icon(
-        icon: this.icon,
-        color: AppTheme.colors.transparent,
+    return Container(
         height: buttonProperty.height,
-        padding: EdgeInsets.all(0.0),
-        label: this.title == null
-            ? ''
-            : this.buttonText(buttonProperty))
-        : FlatButton(
-        color: AppTheme.colors.transparent,
-        height: buttonProperty.height,
-        padding: EdgeInsets.all(0.0),
-        child: this.buttonText(buttonProperty),
-        onPressed: () {
-          if (this.callback != null) this.callback();
-        });
+        padding: const EdgeInsets.all(0),
+        child: FlatButton(
+            minWidth: 0,
+            color: AppTheme.colors.transparent,
+            padding: EdgeInsets.all(0.0),
+            child: Row(
+                children: [this.icon ?? null, this.buttonText(buttonProperty)]
+                    .where((element) => element != null)
+                    .toList()),
+            onPressed: () {
+              if (this.callback != null) this.callback();
+            }));
   }
 
   Text buttonText(buttonProperty) {
     return Text(this.title,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         style: TextStyle(
             height: 1.25,
             color: this.color,

@@ -11,8 +11,9 @@ class Button extends StatelessWidget {
   ButtonType type; // ROUNDED, STADIUM, CIRCLE
   IconData icon;
   ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
+  dynamic callback;
 
-  Button({ this.title, @required this.buttonSize, color, this.borderColor, type, this.icon }):
+  Button({ this.title, @required this.buttonSize, color, this.borderColor, type, this.icon, this.callback }):
     this.color = color ?? AppTheme.colors.primary,
     this.type = type ?? ButtonType.STADIUM;
 
@@ -42,6 +43,7 @@ class Button extends StatelessWidget {
     )
   };
 
+  @override
   Widget build(BuildContext context) {
     ButtonProperties buttonProperty = buttonSizes[this.buttonSize.toString()];
     return ConstrainedBox(
@@ -64,6 +66,7 @@ class Button extends StatelessWidget {
             ),
             onPressed: () {
               print("clicked");
+              if (this.callback != null) this.callback();
             }
         ),
       );

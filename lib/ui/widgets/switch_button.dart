@@ -44,32 +44,50 @@ class _SwitchButtonState extends State<SwitchButton> {
                   ]
                 : []),
         height: 40.0,
-        width: widget.options.length == 2 ? 132 : 211,
-        padding: const EdgeInsets.all(5),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: Iterable<int>.generate(widget.options.length)
-                .toList()
-                .map((idx) => Container(
-                    width: (widget.options.length == 2 ? 55.0 : 65.0) +
-                        (this.curIdx == idx ? 10.0 : -3.0),
-                    height: 30,
-                    child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: this.curIdx == idx
-                                ? AppTheme.colors.primary
-                                : AppTheme.colors.base,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Text(
-                          widget.options[idx],
-                          style: TextStyle(
-                            color: this.curIdx == idx
-                                ? AppTheme.colors.base
-                                : AppTheme.colors.primary,
-                            fontSize: AppTheme.fontSizes.small,
-                          ),
-                        ))))
-                .toList()));
+        width: widget.options.length == 2 ? 140 : 210,
+        padding: const EdgeInsets.all(0),
+        child: Stack(children: [
+          AnimatedPositioned(
+            child: Container(
+                decoration: BoxDecoration(
+                    color: AppTheme.colors.primary,
+                    borderRadius: BorderRadius.circular(15)),
+                width: this.curIdx >= 0 ? 70 : 0,
+                height: 30),
+            duration: Duration(milliseconds: 200),
+            top: 4,
+            left: 5 + this.curIdx * (widget.options.length == 2 ? 59.0 : 64.0),
+          ),
+          Padding(
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: Iterable<int>.generate(widget.options.length)
+                      .toList()
+                      .map((idx) => InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (widget.cancelAble && this.curIdx == idx) {
+                                this.curIdx = -1;
+                              } else
+                                this.curIdx = idx;
+                            });
+                          },
+                          child: Container(
+                              width: widget.options.length == 2 ? 55.0 : 65.0,
+                              height: 40,
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    widget.options[idx],
+                                    style: TextStyle(
+                                      color: this.curIdx == idx
+                                          ? AppTheme.colors.base
+                                          : AppTheme.colors.primary,
+                                      fontSize: AppTheme.fontSizes.small,
+                                    ),
+                                  )))))
+                      .toList()))
+        ]));
   }
 }

@@ -24,7 +24,9 @@ class _MainViewState extends State<MainView> {
               children: [
                 this._buildTopBar(),
                 PostCard('0321'),
-                SwitchButton(options: ['anonym', 'profile'], buttonType: SwitchButtonType.SHADOW)
+                SwitchButton(options: ['write', 'prev'], buttonType: SwitchButtonType.BORDER),
+                SwitchButton(options: ['Public', 'Internal', 'Private'], buttonType: SwitchButtonType.SHADOW, cancelAble: true),
+                SwitchButton(options: ['anonym', 'profile'], buttonType: SwitchButtonType.TOOLTIP),
               ],
             )),
         bottomNavigationBar: PadongBottomNavigationBar());

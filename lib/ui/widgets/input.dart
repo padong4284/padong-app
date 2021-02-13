@@ -3,39 +3,47 @@ import '../theme/app_theme.dart';
 import '../shared/types.dart';
 
 class Input extends StatelessWidget {
-
   final hintText;
   final Icon icon;
   final InputType type;
   final double fontSize;
   final Function onPressIcon;
+  final void Function(String str) onChanged;
 
-  Input({ this.hintText, this.icon, this.type = InputType.UNDERLINE, double fontSize, onPressIcon}) :
-        this.fontSize = fontSize ?? AppTheme.fontSizes.regular,
-        this.onPressIcon = onPressIcon;
+  Input(
+      {this.hintText,
+      this.icon,
+      this.type = InputType.UNDERLINE,
+      double fontSize,
+      Function onPressIcon,
+      void Function(String str) onChanged})
+      : this.fontSize = fontSize ?? AppTheme.fontSizes.regular,
+        this.onPressIcon = onPressIcon,
+        this.onChanged = onChanged;
 
   Widget build(BuildContext context) {
-    if (type == InputType.ROUNDED) {
-      return buildRoundedInput();
-    } else if (type == InputType.UNDERLINE) {
-      return buildOtherInput();
+    if (this.type == InputType.ROUNDED) {
+      return _buildRoundedInput();
+    } else if (this.type == InputType.UNDERLINE) {
+      return _buildOtherInput();
     } else {
-      return buildOtherInput(plain: true);
+      return _buildOtherInput(plain: true);
     }
   }
 
-  Widget buildRoundedInput() {
+  Widget _buildRoundedInput() {
     return Stack(
       children: [
         TextField(
+          onChanged: this.onChanged,
           decoration: InputDecoration(
               filled: true,
               fillColor: AppTheme.colors.lightSupport,
               border: InputBorder.none,
               hintText: this.hintText,
               hintStyle: TextStyle(height: 1.8),
-              contentPadding: const EdgeInsets.only(
-                  left: 28.0, bottom: 8.0, top: 8.0),
+              contentPadding:
+                  const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(14.0),
@@ -43,24 +51,23 @@ class Input extends StatelessWidget {
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
                 borderRadius: BorderRadius.circular(14.0),
-              )
-          ),
+              )),
         ),
-        this.icon == null ? SizedBox.shrink() : Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-                child:
-                    IconButton(
+        this.icon == null
+            ? SizedBox.shrink()
+            : Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                    child: IconButton(
                       onPressed: this.onPressIcon ?? () {},
                       icon: this.icon,
                     ),
-                    padding: EdgeInsets.only(right: 10.0))
-        ),
+                    padding: EdgeInsets.only(right: 10.0))),
       ],
     );
   }
 
-  Widget buildOtherInput({ bool plain = false }) {
+  Widget _buildOtherInput({bool plain = false}) {
     return TextField(
       style: TextStyle(
         fontSize: this.fontSize,

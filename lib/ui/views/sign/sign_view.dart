@@ -75,17 +75,16 @@ class _SignViewState extends State<SignView>
 
   @override
   Widget build(BuildContext context) {
-    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return Scaffold(
-        floatingActionButton: keyboardIsOpened
-            ? null
-            : Container(
+        floatingActionButton: Visibility(
+            visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+            child: Container(
                 padding: const EdgeInsets.only(right: 10.0, bottom: 90.0),
                 child: FloatingActionButton(
                   child: Icon(Icons.east, color: AppTheme.colors.base),
                   backgroundColor: AppTheme.colors.primary,
                   onPressed: () {},
-                )),
+                ))),
         body: SafeArea(
             top: false, // only Sign In &
             child: SingleChildScrollView(

@@ -32,38 +32,32 @@ class Input extends StatelessWidget {
   }
 
   Widget _buildRoundedInput() {
-    return Stack(
-      children: [
-        TextField(
-          onChanged: this.onChanged,
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: AppTheme.colors.lightSupport,
-              border: InputBorder.none,
-              hintText: this.hintText,
-              hintStyle: TextStyle(height: 1.8),
-              contentPadding:
-                  const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(14.0),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(14.0),
-              )),
-        ),
-        this.icon == null
-            ? SizedBox.shrink()
-            : Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                    child: IconButton(
-                      onPressed: this.onPressIcon ?? () {},
-                      icon: this.icon,
-                    ),
-                    padding: EdgeInsets.only(right: 10.0))),
-      ],
+    return TextField(
+      onChanged: this.onChanged,
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: AppTheme.colors.lightSupport,
+          border: InputBorder.none,
+          hintText: this.hintText,
+          hintStyle: TextStyle(height: 1.8),
+          suffixIcon: this.icon == null
+              ? SizedBox.shrink()
+              : IconButton(
+                  onPressed: this.onPressIcon ?? () {
+                    print('input icon');
+                  },
+                  icon: this.icon,
+                ),
+          contentPadding:
+              const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppTheme.colors.primary),
+            borderRadius: BorderRadius.circular(14.0),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppTheme.colors.transparent),
+            borderRadius: BorderRadius.circular(14.0),
+          )),
     );
   }
 

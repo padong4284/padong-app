@@ -11,16 +11,16 @@ Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
 
 class SignView extends StatefulWidget {
-  bool isSignIn;
-  String welcomeMsg;
+  final bool isSignIn;
+  final String welcomeMsg;
 
   SignView(this.isSignIn, this.welcomeMsg);
 
   @override
-  SignViewState createState() => SignViewState(this.isSignIn, this.welcomeMsg);
+  _SignViewState createState() => _SignViewState(this.isSignIn, this.welcomeMsg);
 }
 
-class SignViewState extends State<SignView>
+class _SignViewState extends State<SignView>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation animation;
@@ -29,7 +29,7 @@ class SignViewState extends State<SignView>
   bool isSignIn = true;
   String welcomeMsg = "Welcome\nBack";
 
-  SignViewState(this.isSignIn, this.welcomeMsg);
+  _SignViewState(this.isSignIn, this.welcomeMsg);
 
   @override
   void initState() {

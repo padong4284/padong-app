@@ -4,11 +4,11 @@ import '../shared/types.dart';
 import '../shared/button_properties.dart';
 
 class TranspButton extends StatelessWidget {
-  String title;
-  Color color;
-  IconData icon;
-  ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
-  dynamic callback;
+  final String title;
+  final Color color;
+  final IconData icon;
+  final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
+  final dynamic callback;
 
   TranspButton(
       {this.title, @required this.buttonSize, color, this.icon, this.callback})

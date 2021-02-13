@@ -4,13 +4,13 @@ import '../shared/types.dart';
 import '../shared/button_properties.dart';
 
 class Button extends StatelessWidget {
-  String title;
-  Color color;
-  Color borderColor;
-  ButtonType type; // ROUNDED, STADIUM, CIRCLE
-  IconData icon;
-  ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
-  dynamic callback;
+  final String title;
+  final Color color;
+  final Color borderColor;
+  final ButtonType type; // ROUNDED, STADIUM, CIRCLE
+  final IconData icon;
+  final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
+  final dynamic callback;
 
   Button(
       {this.title,

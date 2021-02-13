@@ -1,7 +1,7 @@
 enum ButtonType {
   ROUNDED,
   STADIUM,
-  CIRCLE
+  CIRCLE,
 }
 
 enum ButtonSize {
@@ -9,4 +9,10 @@ enum ButtonSize {
   LARGE,
   REGULAR,
   SMALL,
+}
+
+enum InputType {
+  ROUNDED,
+  PLANE,
+  UNDERLINE,
 }

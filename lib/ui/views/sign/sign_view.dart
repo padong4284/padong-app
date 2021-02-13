@@ -6,6 +6,7 @@ import '../../widgets/transp_button.dart';
 import '../../utils/wave/wave_clipper.dart';
 import '../../utils/wave/wave.dart';
 import '../../shared/types.dart';
+import '../../widgets/input.dart';
 
 Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
@@ -136,6 +137,25 @@ class _SignViewState extends State<SignView>
                                 color: AppTheme.colors.base)),
                       )),
                 )),
+              Center(
+                  child: Container(
+                      padding: EdgeInsets.only(top: 300.0),
+                      width: 280,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                height: 38.0,
+                                child: Input(hintText: 'ID', type: InputType.ROUNDED)
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(top: 20.0),
+                                height: 38.0,
+                                child: Input(hintText: 'Password', type: InputType.ROUNDED)
+                            )
+                          ])
+                  )
+            ),
             Container(
                 alignment: Alignment.bottomLeft,
                 padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),

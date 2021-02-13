@@ -18,6 +18,11 @@ class Point {
     this.cur += this.speed;
     this.y = this.yNorm + this.amplitude * sin(this.cur);
   }
+
+  moveYNorm(double dy) {
+    this.yNorm += dy;
+    this.y += dy;
+  }
 }
 
 class Wave {
@@ -39,6 +44,13 @@ class Wave {
   updating() {
     for (int i = 1; i < this.pointNum - 1; i++) {
       this.points[i].updating();
+    }
+  }
+
+  moveYNorm(double dy) {
+    this.yNorm += dy;
+    for (int i = 0; i < this.pointNum; i++) {
+      this.points[i].moveYNorm(dy);
     }
   }
 }

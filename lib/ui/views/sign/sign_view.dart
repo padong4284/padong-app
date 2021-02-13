@@ -80,12 +80,12 @@ class _SignViewState extends State<SignView>
         floatingActionButton: keyboardIsOpened
             ? null
             : Container(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 90.0),
-                child: FloatingActionButton(
-                  child: Icon(Icons.east, color: AppTheme.colors.base),
-                  backgroundColor: AppTheme.colors.primary,
-                  onPressed: () {},
-                )),
+            padding: const EdgeInsets.only(right: 10.0, bottom: 90.0),
+            child: FloatingActionButton(
+              child: Icon(Icons.east, color: AppTheme.colors.base),
+              backgroundColor: AppTheme.colors.primary,
+              onPressed: () {},
+            )),
         body: SafeArea(
             top: false, // only Sign In &
             child: SingleChildScrollView(
@@ -98,19 +98,19 @@ class _SignViewState extends State<SignView>
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                      Container(
-                          margin: EdgeInsets.only(top: 550.0),
-                          width: 280,
-                          height: 38.0,
-                          child:
+                          Container(
+                              margin: EdgeInsets.only(top: 550.0),
+                              width: 280,
+                              height: 38.0,
+                              child:
                               Input(hintText: 'ID', type: InputType.ROUNDED)),
-                      Container(
-                          margin: EdgeInsets.only(top: 20.0),
-                          width: 280,
-                          height: 38.0,
-                          child: Input(
-                              hintText: 'Password', type: InputType.ROUNDED))
-                    ])),
+                          Container(
+                              margin: EdgeInsets.only(top: 20.0),
+                              width: 280,
+                              height: 38.0,
+                              child: Input(
+                                  hintText: 'Password', type: InputType.ROUNDED))
+                        ])),
                 Positioned(
                     bottom: 105,
                     right: 100,
@@ -193,15 +193,15 @@ class _SignViewState extends State<SignView>
                       buttonSize: ButtonSize.LARGE,
                       callback: this.isSignIn
                           ? () {
-                              Navigator.pushNamed(context, '/sign_up');
-                              primaryWave.moveYNorm(-120);
-                              secondaryWave.moveYNorm(-300);
-                            }
+                        Navigator.pushNamed(context, '/sign_up');
+                        primaryWave.moveYNorm(-120);
+                        secondaryWave.moveYNorm(-300);
+                      }
                           : () {
-                              Navigator.pop(context);
-                              primaryWave.moveYNorm(120);
-                              secondaryWave.moveYNorm(300);
-                            })),
+                        Navigator.pop(context);
+                        primaryWave.moveYNorm(120);
+                        secondaryWave.moveYNorm(300);
+                      })),
               Padding(
                   padding: const EdgeInsets.only(right: 45, bottom: 40),
                   child: TranspButton(

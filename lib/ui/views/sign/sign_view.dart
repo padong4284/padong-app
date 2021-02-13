@@ -129,7 +129,7 @@ class _SignViewState extends State<SignView>
       Hero(
           tag: 'padongTitle',
           child:
-          this.title(AppTheme.colors.transparent, AppTheme.colors.primary)),
+              this.title(AppTheme.colors.transparent, AppTheme.colors.primary)),
       Hero(
         tag: 'primaryWave',
         child: ClipPath(
@@ -172,15 +172,15 @@ class _SignViewState extends State<SignView>
                       buttonSize: ButtonSize.LARGE,
                       callback: this.isSignIn
                           ? () {
-                        Navigator.pushNamed(context, '/sign_up');
-                        primaryWave.moveYNorm(-120);
-                        secondaryWave.moveYNorm(-300);
-                      }
+                              Navigator.pushNamed(context, '/sign_up');
+                              primaryWave.moveYNorm(-120);
+                              secondaryWave.moveYNorm(-300);
+                            }
                           : () {
-                        Navigator.pop(context);
-                        primaryWave.moveYNorm(120);
-                        secondaryWave.moveYNorm(300);
-                      })),
+                              Navigator.pop(context);
+                              primaryWave.moveYNorm(120);
+                              secondaryWave.moveYNorm(300);
+                            })),
               Padding(
                   padding: const EdgeInsets.only(right: 45, bottom: 40),
                   child: TranspButton(

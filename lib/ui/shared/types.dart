@@ -16,3 +16,9 @@ enum InputType {
   PLANE,
   UNDERLINE,
 }
+
+enum SwitchButtonType {
+  BORDER,
+  SHADOW,
+  TOOLTIP,
+}

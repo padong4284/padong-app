@@ -21,14 +21,18 @@ class Input extends StatelessWidget {
         this.onPressIcon = onPressIcon,
         this.onChanged = onChanged;
 
+  @override
   Widget build(BuildContext context) {
+    Widget input;
     if (this.type == InputType.ROUNDED) {
-      return _buildRoundedInput();
+      input = _buildRoundedInput();
     } else if (this.type == InputType.UNDERLINE) {
-      return _buildOtherInput();
+      input = _buildOtherInput();
     } else {
-      return _buildOtherInput(plain: true);
+      input = _buildOtherInput(plain: true);
     }
+    return new Scaffold(
+        backgroundColor: AppTheme.colors.transparent, body: input);
   }
 
   Widget _buildRoundedInput() {
@@ -43,9 +47,7 @@ class Input extends StatelessWidget {
           suffixIcon: this.icon == null
               ? SizedBox.shrink()
               : IconButton(
-                  onPressed: this.onPressIcon ?? () {
-                    print('input icon');
-                  },
+                  onPressed: this.onPressIcon ?? () {}, // callback
                   icon: this.icon,
                 ),
           contentPadding:

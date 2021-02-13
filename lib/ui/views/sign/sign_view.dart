@@ -6,7 +6,6 @@ import '../../widgets/transp_button.dart';
 import '../../utils/wave/wave_clipper.dart';
 import '../../utils/wave/wave.dart';
 import '../../shared/types.dart';
-import '../../widgets/input.dart';
 
 Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
@@ -14,12 +13,13 @@ Wave secondaryWave = new Wave(-75, 25, 500, 4);
 class SignView extends StatefulWidget {
   final bool isSignIn;
   final String welcomeMsg;
+  final Widget forms;
 
-  SignView(this.isSignIn, this.welcomeMsg);
+  SignView(this.isSignIn, this.welcomeMsg, this.forms);
 
   @override
   _SignViewState createState() =>
-      _SignViewState(this.isSignIn, this.welcomeMsg);
+      _SignViewState(this.isSignIn, this.welcomeMsg, this.forms);
 }
 
 class _SignViewState extends State<SignView>
@@ -30,8 +30,9 @@ class _SignViewState extends State<SignView>
 
   bool isSignIn;
   String welcomeMsg;
+  final Widget forms;
 
-  _SignViewState(this.isSignIn, this.welcomeMsg);
+  _SignViewState(this.isSignIn, this.welcomeMsg, this.forms);
 
   @override
   void initState() {
@@ -93,23 +94,7 @@ class _SignViewState extends State<SignView>
                     height: MediaQuery.of(context).size.height -
                         MediaQuery.of(context).padding.bottom),
                 ...this.waves(),
-                Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      Container(
-                          margin: EdgeInsets.only(top: 550.0),
-                          width: 280,
-                          height: 38.0,
-                          child:
-                              Input(hintText: 'ID', type: InputType.ROUNDED)),
-                      Container(
-                          margin: EdgeInsets.only(top: 20.0),
-                          width: 280,
-                          height: 38.0,
-                          child: Input(
-                              hintText: 'Password', type: InputType.ROUNDED))
-                    ])),
+                this.forms,
                 Positioned(
                     bottom: 105,
                     right: 100,
@@ -143,34 +128,29 @@ class _SignViewState extends State<SignView>
       ),
       Hero(
           tag: 'padongTitle',
-          child: Container(
-            color: AppTheme.colors.transparent,
-            height: this.isSignIn ? 400 : 250,
-            padding: const EdgeInsets.only(left: 50.0),
-            alignment: Alignment.centerLeft,
-            child: Text('PADONG',
-                style: TextStyle(
-                    fontSize: AppTheme.fontSizes.giant,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.colors.primary)),
-          )),
+          child:
+              this.title(AppTheme.colors.transparent, AppTheme.colors.primary)),
       Hero(
         tag: 'primaryWave',
         child: ClipPath(
             clipper: WaveClipper(primaryWave),
-            child: Container(
-              color: AppTheme.colors.primary,
-              height: this.isSignIn ? 400 : 250,
-              padding: const EdgeInsets.only(left: 50.0),
-              alignment: Alignment.centerLeft,
-              child: Text('PADONG',
-                  style: TextStyle(
-                      fontSize: AppTheme.fontSizes.giant,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.colors.base)),
-            )),
+            child: this.title(AppTheme.colors.primary, AppTheme.colors.base)),
       )
     ];
+  }
+
+  Widget title(color, fontColor) {
+    return Container(
+      color: color,
+      height: this.isSignIn ? 400 : 250,
+      padding: const EdgeInsets.only(left: 50.0),
+      alignment: Alignment.centerLeft,
+      child: Text('PADONG',
+          style: TextStyle(
+              fontSize: AppTheme.fontSizes.giant,
+              fontWeight: FontWeight.bold,
+              color: fontColor)),
+    );
   }
 
   Widget bottomArea() {

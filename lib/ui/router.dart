@@ -22,7 +22,6 @@ class PadongRouter {
       case '/sign_up':
         return PageRouteBuilder(
             pageBuilder: (_, __ ,___ ) => SignUpView(),
-            transitionsBuilder: (_, a, __, c) => FadeTransition(opacity: a, child: c)
         );
       default:
         return MaterialPageRoute(

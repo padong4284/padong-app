@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import '../bottom_navigation_bar.dart';
 import '../../widgets/post_card.dart';
+import '../../widgets/switch_button.dart';
+import '../../shared/types.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -22,6 +24,7 @@ class _MainViewState extends State<MainView> {
               children: [
                 this._buildTopBar(),
                 PostCard('0321'),
+                SwitchButton(options: ['anonym', 'profile'], buttonType: SwitchButtonType.SHADOW)
               ],
             )),
         bottomNavigationBar: PadongBottomNavigationBar());

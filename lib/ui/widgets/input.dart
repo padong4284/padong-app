@@ -68,7 +68,7 @@ class Input extends StatelessWidget {
   }
 
   Widget _buildOtherInput({bool plain = false}) {
-    return TextField(
+      return TextField(
       style: TextStyle(
         fontSize: this.fontSize,
       ),

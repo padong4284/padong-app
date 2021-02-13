@@ -83,7 +83,13 @@ class _SignViewState extends State<SignView>
                 child: FloatingActionButton(
                   child: Icon(Icons.east, color: AppTheme.colors.base),
                   backgroundColor: AppTheme.colors.primary,
-                  onPressed: () {},
+                  onPressed: () {
+                    if (widget.isSignIn) { // FIXME: this is implemented temporarily
+                      Navigator.pushNamed(context, '/main');
+                    } else {
+                      Navigator.pushNamed(context, '/p_main');
+                    }
+                  },
                 ))),
         body: SafeArea(
             top: false, // only Sign In &

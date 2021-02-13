@@ -91,7 +91,7 @@ class _SignViewState extends State<SignView>
                 clipper: WaveClipper(secondaryWave),
                 child: Container(
                   color: AppTheme.colors.semiPrimary,
-                  height: 700,
+                  height: this.isSignIn? 700 : 400,
                   padding: const EdgeInsets.only(right: 50.0),
                   child: Container(
                       alignment: Alignment.centerRight,
@@ -105,12 +105,27 @@ class _SignViewState extends State<SignView>
               ),
             ),
             Hero(
+              tag: 'title',
+              child: Container(
+                  color: AppTheme.colors.transparent,
+                  height: this.isSignIn ? 400 : 250,
+                  padding: const EdgeInsets.only(left: 50.0),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('PADONG',
+                        style: TextStyle(
+                            fontSize: AppTheme.fontSizes.giant,
+                            fontWeight: FontWeight.bold,
+                            color: AppTheme.colors.primary)),
+                  )),
+            ),
+            Hero(
                 tag: 'primaryWave',
                 child: ClipPath(
                   clipper: WaveClipper(primaryWave),
                   child: Container(
                       color: AppTheme.colors.primary,
-                      height: 400,
+                      height: this.isSignIn ? 400 : 250,
                       padding: const EdgeInsets.only(left: 50.0),
                       child: Container(
                         alignment: Alignment.centerLeft,
@@ -130,8 +145,8 @@ class _SignViewState extends State<SignView>
                   type: ButtonType.STADIUM,
                   buttonSize: ButtonSize.LARGE,
                   callback: this.isSignIn
-                      ? () => Navigator.pushNamed(context, '/sign_up')
-                      : () => Navigator.pop(context),
+                      ? () {Navigator.pushNamed(context, '/sign_up'); primaryWave.moveYNorm(-120); secondaryWave.moveYNorm(-300);}
+                      : () {Navigator.pop(context); primaryWave.moveYNorm(120); secondaryWave.moveYNorm(300);}
                 )),
             Container(
               alignment: Alignment.bottomRight,

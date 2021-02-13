@@ -6,7 +6,7 @@ import '../shared/button_properties.dart';
 class TranspButton extends StatelessWidget {
   final String title;
   final Color color;
-  final IconData icon;
+  final Icon icon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
   final dynamic callback;
 
@@ -33,36 +33,32 @@ class TranspButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ButtonProperties buttonProperty = buttonSizes[this.buttonSize.toString()];
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-          minHeight: buttonProperty.height, maxHeight: buttonProperty.height),
-      child: FlatButton(
-          color: AppTheme.colors.transparent,
-          shape: defineShape(),
-          padding: EdgeInsets.only(left: 0, right: 0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                this.icon == null ? null : Icon(this.icon),
-                this.title == null
-                    ? null
-                    : Text(this.title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            height: 1.25,
-                            color: this.color,
-                            letterSpacing: 0.025,
-                            fontSize: buttonProperty.fontSize)),
-              ].where((element) => element != null).toList()),
-          onPressed: () {
-            if (this.callback != null) this.callback();
-          }),
-    );
+    return this.icon != null
+        ? FlatButton.icon(
+        icon: this.icon,
+        color: AppTheme.colors.transparent,
+        height: buttonProperty.height,
+        padding: EdgeInsets.all(0.0),
+        label: this.title == null
+            ? ''
+            : this.buttonText(buttonProperty))
+        : FlatButton(
+        color: AppTheme.colors.transparent,
+        height: buttonProperty.height,
+        padding: EdgeInsets.all(0.0),
+        child: this.buttonText(buttonProperty),
+        onPressed: () {
+          if (this.callback != null) this.callback();
+        });
   }
 
-  ShapeBorder defineShape() {
-    return RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0), side: BorderSide.none);
+  Text buttonText(buttonProperty) {
+    return Text(this.title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            height: 1.25,
+            color: this.color,
+            letterSpacing: 0.025,
+            fontSize: buttonProperty.fontSize));
   }
 }

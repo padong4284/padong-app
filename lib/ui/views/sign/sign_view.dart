@@ -134,6 +134,16 @@ class _SignViewState extends State<SignView>
                       : () => Navigator.pop(context),
                 )),
             Container(
+              alignment: Alignment.bottomRight,
+              padding: const EdgeInsets.only(left: 40, right: 100, bottom: 105),
+              child: Text(this.isSignIn? 'Sign In' : 'Sign Up',
+                style: TextStyle(
+                  fontSize: AppTheme.fontSizes.large,
+                      color: AppTheme.colors.primary
+                )
+              )
+            ),
+            Container(
                 alignment: Alignment.bottomRight,
                 padding: const EdgeInsets.only(left: 40, right: 45, bottom: 40),
                 child: TranspButton(

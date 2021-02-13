@@ -10,6 +10,7 @@ class Button extends StatelessWidget {
   final ButtonType type; // ROUNDED, STADIUM, CIRCLE
   final IconData icon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
+  final bool shadow;
   final dynamic callback;
 
   Button(
@@ -19,9 +20,11 @@ class Button extends StatelessWidget {
       this.borderColor,
       type,
       this.icon,
+      shadow,
       this.callback})
       : this.color = color ?? AppTheme.colors.primary,
-        this.type = type ?? ButtonType.STADIUM;
+        this.type = type ?? ButtonType.STADIUM,
+        this.shadow = shadow ?? true;
 
   final buttonSizes = {
     "ButtonSize.GIANT": ButtonProperties(
@@ -55,6 +58,7 @@ class Button extends StatelessWidget {
           maxHeight: buttonProperty.height),
       child: RaisedButton(
           color: this.color,
+          elevation: this.shadow ? 3.0 : 0.0,
           shape: defineShape(context),
           padding: EdgeInsets.only(
               left: buttonProperty.padding, right: buttonProperty.padding),

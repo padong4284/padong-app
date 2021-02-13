@@ -28,8 +28,8 @@ class _SignViewState extends State<SignView>
   Animation animation;
   bool startAnimate = true;
 
-  bool isSignIn = true;
-  String welcomeMsg = "Welcome\nBack";
+  bool isSignIn;
+  String welcomeMsg;
 
   _SignViewState(this.isSignIn, this.welcomeMsg);
 
@@ -75,117 +75,139 @@ class _SignViewState extends State<SignView>
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;
     return Scaffold(
-        floatingActionButton: Container(
-            padding: const EdgeInsets.only(right: 10.0, bottom: 90.0),
-            child: FloatingActionButton(
-              child: Icon(Icons.east, color: AppTheme.colors.base),
-              backgroundColor: AppTheme.colors.primary,
-              onPressed: () {},
-            )),
+        floatingActionButton: keyboardIsOpened
+            ? null
+            : Container(
+                padding: const EdgeInsets.only(right: 10.0, bottom: 90.0),
+                child: FloatingActionButton(
+                  child: Icon(Icons.east, color: AppTheme.colors.base),
+                  backgroundColor: AppTheme.colors.primary,
+                  onPressed: () {},
+                )),
         body: SafeArea(
-          top: false, // only Sign In & Up View
-          child: Stack(children: <Widget>[
-            Hero(
-              tag: 'secondaryWave',
-              child: ClipPath(
-                clipper: WaveClipper(secondaryWave),
-                child: Container(
-                  color: AppTheme.colors.semiPrimary,
-                  height: this.isSignIn? 700 : 400,
-                  padding: const EdgeInsets.only(right: 50.0),
-                  child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(this.welcomeMsg,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: AppTheme.fontSizes.xlarge,
-                              fontWeight: FontWeight.bold,
-                              color: AppTheme.colors.support))),
-                ),
-              ),
-            ),
-            Hero(
-              tag: 'title',
-              child: Container(
-                  color: AppTheme.colors.transparent,
-                  height: this.isSignIn ? 400 : 250,
-                  padding: const EdgeInsets.only(left: 50.0),
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text('PADONG',
+            top: false, // only Sign In &
+            child: SingleChildScrollView(
+              child: Stack(children: <Widget>[
+                SizedBox(
+                    height: MediaQuery.of(context).size.height -
+                        MediaQuery.of(context).padding.bottom),
+                ...this.waves(),
+                Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                      Container(
+                          margin: EdgeInsets.only(top: 550.0),
+                          width: 280,
+                          height: 38.0,
+                          child:
+                              Input(hintText: 'ID', type: InputType.ROUNDED)),
+                      Container(
+                          margin: EdgeInsets.only(top: 20.0),
+                          width: 280,
+                          height: 38.0,
+                          child: Input(
+                              hintText: 'Password', type: InputType.ROUNDED))
+                    ])),
+                Positioned(
+                    bottom: 105,
+                    right: 100,
+                    child: Text(this.isSignIn ? 'Sign In' : 'Sign Up',
                         style: TextStyle(
-                            fontSize: AppTheme.fontSizes.giant,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.colors.primary)),
-                  )),
-            ),
-            Hero(
-                tag: 'primaryWave',
-                child: ClipPath(
-                  clipper: WaveClipper(primaryWave),
-                  child: Container(
-                      color: AppTheme.colors.primary,
-                      height: this.isSignIn ? 400 : 250,
-                      padding: const EdgeInsets.only(left: 50.0),
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text('PADONG',
-                            style: TextStyle(
-                                fontSize: AppTheme.fontSizes.giant,
-                                fontWeight: FontWeight.bold,
-                                color: AppTheme.colors.base)),
-                      )),
-                )),
-              Center(
-                  child: Container(
-                      padding: EdgeInsets.only(top: 300.0),
-                      width: 280,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 38.0,
-                                child: Input(hintText: 'ID', type: InputType.ROUNDED, onChanged: (str) {print(str);})
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(top: 20.0),
-                                height: 38.0,
-                                child: Input(hintText: 'Password', type: InputType.ROUNDED, onChanged: (str) {print(str);},)
-                            )
-                          ])
-                  )
-            ),
-            Container(
-                alignment: Alignment.bottomLeft,
-                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
-                child: Button(
-                  title: this.isSignIn ? 'Sign Up' : 'Sign In',
-                  color: AppTheme.colors.support,
-                  type: ButtonType.STADIUM,
-                  buttonSize: ButtonSize.LARGE,
-                  callback: this.isSignIn
-                      ? () {Navigator.pushNamed(context, '/sign_up'); primaryWave.moveYNorm(-120); secondaryWave.moveYNorm(-300);}
-                      : () {Navigator.pop(context); primaryWave.moveYNorm(120); secondaryWave.moveYNorm(300);}
-                )),
-            Container(
-              alignment: Alignment.bottomRight,
-              padding: const EdgeInsets.only(left: 40, right: 100, bottom: 105),
-              child: Text(this.isSignIn? 'Sign In' : 'Sign Up',
+                            fontSize: AppTheme.fontSizes.large,
+                            color: AppTheme.colors.primary))),
+                Positioned(bottom: 10, left: 0, child: this.bottomArea())
+              ]),
+            )));
+  }
+
+  List<Widget> waves() {
+    return [
+      Hero(
+        tag: 'secondaryWave',
+        child: ClipPath(
+          clipper: WaveClipper(secondaryWave),
+          child: Container(
+              color: AppTheme.colors.semiPrimary,
+              height: this.isSignIn ? 700 : 400,
+              padding: const EdgeInsets.only(right: 50.0),
+              alignment: Alignment.centerRight,
+              child: Text(this.welcomeMsg,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      fontSize: AppTheme.fontSizes.xlarge,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.colors.support))),
+        ),
+      ),
+      Hero(
+          tag: 'title',
+          child: Container(
+            color: AppTheme.colors.transparent,
+            height: this.isSignIn ? 400 : 250,
+            padding: const EdgeInsets.only(left: 50.0),
+            alignment: Alignment.centerLeft,
+            child: Text('PADONG',
                 style: TextStyle(
-                  fontSize: AppTheme.fontSizes.large,
-                      color: AppTheme.colors.primary
-                )
-              )
-            ),
-            Container(
-                alignment: Alignment.bottomRight,
-                padding: const EdgeInsets.only(left: 40, right: 45, bottom: 40),
-                child: TranspButton(
-                    title: 'Forgot Password?',
-                    color: AppTheme.colors.semiPrimary,
-                    buttonSize: ButtonSize.REGULAR))
-          ]),
-        ));
+                    fontSize: AppTheme.fontSizes.giant,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.colors.primary)),
+          )),
+      Hero(
+        tag: 'primaryWave',
+        child: ClipPath(
+            clipper: WaveClipper(primaryWave),
+            child: Container(
+              color: AppTheme.colors.primary,
+              height: this.isSignIn ? 400 : 250,
+              padding: const EdgeInsets.only(left: 50.0),
+              alignment: Alignment.centerLeft,
+              child: Text('PADONG',
+                  style: TextStyle(
+                      fontSize: AppTheme.fontSizes.giant,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.colors.base)),
+            )),
+      )
+    ];
+  }
+
+  Widget bottomArea() {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width -
+            (MediaQuery.of(context).padding.left +
+                MediaQuery.of(context).padding.right),
+        child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.only(left: 40, bottom: 30),
+                  child: Button(
+                      title: this.isSignIn ? 'Sign Up' : 'Sign In',
+                      color: AppTheme.colors.support,
+                      type: ButtonType.STADIUM,
+                      buttonSize: ButtonSize.LARGE,
+                      callback: this.isSignIn
+                          ? () {
+                              Navigator.pushNamed(context, '/sign_up');
+                              primaryWave.moveYNorm(-120);
+                              secondaryWave.moveYNorm(-300);
+                            }
+                          : () {
+                              Navigator.pop(context);
+                              primaryWave.moveYNorm(120);
+                              secondaryWave.moveYNorm(300);
+                            })),
+              Padding(
+                  padding: const EdgeInsets.only(right: 45, bottom: 40),
+                  child: TranspButton(
+                      title: 'Forgot Password?',
+                      color: AppTheme.colors.semiPrimary,
+                      buttonSize: ButtonSize.REGULAR)),
+            ]));
   }
 }

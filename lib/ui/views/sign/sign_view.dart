@@ -18,8 +18,7 @@ class SignView extends StatefulWidget {
   SignView(this.isSignIn, this.welcomeMsg, this.forms);
 
   @override
-  _SignViewState createState() =>
-      _SignViewState(this.isSignIn, this.welcomeMsg, this.forms);
+  _SignViewState createState() => _SignViewState();
 }
 
 class _SignViewState extends State<SignView>
@@ -28,11 +27,7 @@ class _SignViewState extends State<SignView>
   Animation animation;
   bool startAnimate = true;
 
-  bool isSignIn;
-  String welcomeMsg;
-  final Widget forms;
-
-  _SignViewState(this.isSignIn, this.welcomeMsg, this.forms);
+  _SignViewState();
 
   @override
   void initState() {
@@ -101,11 +96,11 @@ class _SignViewState extends State<SignView>
                     height: MediaQuery.of(context).size.height -
                         MediaQuery.of(context).padding.bottom),
                 ...this.waves(),
-                this.forms,
+                widget.forms,
                 Positioned(
                     bottom: 105,
                     right: 100,
-                    child: Text(this.isSignIn ? 'Sign In' : 'Sign Up',
+                    child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
                         style: TextStyle(
                             fontSize: AppTheme.fontSizes.large,
                             color: AppTheme.colors.primary))),
@@ -122,10 +117,10 @@ class _SignViewState extends State<SignView>
           clipper: WaveClipper(secondaryWave),
           child: Container(
               color: AppTheme.colors.semiPrimary,
-              height: this.isSignIn ? 700 : 400,
+              height: widget.isSignIn ? 700 : 400,
               padding: const EdgeInsets.only(right: 50.0),
               alignment: Alignment.centerRight,
-              child: Text(this.welcomeMsg,
+              child: Text(widget.welcomeMsg,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontSize: AppTheme.fontSizes.xlarge,
@@ -149,7 +144,7 @@ class _SignViewState extends State<SignView>
   Widget title(color, fontColor) {
     return Container(
       color: color,
-      height: this.isSignIn ? 400 : 250,
+      height: widget.isSignIn ? 400 : 250,
       padding: const EdgeInsets.only(left: 50.0),
       alignment: Alignment.centerLeft,
       child: Text('PADONG',
@@ -173,11 +168,11 @@ class _SignViewState extends State<SignView>
               Padding(
                   padding: const EdgeInsets.only(left: 40, bottom: 30),
                   child: Button(
-                      title: this.isSignIn ? 'Sign Up' : 'Sign In',
+                      title: widget.isSignIn ? 'Sign Up' : 'Sign In',
                       color: AppTheme.colors.support,
                       type: ButtonType.STADIUM,
                       buttonSize: ButtonSize.LARGE,
-                      callback: this.isSignIn
+                      callback: widget.isSignIn
                           ? () {
                               Navigator.pushNamed(context, '/sign_up');
                               primaryWave.moveYNorm(-120);

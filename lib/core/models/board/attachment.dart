@@ -1,11 +1,12 @@
 import '../node.dart';
 
-class ModelReply extends ModelNode {
-  String description;
-  bool anonymity;
-  ModelReply({
+class ModelAttachment extends ModelNode {
+  String type;
+  String location;
+
+  ModelAttachment({
     id,
-    this.description, this.anonymity,
+    this.type, this.location,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
@@ -13,16 +14,16 @@ class ModelReply extends ModelNode {
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
-  ModelReply.fromMap(Map snapshot,String id) :
-        this.description = snapshot['description'] ?? "",
-        this.anonymity = snapshot['anonymity'] ?? false,
+  ModelAttachment.fromMap(Map snapshot,String id) :
+        this.type = snapshot['anonymity'] ?? "",
+        this.location = snapshot['location'] ?? "",
         super.fromMap(snapshot, id);
 
   toJson() {
     return {
       ...super.toJson(),
-      'description': this.description,
-      'anonymity': this.anonymity,
+      'type': this.type,
+      'location': this.location,
     };
   }
 }

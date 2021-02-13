@@ -9,6 +9,10 @@ import '../../shared/types.dart';
 Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refactor: use SignView
 class SignView extends StatefulWidget {
   bool isSignIn;
   String welcomeMsg;
@@ -112,6 +116,7 @@ class SignViewState extends State<SignView>
                             color: AppTheme.colors.base)),
                   )),
             )),
+<<<<<<< HEAD
         Container(
             alignment: Alignment.bottomLeft,
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
@@ -124,6 +129,21 @@ class SignViewState extends State<SignView>
                   ? () => Navigator.pushNamed(context, '/sign_up')
                   : () => Navigator.pop(context),
             ))
+=======
+        Hero(
+            tag: 'inOrUp',
+            child: Container(
+                alignment: Alignment.bottomLeft,
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
+                child: Button(
+                  title: this.isSignIn ? 'Sign Up' : 'Sign In',
+                  color: AppTheme.colors.support,
+                  type: ButtonType.STADIUM,
+                  buttonSize: ButtonSize.LARGE,
+                  callback: () => Navigator.pushNamed(
+                      context, this.isSignIn ? '/sign_up' : '/'),
+                )))
+>>>>>>> refactor: use SignView
       ]),
     ));
   }

@@ -21,54 +21,50 @@ class Input extends StatelessWidget {
         this.onPressIcon = onPressIcon,
         this.onChanged = onChanged;
 
+  @override
   Widget build(BuildContext context) {
+    Widget input;
     if (this.type == InputType.ROUNDED) {
-      return _buildRoundedInput();
+      input = _buildRoundedInput();
     } else if (this.type == InputType.UNDERLINE) {
-      return _buildOtherInput();
+      input = _buildOtherInput();
     } else {
-      return _buildOtherInput(plain: true);
+      input = _buildOtherInput(plain: true);
     }
+    return new Scaffold(
+        backgroundColor: AppTheme.colors.transparent, body: input);
   }
 
   Widget _buildRoundedInput() {
-    return Stack(
-      children: [
-        TextField(
-          onChanged: this.onChanged,
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: AppTheme.colors.lightSupport,
-              border: InputBorder.none,
-              hintText: this.hintText,
-              hintStyle: TextStyle(height: 1.8),
-              contentPadding:
-                  const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(14.0),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(14.0),
-              )),
-        ),
-        this.icon == null
-            ? SizedBox.shrink()
-            : Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                    child: IconButton(
-                      onPressed: this.onPressIcon ?? () {},
-                      icon: this.icon,
-                    ),
-                    padding: EdgeInsets.only(right: 10.0))),
-      ],
+    return TextField(
+      onChanged: this.onChanged,
+      decoration: InputDecoration(
+          filled: true,
+          fillColor: AppTheme.colors.lightSupport,
+          border: InputBorder.none,
+          hintText: this.hintText,
+          hintStyle: TextStyle(height: 1.8),
+          suffixIcon: this.icon == null
+              ? SizedBox.shrink()
+              : IconButton(
+                  onPressed: this.onPressIcon ?? () {}, // callback
+                  icon: this.icon,
+                ),
+          contentPadding:
+              const EdgeInsets.only(left: 28.0, bottom: 8.0, top: 8.0),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppTheme.colors.primary),
+            borderRadius: BorderRadius.circular(14.0),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppTheme.colors.transparent),
+            borderRadius: BorderRadius.circular(14.0),
+          )),
     );
   }
 
   Widget _buildOtherInput({bool plain = false}) {
-      return TextField(
+    return TextField(
       style: TextStyle(
         fontSize: this.fontSize,
       ),

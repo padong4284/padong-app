@@ -41,9 +41,10 @@ class TranspButton extends StatelessWidget {
             color: AppTheme.colors.transparent,
             padding: EdgeInsets.all(0.0),
             child: Row(
-                children: [this.icon ?? null, this.buttonText(buttonProperty)]
-                    .where((element) => element != null)
-                    .toList()),
+                children: [
+                  this.icon ?? null,
+                  this.buttonText(buttonProperty)
+                ].where((element) => element != null).toList()),
             onPressed: () {
               if (this.callback != null) this.callback();
             }));

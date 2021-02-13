@@ -4,6 +4,7 @@ import '../bottom_navigation_bar.dart';
 import '../../widgets/post_card.dart';
 import '../../widgets/switch_button.dart';
 import '../../shared/types.dart';
+import '../../widgets/tip_container.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../shared/types.dart';
+import 'tip_container.dart';
 
-class SwitchButton extends StatefulWidget {
+class SwitchButton extends StatelessWidget {
   final List<String> options;
   final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
   final bool cancelAble;
@@ -15,10 +16,41 @@ class SwitchButton extends StatefulWidget {
       this.cancelAble = false});
 
   @override
-  _SwitchButtonState createState() => _SwitchButtonState();
+  Widget build(BuildContext context) {
+    if (this.buttonType == SwitchButtonType.TOOLTIP) {
+      return TipContainer(
+          width: 140,
+          child: SwitchButtonBase(
+              options: this.options,
+              buttonType: this.buttonType,
+              callback: this.callback,
+              cancelAble: this.cancelAble));
+    }
+    return SwitchButtonBase(
+        options: this.options,
+        buttonType: this.buttonType,
+        callback: this.callback,
+        cancelAble: this.cancelAble);
+  }
 }
 
-class _SwitchButtonState extends State<SwitchButton> {
+class SwitchButtonBase extends StatefulWidget {
+  final List<String> options;
+  final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
+  final bool cancelAble;
+  final dynamic callback; // void Function(String option)
+
+  SwitchButtonBase(
+      {@required this.options,
+      this.buttonType,
+      this.callback,
+      this.cancelAble = false});
+
+  @override
+  _SwitchButtonBaseState createState() => _SwitchButtonBaseState();
+}
+
+class _SwitchButtonBaseState extends State<SwitchButtonBase> {
   int curIdx = 0;
 
   @override
@@ -75,7 +107,7 @@ class _SwitchButtonState extends State<SwitchButton> {
                           },
                           child: Container(
                               width: widget.options.length == 2 ? 55.0 : 65.0,
-                              height: 40,
+                              height: 38,
                               child: Container(
                                   alignment: Alignment.center,
                                   child: Text(

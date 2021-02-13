@@ -27,8 +27,6 @@ class _SignViewState extends State<SignView>
   Animation animation;
   bool startAnimate = true;
 
-  _SignViewState();
-
   @override
   void initState() {
     super.initState();

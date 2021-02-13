@@ -23,14 +23,13 @@ class _SignUpViewState extends State<SignUpView> {
                       Container(
                           margin: EdgeInsets.only(top: 270.0),
                           height: 38.0,
-                          child: Input(
-                              hintText: 'ID', type: InputType.ROUNDED)),
+                          child:
+                              Input(hintText: 'ID', type: InputType.ROUNDED)),
                       Container(
                           margin: EdgeInsets.only(top: 10.0),
                           height: 38.0,
                           child: Input(
-                              hintText: 'Password',
-                              type: InputType.ROUNDED)),
+                              hintText: 'Password', type: InputType.ROUNDED)),
                       Container(
                           margin: EdgeInsets.only(top: 10.0),
                           height: 38.0,
@@ -40,14 +39,13 @@ class _SignUpViewState extends State<SignUpView> {
                       Container(
                           margin: EdgeInsets.only(top: 50.0),
                           height: 38.0,
-                          child: Input(
-                              hintText: 'Name', type: InputType.ROUNDED)),
+                          child:
+                              Input(hintText: 'Name', type: InputType.ROUNDED)),
                       Container(
                           margin: EdgeInsets.only(top: 10.0),
                           height: 38.0,
                           child: Input(
-                              hintText: 'University',
-                              type: InputType.ROUNDED)),
+                              hintText: 'University', type: InputType.ROUNDED)),
                       Container(
                           margin: EdgeInsets.only(top: 10.0),
                           height: 38.0,
@@ -57,9 +55,8 @@ class _SignUpViewState extends State<SignUpView> {
                       Container(
                           margin: EdgeInsets.only(top: 10.0),
                           height: 38.0,
-                          child: Input(
-                              hintText: 'Email', type: InputType.ROUNDED))
-                    ])))
-    );
+                          child:
+                              Input(hintText: 'Email', type: InputType.ROUNDED))
+                    ]))));
   }
 }

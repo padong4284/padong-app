@@ -1,7 +1,7 @@
-import 'package:padong/core/models/node.dart';
+import 'package:padong/core/models/title_node.dart';
 
 abstract class LoadParent {
-  ModelNode getParent();
+  ModelTitleNode getParent();
 }
 
 abstract class LoadFromId {

@@ -18,7 +18,8 @@ class SignView extends StatefulWidget {
   SignView(this.isSignIn, this.welcomeMsg, this.forms);
 
   @override
-  _SignViewState createState() => _SignViewState();
+  _SignViewState createState() =>
+      _SignViewState();
 }
 
 class _SignViewState extends State<SignView>
@@ -26,8 +27,6 @@ class _SignViewState extends State<SignView>
   AnimationController _controller;
   Animation animation;
   bool startAnimate = true;
-
-  _SignViewState();
 
   @override
   void initState() {

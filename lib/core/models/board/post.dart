@@ -20,6 +20,7 @@ class ModelReply extends ModelTitleNode{
 
   ModelReply.fromMap(Map snapshot,String id) :
         this.anonymity = snapshot['anonymity'] ?? false,
+        this.attachments = snapshot['attachments'] ?? [],
         super.fromMap(snapshot, id);
 
   toJson() {

@@ -146,12 +146,12 @@ class _SignViewState extends State<SignView>
                           children: [
                             Container(
                                 height: 38.0,
-                                child: Input(hintText: 'ID', type: InputType.ROUNDED)
+                                child: Input(hintText: 'ID', type: InputType.ROUNDED, onChanged: (str) {print(str);})
                             ),
                             Container(
                                 margin: EdgeInsets.only(top: 20.0),
                                 height: 38.0,
-                                child: Input(hintText: 'Password', type: InputType.ROUNDED)
+                                child: Input(hintText: 'Password', type: InputType.ROUNDED, onChanged: (str) {print(str);},)
                             )
                           ])
                   )

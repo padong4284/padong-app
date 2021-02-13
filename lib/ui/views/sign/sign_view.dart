@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/button.dart';
+import '../../widgets/transp_button.dart';
 import '../../utils/wave/wave_clipper.dart';
 import '../../utils/wave/wave.dart';
 import '../../shared/types.dart';
@@ -123,7 +124,15 @@ class SignViewState extends State<SignView>
               callback: this.isSignIn
                   ? () => Navigator.pushNamed(context, '/sign_up')
                   : () => Navigator.pop(context),
-            ))
+            )),
+        Container(
+          alignment: Alignment.bottomRight,
+          padding: const EdgeInsets.only(left: 40, right: 40, bottom: 40),
+          child: TranspButton(
+            title: 'Forgot Password?',
+            color: AppTheme.colors.semiPrimary,
+            buttonSize: ButtonSize.REGULAR
+          ))
       ]),
     ));
   }

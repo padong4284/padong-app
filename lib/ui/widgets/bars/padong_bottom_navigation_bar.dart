@@ -3,7 +3,6 @@ import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
 class PadongBottomNavigationBar extends StatelessWidget {
-
   final size = 40.0;
   final int selectedIndex;
   final Function setSelectedIndex;
@@ -13,7 +12,6 @@ class PadongBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const padding = AppTheme.horizontalPadding + 5;
-
     return BottomNavigationBar(
         currentIndex: this.selectedIndex ?? 0,
         selectedItemColor: AppTheme.colors.primary,

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/widgets/transp_button.dart';
 
-class BoardListTile extends StatelessWidget {
+class BoardListTile extends StatefulWidget {
   final List<String> boards;
   final List<IconData> icons;
   final bool isAlertTile;
@@ -12,10 +10,26 @@ class BoardListTile extends StatelessWidget {
       {@required List<String> boards,
       List<IconData> icons,
       isAlertTile = false})
-      : assert(!isAlertTile && (boards.length == icons.length)),
+      : assert(isAlertTile || (boards.length == icons.length)),
         this.boards = boards,
         this.icons = icons,
         this.isAlertTile = isAlertTile;
+
+  @override
+  _BoardListTileState createState() => _BoardListTileState();
+}
+
+class _BoardListTileState extends State<BoardListTile> {
+  List<bool> notifications;
+
+  @override
+  @override
+  void initState() {
+    super.initState();
+    this.notifications = Iterable<int>.generate(widget.boards.length).map((_) {
+      return false; // get notification or not from firebase
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +44,7 @@ class BoardListTile extends StatelessWidget {
             width: 325,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
-                children: Iterable<int>.generate(this.boards.length)
+                children: Iterable<int>.generate(widget.boards.length)
                     .map(
                       (idx) => InkWell(
                           onTap: () {},
@@ -40,10 +54,25 @@ class BoardListTile extends StatelessWidget {
                               child: Row(children: [
                                 Padding(
                                     padding: const EdgeInsets.only(right: 15.0),
-                                    child: Icon(this.icons[idx],
-                                        size: 25,
-                                        color: AppTheme.colors.support)),
-                                this.boardText(this.boards[idx])
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            this.notifications[idx] =
+                                                widget.isAlertTile &&
+                                                    !this.notifications[idx];
+                                          });
+                                        },
+                                        child: Icon(
+                                            widget.isAlertTile
+                                                ? this.notifications[idx]
+                                                    ? Icons.notifications
+                                                    : Icons.notifications_off
+                                                : widget.icons[idx],
+                                            size: 25,
+                                            color: this.notifications[idx]
+                                                ? AppTheme.colors.pointYellow
+                                                : AppTheme.colors.support))),
+                                this.boardText(widget.boards[idx])
                               ]))),
                     )
                     .toList())));

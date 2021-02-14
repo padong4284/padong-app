@@ -55,8 +55,8 @@ class _MainViewState extends State<MainView> {
                       .toList()),
             ]),
             BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge]),
-            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge]),
-            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge])
+            BoardListTile(boards: ['Algorithm', 'Computer Architecture', 'Data Structure', 'System Programming', 'Philosophy'], isAlertTile: true),
+            BoardListTile(boards: ['Replied', 'Liked', 'Saved'], icons: [Icons.mode_comment, Icons.favorite_rounded, Icons.bookmark_rounded]),
           ],
         )),
         bottomNavigationBar: PadongBottomNavigationBar());

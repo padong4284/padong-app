@@ -10,7 +10,7 @@ class SafePaddingTemplate extends StatelessWidget {
     return SafeArea(
         child: SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 25.0),
-      child: (this.child),
+      child: this.child,
     ));
   }
 }

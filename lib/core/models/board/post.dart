@@ -21,7 +21,7 @@ class ModelPost extends ModelTitleNode{
 
   ModelPost.fromMap(Map snapshot,String id) :
         this.anonymity = snapshot['anonymity'] ?? false,
-        this.attachments = snapshot['attachments'] ?? [],
+        this.attachments = snapshot['attachments'].map((x) => ModelAttachment.fromMap(x, id))?? [],
         super.fromMap(snapshot, id);
 
   toJson() {

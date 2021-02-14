@@ -20,7 +20,7 @@ class ModelChatMessage extends ModelNode {
 
   ModelChatMessage.fromMap(Map snapshot,String id) :
         this.message = snapshot['message'] ?? "",
-        this.attachments = snapshot['attachments'] ?? [],
+        this.attachments = snapshot['attachments'].map((x) => ModelAttachment.fromMap(x, id)) ?? [],
         super.fromMap(snapshot, id);
 
   toJson() {

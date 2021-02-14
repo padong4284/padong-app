@@ -34,6 +34,17 @@ class _MainViewState extends State<MainView> {
                 timeRange: '00:00 ~ 24:00',
                 date: '03/21/2021',
                 infos: {'Periodicity': 'Annual', 'Alerts': '00:00, 12:00'}),
+            EventCard(
+              '1234',
+              timeRange: '13:30 ~ 15:45',
+              rate: 4.5,
+              infos: {
+                'Professor': 'Daewoong Ko',
+                'Room': 'Klaus 402',
+                'Grade': 'Absolute'
+              },
+              isToReview: true,
+            ),
             TabContainer(tabWidth: 80.0, tabs: [
               'Popular',
               'Favorite',

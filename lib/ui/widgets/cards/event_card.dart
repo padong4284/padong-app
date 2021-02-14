@@ -6,18 +6,26 @@ class EventCard extends StatelessWidget {
   final String _id; // node's _id
   final String timeRange;
   final String date;
+  final double rate;
+  final bool isToReview;
   final Map<String, String> infos;
 
   EventCard(
     id, {
     @required this.timeRange,
-    @required this.date,
+    date,
+    rate,
+    isToReview = false,
     this.infos, // event -> {Periodicity:[Annual, Monthly, Weekly, None], Alerts: [XX:XX,...]}
-  }) : this._id = id;
+  })  : assert((date != null) ^ (rate != null)),
+        assert(!((date != null) && isToReview)),
+        this.date = date,
+        this.rate = rate,
+        this.isToReview = isToReview,
+        this._id = id;
 
   @override
   Widget build(BuildContext context) {
-    List<String> dateYear = this.splitDateNYear();
     List<Row> infoList = [];
     this.infos.forEach((k, v) => infoList.add(Row(children: [
           Text(k,
@@ -33,34 +41,49 @@ class EventCard extends StatelessWidget {
                       fontSize: AppTheme.fontSizes.regular)))
         ])));
 
-    return BaseCard(children: <Widget>[
-      Text(this.timeRange,
+    return BaseCard(
+        moreText: this.isToReview ? 'Reviews' : null,
+        moreCallback: this.isToReview ? () {} : null, // TODO: route to reviews
+        children: <Widget>[
+          Text(this.timeRange,
+              style: AppTheme.getFont(
+                  color: AppTheme.colors.primary,
+                  fontSize: AppTheme.fontSizes.regular,
+                  isBold: true)),
+          Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 15),
+              child: this.date != null ? this.dateNYear() : this.starRate()),
+          ...infoList,
+        ]);
+  }
+
+  Widget dateNYear() {
+    List<String> mdy = this.date.split("/");
+    List<String> dateYear = [mdy[0] + '/' + mdy[1], mdy[2]];
+    return Row(children: [
+      Text(dateYear[0],
           style: AppTheme.getFont(
-              color: AppTheme.colors.primary,
-              fontSize: AppTheme.fontSizes.regular,
+              color: AppTheme.colors.fontPalette[1],
+              fontSize: AppTheme.fontSizes.large,
               isBold: true)),
       Padding(
-          padding: const EdgeInsets.only(top: 12, bottom: 15),
-          child: Row(children: [
-            Text(dateYear[0],
-                style: AppTheme.getFont(
-                    color: AppTheme.colors.fontPalette[1],
-                    fontSize: AppTheme.fontSizes.large,
-                    isBold: true)),
-            Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(dateYear[1],
-                    style: AppTheme.getFont(
-                        color: AppTheme.colors.fontPalette[3],
-                        fontSize: AppTheme.fontSizes.mlarge,
-                        isBold: true))),
-          ])),
-      ...infoList,
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(dateYear[1],
+              style: AppTheme.getFont(
+                  color: AppTheme.colors.fontPalette[3],
+                  fontSize: AppTheme.fontSizes.mlarge,
+                  isBold: true))),
     ]);
   }
 
-  List<String> splitDateNYear() {
-    List<String> mdy = this.date.split("/");
-    return [mdy[0] + '/' + mdy[1], mdy[2]];
+  Widget starRate() {
+    return Row(
+        children: Iterable<int>.generate(5)
+            .map((idx) => Icon(
+                  Icons.star_rounded,
+                  size: 32,
+                  color: AppTheme.colors.pointYellow,
+                ))
+            .toList());
   }
 }

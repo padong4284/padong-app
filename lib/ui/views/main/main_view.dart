@@ -10,6 +10,8 @@ import 'package:padong/ui/widgets/summary_card.dart';
 import 'package:padong/ui/widgets/swipe_deck.dart';
 import 'package:padong/ui/widgets/tab_container.dart';
 
+import 'package:padong/ui/widgets/board_list_tile.dart';
+
 class MainView extends StatefulWidget {
   final bool isPMain;
 
@@ -52,6 +54,9 @@ class _MainViewState extends State<MainView> {
                       .map((idx) => PostCard(idx.toString()))
                       .toList()),
             ]),
+            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge]),
+            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge]),
+            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge])
           ],
         )),
         bottomNavigationBar: PadongBottomNavigationBar());

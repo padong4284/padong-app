@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import '../bottom_navigation_bar.dart';
-import '../../widgets/swipe_card.dart';
-import '../../widgets/post_card.dart';
+import 'package:padong/ui/views/bottom_navigation_bar.dart';
+import 'package:padong/ui//widgets/swipe_deck.dart';
+import 'package:padong/ui/widgets/summary_card.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -22,8 +22,7 @@ class _MainViewState extends State<MainView> {
             child: Column(
               children: [
                 this._buildTopBar(),
-                SwipeCard('0321'),
-                PostCard('0321'),
+                SwipeDeck(cards: [SummaryCard('1', title: 'Title1'), SummaryCard('2', title: 'Title2'), SummaryCard('3', title: 'Title3')]),
               ],
             )),
         bottomNavigationBar: PadongBottomNavigationBar());

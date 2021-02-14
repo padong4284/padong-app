@@ -3,30 +3,30 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/widgets/transp_button.dart';
 
-class SwipeCard extends StatelessWidget {
+class SummaryCard extends StatelessWidget {
   final String _id; // node's _id
   final String title;
   final String description;
 
-  SwipeCard(id, {this.title, this.description}) : this._id = id;
+  SummaryCard(id, {@required this.title, this.description}) : this._id = id;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        elevation: 3.0,
+        child: InkWell(
             onTap: () {}, // TODO: Routing to Post
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                elevation: 3.0,
-                child: Container(
-                    width: 325,
-                    height: 160,
-                    padding: const EdgeInsets.all(17),
-                    child: Column(children: <Widget>[
+            child: Container(
+                width: 325,
+                height: 160,
+                padding: const EdgeInsets.all(17),
+                child: Column(children: <Widget>[
                   Container(
                       alignment: Alignment.centerLeft,
-                      child: Text('Title', // TODO: this.title
+                      child: Text(this.title,
                           style: TextStyle(
                               height: 1.25,
                               color: AppTheme.colors.fontPalette[1],
@@ -36,7 +36,7 @@ class SwipeCard extends StatelessWidget {
                   Container(
                       alignment: Alignment.topLeft,
                       height: 75,
-                      margin: const EdgeInsets.only(top:4, bottom: 4),
+                      margin: const EdgeInsets.only(top: 4, bottom: 4),
                       child: Text('Summary', // TODO: this.description
                           style: TextStyle(
                               height: 1.25,
@@ -47,14 +47,13 @@ class SwipeCard extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       margin: const EdgeInsets.only(top: 10),
                       child: TranspButton(
-                          title: 'More', // TODO: link to contain post (wiki)
-                          buttonSize: ButtonSize.SMALL,
-                          color: AppTheme.colors.primary,
-                          icon: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            color: AppTheme.colors.primary,
-                            size: 15.0),
-                          isSuffixICon: true,
+                        title: 'More',
+                        // TODO: link to contain post (wiki)
+                        buttonSize: ButtonSize.SMALL,
+                        color: AppTheme.colors.primary,
+                        icon: Icon(Icons.arrow_forward_ios_rounded,
+                            color: AppTheme.colors.primary, size: 15.0),
+                        isSuffixICon: true,
                       ))
                 ]))));
   }

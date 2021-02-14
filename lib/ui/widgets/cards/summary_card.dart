@@ -12,14 +12,13 @@ class SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseCard(height: 160, moreCallback: () {}, children: <Widget>[
-      Container(
-          child: Text(this.title,
+      Text(this.title,
               style: AppTheme.getFont(
                   color: AppTheme.colors.fontPalette[1],
-                  fontSize: AppTheme.fontSizes.regular,
-                  isBold: true))),
+                  fontSize: AppTheme.fontSizes.large,
+                  isBold: true)),
       Container(
-          height: 75,
+          height: 70,
           margin: const EdgeInsets.only(top: 4, bottom: 4),
           child: Text('Summary', // TODO: this.description
               style: AppTheme.getFont(

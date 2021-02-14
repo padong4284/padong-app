@@ -30,7 +30,10 @@ class _MainViewState extends State<MainView> {
         body: SafePaddingTemplate(
             child: Column(
           children: [
-            EventCard('1234', timeRange: '00:00 ~ 24:00', date: '03/21/2021'),
+            EventCard('1234',
+                timeRange: '00:00 ~ 24:00',
+                date: '03/21/2021',
+                infos: {'Periodicity': 'Annual', 'Alerts': '00:00, 12:00'}),
             TabContainer(tabWidth: 80.0, tabs: [
               'Popular',
               'Favorite',
@@ -56,9 +59,25 @@ class _MainViewState extends State<MainView> {
                       .map((idx) => PostCard(idx.toString()))
                       .toList()),
             ]),
-            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge]),
-            BoardListTile(boards: ['Algorithm', 'Computer Architecture', 'Data Structure', 'System Programming', 'Philosophy'], isAlertTile: true),
-            BoardListTile(boards: ['Replied', 'Liked', 'Saved'], icons: [Icons.mode_comment, Icons.favorite_rounded, Icons.bookmark_rounded]),
+            BoardListTile(
+                boards: ['Global', 'Public', 'Internal'],
+                icons: [Icons.cloud, Icons.public, Icons.badge]),
+            BoardListTile(boards: [
+              'Algorithm',
+              'Computer Architecture',
+              'Data Structure',
+              'System Programming',
+              'Philosophy'
+            ], isAlertTile: true),
+            BoardListTile(boards: [
+              'Replied',
+              'Liked',
+              'Saved'
+            ], icons: [
+              Icons.mode_comment,
+              Icons.favorite_rounded,
+              Icons.bookmark_rounded
+            ]),
           ],
         )),
         bottomNavigationBar: PadongBottomNavigationBar());

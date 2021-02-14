@@ -30,11 +30,17 @@ class HorizontalScroller extends StatelessWidget {
                   children: this
                       .children
                       .map((elm) => Container(
-                          padding: this.children.indexOf(elm) == 0
+                          padding: (this.children.indexOf(elm) %
+                                      (this.children.length - 1) ==
+                                  0)
                               ? EdgeInsets.only(
-                                  left: this.parentLeftPadding,
+                                  left: this.children.indexOf(elm) == 0
+                                      ? this.parentLeftPadding
+                                      : this.padding,
+                                  right: this.children.indexOf(elm) == 0
+                                      ? this.padding
+                                      : this.parentRightPadding,
                                   top: this.padding,
-                                  right: this.padding,
                                   bottom: this.padding)
                               : EdgeInsets.all(this.padding),
                           child: elm))

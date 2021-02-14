@@ -1,5 +1,4 @@
-import '../node.dart';
-
+import 'package:padong/core/models/node.dart';
 
 /*
 * ModelAttachment has no parent

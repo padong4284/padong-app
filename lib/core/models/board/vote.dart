@@ -1,4 +1,4 @@
-import '../node.dart';
+import 'package:padong/core/models/node.dart';
 
 class ModelVote extends ModelNode {
   bool isThumbsUp;

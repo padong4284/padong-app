@@ -1,9 +1,8 @@
 import 'package:padong/core/models/chatroom/role.dart';
-
-import '../node.dart';
+import 'package:padong/core/models/node.dart';
 
 /*
-* ModelParticipant's parent is ModelChatRoom
+* ModelParticipant's parentNodeId is ModelChatRoom
 * */
 class ModelParticipant extends ModelNode {
   ROLE role;

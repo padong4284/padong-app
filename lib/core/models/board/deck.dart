@@ -1,8 +1,8 @@
 
-import '../title_node.dart';
+import 'package:padong/core/models/title_node.dart';
 
 /*
-* ModelDeck's parent is ModelUniversity
+* ModelDeck's parentNodeId is ModelUniversity
 * */
 class ModelDeck extends ModelTitleNode {
 

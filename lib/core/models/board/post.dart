@@ -1,8 +1,7 @@
-import '../board/attachment.dart';
-
-import '../title_node.dart';
+import 'package:padong/core/models/board/attachment.dart';
+import 'package:padong/core/models/title_node.dart';
 /*
-* ModelPost's parent is ModelBoard
+* ModelPost's parentNodeId is ModelBoard
 * */
 class ModelPost extends ModelTitleNode{
   bool anonymity;

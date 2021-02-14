@@ -1,6 +1,7 @@
-import '../node.dart';
+import 'package:padong/core/models/node.dart';
+
 /*
-* ModelReply's parent is Reply
+* ModelReply's parentNodeId is ModelReply
 * */
 class ModelReReply extends ModelNode {
   String description;
@@ -10,15 +11,16 @@ class ModelReReply extends ModelNode {
     this.description, this.anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(
-          id: id,
-          parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
-          createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
+      super(
+        id: id,
+        parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
+        createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt
+      );
 
   ModelReReply.fromMap(Map snapshot,String id) :
-        this.description = snapshot['description'] ?? "",
-        this.anonymity = snapshot['anonymity'] ?? false,
-        super.fromMap(snapshot, id);
+      this.description = snapshot['description'] ?? "",
+      this.anonymity = snapshot['anonymity'] ?? false,
+      super.fromMap(snapshot, id);
 
   toJson() {
     return {

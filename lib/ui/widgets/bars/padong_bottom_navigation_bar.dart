@@ -13,6 +13,7 @@ class PadongBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const padding = AppTheme.horizontalPadding + 5;
+
     return BottomNavigationBar(
         currentIndex: this.selectedIndex ?? 0,
         selectedItemColor: AppTheme.colors.primary,

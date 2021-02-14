@@ -17,13 +17,13 @@ class ModelParticipant extends ModelNode {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelParticipant.fromMap(Map snapshot,String id) :
-        this.role = snapshot['role'] ?? ROLE.STUDENT,
+        this.role = ROLE.values[snapshot['role'] ?? ROLE.STUDENT.index],
         super.fromMap(snapshot, id);
 
   toJson() {
     return {
       ...super.toJson(),
-      'role':this.role,
+      'role':this.role.index,
     };
   }
 }

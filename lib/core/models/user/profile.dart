@@ -1,16 +1,15 @@
-import '../node.dart';
+import 'package:padong/core/models/board/deck.dart';
 
+/*
+* ModelTable's parentNodeId is ModelUser
+* */
 
-class ModelProfile extends ModelNode {
+class ModelProfile extends ModelDeck {
   String profileImage;
-  String userNickName;
-  String userId;
-  String userEmail;
-
   ModelProfile({
     id,
-    this.profileImage, userNickName, userId, userEmail,
     parentNodeId, ownerId, pip,
+    this.profileImage,
     createdAt, deletedAt, modifiedAt}):
         super(
           id: id,
@@ -18,20 +17,13 @@ class ModelProfile extends ModelNode {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelProfile.fromMap(Map snapshot,String id) :
-        this.profileImage = snapshot['profileImage'] ?? "",
-        this.userNickName = snapshot['userNickName'] ?? "",
-        this.userId = snapshot['userId'] ?? "",
-        this.userEmail = snapshot['userEmail'] ?? "",
-        super.fromMap(snapshot, id);
+      this.profileImage = snapshot['profileImage'] ?? "",
+      super.fromMap(snapshot, id);
 
   toJson() {
     return {
       ...super.toJson(),
       'profileImage': this.profileImage,
-      'userNickName': this.userNickName,
-      'userId': this.userId,
-      'userEmail': this.userEmail,
     };
   }
-
 }

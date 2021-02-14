@@ -8,7 +8,7 @@ class SafePaddingTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 25.0),
       child: this.child,
     ));

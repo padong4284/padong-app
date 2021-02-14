@@ -7,6 +7,8 @@ class PadongBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const iconWidth = 57.0;
+
     return BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -14,43 +16,42 @@ class PadongBottomNavigationBar extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
             label: 'Home',
-            icon: Icon(
-                Icons.home_filled,
-                color: this.color,
-                size: this.size
-            ),
+            icon: SizedBox(
+                width: iconWidth,
+                child: Icon(Icons.home_filled,
+                    color: this.color, size: this.size)),
           ),
           BottomNavigationBarItem(
-            label: 'Cover',
-            icon: Icon(
-                Icons.book,
-                color: this.color,
-                size: this.size
-            ),
-          ),
+              label: 'Cover',
+              icon: SizedBox(
+                width: iconWidth,
+                child: Icon(Icons.book, color: this.color, size: this.size),
+              )),
           BottomNavigationBarItem(
-            label: 'Deck',
-            icon: Icon(
-                Icons.wysiwyg,
-                color: this.color,
-                size: this.size
-            ),
-          ),
+              label: 'Deck',
+              icon: SizedBox(
+                width: iconWidth,
+                child: Icon(Icons.wysiwyg, color: this.color, size: this.size),
+              )),
           BottomNavigationBarItem(
             label: 'Schedule',
-            icon: Icon(
-              Icons.event,
-              color: this.color,
-              size: this.size,
-            ),
+            icon: SizedBox(
+                width: iconWidth,
+                child: Icon(
+                  Icons.event,
+                  color: this.color,
+                  size: this.size,
+                )),
           ),
           BottomNavigationBarItem(
             label: 'Map',
-            icon: Icon(
-              Icons.place,
-              color: this.color,
-              size: this.size,
-            ),
+            icon: SizedBox(
+                width: iconWidth,
+                child: Icon(
+                  Icons.place,
+                  color: this.color,
+                  size: this.size,
+                )),
           ),
         ]);
   }

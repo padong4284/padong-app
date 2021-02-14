@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
-import '../shared/types.dart';
-import 'transp_button.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/widgets/transp_button.dart';
 
 class SwipeCard extends StatelessWidget {
   final String _id; // node's _id
@@ -37,7 +37,7 @@ class SwipeCard extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       height: 75,
                       margin: const EdgeInsets.only(top:4, bottom: 4),
-                      child: Text('Summary', // TODO: this.description2summary
+                      child: Text('Summary', // TODO: this.description
                           style: TextStyle(
                               height: 1.25,
                               color: AppTheme.colors.fontPalette[2],

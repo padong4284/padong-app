@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/summary_buttons.dart';
+import 'package:padong/ui/widgets/bottom_buttons.dart';
 
 class PostCard extends StatelessWidget {
   final String _id; // node's _id
@@ -53,7 +53,7 @@ class PostCard extends StatelessWidget {
                             color: AppTheme.colors.fontPalette[3],
                             letterSpacing: 0.025,
                             fontSize: AppTheme.fontSizes.regular))),
-                SummaryButtons(summary: [0, null, 0]),
+                BottomButtons(summary: [0, null, 0]),
               ]),
             )));
   }

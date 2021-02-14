@@ -19,23 +19,23 @@ List<Color> clickedClrs = [
   AppTheme.colors.pointYellow
 ];
 
-class SummaryButtons extends StatefulWidget {
+class BottomButtons extends StatefulWidget {
   final double left;
   final double gap;
   final Color color;
   final bool isTwo;
   final dynamic summary; // [likes, replies, bookmarks], if null: don't show
 
-  SummaryButtons({this.left = -10, this.gap = 47, color, @required summary})
+  BottomButtons({this.left = -10, this.gap = 47, color, @required summary})
       : this.color = color ?? AppTheme.colors.support,
         this.summary = summary,
         this.isTwo = summary.contains(null);
 
   @override
-  _SummaryButtonsState createState() => _SummaryButtonsState();
+  _BottomButtonsState createState() => _BottomButtonsState();
 }
 
-class _SummaryButtonsState extends State<SummaryButtons> {
+class _BottomButtonsState extends State<BottomButtons> {
   List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
   IconData getIcon(int idx) {
     if (this.isClickeds[idx]) return clickeds[idx];

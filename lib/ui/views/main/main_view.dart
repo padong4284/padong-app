@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/post_card.dart';
-import 'package:padong/ui/widgets/horizontal_scroller.dart';
+import 'package:padong/ui/widgets/cards/post_card.dart';
+import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 
 import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
-import 'package:padong/ui/widgets/summary_card.dart';
-import 'package:padong/ui/widgets/swipe_deck.dart';
-import 'package:padong/ui/widgets/tab_container.dart';
+import 'package:padong/ui/widgets/cards/summary_card.dart';
+import 'package:padong/ui/widgets/containers/swipe_deck.dart';
+import 'package:padong/ui/widgets/containers/tab_container.dart';
 
-import 'package:padong/ui/widgets/board_list_tile.dart';
-import 'package:padong/ui/widgets/event_card.dart';
+import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
+import 'package:padong/ui/widgets/cards/event_card.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;

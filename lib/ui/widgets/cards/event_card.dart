@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/widgets/transp_button.dart';
+import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
-class SummaryCard extends StatelessWidget {
+class EventCard extends StatelessWidget {
   final String _id; // node's _id
-  final String title;
+  final String timeRange;
+  final String date;
+  final List<String> alerts;
   final String description;
 
-  SummaryCard(id, {@required this.title, this.description}) : this._id = id;
+  EventCard(id,
+      {@required this.timeRange,
+      @required this.date,
+      this.alerts,
+      this.description})
+      : this._id = id;
 
   @override
   Widget build(BuildContext context) {
@@ -21,23 +28,23 @@ class SummaryCard extends StatelessWidget {
             onTap: () {}, // TODO: Routing to Post
             child: Container(
                 width: 325,
-                height: 160,
                 padding: const EdgeInsets.all(17),
                 child: Column(children: <Widget>[
                   Container(
                       alignment: Alignment.centerLeft,
-                      child: Text(this.title,
+                      child: Text(this.timeRange,
                           style: AppTheme.getFont(
-                              color: AppTheme.colors.fontPalette[1],
-                              fontSize: AppTheme.fontSizes.regular, isBold: true))),
+                              color: AppTheme.colors.primary,
+                              fontSize: AppTheme.fontSizes.mlarge,
+                              isBold: true))),
                   Container(
                       alignment: Alignment.topLeft,
-                      height: 75,
                       margin: const EdgeInsets.only(top: 4, bottom: 4),
-                      child: Text('Summary', // TODO: this.description
+                      child: Text(this.date,
                           style: AppTheme.getFont(
-                              color: AppTheme.colors.fontPalette[2],
-                              fontSize: AppTheme.fontSizes.regular))),
+                              color: AppTheme.colors.fontPalette[1],
+                              fontSize: AppTheme.fontSizes.large,
+                              isBold: true))),
                   Container(
                       alignment: Alignment.bottomRight,
                       margin: const EdgeInsets.only(top: 10),

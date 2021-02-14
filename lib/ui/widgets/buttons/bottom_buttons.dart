@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/widgets/transp_button.dart';
+import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 List<IconData> unclickeds = [
   Icons.favorite_border_rounded,

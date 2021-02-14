@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../utils/shadow_clip_path.dart';
-import '../utils/tip_clipper.dart';
-import '../theme/app_theme.dart';
+import '../../utils/shadow_clip_path.dart';
+import '../../utils/tip_clipper.dart';
+import '../../theme/app_theme.dart';
 
 class TipContainer extends StatelessWidget {
   final double width;

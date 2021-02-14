@@ -6,9 +6,9 @@ class SwipeDeck extends StatefulWidget {
   final List<SummaryCard> cards;
   final int numCards;
 
-  SwipeDeck({@required List<SummaryCard> cards})
-      : this.cards = cards.reversed.toList(),
-        numCards = cards.length;
+  SwipeDeck({@required List<SummaryCard> children})
+      : this.cards = children.reversed.toList(),
+        numCards = children.length;
 
   @override
   _SwipeDeckState createState() => _SwipeDeckState();

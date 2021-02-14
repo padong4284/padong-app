@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
-import '../shared/types.dart';
-import '../shared/button_properties.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/shared/button_properties.dart';
 
 class TranspButton extends StatelessWidget {
   final String title;
@@ -46,8 +46,9 @@ class TranspButton extends StatelessWidget {
         child: FlatButton(
             minWidth: 0,
             color: AppTheme.colors.transparent,
-            padding: EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(0),
             child: Row(
+                mainAxisSize: MainAxisSize.min,
                 children: row),
             onPressed: () {
               if (this.callback != null) this.callback();
@@ -55,7 +56,7 @@ class TranspButton extends StatelessWidget {
   }
 
   Text buttonText(buttonProperty) {
-    return Text(this.title,
+    return Text(this.title ?? '',
         textAlign: TextAlign.left,
         style: TextStyle(
             height: 1.25,

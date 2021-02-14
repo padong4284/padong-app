@@ -2,6 +2,9 @@ import 'package:padong/core/models/board/attachment.dart';
 
 import '../node.dart';
 
+/*
+* ModelChatMessage's parent is ModelChatRoom
+* */
 class ModelChatMessage extends ModelNode {
   String message;
   List<ModelAttachment> attachments;
@@ -25,7 +28,7 @@ class ModelChatMessage extends ModelNode {
     return {
       ...super.toJson(),
       'message': this.message,
-      'attachments': this.attachments,
+      'attachments': this.attachments.map((x) => x.toJson()).toList(),
     };
   }
 }

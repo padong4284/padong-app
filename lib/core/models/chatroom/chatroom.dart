@@ -1,5 +1,9 @@
 import '../title_node.dart';
 
+
+/*
+* ModelChatRoom has no parent
+* */
 class ModelChatRoom extends ModelTitleNode {
 
   ModelChatRoom({id, title, description, parentNodeId, ownerId, pip, createdAt, deletedAt,

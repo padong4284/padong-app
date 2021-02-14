@@ -1,5 +1,8 @@
 import '../node.dart';
 
+/*
+* ModelReply's parent is ModelPost
+* */
 class ModelReply extends ModelNode {
   String description;
   bool anonymity;

@@ -1,11 +1,13 @@
 import '../board/attachment.dart';
 
 import '../title_node.dart';
-
-class ModelReply extends ModelTitleNode{
+/*
+* ModelPost's parent is ModelBoard
+* */
+class ModelPost extends ModelTitleNode{
   bool anonymity;
   List<ModelAttachment> attachments;
-  ModelReply({
+  ModelPost({
     id,
     title, description,
     this.anonymity,
@@ -18,7 +20,7 @@ class ModelReply extends ModelTitleNode{
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
-  ModelReply.fromMap(Map snapshot,String id) :
+  ModelPost.fromMap(Map snapshot,String id) :
         this.anonymity = snapshot['anonymity'] ?? false,
         this.attachments = snapshot['attachments'] ?? [],
         super.fromMap(snapshot, id);
@@ -27,7 +29,7 @@ class ModelReply extends ModelTitleNode{
     return {
       ...super.toJson(),
       'anonymity': this.anonymity,
-      'attachments': this.attachments,
+      'attachments': this.attachments.map((x) => x.toJson()).toList(),
     };
   }
 }

@@ -1,5 +1,9 @@
 import '../node.dart';
 
+
+/*
+* ModelAttachment has no parent
+* */
 class ModelAttachment extends ModelNode {
   String type;
   String location;

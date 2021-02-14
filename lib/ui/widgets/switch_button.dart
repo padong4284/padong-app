@@ -11,9 +11,10 @@ class SwitchButton extends StatelessWidget {
 
   SwitchButton(
       {@required this.options,
-      this.buttonType,
+      buttonType,
       this.callback,
-      this.cancelAble = false});
+      this.cancelAble = false}):
+    this.buttonType = buttonType ?? SwitchButtonType.BORDER;
 
   @override
   Widget build(BuildContext context) {
@@ -108,17 +109,16 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
                           child: Container(
                               width: widget.options.length == 2 ? 55.0 : 65.0,
                               height: 38,
-                              child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    widget.options[idx],
-                                    style: TextStyle(
-                                      color: this.curIdx == idx
-                                          ? AppTheme.colors.base
-                                          : AppTheme.colors.primary,
-                                      fontSize: AppTheme.fontSizes.small,
-                                    ),
-                                  )))))
+                              alignment: Alignment.center,
+                              child: Text(
+                                widget.options[idx],
+                                style: TextStyle(
+                                  color: this.curIdx == idx
+                                      ? AppTheme.colors.base
+                                      : AppTheme.colors.primary,
+                                  fontSize: AppTheme.fontSizes.small,
+                                ),
+                              ))))
                       .toList()))
         ]));
   }

@@ -71,10 +71,8 @@ class Button extends StatelessWidget {
                     ? null
                     : Text(this.title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            height: 1.25,
+                        style: AppTheme.getFont(
                             color: this.borderColor ?? AppTheme.colors.base,
-                            letterSpacing: 0.025,
                             fontSize: buttonProperty.fontSize)),
               ].where((element) => element != null).toList()),
           onPressed: () {

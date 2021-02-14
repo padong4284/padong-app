@@ -27,21 +27,16 @@ class SummaryCard extends StatelessWidget {
                   Container(
                       alignment: Alignment.centerLeft,
                       child: Text(this.title,
-                          style: TextStyle(
-                              height: 1.25,
+                          style: AppTheme.getFont(
                               color: AppTheme.colors.fontPalette[1],
-                              letterSpacing: 0.025,
-                              fontWeight: FontWeight.bold,
-                              fontSize: AppTheme.fontSizes.regular))),
+                              fontSize: AppTheme.fontSizes.regular, isBold: true))),
                   Container(
                       alignment: Alignment.topLeft,
                       height: 75,
                       margin: const EdgeInsets.only(top: 4, bottom: 4),
                       child: Text('Summary', // TODO: this.description
-                          style: TextStyle(
-                              height: 1.25,
+                          style: AppTheme.getFont(
                               color: AppTheme.colors.fontPalette[2],
-                              letterSpacing: 0.025,
                               fontSize: AppTheme.fontSizes.regular))),
                   Container(
                       alignment: Alignment.bottomRight,

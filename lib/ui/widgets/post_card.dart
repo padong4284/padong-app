@@ -39,20 +39,15 @@ class PostCard extends StatelessWidget {
                     margin: const EdgeInsets.only(
                         top: 10.0, left: 10.0, right: 10.0),
                     child: Text('Title', // TODO: this.title
-                        style: TextStyle(
-                            height: 1.25,
+                        style: AppTheme.getFont(
                             color: AppTheme.colors.fontPalette[2],
-                            letterSpacing: 0.025,
-                            fontWeight: FontWeight.bold,
-                            fontSize: AppTheme.fontSizes.regular))),
+                            fontSize: AppTheme.fontSizes.regular, isBold: true))),
                 Container(
                     alignment: Alignment.centerLeft,
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: Text('Summary', // TODO: this.description2summary
-                        style: TextStyle(
-                            height: 1.25,
+                        style: AppTheme.getFont(
                             color: AppTheme.colors.fontPalette[3],
-                            letterSpacing: 0.025,
                             fontSize: AppTheme.fontSizes.regular))),
                 BottomButtons(summary: [0, null, 0]),
               ]),

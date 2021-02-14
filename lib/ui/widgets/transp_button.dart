@@ -58,10 +58,8 @@ class TranspButton extends StatelessWidget {
   Text buttonText(buttonProperty) {
     return Text(this.title ?? '',
         textAlign: TextAlign.left,
-        style: TextStyle(
-            height: 1.25,
+        style: AppTheme.getFont(
             color: this.color,
-            letterSpacing: 0.025,
             fontSize: buttonProperty.fontSize));
   }
 }

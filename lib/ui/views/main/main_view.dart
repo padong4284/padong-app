@@ -11,6 +11,7 @@ import 'package:padong/ui/widgets/swipe_deck.dart';
 import 'package:padong/ui/widgets/tab_container.dart';
 
 import 'package:padong/ui/widgets/board_list_tile.dart';
+import 'package:padong/ui/widgets/event_card.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -29,6 +30,7 @@ class _MainViewState extends State<MainView> {
         body: SafePaddingTemplate(
             child: Column(
           children: [
+            EventCard('1234', timeRange: '00:00 ~ 24:00', date: '03/21/2021'),
             TabContainer(tabWidth: 80.0, tabs: [
               'Popular',
               'Favorite',

@@ -16,4 +16,13 @@ class AppTheme {
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }
+
+  static TextStyle getFont({@required color, @required fontSize, isBold=false}) {
+    return TextStyle(
+        height: 1.25,
+        color: color,
+        letterSpacing: 0.025,
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        fontSize: fontSize);
+  }
 }

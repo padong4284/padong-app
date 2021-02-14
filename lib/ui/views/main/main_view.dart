@@ -112,9 +112,9 @@ class _MainViewState extends State<MainView> {
                   fontSize: AppTheme.fontSizes.large,
                   color: AppTheme.colors.semiPrimary)),
         ),
-        visible: !widget.isPMain,
-      ),
-      leadingWidth: 110.0,
+      visible: !widget.isPMain,
+    ),
+    leadingWidth: 110.0,
       actions: [
         SizedBox(
             width: 32.0,

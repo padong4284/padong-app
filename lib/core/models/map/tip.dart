@@ -1,4 +1,4 @@
-import 'package:padong/core/models/board/reply.dart';
+import 'package:padong/core/models/deck/reply.dart';
 
 /*
 * ModelTip's parentNodeId is ModelService

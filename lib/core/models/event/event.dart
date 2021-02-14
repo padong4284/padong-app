@@ -1,4 +1,4 @@
-import 'package:padong/core/models/board/board.dart';
+import 'package:padong/core/models/deck/board.dart';
 import 'package:padong/core/models/event/time_range.dart';
 
 /*

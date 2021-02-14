@@ -1,4 +1,4 @@
-import 'package:padong/core/models/board/deck.dart';
+import 'package:padong/core/models/deck/deck.dart';
 
 /*
 * ModelTable's parentNodeId is ModelUser

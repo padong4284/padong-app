@@ -1,4 +1,4 @@
-import 'package:padong/core/models/board/post.dart';
+import 'package:padong/core/models/deck/post.dart';
 
 /*
 * ModelService's parentNodeId is ModelBuilding

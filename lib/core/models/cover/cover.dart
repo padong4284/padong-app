@@ -1,25 +1,24 @@
-import 'package:padong/core/models/board/post.dart';
+import 'package:padong/core/models/deck/deck.dart';
 
 /*
-* ModelItem's parentNodeId is ModelWiki
+* ModelTable's parentNodeId is ModelUser
 * */
 
-class ModelItem extends ModelPost {
-  ModelItem({
+class ModelCover extends ModelDeck {
+
+  ModelCover({
     id,
-    title, description,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
-          title:title, description: description,
+        super(
+          id: id,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
-  ModelItem.fromMap(Map snapshot,String id) :
+  ModelCover.fromMap(Map snapshot,String id) :
         super.fromMap(snapshot, id);
 
   toJson() {
     return super.toJson();
   }
-
 }

@@ -1,4 +1,4 @@
-import 'package:padong/core/models/board/attachment.dart';
+import 'package:padong/core/models/deck/attachment.dart';
 import 'package:padong/core/models/title_node.dart';
 /*
 * ModelPost's parentNodeId is ModelBoard

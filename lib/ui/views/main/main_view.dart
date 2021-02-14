@@ -3,7 +3,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/post_card.dart';
 import 'package:padong/ui/widgets/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
-import 'package:padong/ui/widgets/left_right_padding_container.dart';
+import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -19,8 +19,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: _buildTopBar(),
-        body: SafeArea(
-            child: LeftRightPaddingContainer(
+        body: SafePaddingTemplate(
                 child: Column(
                   children: [
                     HorizontalScroller(
@@ -31,7 +30,7 @@ class _MainViewState extends State<MainView> {
                             .map((idx) => PostCard(idx.toString()))
                             .toList())
                   ],
-                ))),
+                )),
         bottomNavigationBar: PadongBottomNavigationBar());
   }
 

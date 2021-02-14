@@ -9,7 +9,7 @@ class SafePaddingTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: EdgeInsets.symmetric(horizontal: 25.0),
       child: this.child,
     ));
   }

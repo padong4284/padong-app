@@ -59,6 +59,7 @@ class _MainViewState extends State<MainView> {
 
   AppBar _buildTopBar() {
     return AppBar(
+      brightness: Brightness.light, // when dark mode, using dark
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: Visibility(

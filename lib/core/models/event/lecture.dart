@@ -4,10 +4,17 @@ import 'event.dart';
 * ModelLecture's parentNodeId is ModelTable
 * */
 class ModelMap extends ModelEvent {
+  String professor;
+  String room;
+  String grade;
+  String exam;
+  String attendance;
+  String book;
+
   ModelMap({
     id,
     title, description,
-    //timeCategory,
+    this.professor, this.room, this.grade, this.exam, this.attendance, this.book,
     times,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
@@ -19,10 +26,25 @@ class ModelMap extends ModelEvent {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelMap.fromMap(Map snapshot,String id) :
+        this.professor = snapshot['professor'] ?? '',
+        this.room = snapshot['room'] ?? '',
+        this.grade = snapshot['grade'] ?? '',
+        this.exam = snapshot['exam'] ?? '',
+        this.attendance = snapshot['attendance'] ?? '',
+        this.book = snapshot['book'] ?? '',
+
         super.fromMap(snapshot, id);
 
   toJson() {
-    return super.toJson();
+    return {
+      ...super.toJson(),
+      'professor': this.professor,
+      'room': this.room,
+      'grade': this.grade,
+      'exam': this.exam,
+      'book': this.book,
+
+    };
   }
 
 }

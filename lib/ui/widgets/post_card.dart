@@ -14,9 +14,10 @@ class PostCard extends StatelessWidget {
     return InkWell(
         onTap: () {},
         // TODO: Routing to Post
-        child: SizedBox(
-            width: 140,
-            height: 220,
+        child: ConstrainedBox(
+            constraints: BoxConstraints(
+                maxWidth: 140,
+                maxHeight: 220),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),

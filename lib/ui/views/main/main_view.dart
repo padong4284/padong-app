@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import '../bottom_navigation_bar.dart';
-import '../../widgets/post_card.dart';
-import '../../widgets/switch_button.dart';
-import '../../shared/types.dart';
-import '../../widgets/tip_container.dart';
+import 'package:padong/ui/views/bottom_navigation_bar.dart';
+import 'package:padong/ui//widgets/swipe_deck.dart';
+import 'package:padong/ui/widgets/summary_card.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -24,10 +22,7 @@ class _MainViewState extends State<MainView> {
             child: Column(
               children: [
                 this._buildTopBar(),
-                PostCard('0321'),
-                SwitchButton(options: ['write', 'prev'], buttonType: SwitchButtonType.BORDER),
-                SwitchButton(options: ['Public', 'Internal', 'Private'], buttonType: SwitchButtonType.SHADOW, cancelAble: true),
-                SwitchButton(options: ['anonym', 'profile'], buttonType: SwitchButtonType.TOOLTIP),
+                SwipeDeck(cards: [SummaryCard('1', title: 'Title1'), SummaryCard('2', title: 'Title2'), SummaryCard('3', title: 'Title3')]),
               ],
             )),
         bottomNavigationBar: PadongBottomNavigationBar());

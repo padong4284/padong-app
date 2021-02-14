@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
-import '../shared/types.dart';
-import '../shared/button_properties.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/shared/button_properties.dart';
 
 class TranspButton extends StatelessWidget {
   final String title;
   final Color color;
   final Icon icon;
+  final bool isSuffixICon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
   final dynamic callback;
 
   TranspButton(
-      {this.title, @required this.buttonSize, color, this.icon, this.callback})
+      {this.title, @required this.buttonSize, color, this.icon, this.isSuffixICon=false, this.callback})
       : this.color = color ?? AppTheme.colors.primary;
 
   final buttonSizes = {
@@ -33,24 +34,29 @@ class TranspButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ButtonProperties buttonProperty = buttonSizes[this.buttonSize.toString()];
+    var row = [this.icon ?? null, this.buttonText(buttonProperty)]
+        .where((element) => element != null)
+        .toList();
+    if (this.icon != null && this.isSuffixICon) {
+      row = List.from(row.reversed);
+    }
     return Container(
         height: buttonProperty.height,
         padding: const EdgeInsets.all(0),
         child: FlatButton(
             minWidth: 0,
             color: AppTheme.colors.transparent,
-            padding: EdgeInsets.all(0.0),
+            padding: EdgeInsets.all(0),
             child: Row(
-                children: [this.icon ?? null, this.buttonText(buttonProperty)]
-                    .where((element) => element != null)
-                    .toList()),
+                mainAxisSize: MainAxisSize.min,
+                children: row),
             onPressed: () {
               if (this.callback != null) this.callback();
             }));
   }
 
   Text buttonText(buttonProperty) {
-    return Text(this.title,
+    return Text(this.title ?? '',
         textAlign: TextAlign.left,
         style: TextStyle(
             height: 1.25,

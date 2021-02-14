@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/summary_card.dart';
 
 class SwipeDeck extends StatefulWidget {
-  List<SummaryCard> cards;
+  final List<SummaryCard> cards;
+  final int numCards;
 
   SwipeDeck({@required List<SummaryCard> cards})
-      : this.cards = cards.reversed.toList();
+      : this.cards = cards.reversed.toList(),
+        numCards = cards.length;
 
   @override
   _SwipeDeckState createState() => _SwipeDeckState();
@@ -14,12 +17,12 @@ class SwipeDeck extends StatefulWidget {
 class _SwipeDeckState extends State<SwipeDeck> {
   List<Widget> cardList;
   List<Widget> tempList = [];
+  int curr = 0;
 
   @override
   void initState() {
     super.initState();
-    cardList = this._getCards();
-    tempList = [];
+    this.cardList = this._getCards();
   }
 
   @override
@@ -28,7 +31,20 @@ class _SwipeDeckState extends State<SwipeDeck> {
       return Stack(
         alignment: Alignment.topCenter,
         children: [
-          SizedBox(height: 200),
+          Container(
+              height: 205,
+              alignment: Alignment.bottomCenter,
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ...Iterable<int>.generate(widget.numCards).map((idx) => Padding(
+                    padding: const EdgeInsets.only(left: 1, right: 1),
+                    child: Icon(
+                        this.curr == idx
+                            ? Icons.circle
+                            : Icons.radio_button_unchecked,
+                        color: AppTheme.colors.support,
+                        size: 9)))
+              ])),
           ...Iterable<int>.generate(cardList.length).map((idx) => Container(
               margin: EdgeInsets.only(
                   top: 16.0 * (cardList.length - 1) - idx * 16.0),
@@ -58,10 +74,12 @@ class _SwipeDeckState extends State<SwipeDeck> {
 
   void _removeCard(index) {
     setState(() {
-      tempList.add(cardList.removeLast());
-      if (cardList.isEmpty) {
-        int len = tempList.length;
-        for (int _ = 0; _ < len; _++) cardList.add(tempList.removeLast());
+      this.curr += 1;
+      this.tempList.add(this.cardList.removeLast());
+      if (this.cardList.isEmpty) {
+        for (int _ = 0; _ < widget.numCards; _++)
+          this.cardList.add(this.tempList.removeLast());
+        this.curr = 0;
       }
     });
   }

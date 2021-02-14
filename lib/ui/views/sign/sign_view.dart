@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../theme/app_theme.dart';
-import '../../widgets/button.dart';
-import '../../widgets/transp_button.dart';
-import '../../utils/wave/wave_clipper.dart';
-import '../../utils/wave/wave.dart';
-import '../../shared/types.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/button.dart';
+import 'package:padong/ui/widgets/transp_button.dart';
+import 'package:padong/ui/utils/wave/wave_clipper.dart';
+import 'package:padong/ui/utils/wave/wave.dart';
+import 'package:padong/ui/shared/types.dart';
 
 Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
@@ -87,7 +87,7 @@ class _SignViewState extends State<SignView>
                   },
                 ))),
         body: SafeArea(
-            top: false, // only Sign In &
+            top: false, // only Sign In & Up
             child: SingleChildScrollView(
               child: Stack(children: <Widget>[
                 SizedBox(

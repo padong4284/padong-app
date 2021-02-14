@@ -21,7 +21,7 @@ class PadongBottomNavigationBar extends StatelessWidget {
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Wiki',
+            label: 'Cover',
             icon: Icon(
                 Icons.book,
                 color: this.color,

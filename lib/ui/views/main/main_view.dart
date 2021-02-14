@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/post_card.dart';
 import 'package:padong/ui/widgets/horizontal_scroller.dart';
+import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
+import 'package:padong/ui/widgets/left_right_padding_container.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -18,8 +20,7 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
         appBar: _buildTopBar(),
         body: SafeArea(
-            child: Container(
-                padding: EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
+            child: LeftRightPaddingContainer(
                 child: Column(
                   children: [
                     HorizontalScroller(
@@ -30,7 +31,8 @@ class _MainViewState extends State<MainView> {
                             .map((idx) => PostCard(idx.toString()))
                             .toList())
                   ],
-                ))));
+                ))),
+        bottomNavigationBar: PadongBottomNavigationBar());
   }
 
   AppBar _buildTopBar() {

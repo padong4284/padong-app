@@ -22,8 +22,15 @@ class NodeTile extends StatelessWidget {
   final bool noBottom;
   final bool isReply;
   final bool isReReply;
+  final bool isSummary;
 
-  NodeTile({@required id, noProfile = false, noBottom = false, isReply = false, isReReply = false})
+  NodeTile(
+      {@required id,
+      noProfile = false,
+      noBottom = false,
+      isReply = false,
+      isReReply = false,
+      this.isSummary = false})
       : this._id = id,
         assert(!(isReply || isReReply) || !(noProfile || noBottom)),
         this.isReply = isReply,
@@ -37,7 +44,12 @@ class NodeTile extends StatelessWidget {
     return InkWell(
         onTap: () {}, // TODO: callback, Route to Post / ReReply to Reply
         child: Container(
-            padding: EdgeInsets.only(left: this.isReply ? 8: this.isReReply ? 40 :0),
+            padding: EdgeInsets.only(
+                left: this.isReply
+                    ? 8
+                    : this.isReReply
+                        ? 40
+                        : 0),
             child: Column(children: [
               Container(
                   margin: const EdgeInsets.only(top: 12),
@@ -76,10 +88,11 @@ class NodeTile extends StatelessWidget {
   }
 
   Widget topText() {
-    return Text(this.info['owner'],
+    return Text(this.isSummary ? this.info['title'] : this.info['owner'],
         style: AppTheme.getFont(
-            color: AppTheme.colors.semiSupport,
-            fontSize: AppTheme.fontSizes.regular));
+            color: this.isSummary ? AppTheme.colors.support : AppTheme.colors.semiSupport,
+            fontSize: AppTheme.fontSizes.regular,
+            isBold: this.isSummary));
   }
 
   Widget time() {
@@ -90,11 +103,11 @@ class NodeTile extends StatelessWidget {
   }
 
   Widget followText() {
-    return Text(this.info['title'],
+    return Text(this.isSummary ? this.info['description'] : this.info['title'],
         style: AppTheme.getFont(
-            color: AppTheme.colors.support,
+            color: this.isSummary ? AppTheme.colors.semiSupport :AppTheme.colors.support,
             fontSize: AppTheme.fontSizes.regular,
-            isBold: true));
+            isBold: !this.isSummary));
   }
 
   Widget profile() {
@@ -110,7 +123,7 @@ class NodeTile extends StatelessWidget {
     if (this.isReply || this.isReReply) info['bottoms'][2] = null;
     return Stack(
       children: [
-        BottomButtons(left:-12, bottoms: info['bottoms']),
+        BottomButtons(left: -12, bottoms: info['bottoms']),
         Positioned(
             bottom: 3,
             right: 0,

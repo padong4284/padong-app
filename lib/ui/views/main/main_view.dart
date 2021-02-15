@@ -10,6 +10,7 @@ import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
+import 'package:padong/ui/widgets/tiles/node_tile.dart';
 
 class MainView extends StatelessWidget {
   final bool isPMain;
@@ -23,6 +24,7 @@ class MainView extends StatelessWidget {
         body: SafePaddingTemplate(
             child: Column(
           children: [
+            NodeTile(id: '0321'),
             NoticeTile(notices: [
               'You must read this',
               'You must click this',

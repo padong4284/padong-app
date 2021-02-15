@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Deck View');
+    return SafePaddingTemplate(
+      child: Text('Deck View'),
+    );
   }
 }

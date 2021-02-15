@@ -17,9 +17,6 @@ class PadongBottomNavigationBar extends StatelessWidget {
       selectedItemColor: AppTheme.colors.primary,
         unselectedItemColor: this.color,
         onTap: (index) {
-          if (index != selectedIndex) {
-            _buildRoutes(index, context);
-          }
           this.setSelectedIndex(index);
         },
         showSelectedLabels: false,
@@ -60,30 +57,9 @@ class PadongBottomNavigationBar extends StatelessWidget {
                 width: iconWidth,
                 child: Icon(
                   Icons.place,
-                  color: this.color,
                   size: this.size,
                 )),
           ),
         ]);
-  }
-
-  Function _buildRoutes(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        Navigator.pushNamed(context, '/main');
-        break;
-      case 1:
-        Navigator.pushNamed(context, '/cover');
-        break;
-      case 2:
-        Navigator.pushNamed(context, '/deck');
-        break;
-      case 3:
-        Navigator.pushNamed(context, '/schedule');
-        break;
-      case 4:
-        Navigator.pushNamed(context, '/map');
-        break;
-    }
   }
 }

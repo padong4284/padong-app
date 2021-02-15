@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 import 'package:padong/ui/widgets/cards/post_card.dart';
@@ -18,30 +17,11 @@ import 'package:padong/ui/views/lecture/lecture_list_view.dart';
 import 'package:padong/ui/views/map/map_view.dart';
 import 'package:padong/ui/views/schedule/schedule_view.dart';
 
-class MainView extends StatefulWidget {
+class MainView extends StatelessWidget {
   final bool isPMain;
 
   MainView({this.isPMain = false});
 
-  @override
-  _MainViewState createState() => _MainViewState();
-}
-
-class _MainViewState extends State<MainView> {
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-  List<Widget> _widgetOptions = <Widget>[
-    MainView(),
-    WikiCoverView(),
-    LectureListView(),
-    DeckView(),
-    MapView(),
-    ScheduleView(),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,13 +94,8 @@ class _MainViewState extends State<MainView> {
             ]),
           ],
         )),
-        bottomNavigationBar: PadongBottomNavigationBar(
-            selectedIndex: _selectedIndex,
-            setSelectedIndex: (int index) => setState(() {this._selectedIndex = index;})
-        )
     );
   }
- 
   AppBar _buildTopBar() {
     return AppBar(
       brightness: Brightness.light,
@@ -136,7 +111,7 @@ class _MainViewState extends State<MainView> {
                   fontSize: AppTheme.fontSizes.large,
                   color: AppTheme.colors.semiPrimary)),
         ),
-        visible: !widget.isPMain,
+        visible: !this.isPMain,
       ),
       leadingWidth: 110.0,
       actions: [

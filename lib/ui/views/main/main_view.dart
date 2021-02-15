@@ -12,6 +12,12 @@ import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 
+import 'package:padong/ui/views/cover/wiki_cover_view.dart';
+import 'package:padong/ui/views/deck/deck_view.dart';
+import 'package:padong/ui/views/lecture/lecture_list_view.dart';
+import 'package:padong/ui/views/map/map_view.dart';
+import 'package:padong/ui/views/schedule/schedule_view.dart';
+
 class MainView extends StatefulWidget {
   final bool isPMain;
 
@@ -22,7 +28,20 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  int _selectedIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+  List<Widget> _widgetOptions = <Widget>[
+    MainView(),
+    WikiCoverView(),
+    LectureListView(),
+    DeckView(),
+    MapView(),
+    ScheduleView(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,9 +114,13 @@ class _MainViewState extends State<MainView> {
             ]),
           ],
         )),
-        bottomNavigationBar: PadongBottomNavigationBar());
+        bottomNavigationBar: PadongBottomNavigationBar(
+            selectedIndex: _selectedIndex,
+            setSelectedIndex: (int index) => setState(() {this._selectedIndex = index;})
+        )
+    );
   }
-
+ 
   AppBar _buildTopBar() {
     return AppBar(
       brightness: Brightness.light,

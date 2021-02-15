@@ -1,39 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
-class PadongBottomNavigationBar extends StatefulWidget {
+class PadongBottomNavigationBar extends StatelessWidget {
   final color = AppTheme.colors.semiSupport;
   final size = 40.0;
+  final int selectedIndex;
+  Function setSelectedIndex;
 
-  PadongBottomNavigationBar();
-
-  @override
-  _PadongBottomNavigationBarState createState() => _PadongBottomNavigationBarState();
-}
-
-class _PadongBottomNavigationBarState extends State<PadongBottomNavigationBar> {
-
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  PadongBottomNavigationBar({this.selectedIndex, this.setSelectedIndex});
 
   @override
   Widget build(BuildContext context) {
     const iconWidth = 57.0;
     return BottomNavigationBar(
-      currentIndex: this._selectedIndex ?? 0,
+      currentIndex: this.selectedIndex ?? 0,
       selectedItemColor: AppTheme.colors.primary,
-        unselectedItemColor: widget.color,
+        unselectedItemColor: this.color,
         onTap: (index) {
-          if (index != _selectedIndex) {
+          if (index != selectedIndex) {
             _buildRoutes(index, context);
           }
-          setState(() {
-            _selectedIndex = index;
-          });
+          this.setSelectedIndex(index);
         },
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -44,19 +31,19 @@ class _PadongBottomNavigationBarState extends State<PadongBottomNavigationBar> {
             icon: SizedBox(
                 width: iconWidth,
                 child: Icon(Icons.home_filled,
-                     size: widget.size)),
+                     size: this.size)),
           ),
           BottomNavigationBarItem(
               label: 'Cover',
               icon: SizedBox(
                 width: iconWidth,
-                child: Icon(Icons.book, size: widget.size),
+                child: Icon(Icons.book, size: this.size),
               )),
           BottomNavigationBarItem(
               label: 'Deck',
               icon: SizedBox(
                 width: iconWidth,
-                child: Icon(Icons.wysiwyg, size: widget.size),
+                child: Icon(Icons.wysiwyg, size: this.size),
               )),
           BottomNavigationBarItem(
             label: 'Schedule',
@@ -64,7 +51,7 @@ class _PadongBottomNavigationBarState extends State<PadongBottomNavigationBar> {
                 width: iconWidth,
                 child: Icon(
                   Icons.event,
-                  size: widget.size,
+                  size: this.size,
                 )),
           ),
           BottomNavigationBarItem(
@@ -73,8 +60,8 @@ class _PadongBottomNavigationBarState extends State<PadongBottomNavigationBar> {
                 width: iconWidth,
                 child: Icon(
                   Icons.place,
-                  color: widget.color,
-                  size: widget.size,
+                  color: this.color,
+                  size: this.size,
                 )),
           ),
         ]);

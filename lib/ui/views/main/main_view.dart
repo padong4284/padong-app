@@ -52,8 +52,6 @@ class _MainViewState extends State<MainView> {
             ], children: [
               HorizontalScroller(
                   padding: 3.0,
-                  parentLeftPadding: 25.0,
-                  parentRightPadding: 25.0,
                   children: Iterable<int>.generate(10)
                       .map((idx) => PostCard(idx.toString()))
                       .toList()),

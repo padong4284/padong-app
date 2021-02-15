@@ -23,7 +23,6 @@ class _BoardListTileState extends State<BoardListTile> {
   List<bool> notifications;
 
   @override
-  @override
   void initState() {
     super.initState();
     this.notifications = Iterable<int>.generate(widget.boards.length).map((_) {
@@ -41,7 +40,6 @@ class _BoardListTileState extends State<BoardListTile> {
         ),
         elevation: 0,
         child: Container(
-            width: 325,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
                 children: Iterable<int>.generate(widget.boards.length)

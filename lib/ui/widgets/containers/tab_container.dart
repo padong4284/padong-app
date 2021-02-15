@@ -51,10 +51,13 @@ class _TabContainerState extends State<TabContainer> {
                   .toList()),
           Container(
               child: AnimatedPadding(
-            padding: EdgeInsets.only(top: 2, left: this.curIdx * widget.tabWidth, bottom:20),
+            padding: EdgeInsets.only(
+                top: 2, left: this.curIdx * widget.tabWidth, bottom: 15),
             duration: Duration(milliseconds: 200),
-            child:
-                Container(width: widget.tabWidth -5, height: 2, color: AppTheme.colors.support),
+            child: Container(
+                width: widget.tabWidth - 5,
+                height: 2,
+                color: AppTheme.colors.support),
           )),
           widget.children[this.curIdx],
           // Positioned(top: 25, child: widget.children[this.curIdx])

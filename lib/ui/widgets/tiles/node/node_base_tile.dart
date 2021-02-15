@@ -10,46 +10,30 @@ Map<String, dynamic> getNodeInfo(String id) {
     'time': '2 minutes',
     'owner': 'tae7130',
     'title': 'Title',
-    'description': "It's description of the Node",
+    'rate': 4.5,
+    'description':
+        "It's description of the Node, very long string. In summary it would be truncated.",
     'bottoms': [0, 0, 0],
   };
 }
 
-class NodeTile extends StatelessWidget {
+class NodeBaseTile extends StatelessWidget {
   final String _id;
   final Map<String, dynamic> info;
-  final bool noProfile; // TODO: check automatically by info
-  final bool noBottom;
-  final bool isReply;
-  final bool isReReply;
-  final bool isSummary;
+  final bool noProfile;
+  final double leftPadding;
 
-  NodeTile(
-      {@required id,
-      noProfile = false,
-      noBottom = false,
-      isReply = false,
-      isReReply = false,
-      this.isSummary = false})
+  NodeBaseTile({@required id, noProfile = false, this.leftPadding = 0.0})
       : this._id = id,
-        assert(!(isReply || isReReply) || !(noProfile || noBottom)),
-        this.isReply = isReply,
-        this.isReReply = isReReply,
         this.noProfile = noProfile,
-        this.noBottom = noBottom,
         this.info = getNodeInfo(id);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {}, // TODO: callback, Route to Post / ReReply to Reply
+        onTap: this.callback,
         child: Container(
-            padding: EdgeInsets.only(
-                left: this.isReply
-                    ? 8
-                    : this.isReReply
-                        ? 40
-                        : 0),
+            padding: EdgeInsets.only(left: this.leftPadding),
             child: Column(children: [
               Container(
                   margin: const EdgeInsets.only(top: 12),
@@ -59,9 +43,9 @@ class NodeTile extends StatelessWidget {
                       Container(
                           child: Stack(children: [
                         noProfile ? SizedBox() : this.profile(),
-                        this.commonArea(isProfile: !noProfile)
+                        this.commonArea()
                       ])),
-                      this.noBottom ? SizedBox(height: 10) : this.bottom(),
+                      this.bottom(),
                     ],
                   )),
               Container(
@@ -71,9 +55,9 @@ class NodeTile extends StatelessWidget {
             ])));
   }
 
-  Widget commonArea({bool isProfile = false}) {
+  Widget commonArea() {
     return Container(
-      padding: EdgeInsets.only(left: isProfile ? 47 : 4, right: 10),
+      padding: EdgeInsets.only(left: this.noProfile ? 4 : 47, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,11 +72,10 @@ class NodeTile extends StatelessWidget {
   }
 
   Widget topText() {
-    return Text(this.isSummary ? this.info['title'] : this.info['owner'],
+    return Text(this.info['owner'],
         style: AppTheme.getFont(
-            color: this.isSummary ? AppTheme.colors.support : AppTheme.colors.semiSupport,
-            fontSize: AppTheme.fontSizes.regular,
-            isBold: this.isSummary));
+            color: AppTheme.colors.semiSupport,
+            fontSize: AppTheme.fontSizes.regular));
   }
 
   Widget time() {
@@ -103,15 +86,14 @@ class NodeTile extends StatelessWidget {
   }
 
   Widget followText() {
-    return Text(this.isSummary ? this.info['description'] : this.info['title'],
+    return Text(this.info['title'],
         style: AppTheme.getFont(
-            color: this.isSummary ? AppTheme.colors.semiSupport :AppTheme.colors.support,
+            color: AppTheme.colors.support,
             fontSize: AppTheme.fontSizes.regular,
-            isBold: !this.isSummary));
+            isBold: true));
   }
 
   Widget profile() {
-    assert(this.info['owner'] != null);
     return InkWell(
         onTap: () {}, // TODO: route to user profile
         child: Icon(Icons.account_circle,
@@ -119,8 +101,6 @@ class NodeTile extends StatelessWidget {
   }
 
   Widget bottom() {
-    if (this.isReReply) info['bottoms'][1] = null;
-    if (this.isReply || this.isReReply) info['bottoms'][2] = null;
     return Stack(
       children: [
         BottomButtons(left: -12, bottoms: info['bottoms']),
@@ -131,8 +111,17 @@ class NodeTile extends StatelessWidget {
                 buttonSize: ButtonSize.SMALL,
                 icon: Icon(Icons.more_horiz,
                     color: AppTheme.colors.support, size: 20),
-                callback: () {})) // TODO: more callback
+                callback: this.moreCallback))
       ],
     );
+  }
+
+  void callback() {
+    // TODO: Route to Post
+    // TODO: separate bottom to expand with routing
+  }
+
+  void moreCallback() {
+    // TODO: Click more button " ... "
   }
 }

@@ -3,7 +3,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
-import 'package:padong/ui/widgets/tiles/node_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
 class NoticeTile extends StatefulWidget {
   final List<String> notices;
@@ -64,9 +64,18 @@ class _NoticeTileState extends State<NoticeTile> {
       Container(height: 2, color: AppTheme.colors.support),
       ...Iterable<int>.generate(this.isFolded ? 2 : widget.notices.length)
           .map(
-            (idx) => NodeTile(id: widget.notices[idx], noProfile: true, noBottom: true,),
+            (idx) => _NoticeTile(id: widget.notices[idx]),
           )
           .toList()
     ]);
+  }
+}
+
+class _NoticeTile extends NodeBaseTile {
+  _NoticeTile({@required id}) : super(id: id, noProfile: true);
+
+  @override
+  Widget bottom() {
+    return SizedBox(height: 10);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:padong/core/models/node.dart';
 
 /*
-* ModelReply's parentNodeId is ModelReply
+* ModelReReply's parentNodeId is ModelReply
 * */
 class ModelReReply extends ModelNode {
   String description;

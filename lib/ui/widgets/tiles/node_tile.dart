@@ -18,7 +18,7 @@ Map<String, dynamic> getNodeInfo(String id) {
 class NodeTile extends StatelessWidget {
   final String _id;
   final Map<String, dynamic> info;
-  final bool noProfile;
+  final bool noProfile; // TODO: check automatically by info
   final bool noBottom;
   final bool isReply;
   final bool isReReply;

@@ -3,6 +3,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
+import 'package:padong/ui/widgets/tiles/node_tile.dart';
 
 class NoticeTile extends StatefulWidget {
   final List<String> notices;
@@ -63,18 +64,9 @@ class _NoticeTileState extends State<NoticeTile> {
       Container(height: 2, color: AppTheme.colors.support),
       ...Iterable<int>.generate(this.isFolded ? 2 : widget.notices.length)
           .map(
-            (idx) => this.singleNotice(idx),
+            (idx) => NodeTile(id: widget.notices[idx], noProfile: true, noBottom: true,),
           )
           .toList()
     ]);
-  }
-
-  Widget singleNotice(int idx) {
-    return InkWell(
-        onTap: () {},
-        child: Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: Text(widget.notices[idx])));
   }
 }

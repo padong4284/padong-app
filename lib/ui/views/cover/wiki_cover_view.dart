@@ -21,21 +21,17 @@ class WikiCoverView extends StatelessWidget {
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: ClipRRect(
                   borderRadius: BorderRadius.circular(32),
-                  child: Container(
-                    width: 64,
-                    height: 64,
-                    color: AppTheme.colors.lightSupport,
-                  ))),
+                  boxShadow: [
+                    BoxShadow(color: Colors.black12, blurRadius: 10)
+                  ]),
+              child: CircleAvatar(
+                radius: 32,
+                // TODO: use fire storage get emblem
+                // backgroundImage: NetworkImage(_profileImageURL)
+                // https://here4you.tistory.com/235
+                backgroundColor: AppTheme.colors.lightSupport,
+              )),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.place_rounded,

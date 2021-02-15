@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
 class PadongBottomNavigationBar extends StatelessWidget {
   final color = AppTheme.colors.semiSupport;
   final size = 40.0;
   final int selectedIndex;
-  Function setSelectedIndex;
+  final Function setSelectedIndex;
 
   PadongBottomNavigationBar({this.selectedIndex, this.setSelectedIndex});
 
@@ -34,7 +35,7 @@ class PadongBottomNavigationBar extends StatelessWidget {
               label: 'Cover',
               icon: SizedBox(
                 width: iconWidth,
-                child: Icon(Icons.book, size: this.size),
+                child: Icon(CustomIcons.wiki, size: this.size),
               )),
           BottomNavigationBarItem(
               label: 'Deck',

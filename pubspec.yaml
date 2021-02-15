@@ -43,6 +43,9 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
+    - family: CustomIcons
+      fonts:
+        - asset: assets/CustomIcons.ttf
     - family: NotoSans
       fonts:
         - asset: assets/fonts/NotoSans-Regular.ttf

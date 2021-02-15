@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/cards/post_card.dart';
-import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
-
 import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
+import 'package:padong/ui/widgets/cards/post_card.dart';
+import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
-
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
+import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -30,6 +29,12 @@ class _MainViewState extends State<MainView> {
         body: SafePaddingTemplate(
             child: Column(
           children: [
+            NoticeTile(notices: [
+              'You must read this',
+              'You must click this',
+              'You must read this',
+              'You must click this'
+            ]),
             EventCard('1234',
                 timeRange: '00:00 ~ 24:00',
                 date: '03/21/2021',

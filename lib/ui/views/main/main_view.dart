@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 import 'package:padong/ui/widgets/cards/post_card.dart';
@@ -12,16 +11,11 @@ import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 
-class MainView extends StatefulWidget {
+class MainView extends StatelessWidget {
   final bool isPMain;
 
   MainView({this.isPMain = false});
 
-  @override
-  _MainViewState createState() => _MainViewState();
-}
-
-class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,9 +88,8 @@ class _MainViewState extends State<MainView> {
             ]),
           ],
         )),
-        bottomNavigationBar: PadongBottomNavigationBar());
+    );
   }
-
   AppBar _buildTopBar() {
     return AppBar(
       brightness: Brightness.light,
@@ -112,7 +105,7 @@ class _MainViewState extends State<MainView> {
                   fontSize: AppTheme.fontSizes.large,
                   color: AppTheme.colors.semiPrimary)),
         ),
-        visible: !widget.isPMain,
+        visible: !this.isPMain,
       ),
       leadingWidth: 110.0,
       actions: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './views/sign/sign_in_view.dart';
 import './views/sign/sign_up_view.dart';
-import './views/main/main_view.dart';
+import './views/main/route_view.dart';
 import './views/main/p_main_view.dart';
 
 class PadongRouter {
@@ -9,11 +9,11 @@ class PadongRouter {
     switch (settings.name) {
       case '/main':
         return MaterialPageRoute(
-            builder: (_) => MainView(),
+            builder: (_) => RouteView(),
         );
       case '/p_main':
         return MaterialPageRoute(
-            builder: (_) => PMainView(),
+            builder: (_) => RouteView(),
         );
       case '/':
         return MaterialPageRoute(

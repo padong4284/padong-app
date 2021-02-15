@@ -5,7 +5,7 @@ class ScheduleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      child: Text('Schedule View'),
+      children: [Text('Schedule View')],
     );
   }
 }

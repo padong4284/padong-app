@@ -8,14 +8,7 @@ import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
-import 'package:padong/ui/widgets/cards/event_card.dart';
-import 'package:padong/ui/widgets/tiles/notice_tile.dart';
-
-import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
-import 'package:padong/ui/widgets/tiles/node/wiki_item_tile.dart';
-import 'package:padong/ui/widgets/tiles/node/reply_tile.dart';
-import 'package:padong/ui/widgets/tiles/node/re_reply_tile.dart';
-import 'package:padong/ui/widgets/tiles/node/review_tile.dart';
+import 'package:padong/ui/widgets/univ_door.dart';
 
 class MainView extends StatelessWidget {
   final bool isPMain;
@@ -27,34 +20,9 @@ class MainView extends StatelessWidget {
     return Scaffold(
         appBar: _buildTopBar(),
         body: SafePaddingTemplate(
-            child: Column(
           children: [
-            PostTile(id: '0321'),
-            WikiItemTile(id: '0321'),
-            ReplyTile(id: '0321'),
-            ReReplyTile(id: '0321'),
-            ReviewTile(id: '0321'),
-            NoticeTile(notices: [
-              'You must read this',
-              'You must click this',
-              'You must read this',
-              'You must click this'
-            ]),
-            EventCard('1234',
-                timeRange: '00:00 ~ 24:00',
-                date: '03/21/2021',
-                infos: {'Periodicity': 'Annual', 'Alerts': '00:00, 12:00'}),
-            EventCard(
-              '1234',
-              timeRange: '13:30 ~ 15:45',
-              rate: 4.5,
-              infos: {
-                'Professor': 'Daewoong Ko',
-                'Room': 'Klaus 402',
-                'Grade': 'Absolute'
-              },
-              isToReview: true,
-            ),
+            UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
+            SizedBox(height: 35),
             TabContainer(tabWidth: 80.0, tabs: [
               'Popular',
               'Favorite',
@@ -72,8 +40,6 @@ class MainView extends StatelessWidget {
               ]),
               HorizontalScroller(
                   padding: 3.0,
-                  parentLeftPadding: 25.0,
-                  parentRightPadding: 25.0,
                   children: Iterable<int>.generate(10)
                       .map((idx) => PostCard(idx.toString()))
                       .toList()),
@@ -81,26 +47,10 @@ class MainView extends StatelessWidget {
             BoardListTile(
                 boards: ['Global', 'Public', 'Internal'],
                 icons: [Icons.cloud, Icons.public, Icons.badge]),
-            BoardListTile(boards: [
-              'Algorithm',
-              'Computer Architecture',
-              'Data Structure',
-              'System Programming',
-              'Philosophy'
-            ], isAlertTile: true),
-            BoardListTile(boards: [
-              'Replied',
-              'Liked',
-              'Saved'
-            ], icons: [
-              Icons.mode_comment,
-              Icons.favorite_rounded,
-              Icons.bookmark_rounded
-            ]),
           ],
-        )),
-    );
+        ));
   }
+
   AppBar _buildTopBar() {
     return AppBar(
       brightness: Brightness.light,

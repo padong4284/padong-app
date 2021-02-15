@@ -5,7 +5,7 @@ class WikiCoverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      child: Text('Wiki Cover View'),
+      children: [Text('Wiki Cover View')],
     );
   }
 }

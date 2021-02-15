@@ -5,7 +5,7 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      child: Text('Map View')
+      children: [Text('Map View')]
     );
   }
 }

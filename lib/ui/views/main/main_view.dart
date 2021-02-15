@@ -17,38 +17,37 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: _buildTopBar(),
-        body: SafePaddingTemplate(
-          children: [
-            UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
-            SizedBox(height: 35),
-            TabContainer(tabWidth: 80.0, tabs: [
-              'Popular',
-              'Favorite',
-              'Inform',
-            ], children: [
-              HorizontalScroller(
-                  padding: 3.0,
-                  children: Iterable<int>.generate(10)
-                      .map((idx) => PostCard(idx.toString()))
-                      .toList()),
-              SwipeDeck(children: [
-                SummaryCard('1', title: 'Title1'),
-                SummaryCard('2', title: 'Title2'),
-                SummaryCard('3', title: 'Title3')
-              ]),
-              HorizontalScroller(
-                  padding: 3.0,
-                  children: Iterable<int>.generate(10)
-                      .map((idx) => PostCard(idx.toString()))
-                      .toList()),
-            ]),
-            BoardListTile(
-                boards: ['Global', 'Public', 'Internal'],
-                icons: [Icons.cloud, Icons.public, Icons.badge]),
-          ],
-        ));
+    return SafePaddingTemplate(
+      appBar: _buildTopBar(),
+      children: [
+        UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
+        SizedBox(height: 35),
+        TabContainer(tabWidth: 80.0, tabs: [
+          'Popular',
+          'Favorite',
+          'Inform',
+        ], children: [
+          HorizontalScroller(
+              padding: 3.0,
+              children: Iterable<int>.generate(10)
+                  .map((idx) => PostCard(idx.toString()))
+                  .toList()),
+          SwipeDeck(children: [
+            SummaryCard('1', title: 'Title1'),
+            SummaryCard('2', title: 'Title2'),
+            SummaryCard('3', title: 'Title3')
+          ]),
+          HorizontalScroller(
+              padding: 3.0,
+              children: Iterable<int>.generate(10)
+                  .map((idx) => PostCard(idx.toString()))
+                  .toList()),
+        ]),
+        BoardListTile(
+            boards: ['Global', 'Public', 'Internal'],
+            icons: [Icons.cloud, Icons.public, Icons.badge]),
+      ],
+    );
   }
 
   AppBar _buildTopBar() {
@@ -59,10 +58,10 @@ class MainView extends StatelessWidget {
       elevation: 0,
       leading: Visibility(
         child: Container(
-          padding: EdgeInsets.only(left: 25.0),
+          padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
           alignment: Alignment.center,
           child: Text('PADONG',
-              style: TextStyle(
+              style: AppTheme.getFont(
                   fontSize: AppTheme.fontSizes.large,
                   color: AppTheme.colors.semiPrimary)),
         ),

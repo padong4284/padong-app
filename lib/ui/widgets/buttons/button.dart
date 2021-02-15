@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
-import '../shared/types.dart';
-import '../shared/button_properties.dart';
+import '../../theme/app_theme.dart';
+import '../../shared/types.dart';
+import '../../shared/button_properties.dart';
 
 class Button extends StatelessWidget {
   final String title;
@@ -71,10 +71,8 @@ class Button extends StatelessWidget {
                     ? null
                     : Text(this.title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            height: 1.25,
+                        style: AppTheme.getFont(
                             color: this.borderColor ?? AppTheme.colors.base,
-                            letterSpacing: 0.025,
                             fontSize: buttonProperty.fontSize)),
               ].where((element) => element != null).toList()),
           onPressed: () {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
-import '../shared/types.dart';
-import 'tip_container.dart';
+import '../../theme/app_theme.dart';
+import '../../shared/types.dart';
+import '../containers/tip_container.dart';
 
 class SwitchButton extends StatelessWidget {
   final List<String> options;

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/post_card.dart';
-import 'package:padong/ui/widgets/horizontal_scroller.dart';
+import 'package:padong/ui/widgets/cards/post_card.dart';
+import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 
 import 'package:padong/ui/widgets/bottom_navigation_bar.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
-import 'package:padong/ui/widgets/summary_card.dart';
-import 'package:padong/ui/widgets/swipe_deck.dart';
-import 'package:padong/ui/widgets/tab_container.dart';
+import 'package:padong/ui/widgets/cards/summary_card.dart';
+import 'package:padong/ui/widgets/containers/swipe_deck.dart';
+import 'package:padong/ui/widgets/containers/tab_container.dart';
 
-import 'package:padong/ui/widgets/board_list_tile.dart';
+import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
+import 'package:padong/ui/widgets/cards/event_card.dart';
 
 class MainView extends StatefulWidget {
   final bool isPMain;
@@ -29,6 +30,21 @@ class _MainViewState extends State<MainView> {
         body: SafePaddingTemplate(
             child: Column(
           children: [
+            EventCard('1234',
+                timeRange: '00:00 ~ 24:00',
+                date: '03/21/2021',
+                infos: {'Periodicity': 'Annual', 'Alerts': '00:00, 12:00'}),
+            EventCard(
+              '1234',
+              timeRange: '13:30 ~ 15:45',
+              rate: 4.5,
+              infos: {
+                'Professor': 'Daewoong Ko',
+                'Room': 'Klaus 402',
+                'Grade': 'Absolute'
+              },
+              isToReview: true,
+            ),
             TabContainer(tabWidth: 80.0, tabs: [
               'Popular',
               'Favorite',
@@ -54,9 +70,25 @@ class _MainViewState extends State<MainView> {
                       .map((idx) => PostCard(idx.toString()))
                       .toList()),
             ]),
-            BoardListTile(boards: ['Global', 'Public', 'Internal'], icons: [Icons.cloud, Icons.public, Icons.badge]),
-            BoardListTile(boards: ['Algorithm', 'Computer Architecture', 'Data Structure', 'System Programming', 'Philosophy'], isAlertTile: true),
-            BoardListTile(boards: ['Replied', 'Liked', 'Saved'], icons: [Icons.mode_comment, Icons.favorite_rounded, Icons.bookmark_rounded]),
+            BoardListTile(
+                boards: ['Global', 'Public', 'Internal'],
+                icons: [Icons.cloud, Icons.public, Icons.badge]),
+            BoardListTile(boards: [
+              'Algorithm',
+              'Computer Architecture',
+              'Data Structure',
+              'System Programming',
+              'Philosophy'
+            ], isAlertTile: true),
+            BoardListTile(boards: [
+              'Replied',
+              'Liked',
+              'Saved'
+            ], icons: [
+              Icons.mode_comment,
+              Icons.favorite_rounded,
+              Icons.bookmark_rounded
+            ]),
           ],
         )),
         bottomNavigationBar: PadongBottomNavigationBar());

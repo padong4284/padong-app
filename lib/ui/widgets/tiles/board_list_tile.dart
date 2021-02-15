@@ -81,10 +81,8 @@ class _BoardListTileState extends State<BoardListTile> {
   Text boardText(text) {
     return Text(text,
         textAlign: TextAlign.left,
-        style: TextStyle(
-            height: 1.25,
+        style: AppTheme.getFont(
             color: AppTheme.colors.support,
-            letterSpacing: 0.025,
             fontSize: AppTheme.fontSizes.mlarge));
   }
 }

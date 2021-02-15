@@ -11,12 +11,6 @@ import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 
-import 'package:padong/ui/views/cover/wiki_cover_view.dart';
-import 'package:padong/ui/views/deck/deck_view.dart';
-import 'package:padong/ui/views/lecture/lecture_list_view.dart';
-import 'package:padong/ui/views/map/map_view.dart';
-import 'package:padong/ui/views/schedule/schedule_view.dart';
-
 class MainView extends StatelessWidget {
   final bool isPMain;
 
@@ -129,6 +123,4 @@ class MainView extends StatelessWidget {
       ],
     );
   }
-
-
 }

@@ -18,17 +18,26 @@ Map<String, dynamic> getNodeInfo(String id) {
 class NodeTile extends StatelessWidget {
   final String _id;
   final Map<String, dynamic> info;
+  final bool noProfile;
+  final bool noBottom;
+  final bool isReply;
+  final bool isReReply;
 
-  NodeTile({@required id})
+  NodeTile({@required id, noProfile = false, noBottom = false, isReply = false, isReReply = false})
       : this._id = id,
+        assert(!(isReply || isReReply) || !(noProfile || noBottom)),
+        this.isReply = isReply,
+        this.isReReply = isReReply,
+        this.noProfile = noProfile,
+        this.noBottom = noBottom,
         this.info = getNodeInfo(id);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {}, // TODO: callback
+        onTap: () {}, // TODO: callback, Route to Post / ReReply to Reply
         child: Container(
-            padding: const EdgeInsets.only(left: 0),
+            padding: EdgeInsets.only(left: this.isReply ? 8: this.isReReply ? 40 :0),
             child: Column(children: [
               Container(
                   margin: const EdgeInsets.only(top: 12),
@@ -37,10 +46,10 @@ class NodeTile extends StatelessWidget {
                     children: [
                       Container(
                           child: Stack(children: [
-                        this.profile(),
-                        this.commonArea(isProfile: true)
+                        noProfile ? SizedBox() : this.profile(),
+                        this.commonArea(isProfile: !noProfile)
                       ])),
-                      this.bottom(),
+                      this.noBottom ? SizedBox(height: 10) : this.bottom(),
                     ],
                   )),
               Container(
@@ -52,7 +61,7 @@ class NodeTile extends StatelessWidget {
 
   Widget commonArea({bool isProfile = false}) {
     return Container(
-      padding: EdgeInsets.only(left: isProfile ? 47 : 0, right: 10),
+      padding: EdgeInsets.only(left: isProfile ? 47 : 4, right: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -97,9 +106,11 @@ class NodeTile extends StatelessWidget {
   }
 
   Widget bottom() {
+    if (this.isReReply) info['bottoms'][1] = null;
+    if (this.isReply || this.isReReply) info['bottoms'][2] = null;
     return Stack(
       children: [
-        BottomButtons(bottoms: info['bottoms']),
+        BottomButtons(left:-12, bottoms: info['bottoms']),
         Positioned(
             bottom: 3,
             right: 0,

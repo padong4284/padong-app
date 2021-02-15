@@ -25,6 +25,10 @@ class MainView extends StatelessWidget {
             child: Column(
           children: [
             NodeTile(id: '0321'),
+            NodeTile(id: '0321', noProfile: true,),
+            NodeTile(id: '0321', noProfile: true, noBottom: true,),
+            NodeTile(id: '0321', isReply: true),
+            NodeTile(id: '0321', isReReply: true),
             NoticeTile(notices: [
               'You must read this',
               'You must click this',

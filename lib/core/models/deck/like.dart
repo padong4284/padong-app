@@ -1,10 +1,8 @@
 import 'package:padong/core/models/node.dart';
 
-class ModelVote extends ModelNode {
-  bool isThumbsUp;
-  ModelVote({
+class ModelLike extends ModelNode {
+  ModelLike({
     id,
-    this.isThumbsUp,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
@@ -12,15 +10,11 @@ class ModelVote extends ModelNode {
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
-  ModelVote.fromMap(Map snapshot,String id) :
-        this.isThumbsUp = snapshot['isThumbsUp'] ?? true,
+  ModelLike.fromMap(Map snapshot,String id) :
         super.fromMap(snapshot, id);
 
   toJson() {
-    return {
-      ...super.toJson(),
-      'isThumbsUp': this.isThumbsUp,
-    };
+    return super.toJson();
   }
 }
 

@@ -49,6 +49,8 @@ class TranspButton extends StatelessWidget {
             padding: EdgeInsets.all(0),
             child: Row(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: row),
             onPressed: () {
               if (this.callback != null) this.callback();

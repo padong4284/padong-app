@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
+import 'package:padong/ui/widgets/buttons/star_rate_button.dart';
 
 class EventCard extends StatelessWidget {
   final String _id; // node's _id
@@ -52,7 +53,12 @@ class EventCard extends StatelessWidget {
                   isBold: true)),
           Padding(
               padding: const EdgeInsets.only(top: 12, bottom: 15),
-              child: this.date != null ? this.dateNYear() : this.starRate()),
+              child: this.date != null
+                  ? this.dateNYear()
+                  : StarRateButton(
+                      rate: this.rate,
+                      disable: true,
+                    )),
           ...infoList,
         ]);
   }
@@ -74,16 +80,5 @@ class EventCard extends StatelessWidget {
                   fontSize: AppTheme.fontSizes.mlarge,
                   isBold: true))),
     ]);
-  }
-
-  Widget starRate() {
-    return Row(
-        children: Iterable<int>.generate(5)
-            .map((idx) => Icon(
-                  Icons.star_rounded,
-                  size: 32,
-                  color: AppTheme.colors.pointYellow,
-                ))
-            .toList());
   }
 }

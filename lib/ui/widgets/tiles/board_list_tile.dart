@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/tiles/base_tile.dart';
 
 class BoardListTile extends StatefulWidget {
   final List<String> boards;
@@ -23,7 +24,6 @@ class _BoardListTileState extends State<BoardListTile> {
   List<bool> notifications;
 
   @override
-  @override
   void initState() {
     super.initState();
     this.notifications = Iterable<int>.generate(widget.boards.length).map((_) {
@@ -33,49 +33,39 @@ class _BoardListTileState extends State<BoardListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: AppTheme.colors.lightSupport),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        elevation: 0,
-        child: Container(
-            width: 325,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            child: Column(
-                children: Iterable<int>.generate(widget.boards.length)
-                    .map(
-                      (idx) => InkWell(
-                          onTap: () {},
-                          child: Container(
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Row(children: [
-                                Padding(
-                                    padding: const EdgeInsets.only(right: 15.0),
-                                    child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            this.notifications[idx] =
-                                                widget.isAlertTile &&
-                                                    !this.notifications[idx];
-                                          });
-                                        },
-                                        child: Icon(
-                                            widget.isAlertTile
-                                                ? this.notifications[idx]
-                                                    ? Icons.notifications
-                                                    : Icons.notifications_off
-                                                : widget.icons[idx],
-                                            size: 25,
-                                            color: this.notifications[idx]
-                                                ? AppTheme.colors.pointYellow
-                                                : AppTheme.colors.support))),
-                                this.boardText(widget.boards[idx])
-                              ]))),
-                    )
-                    .toList())));
+    return BaseTile(
+        children: Iterable<int>.generate(widget.boards.length)
+            .map(
+              (idx) => InkWell(
+                  onTap: () {},
+                  child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(children: [
+                        Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    this.notifications[idx] =
+                                        widget.isAlertTile &&
+                                            !this.notifications[idx];
+                                  });
+                                },
+                                child: Icon(
+                                    widget.isAlertTile
+                                        ? this.notifications[idx]
+                                            ? Icons.notifications
+                                            : Icons.notifications_off
+                                        : widget.icons[idx],
+                                    size: 25,
+                                    color: this.notifications[idx]
+                                        ? AppTheme.colors.pointYellow
+                                        : AppTheme.colors.support))),
+                        this.boardText(widget.boards[idx])
+                      ]))),
+            )
+            .toList());
   }
 
   Text boardText(text) {

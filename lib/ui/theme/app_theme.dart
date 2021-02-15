@@ -5,6 +5,7 @@ import 'font_sizes.dart';
 class AppTheme {
   static const colors = AppColors();
   static const fontSizes = FontSizes();
+  static const horizontalPadding = 25.0;
   const AppTheme._();
 
   static ThemeData define() {

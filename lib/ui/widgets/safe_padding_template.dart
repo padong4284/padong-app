@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/theme/app_theme.dart';
 
 class SafePaddingTemplate extends StatelessWidget {
   final Widget child;
@@ -9,7 +10,7 @@ class SafePaddingTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 25.0),
+      padding: EdgeInsets.symmetric(horizontal: AppTheme.horizontalPadding),
       child: this.child,
     ));
   }

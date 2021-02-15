@@ -27,33 +27,30 @@ class _SwipeDeckState extends State<SwipeDeck> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (BuildContext context) {
-      return Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Container(
-              height: 205,
-              alignment: Alignment.bottomCenter,
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                ...Iterable<int>.generate(widget.numCards).map((idx) => Padding(
-                    padding: const EdgeInsets.only(left: 1, right: 1),
-                    child: Icon(
-                        this.curr == idx
-                            ? Icons.circle
-                            : Icons.radio_button_unchecked,
-                        color: AppTheme.colors.support,
-                        size: 9)))
-              ])),
-          ...Iterable<int>.generate(cardList.length).map((idx) => Container(
-              margin: EdgeInsets.only(
-                  top: 16.0 * (cardList.length - 1) - idx * 16.0),
-              child: Transform.scale(
-                  scale: 1 / (1 + 0.1 * (cardList.length - 1 - idx)),
-                  child: cardList[idx])))
-        ],
-      );
-    });
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        Container(
+            height: 205,
+            alignment: Alignment.bottomCenter,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ...Iterable<int>.generate(widget.numCards).map((idx) => Padding(
+                  padding: const EdgeInsets.only(left: 1, right: 1),
+                  child: Icon(
+                      this.curr == idx
+                          ? Icons.circle
+                          : Icons.radio_button_unchecked,
+                      color: AppTheme.colors.support,
+                      size: 9)))
+            ])),
+        ...Iterable<int>.generate(cardList.length).map((idx) => Container(
+            margin:
+                EdgeInsets.only(top: 16.0 * (cardList.length - 1) - idx * 16.0),
+            child: Transform.scale(
+                scale: 1 / (1 + 0.1 * (cardList.length - 1 - idx)),
+                child: cardList[idx])))
+      ],
+    );
   }
 
   List<Widget> _getCards() {

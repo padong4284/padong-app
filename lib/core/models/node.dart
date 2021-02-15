@@ -18,7 +18,7 @@ class ModelNode {
 
   ModelNode.fromMap(Map snapshot,String id) :
         this.id = id ?? '',
-        this.parentNodeId = snapshot['parentNode'] ?? '',
+        this.parentNodeId = snapshot['parentNodeId'] ?? '',
         this.ownerId = snapshot['ownerId'] ?? '',
         this.pip = snapshot['pip'] ?? PIP.INTERNAL,
         this.createdAt= DateTime.parse(snapshot['createdAt']) ?? null,

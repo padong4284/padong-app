@@ -24,12 +24,12 @@ class BottomButtons extends StatefulWidget {
   final double gap;
   final Color color;
   final bool isTwo;
-  final dynamic summary; // [likes, replies, bookmarks], if null: don't show
+  final dynamic bottoms; // [likes, replies, bookmarks], if null: don't show
 
-  BottomButtons({this.left = -10, this.gap = 47, color, @required summary})
+  BottomButtons({this.left = -10, this.gap = 47, color, @required bottoms})
       : this.color = color ?? AppTheme.colors.support,
-        this.summary = summary,
-        this.isTwo = summary.contains(null);
+        this.bottoms = bottoms,
+        this.isTwo = bottoms.contains(null);
 
   @override
   _BottomButtonsState createState() => _BottomButtonsState();
@@ -47,7 +47,7 @@ class _BottomButtonsState extends State<BottomButtons> {
     return Stack(children: [
       SizedBox(width: 500, height: 30),
       ...[0, 1, 2]
-          .map((idx) => widget.summary[idx] == null
+          .map((idx) => widget.bottoms[idx] == null
               ? null
               : Positioned(
                   left: widget.left + widget.gap * this.getGapIdx(idx),
@@ -68,7 +68,7 @@ class _BottomButtonsState extends State<BottomButtons> {
                       ))))
           .where((element) => element != null),
       ...[0, 1, 2]
-          .map((idx) => widget.summary[idx] == null
+          .map((idx) => widget.bottoms[idx] == null
               ? null
               : Positioned(
                   left: widget.left + 33 + widget.gap * this.getGapIdx(idx),
@@ -79,7 +79,7 @@ class _BottomButtonsState extends State<BottomButtons> {
   }
 
   Text getNumText(idx) {
-    return Text(widget.summary[idx].toString(),
+    return Text(widget.bottoms[idx].toString(),
         style: TextStyle(
             color: this.isClickeds[idx] ? clickedClrs[idx] : widget.color,
             fontSize: AppTheme.fontSizes.regular));

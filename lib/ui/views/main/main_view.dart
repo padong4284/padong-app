@@ -11,6 +11,12 @@ import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 
+import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/wiki_item_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/reply_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/re_reply_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/review_tile.dart';
+
 class MainView extends StatelessWidget {
   final bool isPMain;
 
@@ -23,6 +29,11 @@ class MainView extends StatelessWidget {
         body: SafePaddingTemplate(
             child: Column(
           children: [
+            PostTile(id: '0321'),
+            WikiItemTile(id: '0321'),
+            ReplyTile(id: '0321'),
+            ReReplyTile(id: '0321'),
+            ReviewTile(id: '0321'),
             NoticeTile(notices: [
               'You must read this',
               'You must click this',

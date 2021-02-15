@@ -49,7 +49,7 @@ class PostCard extends StatelessWidget {
                         style: AppTheme.getFont(
                             color: AppTheme.colors.fontPalette[3],
                             fontSize: AppTheme.fontSizes.regular))),
-                BottomButtons(summary: [0, null, 0]),
+                BottomButtons(bottoms: [0, null, 0]),
               ]),
             )));
   }

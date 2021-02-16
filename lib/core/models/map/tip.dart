@@ -1,16 +1,14 @@
-import 'package:padong/core/models/deck/reply.dart';
+import 'package:padong/core/models/event/opinion.dart';
 
 /*
 * ModelTip's parentNodeId is ModelService
 * */
 
-class ModelTip extends ModelReply {
-  int score;
-
+class ModelTip extends ModelOpinion {
   ModelTip({
     id,
     title, description,
-    this.score,
+    score,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(id: id,
@@ -19,19 +17,10 @@ class ModelTip extends ModelReply {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelTip.fromMap(Map snapshot,String id) :
-        this.score = snapshot['score'] ?? 0,
         super.fromMap(snapshot, id);
 
   toJson() {
-    if (this.score < 0) {
-      this.score = 0;
-    } else if( this.score > 5){
-      this.score = 5;
-    }
-    return {
-      ...super.toJson(),
-      'score':this.score,
-    };
+    return super.toJson();
   }
 
 }

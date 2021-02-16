@@ -5,7 +5,7 @@ import 'package:padong/core/models/deck/reply.dart';
 * */
 
 class ModelOpinion extends ModelReply {
-  int score;
+  double score;
 
   ModelOpinion({
     id,
@@ -23,9 +23,9 @@ class ModelOpinion extends ModelReply {
         super.fromMap(snapshot, id);
 
   toJson() {
-    if (this.score < 0) {
+    if ( this.score.compareTo(0)==-1 ) {
       this.score = 0;
-    } else if( this.score > 5){
+    } else if( this.score.compareTo(5)==1 ){
       this.score = 5;
     }
     return {

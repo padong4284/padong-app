@@ -5,7 +5,7 @@ class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      child: Text('Deck View'),
+      children: [Text('Deck View')],
     );
   }
 }

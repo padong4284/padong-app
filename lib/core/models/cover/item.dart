@@ -8,10 +8,13 @@ class ModelItem extends ModelPost {
   ModelItem({
     id,
     title, description,
+    anonymity, attachments,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(id: id,
           title:title, description: description,
+          anonymity: anonymity,
+          attachments: attachments,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

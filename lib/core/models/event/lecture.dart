@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'event.dart';
 
 /*
@@ -14,7 +16,7 @@ class ModelMap extends ModelEvent {
   ModelMap({
     id,
     title, description,
-    this.professor, this.room, this.grade, this.exam, this.attendance, this.book,
+    @required this.professor, @required this.room, @required this.grade, @required this.exam, @required this.attendance, @required this.book,
     times,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/chatroom/role.dart';
 import 'package:padong/core/models/node.dart';
 
@@ -8,7 +9,7 @@ class ModelParticipant extends ModelNode {
   ROLE role;
   ModelParticipant({
     id,
-    this.role,
+    @required this.role,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(

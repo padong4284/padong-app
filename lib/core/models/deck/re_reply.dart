@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/node.dart';
 
 /*
@@ -8,7 +9,7 @@ class ModelReReply extends ModelNode {
   bool anonymity;
   ModelReReply({
     id,
-    this.description, this.anonymity,
+    @required this.description, @required this.anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
       super(

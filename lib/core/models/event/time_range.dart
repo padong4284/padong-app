@@ -2,14 +2,16 @@
 
 /*
 * TimeRange represent when the event starts and how long it lasts */
+import 'package:flutter/cupertino.dart';
+
 class TimeRange {
 
   DateTime startTime;
   Duration duration;
 
   TimeRange({
-    this.startTime,
-    this.duration});
+    @required this.startTime,
+    @required this.duration});
 
   TimeRange.fromMap(Map snapshot,String id) :
       this.startTime = DateTime.parse(snapshot['startTime']?? ""),

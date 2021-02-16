@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/deck/board.dart';
 
 /*
@@ -12,6 +13,7 @@ class ModelBuilding extends ModelBoard {
   ModelBuilding({
     id,
     title, description,
+    @required this.lat, @required this.lng,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(id: id,

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/deck/deck.dart';
 
 /*
@@ -9,7 +10,7 @@ class ModelProfile extends ModelDeck {
   ModelProfile({
     id,
     parentNodeId, ownerId, pip,
-    this.profileImage,
+    @required this.profileImage,
     createdAt, deletedAt, modifiedAt}):
         super(
           id: id,

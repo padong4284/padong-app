@@ -1,3 +1,5 @@
+
+import 'package:flutter/foundation.dart';
 import 'package:padong/core/models/deck/attachment.dart';
 import 'package:padong/core/models/node.dart';
 
@@ -9,7 +11,7 @@ class ModelChatMessage extends ModelNode {
   ModelAttachment attachment;
   ModelChatMessage({
     id,
-    this.message,
+    @required this.message,
     this.attachment,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):

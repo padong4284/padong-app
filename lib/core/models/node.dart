@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/pip.dart';
 
 class ModelNode {
@@ -12,9 +13,9 @@ class ModelNode {
   DateTime modifiedAt;
 
   ModelNode({
-    this.id,
-    this.parentNodeId, this.ownerId, this.pip,
-    this.createdAt, this.deletedAt, this.modifiedAt});
+  @required this.id,
+  @required this.parentNodeId, @required this.ownerId, @required this.pip,
+    @required this.createdAt, @required this.deletedAt, @required this.modifiedAt});
 
   ModelNode.fromMap(Map snapshot,String id) :
         this.id = id ?? '',

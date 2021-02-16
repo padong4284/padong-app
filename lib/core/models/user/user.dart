@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../node.dart';
 
 class ModelUser extends ModelNode {
@@ -8,7 +10,7 @@ class ModelUser extends ModelNode {
 
   ModelUser({
     id,
-    this.userName, this.userNickName, this.userId, this.userEmail,
+    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(

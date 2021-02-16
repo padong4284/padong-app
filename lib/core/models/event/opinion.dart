@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/deck/reply.dart';
 
 /*
@@ -10,11 +11,13 @@ class ModelOpinion extends ModelReply {
   ModelOpinion({
     id,
     title, description,
-    this.score,
+    @required this.score,
+    anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(id: id,
           description: description,
+          anonymity: anonymity,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/node.dart';
 
 /*
@@ -9,7 +10,7 @@ class ModelAttachment extends ModelNode {
 
   ModelAttachment({
     id,
-    this.type, this.location,
+    @required this.type, @required this.location,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(

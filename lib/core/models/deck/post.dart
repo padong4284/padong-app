@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:padong/core/models/deck/attachment.dart';
 import 'package:padong/core/models/title_node.dart';
 /*
@@ -9,8 +10,8 @@ class ModelPost extends ModelTitleNode{
   ModelPost({
     id,
     title, description,
-    this.anonymity,
-    this.attachments,
+    @required this.anonymity,
+    @required this.attachments,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(

@@ -9,6 +9,7 @@ class UserProfileButton extends StatelessWidget {
 
   UserProfileButton({this.username, this.position, this.size = 64});
 
+
   @override
   Widget build(BuildContext context) {
     if (position == UsernamePosition.BOTTOM) {

@@ -6,11 +6,11 @@ import 'package:padong/core/models/node.dart';
 * */
 class ModelChatMessage extends ModelNode {
   String message;
-  List<ModelAttachment> attachments;
+  ModelAttachment attachment;
   ModelChatMessage({
     id,
     this.message,
-    this.attachments,
+    this.attachment,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
@@ -20,14 +20,14 @@ class ModelChatMessage extends ModelNode {
 
   ModelChatMessage.fromMap(Map snapshot,String id) :
         this.message = snapshot['message'] ?? "",
-        this.attachments = snapshot['attachments'].map((x) => ModelAttachment.fromMap(x, id)) ?? [],
+        this.attachment = snapshot['attachment'] ?? null,
         super.fromMap(snapshot, id);
 
   toJson() {
     return {
       ...super.toJson(),
       'message': this.message,
-      'attachments': this.attachments.map((x) => x.toJson()).toList(),
+      'attachment': this.attachment,
     };
   }
 }

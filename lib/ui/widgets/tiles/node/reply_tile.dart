@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
 class ReplyTile extends NodeBaseTile {
-  ReplyTile({@required id}) : super(id: id, leftPadding: 8);
+  ReplyTile(id) : super(id, leftPadding: 8);
 
   @override
-  Widget bottom() {
-    this.info['bottoms'][2] = null;
-    return super.bottom();
+  Widget bottomArea() {
+    this.node['bottoms'][2] = null;
+    return super.bottomArea();
   }
 
   @override

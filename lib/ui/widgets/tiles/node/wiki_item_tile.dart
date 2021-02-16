@@ -3,17 +3,17 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
 class WikiItemTile extends NodeBaseTile {
-  WikiItemTile({@required id}) : super(id: id, noProfile: true);
+  WikiItemTile(id) : super(id, noProfile: true);
 
   @override
   Widget bottom() {
-    this.info['bottoms'][1] = null;
-    return super.bottom();
+    this.node['bottoms'][1] = null;
+    return super.bottomArea();
   }
 
   @override
   Widget topText() {
-    return Text(this.info['title'],
+    return Text(this.node['title'],
         style: AppTheme.getFont(
             color: AppTheme.colors.support,
             fontSize: AppTheme.fontSizes.regular,
@@ -22,7 +22,7 @@ class WikiItemTile extends NodeBaseTile {
 
   @override
   Widget followText() {
-    return Text(this.info['description'],
+    return Text(this.node['description'],
         overflow: TextOverflow.ellipsis,
         style: AppTheme.getFont(
             color: AppTheme.colors.semiSupport,

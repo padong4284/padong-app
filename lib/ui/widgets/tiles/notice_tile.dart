@@ -64,7 +64,7 @@ class _NoticeTileState extends State<NoticeTile> {
       Container(height: 2, color: AppTheme.colors.support),
       ...Iterable<int>.generate(this.isFolded ? 2 : widget.notices.length)
           .map(
-            (idx) => _NoticeTile(id: widget.notices[idx]),
+            (idx) => _NoticeTile(widget.notices[idx]),
           )
           .toList()
     ]);
@@ -72,7 +72,7 @@ class _NoticeTileState extends State<NoticeTile> {
 }
 
 class _NoticeTile extends NodeBaseTile {
-  _NoticeTile({@required id}) : super(id: id, noProfile: true);
+  _NoticeTile(id) : super(id, noProfile: true);
 
   @override
   Widget bottom() {

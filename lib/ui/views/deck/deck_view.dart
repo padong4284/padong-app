@@ -9,8 +9,8 @@ class DeckView extends StatelessWidget {
     return SafePaddingTemplate(
       children: [
         Text('Deck View'),
-        UserProfileButton(username: 'JTJ', position: UsernamePosition.RIGHT_CENTER),
-        UserProfileButton(username: 'JTJ', position: UsernamePosition.BOTTOM)
+        UserProfileButton(username: 'kod0402', position: UsernamePosition.RIGHT_CENTER),
+        UserProfileButton(username: 'kod0402', position: UsernamePosition.BOTTOM)
       ],
     );
   }

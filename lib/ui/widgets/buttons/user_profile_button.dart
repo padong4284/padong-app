@@ -5,11 +5,9 @@ import 'package:padong/ui/theme/app_theme.dart';
 class UserProfileButton extends StatelessWidget {
   final String username;
   final UsernamePosition position;
-  final Color textColor;
-  final Function callback;
+  final double size;
 
-  UserProfileButton({this.username, this.position, Color color, this.callback})
-      : this.textColor = color ?? AppTheme.colors.support;
+  UserProfileButton({this.username, this.position, this.size = 64});
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +21,26 @@ class UserProfileButton extends StatelessWidget {
 
   Widget _buildUserIconButton() {
     return InkWell(
-      onTap: this.callback,
-      child: CircleAvatar(
-        radius: 35,
-        // TODO: use fire storage get emblem
-        // backgroundImage: NetworkImage(_profileImageURL)
-        // https://here4you.tistory.com/235
-        backgroundColor: AppTheme.colors.lightSupport,
-      )
-    );
+        onTap: (){
+          // TODO: routing to userprofile page
+        },
+        child: Container(
+            child: CircleAvatar(
+              radius: this.size/2, // size = 2*radius
+              // TODO: use fire storage get emblem
+              // backgroundImage: NetworkImage(_profileImageURL)
+              // https://here4you.tistory.com/235
+              backgroundColor: AppTheme.colors.lightSupport,
+            )));
   }
 
   Widget _buildBottomUsername() {
     return Column(
-        children: [
+      children: [
         _buildUserIconButton(),
-          _buildText(AppTheme.fontSizes.small)
-    ],
+        SizedBox(height: 5),
+        _buildText(AppTheme.fontSizes.small)
+      ],
     );
   }
 
@@ -49,21 +50,19 @@ class UserProfileButton extends StatelessWidget {
         _buildUserIconButton(),
         Container(
             alignment: Alignment.center,
-            child: _buildText(AppTheme.fontSizes.regular)
-        )
+            padding: const EdgeInsets.only(left: 10),
+            child: _buildText(AppTheme.fontSizes.regular))
       ],
     );
   }
 
   Text _buildText(double fontSize) {
-    return Text(
-        this.username,
-        style: TextStyle(
+    return Text(this.username,
+        style: AppTheme.getFont(
           fontSize: fontSize,
-          color: this.textColor,
-          height: 0.5,
+          color: position == UsernamePosition.RIGHT_CENTER
+              ? AppTheme.colors.semiSupport
+              : AppTheme.colors.support,
         ));
   }
 }
-
-

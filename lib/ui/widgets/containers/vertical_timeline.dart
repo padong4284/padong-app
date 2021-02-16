@@ -5,15 +5,16 @@ import 'package:padong/ui/widgets/cards/time_card.dart';
 class VerticalTimeline extends StatelessWidget {
   final String date; // TODO: DateTime class
   final List<String> ids;
+  final bool hideHead;
 
-  VerticalTimeline({@required this.date, @required this.ids});
+  VerticalTimeline({@required this.date, @required this.ids, this.hideHead=false});
 
   @override
   Widget build(BuildContext context) {
     int len = this.ids.length;
     return Stack(children: [
       Positioned.fill(
-          top: 35,
+          top: this.hideHead ? 15 : 35,
           left: 4,
           right: MediaQuery.of(context).size.width -
               2 * (AppTheme.horizontalPadding + 4),
@@ -22,9 +23,9 @@ class VerticalTimeline extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: Column(children: [
-            this.getTopDate(this.date),
+            this.hideHead ? SizedBox() : this.getHead(this.date),
             ...Iterable<int>.generate(len).map((idx) => Column(children: [
-                  this.getDotHead(this.ids[idx]),
+                  this.getDotTime(this.ids[idx]),
                   Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Column(children: [
@@ -36,7 +37,7 @@ class VerticalTimeline extends StatelessWidget {
     ]);
   }
 
-  Widget getTopDate(String date, {bool isToday = false}) {
+  Widget getHead(String date, {bool isToday = false}) {
     return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -56,7 +57,7 @@ class VerticalTimeline extends StatelessWidget {
             ].where((elm) => elm != null).toList());
   }
 
-  Widget getDotHead(String id) {
+  Widget getDotTime(String id) {
     return Padding(
         padding: const EdgeInsets.only(top:10, bottom: 3),
         child: Row(

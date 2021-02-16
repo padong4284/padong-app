@@ -11,50 +11,69 @@ class VerticalTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int len = this.ids.length;
-    return Container(
-        child: Column(children: [
-      this.getTopDate(this.date),
-      this.getDot(this.ids[0]),
-      Padding(padding: const EdgeInsets.only(left:15),child:TimeCard(this.ids[0]))
-    ]));
+    return Stack(children: [
+      Positioned.fill(
+          top: 35,
+          left: 4,
+          right: MediaQuery.of(context).size.width -
+              2 * (AppTheme.horizontalPadding + 4),
+          child: SizedBox(
+              width: 2, child: Container(color: AppTheme.colors.lightSupport))),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Column(children: [
+            this.getTopDate(this.date),
+            ...Iterable<int>.generate(len).map((idx) => Column(children: [
+                  this.getDotHead(this.ids[idx]),
+                  Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Column(children: [
+                        TimeCard(this.ids[idx]),
+                        TimeCard(this.ids[idx])
+                      ]))
+                ]))
+          ]))
+    ]);
   }
 
   Widget getTopDate(String date, {bool isToday = false}) {
-    return Padding(padding: const EdgeInsets.only(bottom: 10), child:Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            isToday ? 'Today' : this.date,
-            style: AppTheme.getFont(
-                color: AppTheme.colors.support,
-                fontSize: AppTheme.fontSizes.mlarge,
-                isBold: true),
-          ),
-          isToday
-              ? Text(this.date,
-                  style: AppTheme.getFont(
-                      color: AppTheme.colors.semiSupport,
-                      fontSize: AppTheme.fontSizes.regular))
-              : null
-        ].where((elm) => elm != null).toList()));
+    return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                isToday ? 'Today' : this.date,
+                style: AppTheme.getFont(
+                    color: AppTheme.colors.support,
+                    fontSize: AppTheme.fontSizes.mlarge,
+                    isBold: true),
+              ),
+              isToday
+                  ? Text(this.date,
+                      style: AppTheme.getFont(
+                          color: AppTheme.colors.semiSupport,
+                          fontSize: AppTheme.fontSizes.regular))
+                  : null
+            ].where((elm) => elm != null).toList());
   }
 
-  Widget getDot(String id) {
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(5.5),
-          child:
-              Container(width: 11, height: 11, color: AppTheme.colors.primary),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Text('12:0' + id, // TODO: get time by id
-              style: AppTheme.getFont(
-                  color: AppTheme.colors.semiSupport,
-                  fontSize: AppTheme.fontSizes.regular)),
-        )
-      ],
-    );
+  Widget getDotHead(String id) {
+    return Padding(
+        padding: const EdgeInsets.only(top:10, bottom: 3),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Container(
+                  width: 12, height: 12, color: AppTheme.colors.primary),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text('12:0' + id, // TODO: get time by id
+                  style: AppTheme.getFont(
+                      color: AppTheme.colors.semiSupport,
+                      fontSize: AppTheme.fontSizes.regular)),
+            )
+          ],
+        ));
   }
 }

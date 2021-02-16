@@ -11,6 +11,11 @@ enum ButtonSize {
   SMALL,
 }
 
+enum UsernamePosition {
+  BOTTOM,
+  RIGHT_CENTER
+}
+
 enum InputType {
   ROUNDED,
   PLANE,

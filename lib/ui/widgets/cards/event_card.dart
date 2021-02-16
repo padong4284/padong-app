@@ -4,6 +4,7 @@ import 'package:padong/ui/widgets/cards/base_card.dart';
 
 Map<String, dynamic> getEvent(String id) {
   return {
+    'title': 'Birthday',
     'timeRange': '00:00 ~ 24:00',
     'date': '03/21/2021',
     'rate': 4.5,

@@ -33,9 +33,9 @@ class MainView extends StatelessWidget {
                   .map((idx) => PostCard(idx.toString()))
                   .toList()),
           SwipeDeck(children: [
-            SummaryCard('1', title: 'Title1'),
-            SummaryCard('2', title: 'Title2'),
-            SummaryCard('3', title: 'Title3')
+            SummaryCard('1'),
+            SummaryCard('2'),
+            SummaryCard('3')
           ]),
           HorizontalScroller(
               padding: 3.0,

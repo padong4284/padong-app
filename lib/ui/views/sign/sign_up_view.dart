@@ -14,8 +14,11 @@ class _SignUpViewState extends State<SignUpView> {
     return new SignView(
         false,
         "Welcome",
-        Center(
+        Positioned(
+            bottom: 174,
             child: Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width, child: Container(
                 width: 280,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -57,6 +60,6 @@ class _SignUpViewState extends State<SignUpView> {
                           height: 38.0,
                           child:
                               Input(hintText: 'Email', type: InputType.ROUNDED))
-                    ]))));
+                    ])))));
   }
 }

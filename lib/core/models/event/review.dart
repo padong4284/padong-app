@@ -1,7 +1,7 @@
 import 'package:padong/core/models/deck/post.dart';
 
 /*
-* ModelEvent's parentNodeId is ModelTable
+* ModelReview's parentNodeId is ModelLecture
 * */
 
 class ModelReview extends ModelPost {

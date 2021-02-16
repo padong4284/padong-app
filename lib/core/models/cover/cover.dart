@@ -1,7 +1,7 @@
 import 'package:padong/core/models/deck/deck.dart';
 
 /*
-* ModelTable's parentNodeId is ModelUser
+* ModelCover's parentNodeId is ModelUniversity
 * */
 
 class ModelCover extends ModelDeck {

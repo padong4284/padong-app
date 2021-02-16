@@ -1,7 +1,7 @@
 import 'package:padong/core/models/deck/board.dart';
 
 /*
-* ModelWiki's parentNodeId is cover
+* ModelWiki's parentNodeId is ModelCover
 * */
 
 class ModelWiki extends ModelBoard {

@@ -1,5 +1,8 @@
 import 'package:padong/core/models/node.dart';
 
+/*
+* ModelLike's parentNodeId is ModelPost
+* */
 class ModelLike extends ModelNode {
   ModelLike({
     id,

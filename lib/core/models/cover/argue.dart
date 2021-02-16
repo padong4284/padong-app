@@ -5,12 +5,11 @@ import 'package:padong/core/models/deck/reply.dart';
 * */
 
 class ModelArgue extends ModelReply {
-  int score;
-
+  bool isClosed;
   ModelArgue({
     id,
     title, description,
-    this.score,
+    this.isClosed,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(id: id,
@@ -19,10 +18,14 @@ class ModelArgue extends ModelReply {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelArgue.fromMap(Map snapshot,String id) :
+      this.isClosed = snapshot['isClosed'] ?? false,
         super.fromMap(snapshot, id);
 
   toJson() {
-    return super.toJson();
+    return {
+      ...super.toJson(),
+      "isClosed":this.isClosed
+    };
   }
 
 }

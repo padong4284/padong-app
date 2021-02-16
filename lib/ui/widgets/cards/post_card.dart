@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 
+Map<String, String> getNode(String id) {
+  return {'title': 'Title' + id, 'description': "It's sample description"};
+}
+
 class PostCard extends StatelessWidget {
   final String _id; // node's _id
-  final String title;
-  final String description;
+  final Map<String, String> node;
 
-  PostCard(id, {this.title, this.description}) : this._id = id;
+  PostCard(id)
+      : this.node = getNode(id),
+        this._id = id;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +20,7 @@ class PostCard extends StatelessWidget {
         onTap: () {},
         // TODO: Routing to Post
         child: ConstrainedBox(
-            constraints: BoxConstraints(
-                maxWidth: 140,
-                maxHeight: 220),
+            constraints: BoxConstraints(maxWidth: 140, maxHeight: 220),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
@@ -38,10 +41,11 @@ class PostCard extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     margin: const EdgeInsets.only(
                         top: 10.0, left: 10.0, right: 10.0),
-                    child: Text('Title', // TODO: this.title
+                    child: Text(this.node['title'],
                         style: AppTheme.getFont(
                             color: AppTheme.colors.fontPalette[2],
-                            fontSize: AppTheme.fontSizes.regular, isBold: true))),
+                            fontSize: AppTheme.fontSizes.regular,
+                            isBold: true))),
                 Container(
                     alignment: Alignment.centerLeft,
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),

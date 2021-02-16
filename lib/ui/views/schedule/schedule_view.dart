@@ -10,10 +10,11 @@ class ScheduleView extends StatelessWidget {
       children: [
         VerticalTimeline(
             indexs: Iterable<int>.generate(10)
-                .map((idx) => idx.toString())
+                .map((idx) => '12/30/202' + idx.toString())
                 .toList(),
-            children:
-                Iterable<int>.generate(10).map((idx) => EventCard('1234')).toList())
+            children: Iterable<int>.generate(10)
+                .map((idx) => EventCard('1234'))
+                .toList())
       ],
     );
   }

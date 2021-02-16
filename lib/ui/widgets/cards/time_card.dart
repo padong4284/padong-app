@@ -51,6 +51,6 @@ class TimeCard extends StatelessWidget {
   }
 
   String getTerm() {
-    return ' (90min)';
+    return ' (90min)'; // TODO: get Term from TimeRange
   }
 }

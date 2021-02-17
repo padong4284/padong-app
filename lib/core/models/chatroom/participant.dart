@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 import 'package:padong/core/models/chatroom/role.dart';
 import 'package:padong/core/models/node.dart';
 

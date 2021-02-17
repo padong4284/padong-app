@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 import 'package:padong/core/models/deck/attachment.dart';
 import 'package:padong/core/models/title_node.dart';
 /*

@@ -2,7 +2,7 @@
 
 /*
 * TimeRange represent when the event starts and how long it lasts */
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 
 class TimeRange {
 

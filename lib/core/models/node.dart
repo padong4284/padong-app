@@ -1,6 +1,6 @@
 
 
-import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
 import 'package:padong/core/models/pip.dart';
 
 class ModelNode {

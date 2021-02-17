@@ -7,10 +7,12 @@ class ModelUser extends ModelNode {
   String userNickName;
   String userId;
   String userEmail;
+  String profileImage;
 
   ModelUser({
     id,
     @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
+    @required this.profileImage,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(

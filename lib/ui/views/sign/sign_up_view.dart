@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'sign_view.dart';
-import '../../widgets/input.dart';
-import '../../shared/types.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/input.dart';
+import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/views/sign/sign_view.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -20,7 +21,8 @@ class _SignUpViewState extends State<SignUpView> {
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 child: Container(
-                    width: 280,
+                    width: MediaQuery.of(context).size.width -
+                        2 * (AppTheme.horizontalPadding + 30),
                     child: Column(children: [
                       Container(
                           margin: EdgeInsets.only(top: 270.0),

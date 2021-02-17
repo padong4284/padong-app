@@ -8,6 +8,7 @@ class TimeRange {
 
   DateTime startTime;
   Duration duration;
+  DateTime get endTime => startTime.add(duration);
 
   TimeRange({
     @required this.startTime,

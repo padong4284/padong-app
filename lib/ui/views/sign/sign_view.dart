@@ -192,7 +192,10 @@ class _SignViewState extends State<SignView>
                   child: TranspButton(
                       title: 'Forgot Password?',
                       color: AppTheme.colors.semiPrimary,
-                      buttonSize: ButtonSize.REGULAR)),
+                      buttonSize: ButtonSize.REGULAR,
+                      callback: () {
+                        Navigator.pushNamed(context, '/forgot');
+                      })),
             ]));
   }
 }

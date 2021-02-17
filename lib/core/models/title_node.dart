@@ -15,7 +15,7 @@ class ModelTitleNode extends ModelNode {
       pip,
       createdAt,
       deletedAt,
-      @required modifiedAt})
+      modifiedAt})
       : super(
             id: id,
             parentNodeId: parentNodeId,

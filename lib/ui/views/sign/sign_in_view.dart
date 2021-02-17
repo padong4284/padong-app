@@ -22,7 +22,6 @@ class _SignInViewState extends State<SignInView> {
                 child: Container(
                     width: 280,
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                               height: 38.0,

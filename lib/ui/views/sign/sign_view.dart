@@ -121,7 +121,7 @@ class _SignViewState extends State<SignView>
               padding: EdgeInsets.only(
                   right: 50.0,
                   bottom:
-                      widget.isSignIn ? 0 : height / 2 + 35 - bottomPadding),
+                      widget.isSignIn ? 60 : height / 2 + 35 - bottomPadding),
               alignment: Alignment.centerRight,
               child: Text(widget.welcomeMsg,
                   textAlign: TextAlign.right,

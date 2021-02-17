@@ -4,8 +4,8 @@ import 'package:padong/core/models/deck/post.dart';
 * ModelMemo's parentNodeId is ModelTable
 * */
 
-class ModelEvent extends ModelPost {
-  ModelEvent({
+class ModelMemo extends ModelPost {
+  ModelMemo({
     id,
     title, description,
     attachments, anonymity,
@@ -17,7 +17,7 @@ class ModelEvent extends ModelPost {
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
-  ModelEvent.fromMap(Map snapshot,String id) :
+  ModelMemo.fromMap(Map snapshot,String id) :
         super.fromMap(snapshot, id);
 
   toJson() {

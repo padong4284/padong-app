@@ -75,7 +75,7 @@ class _NoticeTile extends NodeBaseTile {
   _NoticeTile(id) : super(id, noProfile: true);
 
   @override
-  Widget bottom() {
+  Widget bottomArea() {
     return SizedBox(height: 10);
   }
 }

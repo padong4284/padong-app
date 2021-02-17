@@ -6,7 +6,7 @@ class WikiItemTile extends NodeBaseTile {
   WikiItemTile(id) : super(id, noProfile: true);
 
   @override
-  Widget bottom() {
+  Widget bottomArea() {
     this.node['bottoms'][1] = null;
     return super.bottomArea();
   }

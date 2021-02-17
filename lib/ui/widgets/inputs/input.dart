@@ -23,9 +23,10 @@ class Input extends StatelessWidget {
       this.isMultiline = false});
 
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     Widget input;
     if (this.type == InputType.ROUNDED) {
-      input = this._buildRoundedInput();
+      input = this._buildRoundedInput(node);
     } else if (this.type == InputType.UNDERLINE) {
       input = this._buildOtherInput();
     } else {
@@ -41,13 +42,13 @@ class Input extends StatelessWidget {
               top: -5,
               child: this.icon == null
                   ? SizedBox.shrink()
-                  : IconButton(
-                      onPressed: this.onPressIcon, // callback
+                  : IconButton( // callback with release
+                      onPressed: () => [this.onPressIcon, node.nextFocus()],
                       icon: this.icon))
         ]));
   }
 
-  Widget _buildRoundedInput() {
+  Widget _buildRoundedInput(node) {
     double fontSize = this.isMultiline
         ? AppTheme.fontSizes.regular
         : AppTheme.fontSizes.mlarge;
@@ -74,7 +75,9 @@ class Input extends StatelessWidget {
             filled: true,
             fillColor: AppTheme.colors.lightSupport,
             border: this.getOutline(),
-            focusedBorder: this.getOutline(isFocused: true)));
+            focusedBorder: this.getOutline(isFocused: true)),
+        textInputAction: this.isMultiline ? null : TextInputAction.next,
+        onEditingComplete: () => node.nextFocus());
   }
 
   Widget _buildOtherInput({bool plain = false}) {

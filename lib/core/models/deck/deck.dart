@@ -1,15 +1,15 @@
 
-import 'package:padong/core/models/title_node.dart';
+import 'package:padong/core/models/node.dart';
+
 
 /*
 * ModelDeck's parentNodeId is ModelUniversity
 * */
-class ModelDeck extends ModelTitleNode {
+class ModelDeck extends ModelNode {
 
-  ModelDeck({id, title, description, parentNodeId, ownerId, pip, createdAt, deletedAt,
+  ModelDeck({id, parentNodeId, ownerId, pip, createdAt, deletedAt,
     modifiedAt}):
         super(id: id,
-          title:title, description: description,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

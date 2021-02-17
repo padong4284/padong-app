@@ -13,7 +13,7 @@ enum ButtonSize {
 
 enum UsernamePosition {
   BOTTOM,
-  RIGHT_CENTER
+  RIGHT_CENTER,
 }
 
 enum InputType {
@@ -30,5 +30,12 @@ enum SwitchButtonType {
 
 enum FriendTileType {
   LIST,
-  INVITE
+  INVITE,
+}
+
+enum BottomSenderType {
+  ARGUE,
+  REVIEW,
+  REPLY,
+  CHAT,
 }

@@ -9,6 +9,7 @@ class Input extends StatelessWidget {
   final Function onPressIcon;
   final void Function(String str) onChanged;
   final double width;
+  final double iconTopPosition;
   final bool isMultiline;
   final EdgeInsets margin;
 
@@ -20,6 +21,7 @@ class Input extends StatelessWidget {
       this.onChanged,
       this.width,
       this.margin,
+      this.iconTopPosition = 0,
       this.isMultiline = false});
 
   Widget build(BuildContext context) {
@@ -39,10 +41,11 @@ class Input extends StatelessWidget {
           input,
           Positioned(
               right: 0,
-              top: -5,
+              top: -6 + this.iconTopPosition,
               child: this.icon == null
                   ? SizedBox.shrink()
-                  : IconButton( // callback with release
+                  : IconButton(
+                      // callback with release
                       onPressed: () => [this.onPressIcon, node.nextFocus()],
                       icon: this.icon))
         ]));

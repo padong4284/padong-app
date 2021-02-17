@@ -31,8 +31,9 @@ class SafePaddingTemplate extends StatelessWidget {
                   this.title.length > 0 ? this._topTitle() : null,
                   ...this.children
                 ].where((elm) => elm != null).toList()),
-          ),
-          Align(alignment: Alignment.bottomCenter, child:this.floatingBottomBar ?? SizedBox.shrink())
+          ),Align(
+                  alignment: Alignment.bottomCenter,
+                  child: this.floatingBottomBar ?? SizedBox.shrink())
         ])));
   }
 

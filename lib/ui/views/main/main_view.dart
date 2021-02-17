@@ -10,6 +10,12 @@ import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 
+import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/reply_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/re_reply_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/wiki_item_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/review_tile.dart';
+
 class MainView extends StatelessWidget {
   final bool isPMain;
 
@@ -33,9 +39,9 @@ class MainView extends StatelessWidget {
                   .map((idx) => PostCard(idx.toString()))
                   .toList()),
           SwipeDeck(children: [
-            SummaryCard('1', title: 'Title1'),
-            SummaryCard('2', title: 'Title2'),
-            SummaryCard('3', title: 'Title3')
+            SummaryCard('1'),
+            SummaryCard('2'),
+            SummaryCard('3')
           ]),
           HorizontalScroller(
               padding: 3.0,
@@ -46,6 +52,11 @@ class MainView extends StatelessWidget {
         BoardListTile(
             boards: ['Global', 'Public', 'Internal'],
             icons: [Icons.cloud, Icons.public, Icons.badge]),
+        PostTile('0321'),
+        ReplyTile('0321'),
+        ReReplyTile('0321'),
+        WikiItemTile('0321'),
+        ReviewTile('0321'),
       ],
     );
   }

@@ -8,11 +8,12 @@ class ModelUser extends ModelNode {
   String userId;
   String userEmail;
   String profileImage;
+  bool isVerified;
 
   ModelUser({
     id,
     @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
-    @required this.profileImage,
+    @required this.profileImage, @required this.isVerified,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
@@ -25,6 +26,7 @@ class ModelUser extends ModelNode {
         this.userNickName = snapshot['userNickName'] ?? "",
         this.userId = snapshot['userId'] ?? "",
         this.userEmail = snapshot['userEmail'] ?? "",
+        this.isVerified = snapshot['isVerified'] ?? false,
         super.fromMap(snapshot, id);
 
   toJson() {
@@ -34,6 +36,7 @@ class ModelUser extends ModelNode {
       'userNickName': this.userNickName,
       'userId': this.userId,
       'userEmail': this.userEmail,
+      'isVerified': this.isVerified,
     };
   }
 

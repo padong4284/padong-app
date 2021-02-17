@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../theme/app_theme.dart';
-import '../../shared/types.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/shared/types.dart';
 
 class Input extends StatelessWidget {
   final hintText;
@@ -34,7 +34,17 @@ class Input extends StatelessWidget {
     return Container(
         width: this.width,
         margin: this.margin ?? const EdgeInsets.all(0),
-        child: input);
+        child: Stack(children: [
+          input,
+          Positioned(
+              right: 0,
+              top: -5,
+              child: this.icon == null
+                  ? SizedBox.shrink()
+                  : IconButton(
+                      onPressed: this.onPressIcon, // callback
+                      icon: this.icon))
+        ]));
   }
 
   Widget _buildRoundedInput() {
@@ -50,21 +60,21 @@ class Input extends StatelessWidget {
         decoration: InputDecoration(
             isDense: true,
             contentPadding: EdgeInsets.only(
-                left: this.isMultiline ? 20.0 : 28.0, top: 9, bottom: 9),
+                left: this.isMultiline ? 20.0 : 28.0,
+                top: 9,
+                bottom: 9,
+                right: this.icon != null
+                    ? 45
+                    : this.isMultiline
+                        ? 20.0
+                        : 28.0),
             hintText: this.hintText,
             hintStyle: AppTheme.getFont(
                 color: AppTheme.colors.semiSupport, fontSize: fontSize),
             filled: true,
             fillColor: AppTheme.colors.lightSupport,
             border: this.getOutline(),
-            focusedBorder: this.getOutline(isFocused: true),
-            suffixIcon: this.icon == null
-                ? SizedBox.shrink()
-                : IconButton(
-                    onPressed: this.onPressIcon, // callback
-                    icon: this.icon),
-            suffixIconConstraints:
-                BoxConstraints(maxWidth: 30, maxHeight: 30)));
+            focusedBorder: this.getOutline(isFocused: true)));
   }
 
   Widget _buildOtherInput({bool plain = false}) {

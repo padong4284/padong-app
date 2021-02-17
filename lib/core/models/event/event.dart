@@ -13,10 +13,6 @@ enum TIME_CATEGORY{
   MONTHLY,
   WEEKLY
 }
-
-/*
-* ModelEvent's parentNodeId is ModelUser
-* */
 class ModelEvent extends ModelBoard {
   TIME_CATEGORY timeCategory;
   List<TimeRange> times;

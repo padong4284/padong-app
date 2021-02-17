@@ -1,3 +1,5 @@
+
+import 'package:meta/meta.dart';
 import 'package:padong/core/models/deck/board.dart';
 import 'package:padong/core/models/event/time_range.dart';
 
@@ -22,8 +24,8 @@ class ModelEvent extends ModelBoard {
   ModelEvent({
     id,
     title, description,
-    this.timeCategory,
-    this.times,
+    @required this.timeCategory,
+    @required this.times,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
       super(id: id,

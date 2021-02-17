@@ -10,7 +10,7 @@ class ModelOpinion extends ModelReply {
 
   ModelOpinion({
     id,
-    title, description,
+    description,
     @required this.score,
     anonymity,
     parentNodeId, ownerId, pip,

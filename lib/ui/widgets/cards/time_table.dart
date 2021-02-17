@@ -3,6 +3,14 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 
 double blockWidth;
+List<Color> blockColors = [
+  AppTheme.colors.primary,
+  AppTheme.colors.semiPrimary,
+  AppTheme.colors.support,
+  AppTheme.colors.semiSupport,
+  AppTheme.colors.lightSupport,
+  AppTheme.colors.pointYellow,
+];
 
 class TimeTable extends StatelessWidget {
   // 1 hour Block's height: 42,
@@ -57,7 +65,7 @@ class TimeTable extends StatelessWidget {
                 width: blockWidth - 2,
                 height: 42 * (durationMin / 60),
                 child: Container(
-                  color: AppTheme.colors.pointYellow,
+                  color: blockColors[title.length % 6], // TODO: random color
                   padding: const EdgeInsets.all(2),
                   child: Text(
                     title,

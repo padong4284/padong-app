@@ -60,8 +60,7 @@ class NodeBase extends StatelessWidget {
   Widget topText() {
     return Text(this.node['owner'],
         style: AppTheme.getFont(
-            color: AppTheme.colors.semiSupport,
-            fontSize: AppTheme.fontSizes.regular));
+            color: AppTheme.colors.semiSupport));
   }
 
   Widget time() {
@@ -75,7 +74,6 @@ class NodeBase extends StatelessWidget {
     return Text(this.node['title'],
         style: AppTheme.getFont(
             color: AppTheme.colors.support,
-            fontSize: AppTheme.fontSizes.regular,
             isBold: true));
   }
 

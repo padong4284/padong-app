@@ -4,19 +4,12 @@ import 'package:padong/ui/widgets/cards/base_card.dart';
 
 double blockWidth;
 
-Map<String, String> getNode(String id) {
-  return {'title': 'Title' + id, 'description': "It's sample description"};
-}
-
 class TimeTable extends StatelessWidget {
   // 1 hour Block's height: 42,
   // width: (MediaQuery.of(context).size.width - 2*AppTheme.horizontalPadding -27)/5
   final String _id; // node's _id
-  final Map<String, String> node;
 
-  TimeTable(id)
-      : this.node = getNode(id),
-        this._id = id;
+  TimeTable(id) : this._id = id;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +17,9 @@ class TimeTable extends StatelessWidget {
     int endHour = 16;
 
     blockWidth = (MediaQuery.of(context).size.width -
-            2 * AppTheme.horizontalPadding - 35) / 5;
+            2 * AppTheme.horizontalPadding -
+            35) /
+        5;
 
     List<Widget> hourLines = [];
     for (int h = startHour; h < endHour; h++) {
@@ -39,25 +34,38 @@ class TimeTable extends StatelessWidget {
         Container(height: 2, color: AppTheme.colors.semiSupport),
         ...hourLines,
       ]),
-      this.getBlock(0, 9, 0, 60, startHour),
-      this.getBlock(1, 10, 0, 60, startHour),
-      this.getBlock(2, 11, 0, 60, startHour),
-      this.getBlock(3, 12, 0, 60, startHour),
-      this.getBlock(4, 13, 0, 60, startHour),
+      this.getBlock('Algorithm', 0, 9, 0, 120, startHour),
+      this.getBlock('Data Structure', 1, 10, 0, 100, startHour),
+      this.getBlock('System Programming', 2, 11, 0, 80, startHour),
+      this.getBlock('Interview', 3, 12, 0, 60, startHour),
+      this.getBlock('Title', 4, 13, 0, 40, startHour),
     ]);
   }
 
-  Widget getBlock(
-      int day, int hour, int minute, int durationMin, int startHour) {
+  Widget getBlock(String title, int day, int hour, int minute, int durationMin,
+      int startHour) {
     // day {Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4}
     // duration: minute
     return Positioned(
-        left: 30 + blockWidth * day,
+        left: 31 + blockWidth * day,
         top: 31 + 42 * (hour - startHour + minute / 60),
-        child: SizedBox(
-            width: blockWidth,
-            height: 42 * (durationMin / 60),
-            child: Container(color: AppTheme.colors.pointYellow)));
+        child: InkWell(
+            onTap: () {
+              // TODO: routing Lecture
+            },
+            child: SizedBox(
+                width: blockWidth - 2,
+                height: 42 * (durationMin / 60),
+                child: Container(
+                  color: AppTheme.colors.pointYellow,
+                  padding: const EdgeInsets.all(2),
+                  child: Text(
+                    title,
+                    style: AppTheme.getFont(
+                        color: AppTheme.colors.fontPalette[4],
+                        fontSize: AppTheme.fontSizes.small),
+                  ),
+                ))));
   }
 
   Widget getWeekDays() {
@@ -86,8 +94,8 @@ class TimeTable extends StatelessWidget {
     for (int _ = 0; _ < 5; _++) {
       hourLine.add(Container(
           width: 2, height: height, color: AppTheme.colors.lightSupport));
-      hourLine
-          .add(Container(width: blockWidth - 2, child: SizedBox(height: height)));
+      hourLine.add(
+          Container(width: blockWidth - 2, child: SizedBox(height: height)));
     }
     return Row(children: [
       Container(

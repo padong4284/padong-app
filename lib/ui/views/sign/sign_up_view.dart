@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'sign_view.dart';
-import '../../widgets/input.dart';
-import '../../shared/types.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/input.dart';
+import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/views/sign/sign_view.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -14,12 +15,15 @@ class _SignUpViewState extends State<SignUpView> {
     return new SignView(
         false,
         "Welcome",
-        Center(
+        Positioned(
+            bottom: 140 + MediaQuery.of(context).padding.bottom,
             child: Container(
-                width: 280,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                    width: MediaQuery.of(context).size.width -
+                        2 * (AppTheme.horizontalPadding + 30),
+                    child: Column(children: [
                       Container(
                           margin: EdgeInsets.only(top: 270.0),
                           height: 38.0,
@@ -37,7 +41,9 @@ class _SignUpViewState extends State<SignUpView> {
                               hintText: 'Repeat Password',
                               type: InputType.ROUNDED)),
                       Container(
-                          margin: EdgeInsets.only(top: 50.0),
+                          margin: EdgeInsets.only(
+                              top:
+                                  20.0 + MediaQuery.of(context).padding.bottom),
                           height: 38.0,
                           child:
                               Input(hintText: 'Name', type: InputType.ROUNDED)),
@@ -57,6 +63,6 @@ class _SignUpViewState extends State<SignUpView> {
                           height: 38.0,
                           child:
                               Input(hintText: 'Email', type: InputType.ROUNDED))
-                    ]))));
+                    ])))));
   }
 }

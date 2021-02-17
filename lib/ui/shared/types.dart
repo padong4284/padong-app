@@ -27,3 +27,8 @@ enum SwitchButtonType {
   SHADOW,
   TOOLTIP,
 }
+
+enum FriendTileType {
+  LIST,
+  INVITE
+}

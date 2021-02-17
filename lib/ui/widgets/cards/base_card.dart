@@ -10,6 +10,7 @@ class BaseCard extends StatelessWidget {
   final List<Widget> children;
   final Function() tabCallback;
   final Function() moreCallback;
+  final double padding;
 
   BaseCard(
       {@required this.children,
@@ -17,7 +18,8 @@ class BaseCard extends StatelessWidget {
       this.moreCallback,
       this.height,
       this.width,
-      this.moreText});
+      this.moreText,
+      this.padding=17});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class BaseCard extends StatelessWidget {
             child: Container(
                 width: this.width,
                 height: this.height,
-                padding: const EdgeInsets.all(17),
+                padding: EdgeInsets.all(this.padding),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

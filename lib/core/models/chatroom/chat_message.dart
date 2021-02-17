@@ -9,6 +9,7 @@ import 'package:padong/core/models/node.dart';
 class ModelChatMessage extends ModelNode {
   String message;
   ModelAttachment attachment;
+
   ModelChatMessage({
     id,
     @required this.message,
@@ -21,8 +22,9 @@ class ModelChatMessage extends ModelNode {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelChatMessage.fromMap(Map snapshot,String id) :
-        this.message = snapshot['message'] ?? "",
-        this.attachment = snapshot['attachment'] ?? null,
+        message = snapshot['message'] ?? "",
+        attachment = snapshot['attachment'] ?? null,
+        assert(message.length > 0 || attachment != null),
         super.fromMap(snapshot, id);
 
   toJson() {

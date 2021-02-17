@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
-import 'package:padong/ui/widgets/title_bar.dart';
+import 'package:padong/ui/widgets/inputs/input.dart';
 
 class WikiCoverView extends StatelessWidget {
   @override
@@ -12,14 +13,13 @@ class WikiCoverView extends StatelessWidget {
       children: [
         UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
         this.emblemArea(),
-        SizedBox(height: 50),
-        TitleBar('Title', link: 'url1234567890'),
-        SizedBox(height: 50),
-        TitleBar('Title', moreCallback: (){}),
-        SizedBox(height: 50),
-        TitleBar('Title'),
-        SizedBox(height: 50),
-        TitleBar('Title', isInputHead: true),
+        Input(type: InputType.PLANE, hintText: 'Hint'),
+        SizedBox(height: 20),
+        Input(type: InputType.UNDERLINE, hintText: 'Hint'),
+        SizedBox(height: 20),
+        Input(type: InputType.ROUNDED, hintText: 'Hint'),
+        SizedBox(height: 20),
+        Input(type: InputType.ROUNDED, hintText: 'Hint', isMultiline: true),
       ],
     );
   }

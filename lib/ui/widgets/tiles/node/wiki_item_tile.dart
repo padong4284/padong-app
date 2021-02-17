@@ -16,7 +16,6 @@ class WikiItemTile extends NodeBaseTile {
     return Text(this.node['title'],
         style: AppTheme.getFont(
             color: AppTheme.colors.support,
-            fontSize: AppTheme.fontSizes.regular,
             isBold: true));
   }
 
@@ -25,7 +24,6 @@ class WikiItemTile extends NodeBaseTile {
     return Text(this.node['description'],
         overflow: TextOverflow.ellipsis,
         style: AppTheme.getFont(
-            color: AppTheme.colors.semiSupport,
-            fontSize: AppTheme.fontSizes.regular));
+            color: AppTheme.colors.semiSupport));
   }
 }

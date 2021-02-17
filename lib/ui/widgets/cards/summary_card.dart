@@ -30,8 +30,7 @@ class SummaryCard extends StatelessWidget {
               margin: const EdgeInsets.only(top: 4, bottom: 9),
               child: Text('Summary', // TODO: this.description
                   style: AppTheme.getFont(
-                      color: AppTheme.colors.fontPalette[2],
-                      fontSize: AppTheme.fontSizes.regular))),
+                      color: AppTheme.colors.fontPalette[2]))),
         ]);
   }
 }

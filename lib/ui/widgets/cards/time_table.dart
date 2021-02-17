@@ -11,52 +11,58 @@ List<Color> blockColors = [
   AppTheme.colors.lightSupport,
   AppTheme.colors.pointYellow,
 ];
+Color lineColor = AppTheme.colors.fontPalette[3];
 
 class TimeTable extends StatelessWidget {
   // 1 hour Block's height: 42,
   // width: (MediaQuery.of(context).size.width - 2*AppTheme.horizontalPadding -27)/5
   final String _id; // node's _id
+  final int startHour; // TODO: get start hour from node data
+  final int endHour;
 
-  TimeTable(id) : this._id = id;
+  TimeTable(id, {this.startHour = 9, this.endHour = 16}) : this._id = id;
 
   @override
   Widget build(BuildContext context) {
-    int startHour = 9; // TODO: get start hour from data
-    int endHour = 16;
-
     blockWidth = (MediaQuery.of(context).size.width -
             2 * AppTheme.horizontalPadding -
             35) /
         5;
 
     List<Widget> hourLines = [];
-    for (int h = startHour; h < endHour; h++) {
+    for (int h = this.startHour; h < this.endHour; h++) {
       hourLines.add(getHourLine(h));
       hourLines.add(Container(height: 2, color: AppTheme.colors.lightSupport));
     }
-    hourLines.add(getHourLine(endHour, isLast: true));
+    hourLines.add(getHourLine(this.endHour, isLast: true));
 
     return Stack(children: [
       BaseCard(padding: 0, width: 25 + blockWidth * 5, children: <Widget>[
         this.getWeekDays(),
-        Container(height: 2, color: AppTheme.colors.semiSupport),
+        Container(height: 2, color: lineColor), // horizontalLine
         ...hourLines,
       ]),
-      this.getBlock('Algorithm', 0, 9, 0, 120, startHour),
-      this.getBlock('Data Structure', 1, 10, 0, 100, startHour),
-      this.getBlock('System Programming', 2, 11, 0, 80, startHour),
-      this.getBlock('Interview', 3, 12, 0, 60, startHour),
-      this.getBlock('Title', 4, 13, 0, 40, startHour),
+      this.getVerticalLine(),
+      this.getBlock('Algorithm', 0, 9, 0, 120),
+      this.getBlock('Data Structure', 1, 10, 0, 100),
+      this.getBlock('System Programming', 2, 11, 0, 80),
+      this.getBlock('Interview', 3, 12, 0, 60),
+      this.getBlock('Title', 4, 13, 0, 40),
     ]);
   }
 
-  Widget getBlock(String title, int day, int hour, int minute, int durationMin,
-      int startHour) {
+  Widget getBlock(
+    String title,
+    int day,
+    int hour,
+    int minute,
+    int durationMin,
+  ) {
     // day {Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4}
     // duration: minute
     return Positioned(
         left: 31 + blockWidth * day,
-        top: 31 + 42 * (hour - startHour + minute / 60),
+        top: 31 + 42 * (hour - this.startHour + minute / 60),
         child: InkWell(
             onTap: () {
               // TODO: routing Lecture
@@ -94,6 +100,16 @@ class TimeTable extends StatelessWidget {
     return Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [SizedBox(width: 25), ...days]);
+  }
+
+  Widget getVerticalLine() {
+    return Positioned(
+        top: 4,
+        left: 29,
+        child: Container(
+            width: 2,
+            height: 47.0 + 42 * (this.endHour - this.startHour),
+            color: lineColor));
   }
 
   Widget getHourLine(int hour, {isLast = false}) {

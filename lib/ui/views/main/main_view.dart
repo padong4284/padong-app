@@ -60,6 +60,7 @@ class MainView extends StatelessWidget {
       ],
     );
   }
+
   AppBar _buildTopBar() {
     return AppBar(
       brightness: Brightness.light,

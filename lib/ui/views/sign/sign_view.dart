@@ -69,45 +69,47 @@ class _SignViewState extends State<SignView>
 
   @override
   Widget build(BuildContext context) {
+    double bottomPadding = MediaQuery.of(context).padding.bottom;
+    double height = MediaQuery.of(context).size.height - bottomPadding;
     return Scaffold(
         floatingActionButton: Visibility(
             visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
             child: Container(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 90.0),
-                child: FloatingActionButton(
-                  child: Icon(Icons.east, color: AppTheme.colors.base),
-                  backgroundColor: AppTheme.colors.primary,
-                  onPressed: () {
-                    if (widget.isSignIn) {
-                      // FIXME: this is implemented temporarily
-                      Navigator.pushNamed(context, '/main');
-                    } else {
-                      Navigator.pushNamed(context, '/p_main');
-                    }
-                  },
-                ))),
+                padding:
+                    EdgeInsets.only(right: 10.0, bottom: 58.0 + bottomPadding),
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Container(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
+                          style: TextStyle(
+                              fontSize: AppTheme.fontSizes.large,
+                              color: AppTheme.colors.primary))),
+                  FloatingActionButton(
+                    child: Icon(Icons.east, color: AppTheme.colors.base),
+                    backgroundColor: AppTheme.colors.primary,
+                    onPressed: () {
+                      if (widget.isSignIn) {
+                        // FIXME: this is implemented temporarily
+                        Navigator.pushNamed(context, '/main');
+                      } else {
+                        Navigator.pushNamed(context, '/p_main');
+                      }
+                    },
+                  )
+                ]))),
         body: SafeArea(
             top: false, // only Sign In & Up
             child: SingleChildScrollView(
               child: Stack(children: <Widget>[
-                SizedBox(
-                    height: MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).padding.bottom),
-                ...this.waves(),
+                ...this.waves(height, bottomPadding),
                 widget.forms,
                 Positioned(
-                    bottom: 105,
-                    right: 100,
-                    child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
-                        style: TextStyle(
-                            fontSize: AppTheme.fontSizes.large,
-                            color: AppTheme.colors.primary))),
-                Positioned(bottom: 10, left: 0, child: this.bottomArea())
+                    bottom: 10, left: 0, child: this.bottomArea(bottomPadding))
               ]),
             )));
   }
 
-  List<Widget> waves() {
+  List<Widget> waves(height, bottomPadding) {
     return [
       Hero(
         tag: 'secondaryWave',
@@ -115,8 +117,11 @@ class _SignViewState extends State<SignView>
           clipper: WaveClipper(secondaryWave),
           child: Container(
               color: AppTheme.colors.semiPrimary,
-              height: widget.isSignIn ? 700 : 400,
-              padding: const EdgeInsets.only(right: 50.0),
+              height: height,
+              padding: EdgeInsets.only(
+                  right: 50.0,
+                  bottom:
+                      widget.isSignIn ? 0 : height / 2 + 35 - bottomPadding),
               alignment: Alignment.centerRight,
               child: Text(widget.welcomeMsg,
                   textAlign: TextAlign.right,
@@ -128,22 +133,23 @@ class _SignViewState extends State<SignView>
       ),
       Hero(
           tag: 'padongTitle',
-          child:
-              this.title(AppTheme.colors.transparent, AppTheme.colors.primary)),
+          child: this.title(AppTheme.colors.transparent,
+              AppTheme.colors.primary, bottomPadding)),
       Hero(
         tag: 'primaryWave',
         child: ClipPath(
             clipper: WaveClipper(primaryWave),
-            child: this.title(AppTheme.colors.primary, AppTheme.colors.base)),
+            child: this.title(
+                AppTheme.colors.primary, AppTheme.colors.base, bottomPadding)),
       )
     ];
   }
 
-  Widget title(color, fontColor) {
+  Widget title(color, fontColor, bottomPadding) {
     return Container(
       color: color,
       height: widget.isSignIn ? 400 : 250,
-      padding: const EdgeInsets.only(left: 50.0),
+      padding: EdgeInsets.only(left: 50.0, bottom: 35 - bottomPadding),
       alignment: Alignment.centerLeft,
       child: Text('PADONG',
           style: TextStyle(
@@ -153,7 +159,7 @@ class _SignViewState extends State<SignView>
     );
   }
 
-  Widget bottomArea() {
+  Widget bottomArea(double bottomPadding) {
     return SizedBox(
         width: MediaQuery.of(context).size.width -
             (MediaQuery.of(context).padding.left +
@@ -173,13 +179,13 @@ class _SignViewState extends State<SignView>
                       callback: widget.isSignIn
                           ? () {
                               Navigator.pushNamed(context, '/sign_up');
-                              primaryWave.moveYNorm(-120);
-                              secondaryWave.moveYNorm(-300);
+                              primaryWave.moveYNorm(-155 + bottomPadding);
+                              secondaryWave.moveYNorm(-335 + bottomPadding);
                             }
                           : () {
                               Navigator.pop(context);
-                              primaryWave.moveYNorm(120);
-                              secondaryWave.moveYNorm(300);
+                              primaryWave.moveYNorm(155 - bottomPadding);
+                              secondaryWave.moveYNorm(335 - bottomPadding);
                             })),
               Padding(
                   padding: const EdgeInsets.only(right: 45, bottom: 40),

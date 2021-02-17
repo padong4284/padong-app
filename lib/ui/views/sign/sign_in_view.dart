@@ -15,24 +15,22 @@ class _SignInViewState extends State<SignInView> {
         true,
         "Welcome\nBack",
         Positioned(
-            bottom: 174,
+            bottom: 140 + MediaQuery.of(context).padding.bottom,
             child: Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 child: Container(
                     width: 280,
-                    child: Column(
-                        children: [
-                          Container(
-                              height: 38.0,
-                              child: Input(
-                                  hintText: 'ID', type: InputType.ROUNDED)),
-                          Container(
-                              margin: EdgeInsets.only(top: 10.0),
-                              height: 38.0,
-                              child: Input(
-                                  hintText: 'Password',
-                                  type: InputType.ROUNDED))
-                        ])))));
+                    child: Column(children: [
+                      Container(
+                          height: 38.0,
+                          child:
+                              Input(hintText: 'ID', type: InputType.ROUNDED)),
+                      Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          height: 38.0,
+                          child: Input(
+                              hintText: 'Password', type: InputType.ROUNDED))
+                    ])))));
   }
 }

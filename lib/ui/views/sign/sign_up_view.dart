@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/views/sign/sign_view.dart';
+import 'package:padong/ui/widgets/inputs/list_picker.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -24,9 +25,7 @@ class _SignUpViewState extends State<SignUpView> {
                     width: MediaQuery.of(context).size.width -
                         2 * (AppTheme.horizontalPadding + 30),
                     child: Column(children: [
-                      Input(
-                          margin: EdgeInsets.only(top: 10.0),
-                          hintText: 'ID'),
+                      Input(margin: EdgeInsets.only(top: 10.0), hintText: 'ID'),
                       Input(
                           margin: EdgeInsets.only(top: 10.0),
                           hintText: 'Password'),
@@ -36,15 +35,19 @@ class _SignUpViewState extends State<SignUpView> {
                       Input(
                           margin: EdgeInsets.only(top: 20.0 + paddingBottom),
                           hintText: 'Name'),
-                      Input(
+                      ListPicker(
                           margin: EdgeInsets.only(top: 10.0),
-                          hintText: 'University'),
+                          hintText: 'University',
+                          list: ['Georgia Tech']),
+                      ListPicker(
+                        margin: EdgeInsets.only(top: 10.0),
+                        hintText: 'Entrance Year',
+                        list: Iterable<int>.generate(11)
+                            .map((y) => 2011 + y)
+                            .toList(),
+                      ),
                       Input(
-                          margin: EdgeInsets.only(top: 10.0),
-                          hintText: 'Entrance Year'),
-                      Input(
-                          margin: EdgeInsets.only(top: 10.0),
-                          hintText: 'Email')
+                          margin: EdgeInsets.only(top: 10.0), hintText: 'Email')
                     ])))));
   }
 }

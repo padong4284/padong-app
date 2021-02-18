@@ -24,7 +24,13 @@ class WikiCoverView extends StatelessWidget {
         SizedBox(height: 20),
         ListPicker(hintText: 'test', list: ['hello', 'world', ':)']),
         SizedBox(height: 20),
-        ListPicker.multiple(hintText: 'test', lists: [['hello', 'world', ':)'],[3,5,7]], titles: ['String', 'Number']),
+        ListPicker.multiple(hintText: 'test', lists: [
+          ['hello', 'world', ':)'],
+          [3, 5, 7]
+        ], titles: [
+          'String',
+          'Number'
+        ]),
       ],
     );
   }

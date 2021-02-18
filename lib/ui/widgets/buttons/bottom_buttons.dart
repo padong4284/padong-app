@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 List<IconData> unclickeds = [
@@ -37,10 +38,6 @@ class BottomButtons extends StatefulWidget {
 
 class _BottomButtonsState extends State<BottomButtons> {
   List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
-  IconData getIcon(int idx) {
-    if (this.isClickeds[idx]) return clickeds[idx];
-    return unclickeds[idx];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +48,16 @@ class _BottomButtonsState extends State<BottomButtons> {
               ? null
               : Positioned(
                   left: widget.left + widget.gap * this.getGapIdx(idx),
-                  bottom: 0,
-                  child: TranspButton(
-                      buttonSize: ButtonSize.REGULAR,
-                      callback: () => {
-                            setState(() {
-                              this.isClickeds[idx] = !this.isClickeds[idx];
-                            })
-                          },
-                      icon: Icon(
-                        this.getIcon(idx),
-                        color: this.isClickeds[idx]
-                            ? clickedClrs[idx]
-                            : AppTheme.colors.support,
-                        size: 16.0,
-                      ))))
+                  bottom: 2,
+                  child: ToggleIconButton(
+                    defaultIcon: unclickeds[idx],
+                    toggleIcon: clickeds[idx],
+                    size: 16,
+                    defaultColor: AppTheme.colors.support,
+                    toggleColor: clickedClrs[idx],
+                    isToggled: this.isClickeds[idx],
+                    alignment: Alignment.bottomCenter,
+                  )))
           .where((element) => element != null),
       ...[0, 1, 2]
           .map((idx) => widget.bottoms[idx] == null

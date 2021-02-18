@@ -16,11 +16,14 @@ class ForgotView extends StatelessWidget {
         ToggleIconButton(
             defaultIcon: Icons.favorite_outline_rounded,
             toggleIcon: Icons.favorite_rounded,
-            toggleColor: AppTheme.colors.pointRed),
-      ToggleIconButton(
+            toggleColor: AppTheme.colors.pointRed,
+            isToggled: true),
+        ToggleIconButton(
           defaultIcon: Icons.bookmark_outline_rounded,
           toggleIcon: Icons.bookmark_rounded,
-          onPressed: dialogCallback(context, 'Bookmark', 'Add page to bookmarks!'),)
+          onPressed:
+              dialogCallback(context, 'Bookmark', 'Add page to bookmarks!'),
+        )
       ]),
       children: [
         LectureCard('1234'),

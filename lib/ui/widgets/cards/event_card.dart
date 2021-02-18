@@ -38,7 +38,6 @@ class EventCard extends StatelessWidget {
     return Text(this.event['timeRange'],
         style: AppTheme.getFont(
             color: AppTheme.colors.primary,
-            fontSize: AppTheme.fontSizes.regular,
             isBold: true));
   }
 
@@ -48,14 +47,12 @@ class EventCard extends StatelessWidget {
           Text(k,
               style: AppTheme.getFont(
                   color: AppTheme.colors.fontPalette[2],
-                  fontSize: AppTheme.fontSizes.regular,
                   isBold: true)),
           Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(v,
                   style: AppTheme.getFont(
-                      color: AppTheme.colors.fontPalette[2],
-                      fontSize: AppTheme.fontSizes.regular)))
+                      color: AppTheme.colors.fontPalette[2])))
         ])));
     return infoList;
   }

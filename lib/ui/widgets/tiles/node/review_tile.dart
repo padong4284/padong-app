@@ -12,8 +12,7 @@ class ReviewTile extends NodeBaseTile {
       StarRateButton(rate: this.node['rate'], size: 25, disable: true),
       Text(this.node['description'],
           style: AppTheme.getFont(
-              color: AppTheme.colors.support,
-              fontSize: AppTheme.fontSizes.regular))
+              color: AppTheme.colors.support))
     ]);
   }
 

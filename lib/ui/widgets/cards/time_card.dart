@@ -29,15 +29,13 @@ class TimeCard extends StatelessWidget {
     return BaseCard(children: [
       Text(this.isLecture ? 'Lecture' : 'Event',
           style: AppTheme.getFont(
-              color: AppTheme.colors.fontPalette[3],
-              fontSize: AppTheme.fontSizes.regular)),
+              color: AppTheme.colors.fontPalette[3])),
       Container(
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.only(bottom: 15),
           child: Text(this.event['title'],
               style: AppTheme.getFont(
                   color: AppTheme.colors.fontPalette[1],
-                  fontSize: AppTheme.fontSizes.regular,
                   isBold: true))),
       this.getTimeRange(),
     ]);
@@ -46,8 +44,7 @@ class TimeCard extends StatelessWidget {
   Text getTimeRange() {
     return Text(this.event['timeRange'] + this.getTerm(),
         style: AppTheme.getFont(
-            color: AppTheme.colors.primary,
-            fontSize: AppTheme.fontSizes.regular));
+            color: AppTheme.colors.primary));
   }
 
   String getTerm() {

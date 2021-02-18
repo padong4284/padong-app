@@ -3,7 +3,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 
 class SafePaddingTemplate extends StatelessWidget {
   final String title;
-  final AppBar appBar;
+  final PreferredSizeWidget appBar;
   final Widget floatingActionButton;
   final Widget floatingBottomBar;
   final List<Widget> children;

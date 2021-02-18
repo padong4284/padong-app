@@ -72,41 +72,26 @@ class _SignViewState extends State<SignView>
     double bottomPadding = MediaQuery.of(context).padding.bottom;
     double height = MediaQuery.of(context).size.height - bottomPadding;
     return Scaffold(
-        floatingActionButton: Visibility(
-            visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
-            child: Container(
-                padding:
-                    EdgeInsets.only(right: 10.0, bottom: 58.0 + bottomPadding),
-                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Container(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
-                          style: TextStyle(
-                              fontSize: AppTheme.fontSizes.large,
-                              color: AppTheme.colors.primary))),
-                  FloatingActionButton(
-                    child: Icon(Icons.east, color: AppTheme.colors.base),
-                    backgroundColor: AppTheme.colors.primary,
-                    onPressed: () {
-                      if (widget.isSignIn) {
-                        // FIXME: this is implemented temporarily
-                        Navigator.pushNamed(context, '/main');
-                      } else {
-                        Navigator.pushNamed(context, '/p_main');
-                      }
-                    },
-                  )
-                ]))),
-        body: SafeArea(
-            top: false, // only Sign In & Up
-            child: SingleChildScrollView(
-              child: Stack(children: <Widget>[
-                ...this.waves(height, bottomPadding),
-                widget.forms,
-                Positioned(
-                    bottom: 10, left: 0, child: this.bottomArea(bottomPadding))
-              ]),
-            )));
+        floatingActionButton: this.enterButton(bottomPadding),
+        body: GestureDetector(
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus &&
+                  currentFocus.focusedChild != null)
+                FocusManager.instance.primaryFocus.unfocus();
+            },
+            child: SafeArea(
+                top: false, // only Sign In & Up
+                child: SingleChildScrollView(
+                  child: Stack(children: <Widget>[
+                    ...this.waves(height, bottomPadding),
+                    widget.forms,
+                    Positioned(
+                        bottom: 10,
+                        left: 0,
+                        child: this.bottomArea(bottomPadding))
+                  ]),
+                ))));
   }
 
   List<Widget> waves(height, bottomPadding) {
@@ -197,5 +182,32 @@ class _SignViewState extends State<SignView>
                         Navigator.pushNamed(context, '/forgot');
                       })),
             ]));
+  }
+
+  Widget enterButton(bottomPadding) {
+    return Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+        child: Container(
+            padding: EdgeInsets.only(right: 10.0, bottom: 58.0 + bottomPadding),
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Container(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
+                      style: TextStyle(
+                          fontSize: AppTheme.fontSizes.large,
+                          color: AppTheme.colors.primary))),
+              FloatingActionButton(
+                child: Icon(Icons.east, color: AppTheme.colors.base),
+                backgroundColor: AppTheme.colors.primary,
+                onPressed: () {
+                  if (widget.isSignIn) {
+                    // FIXME: this is implemented temporarily
+                    Navigator.pushNamed(context, '/main');
+                  } else {
+                    Navigator.pushNamed(context, '/p_main');
+                  }
+                },
+              )
+            ])));
   }
 }

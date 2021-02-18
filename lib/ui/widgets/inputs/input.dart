@@ -11,6 +11,7 @@ class Input extends StatelessWidget {
   final double width;
   final double iconTopPosition;
   final bool isMultiline;
+  final bool toNext;
   final EdgeInsets margin;
 
   Input(
@@ -22,7 +23,8 @@ class Input extends StatelessWidget {
       this.width,
       this.margin,
       this.iconTopPosition = 0,
-      this.isMultiline = false});
+      this.isMultiline = false,
+      this.toNext = true});
 
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
@@ -46,7 +48,7 @@ class Input extends StatelessWidget {
                   ? SizedBox.shrink()
                   : IconButton(
                       // callback with release
-                      onPressed: () => [this.onPressIcon, node.nextFocus()],
+                      onPressed: () => [this.onPressIcon, this.toNext ? node.nextFocus(): null],
                       icon: this.icon))
         ]));
   }

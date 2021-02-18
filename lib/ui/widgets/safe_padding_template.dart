@@ -21,20 +21,27 @@ class SafePaddingTemplate extends StatelessWidget {
         appBar: this.appBar,
         floatingActionButton: this.floatingActionButton,
         body: SafeArea(
-            child: Stack(children: [
-          SingleChildScrollView(
-            padding:
-                EdgeInsets.symmetric(horizontal: AppTheme.horizontalPadding),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  this.title.length > 0 ? this._topTitle() : null,
-                  ...this.children
-                ].where((elm) => elm != null).toList()),
-          ),Align(
-                  alignment: Alignment.bottomCenter,
-                  child: this.floatingBottomBar ?? SizedBox.shrink())
-        ])));
+            child: GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus &&
+                      currentFocus.focusedChild != null)
+                    FocusManager.instance.primaryFocus.unfocus();
+                },
+                child: Stack(children: [
+                  SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppTheme.horizontalPadding),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            this.title.length > 0 ? this._topTitle() : null,
+                            ...this.children
+                          ].where((elm) => elm != null).toList())),
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: this.floatingBottomBar ?? SizedBox.shrink())
+                ]))));
   }
 
   Widget _topTitle() {

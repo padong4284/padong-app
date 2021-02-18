@@ -49,6 +49,7 @@ class _BottomSenderState extends State<BottomSender> {
                       hintText: widget.hintText,
                       isMultiline: true,
                       icon: widget.icon,
+                      toNext: false,
                       onChanged: (String msg) {
                         setState(() {
                           this.message = msg;

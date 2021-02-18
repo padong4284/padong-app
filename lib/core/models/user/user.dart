@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-
 import '../node.dart';
+
 
 class ModelUser extends ModelNode {
   String userName;
@@ -9,11 +9,12 @@ class ModelUser extends ModelNode {
   String userEmail;
   String profileImage;
   bool isVerified;
+  List<String> friendIds;
 
   ModelUser({
     id,
     @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
-    @required this.profileImage, @required this.isVerified,
+    @required this.profileImage, @required this.isVerified, @required this.friendIds,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
@@ -27,6 +28,7 @@ class ModelUser extends ModelNode {
         this.userId = snapshot['userId'] ?? "",
         this.userEmail = snapshot['userEmail'] ?? "",
         this.isVerified = snapshot['isVerified'] ?? false,
+        this.friendIds = snapshot['friendIds'] ?? [],
         super.fromMap(snapshot, id);
 
   toJson() {
@@ -37,6 +39,7 @@ class ModelUser extends ModelNode {
       'userId': this.userId,
       'userEmail': this.userEmail,
       'isVerified': this.isVerified,
+      "friendIds":this.friendIds,
     };
   }
 

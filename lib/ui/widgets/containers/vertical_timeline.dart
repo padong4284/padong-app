@@ -56,8 +56,7 @@ class VerticalTimeline extends StatelessWidget {
           isToday
               ? Text(this.date,
                   style: AppTheme.getFont(
-                      color: AppTheme.colors.semiSupport,
-                      fontSize: AppTheme.fontSizes.regular))
+                      color: AppTheme.colors.semiSupport))
               : null
         ].where((elm) => elm != null).toList());
   }
@@ -76,8 +75,7 @@ class VerticalTimeline extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10),
               child: Text(dotTime,
                   style: AppTheme.getFont(
-                      color: AppTheme.colors.semiSupport,
-                      fontSize: AppTheme.fontSizes.regular)),
+                      color: AppTheme.colors.semiSupport)),
             )
           ],
         ));

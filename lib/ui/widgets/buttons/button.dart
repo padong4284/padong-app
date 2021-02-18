@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../theme/app_theme.dart';
-import '../../shared/types.dart';
-import '../../shared/button_properties.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/shared/button_properties.dart';
 
 class Button extends StatelessWidget {
   final String title;

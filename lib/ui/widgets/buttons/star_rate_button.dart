@@ -31,8 +31,8 @@ class _StarRateButtonState extends State<StarRateButton> {
                 .map((idx) => ClipRect(
                     child: Align(
                         alignment: idx % 2 == 0
-                            ? Alignment.centerLeft
-                            : Alignment.centerRight,
+                            ? Alignment.topLeft
+                            : Alignment.topRight,
                         widthFactor: 0.5,
                         child: widget.disable
                             ? this.getIthStarIcon(idx)

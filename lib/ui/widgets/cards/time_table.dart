@@ -76,8 +76,7 @@ class TimeTable extends StatelessWidget {
                   child: Text(
                     title,
                     style: AppTheme.getFont(
-                        color: AppTheme.colors.fontPalette[4],
-                        fontSize: AppTheme.fontSizes.small),
+                        color: AppTheme.colors.fontPalette[4]),
                   ),
                 ))));
   }
@@ -94,8 +93,7 @@ class TimeTable extends StatelessWidget {
           width: blockWidth - 7,
           child: Text(day,
               style: AppTheme.getFont(
-                  color: AppTheme.colors.fontPalette[1],
-                  fontSize: AppTheme.fontSizes.regular))));
+                  color: AppTheme.colors.fontPalette[1]))));
     }
     return Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -128,8 +126,7 @@ class TimeTable extends StatelessWidget {
           height: height,
           child: Text(hour.toString(),
               style: AppTheme.getFont(
-                  color: AppTheme.colors.fontPalette[3],
-                  fontSize: AppTheme.fontSizes.regular))),
+                  color: AppTheme.colors.fontPalette[3]))),
       ...hourLine
     ]);
   }

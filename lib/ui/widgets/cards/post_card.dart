@@ -44,15 +44,13 @@ class PostCard extends StatelessWidget {
                     child: Text(this.node['title'],
                         style: AppTheme.getFont(
                             color: AppTheme.colors.fontPalette[2],
-                            fontSize: AppTheme.fontSizes.regular,
                             isBold: true))),
                 Container(
                     alignment: Alignment.centerLeft,
                     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: Text('Summary', // TODO: this.description2summary
                         style: AppTheme.getFont(
-                            color: AppTheme.colors.fontPalette[3],
-                            fontSize: AppTheme.fontSizes.regular))),
+                            color: AppTheme.colors.fontPalette[3]))),
                 BottomButtons(bottoms: [0, null, 0]),
               ]),
             )));

@@ -9,22 +9,16 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
   final String title;
+  final List<Widget> buttons;
   final bool isClose;
-  final List<IconData> buttonIcons;
-  final List<Function> buttonCallbacks;
 
   BackAppBar(
-      {Key key, this.title, this.isClose = false, buttonIcons, buttonCallbacks})
+      {Key key, this.title, this.buttons, this.isClose = false})
       : preferredSize = Size.fromHeight(kToolbarHeight),
-        assert(buttonIcons == null ||
-            (buttonIcons.length == buttonCallbacks.length)),
-        this.buttonIcons = buttonIcons != null ? buttonIcons : [],
-        this.buttonCallbacks = buttonCallbacks != null ? buttonCallbacks : [],
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int len = this.buttonIcons.length;
     return AppBar(
       brightness: Brightness.light,
       // when dark mode, using dark
@@ -48,12 +42,9 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
                   size: 25))),
       leadingWidth: 25 + AppTheme.horizontalPadding,
       actions: [
-        ...Iterable<int>.generate(len).map((idx) => SizedBox(
+        ...buttons.map((button) => SizedBox(
             width: 32.0,
-            child: IconButton(
-                icon: Icon(this.buttonIcons[idx],
-                    color: AppTheme.colors.support, size: 25),
-                onPressed: this.buttonCallbacks[idx]))),
+            child: button)),
         SizedBox(width: AppTheme.horizontalPadding)
       ],
     );

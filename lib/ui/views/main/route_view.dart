@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/widgets/padong_bottom_navigation_bar.dart';
+import 'package:padong/ui/widgets/bars/padong_bottom_navigation_bar.dart';
 
 import 'package:padong/ui/views/cover/wiki_cover_view.dart';
 import 'package:padong/ui/views/deck/deck_view.dart';

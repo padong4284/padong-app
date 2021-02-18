@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/containers/floating_bottom_bar.dart';
+import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/buttons/star_rate_button.dart';
 import 'package:padong/ui/widgets/containers/tip_container.dart';

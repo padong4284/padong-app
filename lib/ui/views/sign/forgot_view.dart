@@ -2,17 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/shared/dialog_callback.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/button.dart';
+import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/cards/lecture_card.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 import 'package:padong/ui/widgets/inputs/bottom_sender.dart';
-import 'package:padong/ui/widgets/containers/back_app_bar.dart';
+import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 
 class ForgotView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      appBar: BackAppBar(buttons: [
+      appBar: BackAppBar(
+          switchButton: SwitchButton(
+            options: ['write', 'prev'],
+          ),
+          actions: [
+            Button(
+                title: 'OK', shadow: false,
+                buttonSize: ButtonSize.SMALL,
+                borderColor: AppTheme.colors.primary)
+            /*
         ToggleIconButton(
             defaultIcon: Icons.favorite_outline_rounded,
             toggleIcon: Icons.favorite_rounded,
@@ -23,8 +34,8 @@ class ForgotView extends StatelessWidget {
           toggleIcon: Icons.bookmark_rounded,
           onPressed:
               dialogCallback(context, 'Bookmark', 'Add page to bookmarks!'),
-        )
-      ]),
+        )*/
+          ]),
       children: [
         LectureCard('1234'),
         LectureCard('1234'),

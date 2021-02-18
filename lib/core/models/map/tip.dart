@@ -13,6 +13,7 @@ class ModelTip extends ModelOpinion {
     createdAt, deletedAt, modifiedAt}):
         super(id: id,
           description: description,
+          score: score,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

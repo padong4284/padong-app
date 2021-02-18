@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/inputs/appending_input.dart';
 import 'package:padong/ui/widgets/inputs/list_picker.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
@@ -22,15 +23,7 @@ class WikiCoverView extends StatelessWidget {
         SizedBox(height: 20),
         Input(type: InputType.ROUNDED, hintText: 'Hint', isMultiline: true),
         SizedBox(height: 20),
-        ListPicker(hintText: 'test', list: ['hello', 'world', ':)']),
-        SizedBox(height: 20),
-        ListPicker.multiple(hintText: 'test', lists: [
-          ['hello', 'world', ':)'],
-          [3, 5, 7]
-        ], titles: [
-          'String',
-          'Number'
-        ]),
+        AppendingInput(input: () => new ListPicker(list: [1,2,3]))
       ],
     );
   }

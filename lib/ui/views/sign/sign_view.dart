@@ -97,6 +97,7 @@ class _SignViewState extends State<SignView>
   List<Widget> waves(height, bottomPadding) {
     return [
       Hero(
+        flightShuttleBuilder: heroFlightShuttleBuilder,
         tag: 'secondaryWave',
         child: ClipPath(
           clipper: WaveClipper(secondaryWave),
@@ -110,17 +111,19 @@ class _SignViewState extends State<SignView>
               alignment: Alignment.centerRight,
               child: Text(widget.welcomeMsg,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: AppTheme.getFont(
                       fontSize: AppTheme.fontSizes.xlarge,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.colors.support))),
+                      color: AppTheme.colors.support,
+                      isBold: true))),
         ),
       ),
       Hero(
+          flightShuttleBuilder: heroFlightShuttleBuilder,
           tag: 'padongTitle',
           child: this.title(AppTheme.colors.transparent,
               AppTheme.colors.primary, bottomPadding)),
       Hero(
+        flightShuttleBuilder: heroFlightShuttleBuilder,
         tag: 'primaryWave',
         child: ClipPath(
             clipper: WaveClipper(primaryWave),
@@ -137,10 +140,10 @@ class _SignViewState extends State<SignView>
       padding: EdgeInsets.only(left: 50.0, bottom: 35 - bottomPadding),
       alignment: Alignment.centerLeft,
       child: Text('PADONG',
-          style: TextStyle(
+          style: AppTheme.getFont(
               fontSize: AppTheme.fontSizes.giant,
-              fontWeight: FontWeight.bold,
-              color: fontColor)),
+              color: fontColor,
+              isBold: true)),
     );
   }
 
@@ -193,7 +196,7 @@ class _SignViewState extends State<SignView>
               Container(
                   padding: const EdgeInsets.only(right: 12),
                   child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
-                      style: TextStyle(
+                      style: AppTheme.getFont(
                           fontSize: AppTheme.fontSizes.large,
                           color: AppTheme.colors.primary))),
               FloatingActionButton(

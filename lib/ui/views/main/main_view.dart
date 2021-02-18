@@ -90,7 +90,7 @@ class MainView extends StatelessWidget {
             child: IconButton(
                 icon: Icon(Icons.account_circle,
                     color: AppTheme.colors.support))),
-        SizedBox(width: 25.0)
+        SizedBox(width: AppTheme.horizontalPadding)
       ],
     );
   }

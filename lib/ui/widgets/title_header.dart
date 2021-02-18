@@ -3,7 +3,7 @@ import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
-class TitleBar extends StatelessWidget {
+class TitleHeader extends StatelessWidget {
   final String title;
   final String link;
   final Function moreCallback;
@@ -13,7 +13,7 @@ class TitleBar extends StatelessWidget {
   // moreCallback -> Horizontal more
   // isInputHead -> input head
   // no option -> vertical without more
-  TitleBar(this.title, {link, moreCallback, this.isInputHead = false})
+  TitleHeader(this.title, {link, moreCallback, this.isInputHead = false})
       : assert((link == null) || (moreCallback == null)),
         this.link = link,
         this.moreCallback = moreCallback;

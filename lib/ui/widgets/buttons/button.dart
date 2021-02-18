@@ -17,30 +17,33 @@ class Button extends StatelessWidget {
       {this.title,
       @required this.buttonSize,
       color,
-      this.borderColor,
+      borderColor,
       type,
       this.icon,
-      shadow,
+      this.shadow = true,
       this.callback})
-      : this.color = color ?? AppTheme.colors.primary,
-        this.type = type ?? ButtonType.STADIUM,
-        this.shadow = shadow ?? true;
+      : this.color = color ??
+            (borderColor != null
+                ? AppTheme.colors.base
+                : AppTheme.colors.primary),
+        this.borderColor = borderColor,
+        this.type = type ?? ButtonType.STADIUM;
 
   final buttonSizes = {
-    "ButtonSize.GIANT": ButtonProperties(
+    ButtonSize.GIANT: ButtonProperties(
       height: 52.0,
       width: double.infinity,
       fontSize: 16.0,
     ),
-    "ButtonSize.LARGE": ButtonProperties(
+    ButtonSize.LARGE: ButtonProperties(
       height: 44.0,
       width: 77.0,
       padding: 13.0,
       fontSize: 14.0,
     ),
-    "ButtonSize.REGULAR": ButtonProperties(
+    ButtonSize.REGULAR: ButtonProperties(
         height: 36.0, width: 72.0, padding: 12.0, fontSize: 13.0),
-    "ButtonSize.SMALL": ButtonProperties(
+    ButtonSize.SMALL: ButtonProperties(
       height: 32.0,
       width: 67.0,
       padding: 12.0,
@@ -50,7 +53,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ButtonProperties buttonProperty = buttonSizes[this.buttonSize.toString()];
+    ButtonProperties buttonProperty = buttonSizes[this.buttonSize];
     return ConstrainedBox(
       constraints: BoxConstraints(
           minWidth: buttonProperty.width,

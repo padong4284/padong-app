@@ -9,7 +9,7 @@ class TranspButton extends StatelessWidget {
   final Icon icon;
   final bool isSuffixICon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
-  final dynamic callback;
+  final Function callback;
 
   TranspButton(
       {this.title, @required this.buttonSize, color, this.icon, this.isSuffixICon=false, this.callback})

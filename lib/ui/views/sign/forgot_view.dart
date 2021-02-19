@@ -29,7 +29,8 @@ class ForgotView extends StatelessWidget {
       children: [
         DateTimeRangePicker(minuteGap: 5),
       ],
-      floatingBottomBar: FloatingBottomButton(title: 'write', onTap: () {}),
+      floatingBottomBar: (isScrollingDown) => FloatingBottomButton(
+          title: 'write', onTap: () {}, isScrollingDown: isScrollingDown),
     );
   }
 }

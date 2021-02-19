@@ -12,7 +12,9 @@ class Input extends StatelessWidget {
   final double iconTopPosition;
   final bool isMultiline;
   final bool toNext;
+  final bool enabled;
   final EdgeInsets margin;
+  final TextEditingController controller;
 
   Input(
       {this.hintText,
@@ -22,9 +24,11 @@ class Input extends StatelessWidget {
       this.onChanged,
       this.width,
       this.margin,
+        this.controller,
       this.iconTopPosition = 0,
       this.isMultiline = false,
-      this.toNext = true});
+      this.toNext = true,
+      this.enabled = true});
 
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
@@ -48,7 +52,10 @@ class Input extends StatelessWidget {
                   ? SizedBox.shrink()
                   : IconButton(
                       // callback with release
-                      onPressed: () => [this.onPressIcon, this.toNext ? node.nextFocus(): null],
+                      onPressed: () => [
+                            this.onPressIcon(),
+                            this.toNext ? node.nextFocus() : null
+                          ],
                       icon: this.icon))
         ]));
   }
@@ -61,6 +68,8 @@ class Input extends StatelessWidget {
         minLines: 1,
         maxLines: this.isMultiline ? 5 : 1,
         onChanged: this.onChanged,
+        enabled: this.enabled,
+        controller: this.controller,
         style: AppTheme.getFont(
             color: AppTheme.colors.support, fontSize: fontSize),
         decoration: InputDecoration(

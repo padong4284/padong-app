@@ -6,10 +6,11 @@ import 'package:padong/ui/widgets/inputs/input.dart';
 class ListPicker extends StatefulWidget {
   final String hintText;
   final List<List> lists;
-  final void Function(int, int) onChanged; // listIdx, idx
-  final List<String> titles;
   final List<int> initIdxs;
+  final List<String> separators;
+  final List<String> titles;
   final EdgeInsets margin;
+  final void Function(int, int) onChanged; // listIdx, idx
   final controller = TextEditingController();
 
   ListPicker(
@@ -23,18 +24,22 @@ class ListPicker extends StatefulWidget {
         assert(initIdx == null || list.length > initIdx),
         this.lists = <List>[list],
         this.initIdxs = initIdx != null ? [initIdx] : null,
+        this.separators = null,
         this.titles = [title];
 
   ListPicker.multiple(
       {this.hintText,
       @required List<List> lists,
-      this.onChanged,
+      List<String> separators,
       List<String> titles,
       List<int> initIdxs,
+      this.onChanged,
       this.margin})
       : assert(initIdxs == null || (lists.length == initIdxs.length)),
+        assert(separators == null || (lists.length == separators.length + 1)),
         this.lists = lists,
         this.initIdxs = initIdxs,
+        this.separators = separators,
         this.titles = titles ?? [];
 
   @override
@@ -135,7 +140,10 @@ class _ListPickerState extends State<ListPicker> {
       this.selectedIdxs[listIdx] = idx;
       String current = '';
       for (int i = 0; i < len; i++)
-        current += widget.lists[i][this.selectedIdxs[i]].toString() + ' ';
+        current += widget.lists[i][this.selectedIdxs[i]].toString() +
+            (i != len - 1
+                ? (widget.separators != null ? widget.separators[i] : ' ')
+                : '');
       widget.controller.text = current;
     });
   }

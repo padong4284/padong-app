@@ -11,15 +11,15 @@ class ListPicker extends StatefulWidget {
   final List<String> separators;
   final List<String> titles;
   final EdgeInsets margin;
-  final void Function(int, int) onChanged; // listIdx, idx
+  final Function beforePick;
   final controller = TextEditingController();
 
   ListPicker(
       {this.hintText,
       @required List list,
-      this.onChanged,
       String title,
       int initIdx,
+      this.beforePick,
       this.looping = false,
       this.margin})
       : assert(list != null && list.length > 0),
@@ -35,8 +35,8 @@ class ListPicker extends StatefulWidget {
       List<String> separators,
       List<String> titles,
       List<int> initIdxs,
+      this.beforePick,
       this.looping = false,
-      this.onChanged,
       this.margin})
       : assert(initIdxs == null || (lists.length == initIdxs.length)),
         assert(separators == null || (lists.length == separators.length + 1)),
@@ -51,10 +51,12 @@ class ListPicker extends StatefulWidget {
 
 class _ListPickerState extends State<ListPicker> {
   List selectedIdxs;
+  String beforePickInfo = '';
 
   @override
   void initState() {
     super.initState();
+    String beforePickInfo = '';
     this.selectedIdxs = widget.initIdxs ??
         Iterable<int>.generate(widget.lists.length).map((_) => 0).toList();
   }
@@ -63,7 +65,7 @@ class _ListPickerState extends State<ListPicker> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          this._showPicker(context);
+          this.showPicker(context);
         },
         child: Input(
           hintText: widget.hintText,
@@ -72,15 +74,16 @@ class _ListPickerState extends State<ListPicker> {
           margin: widget.margin,
           controller: widget.controller,
           onPressIcon: () {
-            this._showPicker(context);
+            this.showPicker(context);
           },
           icon: Icon(Icons.expand_more_rounded,
               color: AppTheme.colors.primary, size: 30),
         ));
   }
 
-  void _showPicker(BuildContext context) {
+  void showPicker(BuildContext context) async {
     int len = widget.lists.length;
+    if (widget.beforePick != null) await widget.beforePick(context, (info) => setState((){this.beforePickInfo = info;}));
     this.setText(0, this.selectedIdxs[0]);
     showCupertinoModalPopup(
         context: context,
@@ -94,7 +97,7 @@ class _ListPickerState extends State<ListPicker> {
                     children: Iterable<int>.generate(len)
                         .map((listIdx) => Expanded(
                                 child: CupertinoPicker(
-                                  looping: widget.looping,
+                              looping: widget.looping,
                               itemExtent: 35,
                               scrollController: FixedExtentScrollController(
                                   initialItem: widget.initIdxs != null
@@ -105,9 +108,6 @@ class _ListPickerState extends State<ListPicker> {
                                       Center(child: Text(elm.toString())))
                                   .toList(),
                               onSelectedItemChanged: (idx) {
-                                // selected idx
-                                if (widget.onChanged != null)
-                                  widget.onChanged(listIdx, idx);
                                 this.setText(listIdx, idx);
                               },
                             )))
@@ -142,7 +142,8 @@ class _ListPickerState extends State<ListPicker> {
     int len = this.selectedIdxs.length;
     setState(() {
       this.selectedIdxs[listIdx] = idx;
-      String current = '';
+      String current = this.beforePickInfo;
+      if (current.length > 0) current += ' | ';
       for (int i = 0; i < len; i++)
         current += widget.lists[i][this.selectedIdxs[i]].toString() +
             (i != len - 1

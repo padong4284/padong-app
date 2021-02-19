@@ -22,7 +22,7 @@ class TimeRangePicker extends TimeListPicker {
       lists: this.getTimeRange(),
       initIdxs: this.getInitIdxs(),
       separators: [':', ' ', ' ', ':'],
-      titles: ['Start', 'Finish'],
+      titles: ['Start', ' ','Finish'],
     );
   }
 

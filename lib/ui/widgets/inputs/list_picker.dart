@@ -5,6 +5,7 @@ import 'package:padong/ui/widgets/inputs/input.dart';
 
 class ListPicker extends StatefulWidget {
   final String hintText;
+  final bool looping;
   final List<List> lists;
   final List<int> initIdxs;
   final List<String> separators;
@@ -19,6 +20,7 @@ class ListPicker extends StatefulWidget {
       this.onChanged,
       String title,
       int initIdx,
+      this.looping = false,
       this.margin})
       : assert(list != null && list.length > 0),
         assert(initIdx == null || list.length > initIdx),
@@ -33,6 +35,7 @@ class ListPicker extends StatefulWidget {
       List<String> separators,
       List<String> titles,
       List<int> initIdxs,
+      this.looping = false,
       this.onChanged,
       this.margin})
       : assert(initIdxs == null || (lists.length == initIdxs.length)),
@@ -91,6 +94,7 @@ class _ListPickerState extends State<ListPicker> {
                     children: Iterable<int>.generate(len)
                         .map((listIdx) => Expanded(
                                 child: CupertinoPicker(
+                                  looping: widget.looping,
                               itemExtent: 35,
                               scrollController: FixedExtentScrollController(
                                   initialItem: widget.initIdxs != null
@@ -118,7 +122,7 @@ class _ListPickerState extends State<ListPicker> {
         height: 50,
         color: AppTheme.colors.base,
         padding: const EdgeInsets.only(
-            top: 15,
+            top: 10,
             left: AppTheme.horizontalPadding,
             right: AppTheme.horizontalPadding),
         child: Row(

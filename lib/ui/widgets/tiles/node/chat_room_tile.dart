@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/tiles/base_tile.dart';
-import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/widgets/buttons/transp_button.dart';
+import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
 List<String> getParticipantAPI(String chatRoomId) {
@@ -28,10 +26,40 @@ class ChatRoomTile extends NodeBaseTile {
 
   @override
   Widget profile() {
-    // TODO: exclude myself
-    List<String> others =
+    List<String> others = // TODO: exclude myself
         this.participants.where((id) => id != 'jtj0321').toList();
-    return Container();
+    int len = others.length;
+    double size = len > 2 ? 20.0 : (55.0 - len * 15);
+    others += [null, null, null];
+    return Stack(
+      children: [
+        SizedBox(width: 40, height: 40),
+        Positioned(
+            top: 0,
+            child: this.profileLine([others[0], others[3]], size,
+                len > 2 ? MainAxisAlignment.center : MainAxisAlignment.start)),
+        Positioned(
+            bottom: 0,
+            child: this.profileLine(
+                [others[1], others[2]], size, MainAxisAlignment.end))
+      ],
+    );
+  }
+
+  Widget profileLine(List<String> users, double size, MainAxisAlignment align) {
+    return Container(
+        width: 40,
+        child: Row(
+          mainAxisAlignment: align,
+          children: [
+            users[0] != null
+                ? UserProfileButton(username: users[0], size: size)
+                : SizedBox.shrink(),
+            users[1] != null
+                ? UserProfileButton(username: users[1], size: size)
+                : SizedBox.shrink(),
+          ],
+        ));
   }
 
   @override

@@ -1,3 +1,8 @@
+[XD](https://xd.adobe.com/view/f1412248-d627-4c4e-a24c-0e05a08434df-a412/)
+
+![image](https://user-images.githubusercontent.com/35912840/108470535-7616cd00-72cd-11eb-940f-fd494da2a3ba.png)
+
+
 ```
 """QtXWindow
 Inherits QtXWindow class and

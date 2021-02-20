@@ -11,6 +11,7 @@ import 'package:padong/ui/widgets/cards/post_card.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 
+
 class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

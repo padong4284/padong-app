@@ -65,7 +65,7 @@ class _BottomSenderState extends State<BottomSender> {
                   left: AppTheme.horizontalPadding, top: 52),
               child: IconButton(
                   onPressed: () {}, // TODO: get user's attachment
-                  icon: Icon(Icons.photo_camera,
+                  icon: Icon(Icons.photo_camera_rounded,
                       size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()
     ]);

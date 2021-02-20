@@ -60,7 +60,7 @@ class NodeBase extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [SizedBox(width: 175, child:this.topText()), this.time()],
+            children: [Expanded(child:this.topText()), this.time()],
           ),
           this.followText()
         ],

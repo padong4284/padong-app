@@ -19,10 +19,10 @@ class AppTheme {
     );
   }
 
-  static TextStyle getFont({@required color, fontSize, isBold = false}) {
+  static TextStyle getFont({color, fontSize, isBold = false}) {
     return TextStyle(
         height: 1.25,
-        color: color,
+        color: color ?? AppTheme.colors.fontPalette[1],
         letterSpacing: 0.025,
         decoration: TextDecoration.none,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
@@ -36,9 +36,33 @@ Widget heroFlightShuttleBuilder(
   HeroFlightDirection flightDirection,
   BuildContext fromHeroContext,
   BuildContext toHeroContext,
-) { // set Text Theme while hero animation
+) {
+  // set Text Theme while hero animation
   return DefaultTextStyle(
     style: DefaultTextStyle.of(toHeroContext).style,
     child: toHeroContext.widget,
+  );
+}
+
+TextStyle getTextStyle({
+  Color color,
+  Color backgroundColor,
+  double fontSize,
+  bool isBold=false,
+  bool isUnderline=false,
+  bool isLineThrough=false,
+}) {
+  assert(!isUnderline || !isLineThrough);
+  return TextStyle(
+    height: 1.25,
+    letterSpacing: 0.25,
+    decorationThickness: 2.0,
+    color: color ?? AppTheme.colors.fontPalette[1],
+    backgroundColor: backgroundColor,
+    fontSize: fontSize ?? AppTheme.fontSizes.regular,
+    fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+    decoration: isUnderline
+        ? TextDecoration.underline
+        : (isLineThrough ? TextDecoration.lineThrough : TextDecoration.none),
   );
 }

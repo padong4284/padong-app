@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/shared/push_callbacks.dart';
 import 'package:padong/ui/widgets/bars/padong_bottom_navigation_bar.dart';
 
 import 'package:padong/ui/views/cover/wiki_cover_view.dart';
@@ -54,11 +55,12 @@ class _RouteViewState extends State<RouteView> {
       )
     );
   }
+
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
         return [
-          MainView(),
+          MainView(pushNamedCallback: pushNamedCallback(this.context)),
           WikiCoverView(),
           DeckView(),
           ScheduleView(),
@@ -70,7 +72,6 @@ class _RouteViewState extends State<RouteView> {
 
   Widget _buildOffstageNavigator(int index) {
     var routeBuilders = _routeBuilders(context, index);
-
     return Offstage(
       offstage: _selectedIndex != index,
       child: Navigator(

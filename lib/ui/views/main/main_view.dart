@@ -19,8 +19,9 @@ import 'package:padong/ui/widgets/tiles/node/review_tile.dart';
 
 class MainView extends StatelessWidget {
   final bool isPMain;
+  final Function pushNamedCallback;
 
-  MainView({this.isPMain = false});
+  MainView({this.isPMain = false, this.pushNamedCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +38,11 @@ class MainView extends StatelessWidget {
           HorizontalScroller(
               padding: 3.0,
               children: Iterable<int>.generate(10)
-                  .map((idx) => PostCard(idx.toString()))
+                  .map((idx) =>
+                      PostCard(idx.toString(), pushNamedCallback: this.pushNamedCallback))
                   .toList()),
-          SwipeDeck(children: [
-            SummaryCard('1'),
-            SummaryCard('2'),
-            SummaryCard('3')
-          ]),
+          SwipeDeck(
+              children: [SummaryCard('1'), SummaryCard('2'), SummaryCard('3')]),
           HorizontalScroller(
               padding: 3.0,
               children: Iterable<int>.generate(10)

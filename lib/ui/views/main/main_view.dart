@@ -8,6 +8,7 @@ import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/chat_room_tile.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 
 import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
@@ -57,6 +58,7 @@ class MainView extends StatelessWidget {
         ReReplyTile('0321'),
         WikiItemTile('0321'),
         ReviewTile('0321'),
+        ChatRoomTile('1443')
       ],
     );
   }

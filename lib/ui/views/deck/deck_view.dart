@@ -10,9 +10,12 @@ class DeckView extends StatelessWidget {
     return SafePaddingTemplate(
       children: [
         Text('Deck View'),
-        UserProfileButton(username: 'kod0402', position: UsernamePosition.RIGHT_CENTER),
-        UserProfileButton(username: 'kod0402', position: UsernamePosition.BOTTOM),
-        FriendTile(username: 'tae7130',universityName: 'Seoul Nat\'l', enteranceYear: '2018', isVerified: true,)
+        UserProfileButton(
+            username: 'kod0402', position: UsernamePosition.RIGHT_CENTER),
+        UserProfileButton(
+            username: 'kod0402', position: UsernamePosition.BOTTOM),
+        FriendTile('0321'),
+        FriendTile('0321', type: FriendTileType.INVITE)
       ],
     );
   }

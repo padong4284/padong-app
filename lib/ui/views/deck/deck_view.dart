@@ -14,8 +14,8 @@ class DeckView extends StatelessWidget {
             username: 'kod0402', position: UsernamePosition.RIGHT_CENTER),
         UserProfileButton(
             username: 'kod0402', position: UsernamePosition.BOTTOM),
-        FriendTile(id: '0321'),
-        FriendTile(id: '0321', type: FriendTileType.INVITE)
+        FriendTile('0321'),
+        FriendTile('0321', type: FriendTileType.INVITE)
       ],
     );
   }

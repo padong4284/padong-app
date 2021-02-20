@@ -35,17 +35,21 @@ class NodeBase extends StatelessWidget {
       children: [
         Container(
             child: Stack(children: [
-          noProfile
-              ? SizedBox.shrink()
-              : UserProfileButton(
-                  username: this.node['owner']['username'],
-                  profileImageURL: this.node['owner']['profileImageURL'],
-                  size: 40),
+          this.profile(), // checking noProfile in this Function
           this.commonArea()
         ])),
         this.bottomArea(),
       ],
     );
+  }
+
+  Widget profile() {
+    return noProfile
+        ? SizedBox.shrink()
+        : UserProfileButton(
+            username: this.node['owner']['username'],
+            profileImageURL: this.node['owner']['profileImageURL'],
+            size: 40);
   }
 
   Widget commonArea() {
@@ -56,7 +60,7 @@ class NodeBase extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [this.topText(), this.time()],
+            children: [SizedBox(width: 175, child:this.topText()), this.time()],
           ),
           this.followText()
         ],

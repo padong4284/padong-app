@@ -12,8 +12,7 @@ class FriendTile extends StatelessWidget {
   final Function chatCallback;
   final Function moreCallback;
 
-  FriendTile({
-    id,
+  FriendTile(id,{
     this.type = FriendTileType.LIST,
     this.chatCallback,
     this.moreCallback,

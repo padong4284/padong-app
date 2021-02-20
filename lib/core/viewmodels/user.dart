@@ -54,20 +54,25 @@ class User extends ModelUser {
     }
   }
 
-  /// getFreinds return List<DocumentSnapshot>
-  /// * DocumentSnapshot contains user info.
+  /// getFreinds return List<User>
   List<User> getFriends(User user) {
     List<User> friendList;
 
     //Maybe it will be refactored later.
     for (String friendId in user.friendIds) {
-      var query = userDB.ref.where("friendIds", isEqualTo: friendId).get();
-      query.then((value) => friendList
-          .add(User.fromMap(value.docs.first.data(), value.docs.first.id)));
+      try{
+        var query = userDB.ref.where("friendIds", isEqualTo: friendId).get();
+        query.then((value) => friendList
+            .add(User.fromMap(value.docs.first.data(), value.docs.first.id)));
+      }on StateError catch(e){
+        throw (e);
+      }
     }
+    return friendList;
   }
 
-  ///getPosts return List<DocumentSnapshot>
+  ///getPosts return List<Post>
+  //todo : erase remark when Post_view_model is done.
 /*List<Post> getPosts(User user) {
     List<Post> postList;
     try {

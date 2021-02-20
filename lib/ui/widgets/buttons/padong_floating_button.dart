@@ -15,7 +15,7 @@ class PadongFloatingButton extends StatelessWidget {
         child: Container(
             padding: EdgeInsets.only(right: 10.0, bottom: 10.0),
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              this.onPressAdd != null || true
+              this.onPressAdd != null
                   ? AnimatedOpacity(
                       opacity: this.isScrollingDown ? 0.0 : 1.0,
                       duration: Duration(milliseconds: 300),

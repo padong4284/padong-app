@@ -141,9 +141,6 @@ class PadongAuth {
     ModelUser docUser = ModelUser.fromMap(docSnapshot.data(), docSnapshot.id);
 
     try {
-      //ToDo: Must Check changeEmail with exist email.
-      // In Firebase Auth Document, verifyBeforeUpdateEmail's Error code doesn't
-      // have [auth/email-already-in-use].
       await user.verifyBeforeUpdateEmail(email);
     } on FirebaseAuthException {
       return false;

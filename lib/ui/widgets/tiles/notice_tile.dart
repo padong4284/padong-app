@@ -58,7 +58,7 @@ class _NoticeTileState extends State<NoticeTile> {
                           this.isFolded = !this.isFolded;
                         });
                       })
-                  : SizedBox()
+                  : SizedBox.shrink()
             ],
           )),
       Container(height: 2, color: AppTheme.colors.support),

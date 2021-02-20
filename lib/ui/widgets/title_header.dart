@@ -64,6 +64,6 @@ class TitleHeader extends StatelessWidget {
                 icon: Icon(Icons.link_rounded, size: 25),
                 buttonSize: ButtonSize.LARGE,
                 callback: () {}) // TODO: Route to link
-            : SizedBox();
+            : SizedBox.shrink();
   }
 }

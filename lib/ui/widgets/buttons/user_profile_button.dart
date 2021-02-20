@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
+Map<String, dynamic> getUserAPI(String id) {
+  return {
+    // TODO: connect to API
+    'username': 'tae7130',
+    'profileImageURL': null,
+    'universityName': "Seoul Nat'l",
+    'entranceYear': 2017,
+    "isVerified": true,
+  };
+}
+
 class UserProfileButton extends StatelessWidget {
   final String username;
+  final String profileImageURL;
   final UsernamePosition position;
   final double size;
 
-  UserProfileButton({this.username, this.position, this.size = 64});
-
+  UserProfileButton(
+      {this.username, this.profileImageURL, this.position, this.size = 64});
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +34,16 @@ class UserProfileButton extends StatelessWidget {
 
   Widget _buildUserIconButton() {
     return InkWell(
-        onTap: (){
+        onTap: () {
           // TODO: routing to userprofile page
         },
         child: Container(
             child: CircleAvatar(
-              radius: this.size/2, // size = 2*radius
-              // TODO: use fire storage get emblem
-              // backgroundImage: NetworkImage(_profileImageURL)
-              // https://here4you.tistory.com/235
-              backgroundColor: AppTheme.colors.lightSupport,
-            )));
+          radius: this.size / 2, // size = 2*radius
+          // TODO: use fire storage get profile image
+          // backgroundImage: NetworkImage(this.profileImageURL)
+          backgroundColor: AppTheme.colors.lightSupport,
+        )));
   }
 
   Widget _buildBottomUsername() {

@@ -3,12 +3,14 @@ import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
+import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 
 Map<String, dynamic> getNode(String id) {
   return {
     // TODO: move to Logical module
     'time': '2 minutes',
-    'owner': 'tae7130',
+    'ownerId': 'tae7130',
+    'owner': getUserAPI('0321'),
     'title': 'Title',
     'rate': 4.5,
     'description':
@@ -33,12 +35,21 @@ class NodeBase extends StatelessWidget {
       children: [
         Container(
             child: Stack(children: [
-          noProfile ? SizedBox() : this.profile(),
+          this.profile(), // checking noProfile in this Function
           this.commonArea()
         ])),
         this.bottomArea(),
       ],
     );
+  }
+
+  Widget profile() {
+    return noProfile
+        ? SizedBox.shrink()
+        : UserProfileButton(
+            username: this.node['owner']['username'],
+            profileImageURL: this.node['owner']['profileImageURL'],
+            size: 40);
   }
 
   Widget commonArea() {
@@ -49,7 +60,7 @@ class NodeBase extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [this.topText(), this.time()],
+            children: [SizedBox(width: 175, child:this.topText()), this.time()],
           ),
           this.followText()
         ],
@@ -58,9 +69,8 @@ class NodeBase extends StatelessWidget {
   }
 
   Widget topText() {
-    return Text(this.node['owner'],
-        style: AppTheme.getFont(
-            color: AppTheme.colors.semiSupport));
+    return Text(this.node['owner']['username'],
+        style: AppTheme.getFont(color: AppTheme.colors.semiSupport));
   }
 
   Widget time() {
@@ -72,16 +82,7 @@ class NodeBase extends StatelessWidget {
 
   Widget followText() {
     return Text(this.node['title'],
-        style: AppTheme.getFont(
-            color: AppTheme.colors.support,
-            isBold: true));
-  }
-
-  Widget profile() {
-    return InkWell(
-        onTap: () {}, // TODO: route to user profile
-        child: Icon(Icons.account_circle,
-            color: AppTheme.colors.support, size: 40));
+        style: AppTheme.getFont(color: AppTheme.colors.support, isBold: true));
   }
 
   Widget bottomArea() {

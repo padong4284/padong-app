@@ -14,7 +14,7 @@ enum SignInReturns{
   failed,
   wrongEmailOrPassword
 }
-class FirestoreAuth{
+class PadongAuth{
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<SignInReturns> signIn(String email, String pw) async {

@@ -15,12 +15,12 @@ Map<String, dynamic> getEvent(String id) {
   };
 }
 
-class TimeCard extends StatelessWidget {
+class TimelineCard extends StatelessWidget {
   final String _id; // node's _id
   final bool isLecture;
   final Map<String, dynamic> event;
 
-  TimeCard(id, {this.isLecture = false})
+  TimelineCard(id, {this.isLecture = false})
       : this.event = getEvent(id),
         this._id = id;
 

@@ -12,7 +12,6 @@ import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 
-
 class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

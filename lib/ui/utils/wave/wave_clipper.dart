@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'wave.dart';
+import 'package:padong/ui/utils/wave/wave.dart';
 
 class WaveClipper extends CustomClipper<Path> {
   Wave wave;

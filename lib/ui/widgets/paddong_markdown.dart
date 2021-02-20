@@ -20,6 +20,7 @@ class PadongMarkdown extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: MarkdownBody(
                     data: snapshot.data,
+                    syntaxHighlighter: MarkdownTheme.syntaxHighlighter,
                     styleSheet: MarkdownStyleSheet(
                         p: MarkdownTheme.p,
                         a: MarkdownTheme.a,

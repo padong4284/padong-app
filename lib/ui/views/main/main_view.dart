@@ -27,7 +27,8 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       appBar: _buildTopBar(),
-      floatingActionButton: PadongFloatingButton(),
+      floatingActionButtonGenerator: (isScrollingDown) =>
+          PadongFloatingButton(isScrollingDown: isScrollingDown),
       children: [
         UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
         SizedBox(height: 35),
@@ -39,8 +40,7 @@ class MainView extends StatelessWidget {
           HorizontalScroller(
               padding: 3.0,
               children: Iterable<int>.generate(10)
-                  .map((idx) =>
-                      PostCard(idx.toString()))
+                  .map((idx) => PostCard(idx.toString()))
                   .toList()),
           SwipeDeck(
               children: [SummaryCard('1'), SummaryCard('2'), SummaryCard('3')]),

@@ -6,15 +6,29 @@ class SafePaddingTemplate extends StatefulWidget {
   final String title;
   final PreferredSizeWidget appBar;
   final Widget floatingActionButton;
-  final Widget Function(bool) floatingBottomBar; // (isScrollingDown) => Widget
+  final Widget Function(bool)
+      floatingActionButtonGenerator; // (isScrollingDown) => Widget
+  final Widget floatingBottomBar;
+  final Widget Function(bool)
+      floatingBottomBarGenerator; // (isScrollingDown) => Widget
   final List<Widget> children;
 
   const SafePaddingTemplate(
       {this.appBar,
-      this.floatingActionButton,
-      this.floatingBottomBar,
+      floatingActionButton,
+      floatingActionButtonGenerator,
+      floatingBottomBar,
+      floatingBottomBarGenerator,
       @required this.children,
-      this.title = ''});
+      this.title = ''})
+      : assert((floatingActionButton == null) ||
+            (floatingActionButtonGenerator == null)),
+        assert((floatingBottomBar == null) ||
+            (floatingBottomBarGenerator == null)),
+        this.floatingActionButton = floatingActionButton,
+        this.floatingActionButtonGenerator = floatingActionButtonGenerator,
+        this.floatingBottomBar = floatingBottomBar,
+        this.floatingBottomBarGenerator = floatingBottomBarGenerator;
 
   @override
   _SafePaddingTemplateState createState() => new _SafePaddingTemplateState();
@@ -29,7 +43,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
     super.initState();
     this._scrollController = new ScrollController();
     this._scrollController.addListener(() {
-      if (this._scrollController.offset > 0.0) {
+      if (this._scrollController.position.userScrollDirection == ScrollDirection.reverse) {
         setState(() {
           isScrollingDown = true;
         });
@@ -45,10 +59,10 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: widget.appBar,
-        floatingActionButton: AnimatedOpacity(
-            opacity: this.isScrollingDown ? 0.0 : 1.0,
-            duration: Duration(milliseconds: 250),
-            child: widget.floatingActionButton),
+        floatingActionButton: widget.floatingActionButton ??
+            (widget.floatingActionButtonGenerator != null
+                ? widget.floatingActionButtonGenerator(this.isScrollingDown)
+                : SizedBox.shrink()),
         body: SafeArea(
             child: GestureDetector(
                 onTap: () {
@@ -70,9 +84,11 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                           ].where((elm) => elm != null).toList())),
                   Align(
                       alignment: Alignment.bottomCenter,
-                      child: widget.floatingBottomBar != null
-                          ? widget.floatingBottomBar(this.isScrollingDown)
-                          : SizedBox.shrink())
+                      child: widget.floatingBottomBar ??
+                          (widget.floatingBottomBarGenerator != null
+                              ? widget.floatingBottomBarGenerator(
+                                  this.isScrollingDown)
+                              : SizedBox.shrink()))
                 ]))));
   }
 

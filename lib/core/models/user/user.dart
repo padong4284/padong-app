@@ -14,7 +14,8 @@ class ModelUser extends ModelNode {
   ModelUser({
     id,
     @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
-    @required this.profileImage, @required this.isVerified, @required this.friends,
+    @required this.profileImage, @required this.isVerified, @required this.friendIds,
+
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(

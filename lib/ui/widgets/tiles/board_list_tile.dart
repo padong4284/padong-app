@@ -30,6 +30,7 @@ ONLY Georgia Tech students can read and write.
 class BoardListTile extends StatefulWidget {
   final List<String> boardIds;
   final List<IconData> icons;
+  final List<Function> callbacks;
   final bool isAlertTile;
 
   BoardListTile(
@@ -40,6 +41,7 @@ class BoardListTile extends StatefulWidget {
       : assert(isAlertTile || (boardIds.length == icons.length)),
         this.boardIds = boardIds,
         this.icons = icons,
+        this.callbacks = callbacks,
         this.isAlertTile = isAlertTile;
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
-import 'font_sizes.dart';
+import 'package:padong/ui/theme/colors.dart';
+import 'package:padong/ui/theme/font_sizes.dart';
 
 class AppTheme {
   static const colors = AppColors();

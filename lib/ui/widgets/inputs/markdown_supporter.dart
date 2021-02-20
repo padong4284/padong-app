@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/theme/markdown_theme.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
@@ -21,7 +22,8 @@ class MarkdownSupporter extends StatelessWidget {
         Container(width: 2, color: AppTheme.colors.semiSupport),
         Expanded(
             child: ListView(
-                scrollDirection: Axis.horizontal, children: this.supporters()))
+                scrollDirection: Axis.horizontal,
+                children: [SizedBox(width: 10), ...this.supporters()]))
       ]),
     ));
   }
@@ -38,30 +40,18 @@ class MarkdownSupporter extends StatelessWidget {
 
   List<Widget> supporters() {
     Map<Function, Widget> buttons = {
-      () => this.applyH(1): Text('H1',
-          style:
-              getTextStyle(fontSize: AppTheme.fontSizes.large, isBold: true)),
-      () => this.applyH(2): Text('H2',
-          style:
-              getTextStyle(fontSize: AppTheme.fontSizes.mlarge, isBold: true)),
-      () => this.applyH(3):
-          Text('H3', style: getTextStyle(isBold: true, isUnderline: true)),
-      this.emphasis: Text(' emphasis ',
-          style: getTextStyle(
-              color: AppTheme.colors.primary,
-              backgroundColor: AppTheme.colors.semiPrimary)),
+      () => this.applyH(1): Text('H1', style: MarkdownTheme.h1),
+      () => this.applyH(2): Text('H2', style: MarkdownTheme.h2),
+      () => this.applyH(3): Text('H3', style: MarkdownTheme.h3),
+      this.emphasis: Text(' emphasis ', style: MarkdownTheme.strong),
       this.blockQuote: Row(children: [
         Container(width: 4, height: 20, color: AppTheme.colors.support),
         Container(
             padding: const EdgeInsets.only(left: 10),
             color: AppTheme.colors.lightSupport,
-            child: Text('block quote', style: getTextStyle()))
+            child: Text('block quote', style: MarkdownTheme.blockQuote))
       ]),
-      this.codeBlock: Container(
-          color: AppTheme.colors.support,
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Text('code block',
-              style: getTextStyle(color: AppTheme.colors.base)))
+      this.codeBlock: Text(' code block ', style: MarkdownTheme.codeBlock)
     };
     return buttons
         .map((func, widget) => MapEntry(

@@ -8,7 +8,7 @@ class Button extends StatelessWidget {
   final Color color;
   final Color borderColor;
   final ButtonType type; // ROUNDED, STADIUM, CIRCLE
-  final Icon icon;
+  final Widget icon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
   final bool shadow;
   final dynamic callback;
@@ -65,7 +65,7 @@ class Button extends StatelessWidget {
           shape: defineShape(context),
           padding: EdgeInsets.only(
               left: buttonProperty.padding, right: buttonProperty.padding),
-          child: Column(
+          child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

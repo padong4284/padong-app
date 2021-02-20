@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
-class SafePaddingTemplate extends StatelessWidget {
+class SafePaddingTemplate extends StatefulWidget {
   final String title;
   final PreferredSizeWidget appBar;
   final Widget floatingActionButton;
-  final Widget floatingBottomBar;
+  final Widget Function(bool) floatingBottomBar; // (isScrollingDown) => Widget
   final List<Widget> children;
 
   const SafePaddingTemplate(
@@ -16,10 +17,39 @@ class SafePaddingTemplate extends StatelessWidget {
       this.title = ''});
 
   @override
+  _SafePaddingTemplateState createState() => new _SafePaddingTemplateState();
+}
+
+class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
+  ScrollController _scrollController =
+      new ScrollController(); // set controller on scrolling
+  bool isScrollingDown = false;
+
+  @override
+  void initState() {
+    super.initState();
+    this._scrollController = new ScrollController();
+    this._scrollController.addListener(() {
+      if (this._scrollController.offset > 0.0) {
+        setState(() {
+          isScrollingDown = true;
+        });
+      } else {
+        setState(() {
+          isScrollingDown = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: this.appBar,
-        floatingActionButton: this.floatingActionButton,
+        appBar: widget.appBar,
+        floatingActionButton: AnimatedOpacity(
+            opacity: this.isScrollingDown ? 0.0 : 1.0,
+            duration: Duration(milliseconds: 250),
+            child: widget.floatingActionButton),
         body: SafeArea(
             child: GestureDetector(
                 onTap: () {
@@ -30,17 +60,20 @@ class SafePaddingTemplate extends StatelessWidget {
                 },
                 child: Stack(children: [
                   SingleChildScrollView(
+                      controller: this._scrollController,
                       padding: EdgeInsets.symmetric(
                           horizontal: AppTheme.horizontalPadding),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            this.title.length > 0 ? this._topTitle() : null,
-                            ...this.children
+                            widget.title.length > 0 ? this._topTitle() : null,
+                            ...widget.children
                           ].where((elm) => elm != null).toList())),
                   Align(
                       alignment: Alignment.bottomCenter,
-                      child: this.floatingBottomBar ?? SizedBox.shrink())
+                      child: widget.floatingBottomBar != null
+                          ? widget.floatingBottomBar(this.isScrollingDown)
+                          : SizedBox.shrink())
                 ]))));
   }
 
@@ -48,9 +81,16 @@ class SafePaddingTemplate extends StatelessWidget {
     return Container(
         height: AppBar().preferredSize.height,
         alignment: Alignment.centerLeft,
-        child: Text(this.title,
+        child: Text(widget.title,
             style: AppTheme.getFont(
                 fontSize: AppTheme.fontSizes.large,
                 color: AppTheme.colors.semiPrimary)));
+  }
+
+  @override
+  void dispose() {
+    this._scrollController.dispose();
+    this._scrollController.removeListener(() {});
+    super.dispose();
   }
 }

@@ -15,7 +15,7 @@ class WikiCoverView extends StatelessWidget {
       children: [
         UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
         this.emblemArea(),
-        Input(type: InputType.PLANE, hintText: 'Hint'),
+        Input(type: InputType.PLAIN, hintText: 'Hint'),
         SizedBox(height: 20),
         Input(type: InputType.UNDERLINE, hintText: 'Hint'),
         SizedBox(height: 20),

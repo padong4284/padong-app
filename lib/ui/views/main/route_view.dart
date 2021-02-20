@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/push_callbacks.dart';
+import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 import 'package:padong/ui/widgets/bars/padong_bottom_navigation_bar.dart';
 
 import 'package:padong/ui/views/cover/wiki_cover_view.dart';
@@ -9,7 +9,6 @@ import 'package:padong/ui/views/schedule/schedule_view.dart';
 import 'package:padong/ui/views/main/main_view.dart';
 
 class RouteView extends StatefulWidget {
-
   @override
   _RouteViewState createState() => _RouteViewState();
 }
@@ -20,6 +19,8 @@ class _RouteViewState extends State<RouteView> {
   @override
   void initState() {
     super.initState();
+    pushCallbacks.registeredPushNamed =
+        pushCallbacks.pushNamedCallback(this.context);
   }
 
   @override
@@ -34,33 +35,32 @@ class _RouteViewState extends State<RouteView> {
     return WillPopScope(
         onWillPop: () async {
           final isFirstRouteInCurrentTab =
-          !await _navigatorKeys[_selectedIndex].currentState.maybePop();
+              !await _navigatorKeys[_selectedIndex].currentState.maybePop();
 
           return isFirstRouteInCurrentTab;
         },
         child: Scaffold(
-        body: Stack(
-          children: [
-            _buildOffstageNavigator(0),
-            _buildOffstageNavigator(1),
-            _buildOffstageNavigator(2),
-            _buildOffstageNavigator(3),
-            _buildOffstageNavigator(4)
-          ],
-        ),
-        bottomNavigationBar: PadongBottomNavigationBar(
-            selectedIndex: _selectedIndex,
-            setSelectedIndex: (int index) => setState(() {this._selectedIndex = index;})
-        )
-      )
-    );
+            body: Stack(
+              children: [
+                _buildOffstageNavigator(0),
+                _buildOffstageNavigator(1),
+                _buildOffstageNavigator(2),
+                _buildOffstageNavigator(3),
+                _buildOffstageNavigator(4)
+              ],
+            ),
+            bottomNavigationBar: PadongBottomNavigationBar(
+                selectedIndex: _selectedIndex,
+                setSelectedIndex: (int index) => setState(() {
+                      this._selectedIndex = index;
+                    }))));
   }
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
         return [
-          MainView(pushNamedCallback: pushNamedCallback(this.context)),
+          MainView(),
           WikiCoverView(),
           DeckView(),
           ScheduleView(),

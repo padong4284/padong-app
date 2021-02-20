@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/push_callbacks.dart';
+import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 
@@ -10,9 +10,8 @@ Map<String, String> getNode(String id) {
 class PostCard extends StatelessWidget {
   final String _id; // node's _id
   final Map<String, String> node;
-  final Function pushNamedCallback;
 
-  PostCard(id, {this.pushNamedCallback})
+  PostCard(id)
       : this.node = getNode(id),
         this._id = id;
 
@@ -33,7 +32,7 @@ class PostCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          pushNamedCallback('/post', { "id": _id });
+          pushCallbacks.registeredPushNamed('/post', argument: {"id": _id});
         },
         // TODO: Routing to Post
         child: ConstrainedBox(

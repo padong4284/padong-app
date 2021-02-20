@@ -6,5 +6,8 @@ Function pushCallback(BuildContext context, Widget view) {
 }
 
 Function pushNamedCallback(BuildContext context) {
-  return (String name, arguments) => Navigator.pushNamed(context, name, arguments: arguments);
+  return (String name, {arguments}) =>
+      Navigator.pushNamed(context, name, arguments: arguments);
 }
+
+Function registeredPushNamed;

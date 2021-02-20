@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 import 'package:padong/ui/widgets/cards/post_card.dart';
@@ -27,6 +28,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       appBar: _buildTopBar(),
+      floatingActionButton: PadongFloatingButton(),
       children: [
         UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
         SizedBox(height: 35),

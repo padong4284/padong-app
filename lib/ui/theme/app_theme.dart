@@ -48,9 +48,10 @@ TextStyle getTextStyle({
   Color color,
   Color backgroundColor,
   double fontSize,
-  bool isBold=false,
-  bool isUnderline=false,
-  bool isLineThrough=false,
+  bool isBold = false,
+  bool isItalic = false,
+  bool isUnderline = false,
+  bool isLineThrough = false,
 }) {
   assert(!isUnderline || !isLineThrough);
   return TextStyle(
@@ -64,5 +65,6 @@ TextStyle getTextStyle({
     decoration: isUnderline
         ? TextDecoration.underline
         : (isLineThrough ? TextDecoration.lineThrough : TextDecoration.none),
+    fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
   );
 }

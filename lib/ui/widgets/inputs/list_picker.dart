@@ -56,7 +56,7 @@ class _ListPickerState extends State<ListPicker> {
   @override
   void initState() {
     super.initState();
-    String beforePickInfo = '';
+    this.beforePickInfo = '';
     this.selectedIdxs = widget.initIdxs ??
         Iterable<int>.generate(widget.lists.length).map((_) => 0).toList();
   }

@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:highlight/highlight.dart' show highlight, Node;
+import 'package:flutter/painting.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
 class PadongSyntaxHighlighter extends SyntaxHighlighter {
   final String language;
-  static const _defaultFontFamily = 'monospace';
-  static const _rootKey = 'root';
-  static const _defaultFontColor = Color(0xff000000);
-  static const _defaultBackgroundColor = Color(0xffffffff);
+  final _rootKey = 'root';
+  final _defaultFontFamily = 'monospace';
+  final _defaultFontColor = Color(0xfffdfeff);
   final Map<String, TextStyle> theme = codeTheme;
 
-  PadongSyntaxHighlighter({this.language='python'});
+  PadongSyntaxHighlighter({this.language = 'python'});
 
   @override
   TextSpan format(String source) {
+    source += '\n'+ ' '*82;
     var _textStyle = TextStyle(
-      fontFamily: _defaultFontFamily,
-      color: theme[_rootKey]?.color ?? _defaultFontColor,
+      fontFamily: this._defaultFontFamily,
+      color: this.theme[this._rootKey].color ?? this._defaultFontColor,
     );
     return TextSpan(
       style: _textStyle,
-      children: _convert(highlight.parse(source, language: 'python').nodes),
+      children: _convert(highlight
+          .parse(source, autoDetection: true, language: this.language)
+          .nodes),
     );
   }
 
@@ -43,56 +46,53 @@ class PadongSyntaxHighlighter extends SyntaxHighlighter {
 
         node.children.forEach((n) {
           _traverse(n);
-          if (n == node.children.last) {
+          if (n == node.children.last)
             currentSpans = stack.isEmpty ? spans : stack.removeLast();
-          }
         });
       }
     }
-    for (var node in nodes)_traverse(node);
+
+    for (var node in nodes) _traverse(node);
     return spans;
   }
 }
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-
 const codeTheme = {
-  'root':
-  TextStyle(backgroundColor: Color(0xffffffff), color: Color(0xff000000)),
-  'comment': TextStyle(color: Color(0xff007400)),
+  'root': TextStyle(
+      backgroundColor: Color(0xff202326), color: Color(0xfffdfeff)), //
+  'comment': TextStyle(color: Color(0xff669955)), //
   'quote': TextStyle(color: Color(0xff007400)),
-  'tag': TextStyle(color: Color(0xffaa0d91)),
-  'attribute': TextStyle(color: Color(0xffaa0d91)),
-  'keyword': TextStyle(color: Color(0xffaa0d91)),
-  'selector-tag': TextStyle(color: Color(0xffaa0d91)),
-  'literal': TextStyle(color: Color(0xffaa0d91)),
-  'name': TextStyle(color: Color(0xffaa0d91)),
-  'variable': TextStyle(color: Color(0xff3F6E74)),
+  'tag': TextStyle(color: Color(0xff8fcfdf)), //
+  'selector-tag': TextStyle(color: Color(0xff8fcfdf)), //
+  'attribute': TextStyle(color: Color(0xff4ec9b0)),
+  'keyword': TextStyle(color: Color(0xff05b0ea)), //
+  'literal': TextStyle(color: Color(0xffff6600)), // True
+  'name': TextStyle(color: Color(0xffff6600)),
+  'variable': TextStyle(color: Color(0xff9cdcfe)), //
   'template-variable': TextStyle(color: Color(0xff3F6E74)),
-  'code': TextStyle(color: Color(0xffc41a16)),
-  'string': TextStyle(color: Color(0xffc41a16)),
-  'meta-string': TextStyle(color: Color(0xffc41a16)),
-  'regexp': TextStyle(color: Color(0xff0E0EFF)),
-  'link': TextStyle(color: Color(0xff0E0EFF)),
-  'title': TextStyle(color: Color(0xff1c00cf)),
-  'symbol': TextStyle(color: Color(0xff1c00cf)),
-  'bullet': TextStyle(color: Color(0xff1c00cf)),
-  'number': TextStyle(color: Color(0xff1c00cf)),
-  'section': TextStyle(color: Color(0xff643820)),
-  'meta': TextStyle(color: Color(0xff643820)),
-  'type': TextStyle(color: Color(0xff5c2699)),
-  'built_in': TextStyle(color: Color(0xff5c2699)),
-  'builtin-name': TextStyle(color: Color(0xff5c2699)),
-  'params': TextStyle(color: Color(0xff5c2699)),
-  'attr': TextStyle(color: Color(0xff836C28)),
-  'subst': TextStyle(color: Color(0xff000000)),
+  'code': TextStyle(color: Color(0xfff51525)),
+  'string': TextStyle(color: Color(0xffff9900)), //
+  'meta-string': TextStyle(color: Color(0xffff5353)),
+  'regexp': TextStyle(color: Color(0xff10c0e0)),
+  'link': TextStyle(color: Color(0xff8fcfdf)),
+  'title': TextStyle(color: Color(0xfff0d070)), //
+  'symbol': TextStyle(color: Color(0xffb5cea8)), //
+  'bullet': TextStyle(color: Color(0xff059acb)),
+  'number': TextStyle(color: Color(0xffff5353)), //
+  'section': TextStyle(color: Color(0xfff51525)),
+  'meta': TextStyle(color: Color(0xfff51525)),
+  'type': TextStyle(color: Color(0xff4ec9b0)),
+  'built_in': TextStyle(color: Color(0xff05b0ea)), //
+  'builtin-name': TextStyle(color: Color(0xff059acb)),
+  'params': TextStyle(color: Color(0xff9cdcfe)), //
+  'attr': TextStyle(color: Color(0xff10c0e0)),
+  'subst': TextStyle(color: Color(0xffff6600)), //
   'formula': TextStyle(
-      backgroundColor: Color(0xffeeeeee), fontStyle: FontStyle.italic),
-  'addition': TextStyle(backgroundColor: Color(0xffbaeeba)),
-  'deletion': TextStyle(backgroundColor: Color(0xffffc8bd)),
-  'selector-id': TextStyle(color: Color(0xff9b703f)),
-  'selector-class': TextStyle(color: Color(0xff9b703f)),
+      backgroundColor: Color(0xffff6600), fontStyle: FontStyle.italic),
+  'addition': TextStyle(backgroundColor: Color(0xff9cdcfe)),
+  'deletion': TextStyle(backgroundColor: Color(0xfff0d070)),
+  'selector-id': TextStyle(color: Color(0xffff9900)),
+  'selector-class': TextStyle(color: Color(0xfff0d070)),
   'doctag': TextStyle(fontWeight: FontWeight.bold),
   'strong': TextStyle(fontWeight: FontWeight.bold),
   'emphasis': TextStyle(fontStyle: FontStyle.italic),

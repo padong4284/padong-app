@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 import 'package:padong/ui/widgets/cards/post_card.dart';
 

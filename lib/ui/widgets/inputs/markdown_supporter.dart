@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -30,88 +28,52 @@ class MarkdownSupporter extends StatelessWidget {
 
   void addPhoto() {}
 
-  void applyH(int scale) {}
+  void applyH(int level) {}
 
-  void emphasis(){}
+  void emphasis() {}
 
   void blockQuote() {}
 
   void codeBlock() {}
 
   List<Widget> supporters() {
-    ButtonSize size = ButtonSize.GIANT;
     Map<Function, Widget> buttons = {
       () => this.applyH(1): Text('H1',
-          style: AppTheme.getFont(
-              fontSize: AppTheme.fontSizes.large, isBold: true)),
+          style:
+              getTextStyle(fontSize: AppTheme.fontSizes.large, isBold: true)),
       () => this.applyH(2): Text('H2',
-          style: AppTheme.getFont(
-              fontSize: AppTheme.fontSizes.mlarge, isBold: true)),
-      () => this.applyH(3): Text('H3',
-          style: TextStyle(
-            height: 1.25,
-            color: AppTheme.colors.fontPalette[1],
-            letterSpacing: 0.025,
-            fontWeight: FontWeight.bold,
-            decoration: TextDecoration.underline,
-          )),
-      this.emphasis: Text('emphasis', style: TextStyle(
-        color: AppTheme.colors.primary,
-        backgroundColor: AppTheme.colors.semiPrimary
-      ))
+          style:
+              getTextStyle(fontSize: AppTheme.fontSizes.mlarge, isBold: true)),
+      () => this.applyH(3):
+          Text('H3', style: getTextStyle(isBold: true, isUnderline: true)),
+      this.emphasis: Text(' emphasis ',
+          style: getTextStyle(
+              color: AppTheme.colors.primary,
+              backgroundColor: AppTheme.colors.semiPrimary)),
+      this.blockQuote: Row(children: [
+        Container(width: 4, height: 20, color: AppTheme.colors.support),
+        Container(
+            padding: const EdgeInsets.only(left: 10),
+            color: AppTheme.colors.lightSupport,
+            child: Text('block quote', style: getTextStyle()))
+      ]),
+      this.codeBlock: Container(
+          color: AppTheme.colors.support,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Text('code block',
+              style: getTextStyle(color: AppTheme.colors.base)))
     };
     return buttons
         .map((func, widget) => MapEntry(
-            func, TranspButton(buttonSize: size, callback: func, icon: widget)))
+            func,
+            InkWell(
+                onTap: func,
+                child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    alignment: Alignment.center,
+                    height: 22,
+                    child: widget))))
         .values
         .toList();
   }
-/*
-  TextStyle getTextStyle({
-    Color color,
-    Color backgroundColor,
-    double fontSize,
-    FontWeight fontWeight,
-    FontStyle fontStyle,
-    double letterSpacing,
-    double wordSpacing,
-    TextBaseline textBaseline,
-    double height,
-    Locale locale,
-    Paint foreground,
-    Paint background,
-    List<Shadow> shadows,
-    List<FontFeature> fontFeatures,
-    TextDecoration decoration,
-    Color decorationColor,
-    TextDecorationStyle decorationStyle,
-    double decorationThickness,
-    String debugLabel,
-    String fontFamily,
-    List<String> fontFamilyFallback,
-    String package}) {
-    return TextStyle(
-       color: color,
-       backgroundColor: backgroundColor,
-       fontSize: fontSize,
-       fontWeight,
-       fontStyle,
-       letterSpacing,
-       wordSpacing,
-       textBaseline,
-       height,
-       locale,
-       foreground,
-       background,
-        shadows,
-       fontFeatures,
-       decoration,
-       decorationColor,
-       decorationStyle,
-       decorationThickness,
-       debugLabel,
-       fontFamily,
-       fontFamilyFallback,
-       package: pacakge)
-  }*/
 }

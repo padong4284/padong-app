@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/views/deck/post_view.dart';
 import './views/sign/sign_in_view.dart';
 import './views/sign/sign_up_view.dart';
 import './views/sign/forgot_view.dart';
@@ -6,35 +7,35 @@ import './views/main/route_view.dart';
 
 class PadongRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final arguments = settings.arguments;
     switch (settings.name) {
       case '/main':
         return MaterialPageRoute(
-            builder: (_) => RouteView(),
+          builder: (_) => RouteView(),
         );
       case '/p_main':
         return MaterialPageRoute(
-            builder: (_) => RouteView(),
+          builder: (_) => RouteView(),
         );
       case '/':
-        return MaterialPageRoute(
-          builder: (_) => SignInView()
-        );
+        return MaterialPageRoute(builder: (_) => SignInView());
       case '/sign_up':
         return PageRouteBuilder(
-            pageBuilder: (_, __ ,___ ) => SignUpView(),
+          pageBuilder: (_, __, ___) => SignUpView(),
         );
       case '/forgot':
+        return MaterialPageRoute(builder: (_) => ForgotView());
+      case '/post':
         return MaterialPageRoute(
-            builder: (_) => ForgotView()
-        );
+            builder: (_) => PostView(
+                  arguments: arguments,
+                ));
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            )
-          )
-        );
+            builder: (_) => Scaffold(
+                    body: Center(
+                  child: Text('No route defined for ${settings.name}'),
+                )));
     }
   }
 }

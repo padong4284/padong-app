@@ -20,7 +20,7 @@ class PadongFloatingButton extends StatelessWidget {
                       opacity: this.isScrollingDown ? 0.0 : 1.0,
                       duration: Duration(milliseconds: 300),
                       child: FloatingActionButton(
-                        heroTag: 'PADONGADD',
+                        heroTag: null,
                         child: Icon(Icons.add,
                             color: AppTheme.colors.base, size: 30),
                         backgroundColor: AppTheme.colors.support,
@@ -34,7 +34,7 @@ class PadongFloatingButton extends StatelessWidget {
                   opacity: this.isScrollingDown ? 0.0 : 1.0,
                   duration: Duration(milliseconds: 600),
                   child: FloatingActionButton(
-                      heroTag: 'PADONGSEARCH',
+                      heroTag: null,
                       child: Icon(Icons.search,
                           color: AppTheme.colors.base, size: 30),
                       backgroundColor: AppTheme.colors.primary,

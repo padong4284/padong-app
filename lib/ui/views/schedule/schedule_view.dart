@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 import 'package:padong/ui/widgets/cards/time_table.dart';
 import 'package:padong/ui/widgets/containers/vertical_timeline.dart';
-import 'package:padong/ui/widgets/cards/time_card.dart';
+import 'package:padong/ui/widgets/cards/timeline_card.dart';
 import 'package:padong/ui/widgets/cards/history_card.dart';
 
 class ScheduleView extends StatelessWidget {
@@ -16,9 +16,9 @@ class ScheduleView extends StatelessWidget {
           '10:30',
           '11:45'
         ], cards: [
-          [TimeCard('1')],
+          [TimelineCard('1')],
           [HistoryCard('2'), HistoryCard('3')],
-          [TimeCard('4'), TimeCard('5'), TimeCard('6')]
+          [TimelineCard('4'), TimelineCard('5'), TimelineCard('6')]
         ])
       ],
     );

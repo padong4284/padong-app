@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 import 'package:padong/ui/widgets/cards/post_card.dart';
@@ -19,14 +20,15 @@ import 'package:padong/ui/widgets/tiles/node/review_tile.dart';
 
 class MainView extends StatelessWidget {
   final bool isPMain;
-  final Function pushNamedCallback;
 
-  MainView({this.isPMain = false, this.pushNamedCallback});
+  MainView({this.isPMain = false});
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       appBar: _buildTopBar(),
+      floatingActionButtonGenerator: (isScrollingDown) =>
+          PadongFloatingButton(isScrollingDown: isScrollingDown),
       children: [
         UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
         SizedBox(height: 35),
@@ -38,8 +40,7 @@ class MainView extends StatelessWidget {
           HorizontalScroller(
               padding: 3.0,
               children: Iterable<int>.generate(10)
-                  .map((idx) =>
-                      PostCard(idx.toString(), pushNamedCallback: this.pushNamedCallback))
+                  .map((idx) => PostCard(idx.toString()))
                   .toList()),
           SwipeDeck(
               children: [SummaryCard('1'), SummaryCard('2'), SummaryCard('3')]),

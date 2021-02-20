@@ -37,23 +37,34 @@ class BuildingCard extends StatelessWidget {
                     width: 140,
                     height: 140,
                   ),
-                  Column(children: [
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.only(
-                            top: 10.0, left: 10.0, right: 10.0),
-                        child: Text(this.node['title'],
-                            style: AppTheme.getFont(
-                                color: AppTheme.colors.fontPalette[2],
-                                isBold: true))),
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: Text('Summary', // TODO: this.description2summary
-                            style: AppTheme.getFont(
-                                color: AppTheme.colors.fontPalette[3]))),
-                    //BottomButtons(bottoms: [0, null, 0]),
-                  ])
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            width: 105,
+                            height: 90,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(this.node['title'],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppTheme.getFont(
+                                          color: AppTheme.colors.fontPalette[2],
+                                          isBold: true)),
+                                  Text(this.node['description'],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: AppTheme.getFont(
+                                        color: AppTheme.colors.fontPalette[3],
+                                      ))
+                                ])),
+                        Container(
+                            width: 100,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: BottomButtons(bottoms: [0, null, 0])),
+                      ])
                 ]))));
   }
 }

@@ -2,41 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 
-class FriendTile extends StatefulWidget {
-  final String username;
-  final String universityName;
-  final String enteranceYear;
-  final bool isVerified;
-  final bool isChecked;
+class FriendTile extends StatelessWidget {
+  final String _id;
+  final Map<String, dynamic> user;
   final FriendTileType type;
   final Function chatCallback;
   final Function moreCallback;
 
-  FriendTile(
-      {this.username,
-      this.universityName,
-      this.enteranceYear,
-      this.isVerified = false,
-      this.type = FriendTileType.LIST,
-      this.chatCallback,
-      this.moreCallback,
-      this.isChecked = false});
-
-  @override
-  _FriendTileState createState() => _FriendTileState();
-}
-
-class _FriendTileState extends State<FriendTile> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  FriendTile({
+    id,
+    this.type = FriendTileType.LIST,
+    this.chatCallback,
+    this.moreCallback,
+  })  : this._id = id,
+        this.user = getUserAPI(id);
 
   @override
   Widget build(BuildContext context) {
-    return _buildCommonFriendTile(widget.type == FriendTileType.LIST);
+    return _buildCommonFriendTile(this.type == FriendTileType.LIST);
   }
 
   Widget _buildCommonFriendTile(bool isList) {
@@ -45,14 +31,14 @@ class _FriendTileState extends State<FriendTile> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(children: [
-          UserProfileButton(),
+          UserProfileButton(username: this.user['username']),
           Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: Text(widget.username,
+                      child: Text(this.user['username'],
                           style: AppTheme.getFont(
                               color: AppTheme.colors.support,
                               fontSize: AppTheme.fontSizes.large,
@@ -61,18 +47,18 @@ class _FriendTileState extends State<FriendTile> {
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Padding(
                           padding: EdgeInsets.only(right: 4.0),
-                          child: Text(widget.universityName,
+                          child: Text(this.user['universityName'],
                               style: AppTheme.getFont(
                                   color: AppTheme.colors.primary,
                                   fontSize: AppTheme.fontSizes.mlarge))),
                       Padding(
                         padding: EdgeInsets.only(right: 4.0),
-                        child: Text(widget.enteranceYear,
+                        child: Text(this.user['entranceYear'].toString(),
                             style: AppTheme.getFont(
                                 color: AppTheme.colors.support,
                                 fontSize: AppTheme.fontSizes.mlarge)),
                       ),
-                      widget.isVerified
+                      this.user['isVerified']
                           ? Icon(
                               Icons.verified,
                               color: AppTheme.colors.semiPrimary,
@@ -97,7 +83,7 @@ class _FriendTileState extends State<FriendTile> {
                 Icons.mode_comment_outlined,
                 color: AppTheme.colors.support,
               ),
-              onPressed: widget.chatCallback,
+              onPressed: this.chatCallback,
             )),
         SizedBox(
             width: 32.0,
@@ -106,19 +92,17 @@ class _FriendTileState extends State<FriendTile> {
                 Icons.more_horiz,
                 color: AppTheme.colors.support,
               ),
-              onPressed: widget.moreCallback,
+              onPressed: this.moreCallback,
             ))
       ];
     }
     return [
-      IconButton(
-          icon: widget.isChecked
-              ? Icon(
-                  CustomIcons.chat_checked,
-                  color: AppTheme.colors.primary,
-                )
-              : Icon(Icons.mode_comment_outlined),
-          onPressed: widget.chatCallback)
+      ToggleIconButton(
+          defaultIcon: Icons.mode_comment_outlined,
+          toggleIcon: CustomIcons.chat_checked,
+          defaultColor: AppTheme.colors.support,
+          toggleColor: AppTheme.colors.primary,
+          onPressed: this.chatCallback)
     ];
   }
 }

@@ -30,7 +30,7 @@ class VerticalTimeline extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: Column(children: [
-            this.hideTopDate ? SizedBox() : this.getTopDate(),
+            this.hideTopDate ? SizedBox.shrink() : this.getTopDate(),
             ...Iterable<int>.generate(len).map((idx) => Column(children: [
                   this.getDotTime(this.dots[idx]),
                   Padding(

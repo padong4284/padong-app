@@ -8,7 +8,7 @@ class ModelNode {
   String parentNodeId;
   String ownerId;
   PIP pip;
-  DateTime  createdAt;
+  DateTime createdAt;
   DateTime deletedAt;
   DateTime modifiedAt;
 

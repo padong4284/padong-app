@@ -5,15 +5,18 @@ import 'package:padong/ui/widgets/tiles/base_tile.dart';
 class BoardListTile extends StatefulWidget {
   final List<String> boards;
   final List<IconData> icons;
+  final List<Function> callbacks;
   final bool isAlertTile;
 
   BoardListTile(
       {@required List<String> boards,
       List<IconData> icons,
+      List<Function> callbacks,
       isAlertTile = false})
       : assert(isAlertTile || (boards.length == icons.length)),
         this.boards = boards,
         this.icons = icons,
+        this.callbacks = callbacks,
         this.isAlertTile = isAlertTile;
 
   @override
@@ -37,7 +40,9 @@ class _BoardListTileState extends State<BoardListTile> {
         children: Iterable<int>.generate(widget.boards.length)
             .map(
               (idx) => InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    widget.callbacks[idx]();
+                  },
                   child: Container(
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.symmetric(vertical: 10),

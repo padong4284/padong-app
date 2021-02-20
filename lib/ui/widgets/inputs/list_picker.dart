@@ -3,52 +3,88 @@ import 'package:flutter/cupertino.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 
-class ListPicker extends StatelessWidget {
+class ListPicker extends StatefulWidget {
   final String hintText;
+  final bool looping;
   final List<List> lists;
-  final Function onChanged;
+  final List<int> initIdxs;
+  final List<String> separators;
   final List<String> titles;
   final EdgeInsets margin;
+  final Function beforePick;
   final controller = TextEditingController();
 
   ListPicker(
       {this.hintText,
       @required List list,
-      this.onChanged,
       String title,
+      int initIdx,
+      this.beforePick,
+      this.looping = false,
       this.margin})
       : assert(list != null && list.length > 0),
+        assert(initIdx == null || list.length > initIdx),
         this.lists = <List>[list],
+        this.initIdxs = initIdx != null ? [initIdx] : null,
+        this.separators = null,
         this.titles = [title];
 
   ListPicker.multiple(
       {this.hintText,
-      @required this.lists,
-      this.onChanged,
-      this.titles,
-      this.margin});
+      @required List<List> lists,
+      List<String> separators,
+      List<String> titles,
+      List<int> initIdxs,
+      this.beforePick,
+      this.looping = false,
+      this.margin})
+      : assert(initIdxs == null || (lists.length == initIdxs.length)),
+        assert(separators == null || (lists.length == separators.length + 1)),
+        this.lists = lists,
+        this.initIdxs = initIdxs,
+        this.separators = separators,
+        this.titles = titles ?? [];
+
+  @override
+  _ListPickerState createState() => new _ListPickerState();
+}
+
+class _ListPickerState extends State<ListPicker> {
+  List selectedIdxs;
+  String beforePickInfo = '';
+
+  @override
+  void initState() {
+    super.initState();
+    String beforePickInfo = '';
+    this.selectedIdxs = widget.initIdxs ??
+        Iterable<int>.generate(widget.lists.length).map((_) => 0).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          this._showPicker(context);
+          this.showPicker(context);
         },
         child: Input(
-          hintText: this.hintText,
+          hintText: widget.hintText,
           enabled: false,
           toNext: false,
-          margin: this.margin,
-          controller: this.controller,
+          margin: widget.margin,
+          controller: widget.controller,
           onPressIcon: () {
-            this._showPicker(context);
+            this.showPicker(context);
           },
           icon: Icon(Icons.expand_more_rounded,
               color: AppTheme.colors.primary, size: 30),
         ));
   }
 
-  void _showPicker(BuildContext context) {
+  void showPicker(BuildContext context) async {
+    int len = widget.lists.length;
+    if (widget.beforePick != null) await widget.beforePick(context, (info) => setState((){this.beforePickInfo = info;}));
+    this.setText(0, this.selectedIdxs[0]);
     showCupertinoModalPopup(
         context: context,
         builder: (_) => Stack(children: [
@@ -58,21 +94,21 @@ class ListPicker extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppTheme.horizontalPadding),
                   child: Row(
-                    children: this
-                        .lists
-                        .map((list) => Expanded(
+                    children: Iterable<int>.generate(len)
+                        .map((listIdx) => Expanded(
                                 child: CupertinoPicker(
+                              looping: widget.looping,
                               itemExtent: 35,
-                              scrollController:
-                                  FixedExtentScrollController(initialItem: -1),
-                              children: list
-                                  .map((elm) => Center(
-                                      child: Text(elm.toString())))
+                              scrollController: FixedExtentScrollController(
+                                  initialItem: widget.initIdxs != null
+                                      ? widget.initIdxs[listIdx]
+                                      : -1),
+                              children: widget.lists[listIdx]
+                                  .map((elm) =>
+                                      Center(child: Text(elm.toString())))
                                   .toList(),
                               onSelectedItemChanged: (idx) {
-                                // selected idx
-                                if (this.onChanged != null) this.onChanged(idx);
-                                this.controller.text = list[idx].toString();
+                                this.setText(listIdx, idx);
                               },
                             )))
                         .toList(), // Add other Lists
@@ -86,13 +122,12 @@ class ListPicker extends StatelessWidget {
         height: 50,
         color: AppTheme.colors.base,
         padding: const EdgeInsets.only(
-            top: 15,
+            top: 10,
             left: AppTheme.horizontalPadding,
             right: AppTheme.horizontalPadding),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: this
-                .titles
+            children: widget.titles
                 .where((title) => title != null)
                 .map((title) => Text(
                       title,
@@ -101,5 +136,20 @@ class ListPicker extends StatelessWidget {
                           fontSize: AppTheme.fontSizes.large),
                     ))
                 .toList()));
+  }
+
+  void setText(int listIdx, int idx) {
+    int len = this.selectedIdxs.length;
+    setState(() {
+      this.selectedIdxs[listIdx] = idx;
+      String current = this.beforePickInfo;
+      if (current.length > 0) current += ' | ';
+      for (int i = 0; i < len; i++)
+        current += widget.lists[i][this.selectedIdxs[i]].toString() +
+            (i != len - 1
+                ? (widget.separators != null ? widget.separators[i] : ' ')
+                : '');
+      widget.controller.text = current;
+    });
   }
 }

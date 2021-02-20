@@ -42,8 +42,8 @@ class _SignUpViewState extends State<SignUpView> {
                       ListPicker(
                         margin: EdgeInsets.only(top: 10.0),
                         hintText: 'Entrance Year',
-                        list: Iterable<int>.generate(11)
-                            .map((y) => 2011 + y)
+                        list: Iterable<int>.generate(10)
+                            .map((y) => 2021 - y)
                             .toList(),
                       ),
                       Input(

@@ -21,8 +21,7 @@ class SafePaddingTemplate extends StatefulWidget {
 }
 
 class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
-  ScrollController _scrollController =
-      new ScrollController(); // set controller on scrolling
+  ScrollController _scrollController; // set controller on scrolling
   bool isScrollingDown = false;
 
   @override
@@ -89,8 +88,8 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
 
   @override
   void dispose() {
-    this._scrollController.dispose();
     this._scrollController.removeListener(() {});
+    this._scrollController.dispose();
     super.dispose();
   }
 }

@@ -11,7 +11,7 @@ class ForgotView extends StatelessWidget {
     return SafePaddingTemplate(
         appBar: BackAppBar(title: 'tae7130'),
         children: [
-          ChatBalloon('0123')
+          ChatBalloon('0123'),
         ],
         floatingBottomBar: (_) =>
             BottomSender(BottomSenderType.CHAT));

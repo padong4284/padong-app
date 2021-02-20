@@ -43,3 +43,26 @@ Widget heroFlightShuttleBuilder(
     child: toHeroContext.widget,
   );
 }
+
+TextStyle getTextStyle({
+  Color color,
+  Color backgroundColor,
+  double fontSize,
+  bool isBold=false,
+  bool isUnderline=false,
+  bool isLineThrough=false,
+}) {
+  assert(!isUnderline || !isLineThrough);
+  return TextStyle(
+    height: 1.25,
+    letterSpacing: 0.25,
+    decorationThickness: 2.0,
+    color: color ?? AppTheme.colors.fontPalette[1],
+    backgroundColor: backgroundColor,
+    fontSize: fontSize ?? AppTheme.fontSizes.regular,
+    fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+    decoration: isUnderline
+        ? TextDecoration.underline
+        : (isLineThrough ? TextDecoration.lineThrough : TextDecoration.none),
+  );
+}

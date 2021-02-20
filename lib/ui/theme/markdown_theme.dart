@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/theme/padong_syntax_hightlighter.dart';
 
 class MarkdownTheme {
   static TextStyle p = getTextStyle();
@@ -30,4 +33,6 @@ class MarkdownTheme {
     color: AppTheme.colors.semiSupport,
     width: 1.5,
   )));
+
+  static SyntaxHighlighter syntaxHighlighter = PadongSyntaxHighlighter();
 }

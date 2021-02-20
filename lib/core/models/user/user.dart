@@ -6,14 +6,14 @@ class ModelUser extends ModelNode {
   String userName;
   String userNickName;
   String userId;
-  String userEmail;
+  List<String> userEmails;
   String profileImage;
   bool isVerified;
   List<String> friendIds;
 
   ModelUser({
     id,
-    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
+    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmails,
     @required this.profileImage, @required this.isVerified, @required this.friendIds,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
@@ -26,7 +26,7 @@ class ModelUser extends ModelNode {
         this.userName = snapshot['userName'] ?? "",
         this.userNickName = snapshot['userNickName'] ?? "",
         this.userId = snapshot['userId'] ?? "",
-        this.userEmail = snapshot['userEmail'] ?? "",
+        this.userEmails = snapshot['userEmails'] ?? [],
         this.isVerified = snapshot['isVerified'] ?? false,
         this.friendIds = snapshot['friendIds'] ?? [],
         super.fromMap(snapshot, id);
@@ -37,7 +37,7 @@ class ModelUser extends ModelNode {
       'userName': this.userName,
       'userNickName': this.userNickName,
       'userId': this.userId,
-      'userEmail': this.userEmail,
+      'userEmail': this.userEmails,
       'isVerified': this.isVerified,
       "friendIds":this.friendIds,
     };

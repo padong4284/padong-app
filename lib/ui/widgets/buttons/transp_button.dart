@@ -6,7 +6,7 @@ import 'package:padong/ui/shared/button_properties.dart';
 class TranspButton extends StatelessWidget {
   final String title;
   final Color color;
-  final Icon icon;
+  final Widget icon;
   final bool isSuffixICon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
   final Function callback;

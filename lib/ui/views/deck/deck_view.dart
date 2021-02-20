@@ -9,6 +9,7 @@ import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/cards/post_card.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
+import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 
 class DeckView extends StatelessWidget {
   @override
@@ -42,14 +43,37 @@ class DeckView extends StatelessWidget {
           child: TranspButton(
             title: 'More',
             buttonSize: ButtonSize.REGULAR,
-            icon: Icon(Icons.arrow_forward_ios, color: AppTheme.colors.primary, size: AppTheme.fontSizes.regular),
+            icon: Icon(Icons.arrow_forward_ios,
+                color: AppTheme.colors.primary,
+                size: AppTheme.fontSizes.regular),
             isSuffixICon: true,
           ),
         ),
         BoardListTile(
-            boards: ['Global', 'Public', 'Internal'],
-            icons: [Icons.cloud, Icons.public, Icons.badge])
+          boards: ['Global', 'Public', 'Internal'],
+          icons: [Icons.cloud, Icons.public, Icons.badge],
+          callbacks: [
+            _registeredPushNamed('Global', '''
+This board is GLOBAL board.
+Everyone can read and write in this board.
+'''),
+            _registeredPushNamed('Public', '''
+This board is PUBLIC board.
+Everyone can read this board.
+But, only Georgia Tech students can write.
+'''),
+            _registeredPushNamed('Internal', '''
+This board is INTERNAL board.
+ONLY Georgia Tech students can read and write.
+'''),
+          ],
+        )
       ],
     ));
+  }
+
+  Function _registeredPushNamed(String title, String description) {
+    return () => pushCallbacks.registeredPushNamed("/board",
+        arguments: {'title': title, 'description': description});
   }
 }

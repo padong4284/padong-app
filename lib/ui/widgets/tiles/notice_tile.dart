@@ -5,10 +5,15 @@ import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
+List<String> getNoticeIdsAPI(String id) {
+  return ['123', '456', '789'];
+}
+
 class NoticeTile extends StatefulWidget {
   final List<String> notices;
+  final String id;
 
-  NoticeTile({@required this.notices});
+  NoticeTile(this.id) : this.notices = getNoticeIdsAPI(id);
 
   @override
   _NoticeTileState createState() => _NoticeTileState();

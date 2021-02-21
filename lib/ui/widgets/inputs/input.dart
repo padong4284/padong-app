@@ -71,6 +71,7 @@ class Input extends StatelessWidget {
         : AppTheme.fontSizes.mlarge;
     return TextField(
         minLines: 1,
+        autocorrect: false,
         maxLines: this.isMultiline ? 5 : 1,
         onChanged: this.onChanged,
         enabled: this.enabled,
@@ -103,6 +104,7 @@ class Input extends StatelessWidget {
   Widget _buildOtherInput({bool plain = false}) {
     return TextField(
       maxLines: plain ? null : 1,
+      autocorrect: false,
       onChanged: this.onChanged,
       enabled: this.enabled,
       controller: this.controller,

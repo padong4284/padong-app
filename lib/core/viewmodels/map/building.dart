@@ -28,9 +28,9 @@ class Building extends ModelBuilding {
         super.fromMap(snapshot, id);
 
   static Future<Building> getBuildingById(String id) async {
-    DocumentSnapshot docMap = await _buildingDB.ref.doc(id).get();
-    if (docMap.exists){
-      return Building.fromMap(docMap.data(), docMap.id);
+    DocumentSnapshot docBuilding = await _buildingDB.ref.doc(id).get();
+    if (docBuilding.exists){
+      return Building.fromMap(docBuilding.data(), docBuilding.id);
     }
     throw Exception("BuildingId doesn't exists");
   }

@@ -6,8 +6,16 @@ Function pushCallback(BuildContext context, Widget view) {
 }
 
 Function pushNamedCallback(BuildContext context) {
-  return (String name, {arguments}) =>
-      Navigator.pushNamed(context, name, arguments: arguments);
+  return (String url) {
+    Map arguments = {};
+    List<String> parsed = url.split('/');
+    for (String parse in parsed.sublist(2)) {
+      assert(parse.indexOf('=') > 0);
+      List<String> keyVal = parse.split('=');
+      arguments[keyVal[0]] = keyVal[1];
+    }
+    Navigator.pushNamed(context, '/' + parsed[1], arguments: arguments);
+  };
 }
 
 Function registeredPushNamed;

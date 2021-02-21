@@ -32,7 +32,7 @@ class PostCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          pushCallbacks.registeredPushNamed('/post', arguments: {"id": _id});
+          pushCallbacks.registeredPushNamed('/post/id=$_id');
         },
         // TODO: Routing to Post
         child: ConstrainedBox(

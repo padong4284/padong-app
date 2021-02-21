@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 class TitleHeader extends StatelessWidget {
@@ -23,6 +24,7 @@ class TitleHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        this.link != null ? SizedBox(height: 12) : SizedBox.shrink(),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             this.title,
@@ -39,7 +41,9 @@ class TitleHeader extends StatelessWidget {
         ]),
         Container(
             height: 2,
-            margin: EdgeInsets.only(top: this.link != null ? 5 : 3),
+            margin: EdgeInsets.only(
+                top: this.link != null ? 8 : 3,
+                bottom: this.link != null ? 14 : 3),
             alignment: Alignment.bottomLeft,
             color: this.isInputHead
                 ? AppTheme.colors.lightSupport
@@ -63,7 +67,10 @@ class TitleHeader extends StatelessWidget {
             ? TranspButton(
                 icon: Icon(Icons.link_rounded, size: 25),
                 buttonSize: ButtonSize.LARGE,
-                callback: () {}) // TODO: Route to link
+                callback: () {
+                  if (this.link.length > 0)
+                    pushCallbacks.registeredPushNamed(this.link);
+                }) // TODO: Route to link
             : SizedBox.shrink();
   }
 }

@@ -6,7 +6,7 @@ import 'package:padong/locator.dart';
 
 
 /*
-* ModelChatRoom has no parent
+* ModelChatMessage's parentNodeId is ModelChatroom
 * */
 class ChatMessage extends ModelChatMessage {
   static final FirestoreAPI _chatMessageDB = locator<FirestoreAPI>("Firestore:chatmessage");

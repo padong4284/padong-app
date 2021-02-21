@@ -4,7 +4,7 @@ import 'package:padong/core/models/deck/attachment.dart';
 import 'package:padong/core/models/node.dart';
 
 /*
-* ModelChatMessage's parentNodeId is ModelChatRoom
+* ModelChatMessage's parentNodeId is ModelChatroom
 * */
 class ModelChatMessage extends ModelNode {
   String message;

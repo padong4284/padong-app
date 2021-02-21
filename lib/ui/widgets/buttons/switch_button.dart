@@ -7,7 +7,7 @@ class SwitchButton extends StatelessWidget {
   final List<String> options;
   final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
   final bool cancelAble;
-  final void Function(String option) onChange;
+  final void Function(String selected) onChange;
 
   SwitchButton(
       {@required this.options,

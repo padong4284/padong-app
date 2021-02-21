@@ -13,12 +13,13 @@ const Map<BottomSenderType, String> hints = {
   BottomSenderType.CHAT: "Message"
 };
 
-class BottomSender extends StatefulWidget {
+class BottomSender extends StatelessWidget {
   final String hintText;
   final Icon icon;
   final BottomSenderType type;
+  final TextEditingController msgController;
 
-  BottomSender(BottomSenderType senderType)
+  BottomSender(BottomSenderType senderType, {this.msgController})
       : this.hintText = hints[senderType],
         this.icon = Icon(
             BottomSenderType.ARGUE == senderType ? Icons.add : Icons.send,
@@ -27,39 +28,30 @@ class BottomSender extends StatefulWidget {
         this.type = senderType;
 
   @override
-  _BottomSenderState createState() => _BottomSenderState();
-}
-
-class _BottomSenderState extends State<BottomSender> {
-  String message = '';
-
-  @override
   Widget build(BuildContext context) {
     return Stack(children: [
       FloatingBottomBar(
-          withAnonym: widget.type == BottomSenderType.REPLY,
-          withStars: widget.type == BottomSenderType.REVIEW,
+          withAnonym: this.type == BottomSenderType.REPLY,
+          withStars: this.type == BottomSenderType.REVIEW,
           child: Container(
               padding: EdgeInsets.only(
-                  left: widget.type == BottomSenderType.CHAT
+                  left: this.type == BottomSenderType.CHAT
                       ? AppTheme.horizontalPadding + 20
                       : 0),
               child: Input(
-                  hintText: widget.hintText,
+                  hintText: this.hintText,
                   isMultiline: true,
-                  icon: widget.icon,
+                  icon: this.icon,
                   toNext: false,
-                  onChanged: (String msg) {
-                    setState(() {
-                      this.message = msg;
-                    });
-                  }))),
-      widget.type == BottomSenderType.CHAT
-          ? Container( // Image Uploader
+                  controller: this.msgController))),
+      this.type == BottomSenderType.CHAT
+          ? Container(
+              // Image Uploader
               margin: const EdgeInsets.only(
-                  left: AppTheme.horizontalPadding, top: 8),
+                  left: AppTheme.horizontalPadding - 2, top: 7),
               child: IconButton(
-                  onPressed: this.addPhoto(context), // TODO: get user's attachment
+                  onPressed:
+                      this.addPhoto(context), // TODO: get user's attachment
                   icon: Icon(Icons.photo_camera_rounded,
                       size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()
@@ -70,9 +62,7 @@ class _BottomSenderState extends State<BottomSender> {
     return getImageFromUser(context, (PickedFile image) {
       // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
       // TODO: upload to firebase
-      setState(() {
-        this.message = image.path; // TODO: send img to chatroom
-      });
+      this.msgController.text = image.path; // TODO: send img to chatroom
     });
   }
 }

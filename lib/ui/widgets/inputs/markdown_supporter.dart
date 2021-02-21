@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
@@ -34,7 +35,11 @@ class MarkdownSupporter extends StatelessWidget {
   }
 
   Function addPhoto(context) {
-    return getImageFromUser(context, (_){});
+    return getImageFromUser(context, (PickedFile image){
+      this._mdController.text += '![IMAGE](' + image.path + ')';
+      // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
+      // TODO: upload to firebase
+    });
   }
 
   List<Widget> supporters() {

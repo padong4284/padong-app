@@ -59,12 +59,14 @@ class _ImageUploaderState extends State<ImageUploader> {
                 width: 70,
                 margin: const EdgeInsets.only(right: 10),
                 child: Button(
-                  title: 'Ok',
-                  buttonSize: ButtonSize.SMALL,
-                  borderColor: AppTheme.colors.primary,
-                  shadow: false,
-                  callback: () => widget.onTapOk(this._image),
-                ))
+                    title: 'Ok',
+                    buttonSize: ButtonSize.SMALL,
+                    borderColor: AppTheme.colors.primary,
+                    shadow: false,
+                    callback: () {
+                      widget.onTapOk(this._image);
+                      Navigator.pop(context);
+                    }))
           ])),
       content: SingleChildScrollView(
           child: Column(children: [
@@ -96,10 +98,9 @@ class _ImageUploaderState extends State<ImageUploader> {
             options: ['Gallery', 'Camera'],
             onChange: (selected) {
               setState(() {
-                if (selected == 'Gallery')
-                  source = ImageSource.gallery;
-                else
-                  source = ImageSource.camera;
+                source = selected == 'Gallery'
+                    ? ImageSource.gallery
+                    : ImageSource.camera;
               });
             })
       ])),

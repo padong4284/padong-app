@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
+import 'package:padong/ui/widgets/dialogs/image_uploader.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 
 const Map<BottomSenderType, String> hints = {
@@ -53,14 +55,24 @@ class _BottomSenderState extends State<BottomSender> {
                     });
                   }))),
       widget.type == BottomSenderType.CHAT
-          ? Container(
+          ? Container( // Image Uploader
               margin: const EdgeInsets.only(
                   left: AppTheme.horizontalPadding, top: 8),
               child: IconButton(
-                  onPressed: () {}, // TODO: get user's attachment
+                  onPressed: this.addPhoto(context), // TODO: get user's attachment
                   icon: Icon(Icons.photo_camera_rounded,
                       size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()
     ]);
+  }
+
+  Function addPhoto(context) {
+    return getImageFromUser(context, (PickedFile image) {
+      // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
+      // TODO: upload to firebase
+      setState(() {
+        this.message = image.path; // TODO: send img to chatroom
+      });
+    });
   }
 }

@@ -9,4 +9,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => FirestoreAPI('deck'), "Firestore:deck");
   locator.registerLazySingleton(() => FirestoreAPI('user'), "Firestore:user");
   locator.registerLazySingleton(() => FirestoreAPI('post'), "Firestore:post");
+  locator.registerLazySingleton(() => FirestoreAPI('university'), "Firestore:university");
 }

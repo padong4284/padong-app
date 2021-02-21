@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padong/core/models/university/university.dart';
 import "package:padong/core/models/user/user.dart";
 import "package:padong/core/models/deck/post.dart";
 import "package:padong/core/services/firestore_api.dart";
 import 'package:padong/locator.dart';
 
 class User extends ModelUser {
-  static FirestoreAPI userDB = locator<FirestoreAPI>('Firestore:user');
-  static FirestoreAPI postDB = locator<FirestoreAPI>("Firestore:post");
+  final FirestoreAPI _userDB = locator<FirestoreAPI>('Firestore:user');
 
   User(
       {id,
@@ -42,28 +42,28 @@ class User extends ModelUser {
   User.fromMap(Map<String, dynamic> snapshot, String id)
       : super.fromMap(snapshot, id);
 
-  ///getUserByEmail return User instance
-  static User getUserByEmail(String email) {
+  ///getUserById return User instance
+  Future<User> getUserById(String id) async {
     DocumentSnapshot userInfo;
     try {
-      var query = userDB.ref.where("email", isEqualTo: email).limit(1).get();
-      query.then((value) => userInfo = value.docs.first);
+      var query = await _userDB.ref.where("id", isEqualTo: id).limit(1).get();
+      userInfo = query.docs.first;
       return User.fromMap(userInfo.data(), userInfo.id);
+
     } on StateError catch (e) {
       throw (e);
     }
   }
 
   /// getFreinds return List<User>
-  List<User> getFriends(User user) {
+  Future<List<User>> getFriends() async{
     List<User> friendList;
 
     //Maybe it will be refactored later.
-    for (String friendId in user.friendIds) {
+    for (String friendId in this.friendIds) {
       try{
-        var query = userDB.ref.where("friendIds", isEqualTo: friendId).get();
-        query.then((value) => friendList
-            .add(User.fromMap(value.docs.first.data(), value.docs.first.id)));
+        var query = await  _userDB.ref.where("friendIds", isEqualTo: friendId).get();
+        friendList.add(User.fromMap(query.docs.first.data(), query.docs.first.id);
       }on StateError catch(e){
         throw (e);
       }
@@ -71,16 +71,16 @@ class User extends ModelUser {
     return friendList;
   }
 
+  /// getParent return ModelUniversity
+  //todo : erase remark when Uiversity_view_model is done.
+  /*Future<ModelUniversity> getParent(){
+    University university;
+    return university.getUniversityById(this.parentNodeId);
+  }*/
+
   ///getPosts return List<Post>
   //todo : erase remark when Post_view_model is done.
-/*List<Post> getPosts(User user) {
-    List<Post> postList;
-    try {
-      var query = postDB.ref.where("ownerId", isEqualTo: user.id).get();
-      query.then((value) => value.docs.fillRange(postList.first, postList.last));
-      return postList;
-    } on StateError catch (e) {
-      throw (e);
-    }
-  }*/
+List<Post> getPosts() {
+    return Post.getPostsById(this.id);
+  }
 }

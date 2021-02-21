@@ -27,4 +27,12 @@ void setupLocator() {
   locator.registerLazySingleton(() => FirestoreAPI('service'), "Firestore:service");
   locator.registerLazySingleton(() => FirestoreAPI('tip'), "Firestore:tip");
 
+  locator.registerLazySingleton(() => FirestoreAPI('table'), "Firestore:table");
+  locator.registerLazySingleton(() => FirestoreAPI('event'), "Firestore:event");
+  locator.registerLazySingleton(() => FirestoreAPI('memo'), "Firestore:memo");
+  locator.registerLazySingleton(() => FirestoreAPI('lecture'), "Firestore:lecture");
+  locator.registerLazySingleton(() => FirestoreAPI('review'), "Firestore:review");
+  locator.registerLazySingleton(() => FirestoreAPI('qna'), "Firestore:qna");
+  locator.registerLazySingleton(() => FirestoreAPI('opinion'), "Firestore:opinion");
+
 }

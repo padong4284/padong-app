@@ -8,7 +8,6 @@ Function pushCallback(BuildContext context, Widget view) {
 Function pushNamedCallback(BuildContext context) {
   return (String url) {
     Map<String, dynamic> arguments = {};
-
     if (url.startsWith('/')) url = url.substring(1);
     List<String> parsed = url.split('/');
     if (parsed.length > 2) {

@@ -30,7 +30,7 @@ class ReReply extends ModelReReply {
     if (docReReply.exists){
       return ReReply.fromMap(docReReply.data(), docReReply.id);
     }
-    throw Exception("reReplyId doesn't exists");
+    throw Exception("ReReplyId doesn't exists");
   }
 
   /*getParent() async {

@@ -4,7 +4,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
-import 'package:padong/ui/widgets/dialogs/image_dialog.dart';
+import 'package:padong/ui/widgets/dialogs/image_uploader.dart';
 
 class MarkdownSupporter extends StatelessWidget {
   final TextEditingController _mdController;
@@ -34,7 +34,7 @@ class MarkdownSupporter extends StatelessWidget {
   }
 
   Function addPhoto(context) {
-    return getImageFromUser(context);
+    return getImageFromUser(context, (_){});
   }
 
   List<Widget> supporters() {

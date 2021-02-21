@@ -27,7 +27,7 @@ class BaseCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        elevation: 3.0,
+        elevation: 1.5,
         child: InkWell(
             onTap: this.tabCallback ?? () {}, // TODO: Routing to Post
             child: Container(

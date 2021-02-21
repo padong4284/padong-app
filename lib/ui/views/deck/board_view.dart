@@ -18,8 +18,10 @@ class BoardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafePaddingTemplate(
-          floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(isScrollingDown: isScrollingDown),
-      floatingBottomBar: FloatingBottomButton(title: 'Write', onTap: () {}),
+      floatingActionButtonGenerator: (isScrollingDown) =>
+          PadongFloatingButton(isScrollingDown: isScrollingDown),
+      floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
+          title: 'Write', onTap: () {}, isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.title, actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),

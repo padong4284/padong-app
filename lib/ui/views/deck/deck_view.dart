@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
@@ -16,6 +17,8 @@ class DeckView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafePaddingTemplate(
+      floatingActionButtonGenerator: (isScrollingDown) =>
+          PadongFloatingButton(onPressAdd: () {}, isScrollingDown: isScrollingDown),
       title: 'Deck',
       children: [
         TabContainer(tabWidth: 80.0, tabs: [
@@ -73,7 +76,6 @@ ONLY Georgia Tech students can read and write.
   }
 
   Function _registeredPushNamed(String title, String description) {
-    return () => pushCallbacks.registeredPushNamed("/board",
-        arguments: {'title': title, 'description': description});
+    return () => pushCallbacks.registeredPushNamed("/board/title=$title&description=$description");
   }
 }

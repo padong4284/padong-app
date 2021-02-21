@@ -26,9 +26,9 @@ class Attachment extends ModelAttachment {
         super.fromMap(snapshot, id);
 
   static Future<Attachment> getAttachmentById(String id) async {
-    DocumentSnapshot docDeck = await _attachmentDB.ref.doc(id).get();
-    if (docDeck.exists){
-      return Attachment.fromMap(docDeck.data(), docDeck.id);
+    DocumentSnapshot docAttachment = await _attachmentDB.ref.doc(id).get();
+    if (docAttachment.exists){
+      return Attachment.fromMap(docAttachment.data(), docAttachment.id);
     }
     throw Exception("AttachmentId doesn't exists");
   }

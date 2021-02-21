@@ -26,7 +26,7 @@ class Board extends ModelBoard {
     if (docReply.exists){
       return Board.fromMap(docReply.data(), docReply.id);
     }
-    throw Exception("PostId doesn't exists");
+    throw Exception("BoardId doesn't exists");
   }
 
 }

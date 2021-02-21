@@ -25,7 +25,7 @@ class Deck extends ModelDeck {
     if (docDeck.exists){
       return Deck.fromMap(docDeck.data(), docDeck.id);
     }
-    throw Exception("PostId doesn't exists");
+    throw Exception("DeckId doesn't exists");
   }
 
 }

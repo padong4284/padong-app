@@ -25,7 +25,7 @@ class Like extends ModelLike {
     if (docLike.exists){
       return Like.fromMap(docLike.data(), docLike.id);
     }
-    throw Exception("PostId doesn't exists");
+    throw Exception("LikeId doesn't exists");
   }
 
 }

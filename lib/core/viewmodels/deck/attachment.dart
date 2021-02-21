@@ -30,7 +30,7 @@ class Attachment extends ModelAttachment {
     if (docDeck.exists){
       return Attachment.fromMap(docDeck.data(), docDeck.id);
     }
-    throw Exception("PostId doesn't exists");
+    throw Exception("AttachmentId doesn't exists");
   }
 
 }

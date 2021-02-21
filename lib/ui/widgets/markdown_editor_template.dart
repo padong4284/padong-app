@@ -8,8 +8,9 @@ import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/widgets/inputs/markdown_supporter.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/widgets/title_header.dart';
 
-List<String> PIP = ['Public', 'Internal', 'Private'];
+const List<String> PIP = ['Public', 'Internal', 'Private'];
 
 class MarkdownEditorTemplate extends StatefulWidget {
   final List<Widget> children;
@@ -32,6 +33,7 @@ class MarkdownEditorTemplate extends StatefulWidget {
 class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
   int pipIdx = 0;
   bool isPreview = false;
+  TextEditingController _titleController = TextEditingController();
   TextEditingController _mdController = TextEditingController();
 
   @override
@@ -47,13 +49,19 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                   borderColor: AppTheme.colors.primary,
                   shadow: false)
             ]),
-        floatingBottomBar: MarkdownSupporter(),
+        floatingBottomBar: MarkdownSupporter(this._mdController),
         children: [
           this.topArea(),
           ...(isPreview
-              ? [PadongMarkdown()]
+              ? [
+                  TitleHeader(_titleController.text, link: ''),
+                  PadongMarkdown(_mdController.text)
+                ]
               : [
-                  Input(hintText: widget.titleHint, type: InputType.UNDERLINE),
+                  Input(
+                      controller: _titleController,
+                      hintText: widget.titleHint,
+                      type: InputType.UNDERLINE),
                   Input(
                       controller: this._mdController,
                       hintText: widget.contentHint ?? pipHint,
@@ -86,20 +94,6 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                     this.pipIdx = PIP.indexOf(selected);
                   });
                 }));
-  }
-
-  void _surroundTextSelection(String left, String right) {
-    final currentTextValue = this._mdController.value.text;
-    final selection = this._mdController.selection;
-    final middle = selection.textInside(currentTextValue);
-    final newTextValue = selection.textBefore(currentTextValue) +
-        '$left$middle$right' +
-        selection.textAfter(currentTextValue);
-
-    this._mdController.value = this._mdController.value.copyWith(
-        text: newTextValue,
-        selection: TextSelection.collapsed(
-            offset: selection.baseOffset + left.length + middle.length));
   }
 }
 

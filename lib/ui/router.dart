@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/search/search_view.dart';
+import 'package:padong/ui/widgets/markdown_editor_template.dart';
 import './views/sign/sign_in_view.dart';
 import './views/sign/sign_up_view.dart';
 import './views/sign/forgot_view.dart';
@@ -33,7 +34,8 @@ class PadongRouter {
                 ));
       case '/search':
         return PageRouteBuilder(
-          pageBuilder: (_, __, ___) => SearchView(),
+          //pageBuilder: (_, __, ___) => SearchView(),
+            pageBuilder: (_, __, ___) => MarkdownEditorTemplate(),
         );
       default:
         return MaterialPageRoute(

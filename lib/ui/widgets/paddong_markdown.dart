@@ -6,10 +6,15 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
 
 class PadongMarkdown extends StatelessWidget {
-  Future<Widget> parseMarkdown(String data) {
-    return Future(() {
+  final String data;
+
+  PadongMarkdown(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    Future<Widget> parseMarkdown = new Future(() {
       return MarkdownBody(
-          data: data,
+          data: this.data,
           syntaxHighlighter: MarkdownTheme.syntaxHighlighter,
           styleSheet: MarkdownStyleSheet(
               p: MarkdownTheme.p,
@@ -18,8 +23,9 @@ class PadongMarkdown extends StatelessWidget {
               h2: MarkdownTheme.h2,
               h3: MarkdownTheme.h3,
               strong: MarkdownTheme.strong,
-              em: MarkdownTheme.em,
+              em: MarkdownTheme.italic,
               blockquote: MarkdownTheme.blockQuote,
+              textScaleFactor: 1.0,
               blockquotePadding:
                   const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
               blockquoteDecoration: BoxDecoration(
@@ -42,24 +48,14 @@ class PadongMarkdown extends StatelessWidget {
             ],
           ));
     });
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return FutureBuilder(
-        future: rootBundle.loadString("assets/test.md"),
-        builder: (BuildContext context, AsyncSnapshot<String> mdSnapshot) {
-          if (mdSnapshot.connectionState == ConnectionState.done)
-            return FutureBuilder(
-                future: this.parseMarkdown(mdSnapshot.data),
-                builder:
-                    (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done)
-                    return snapshot.data;
-                  else
-                    return CircularProgressIndicator();
-                });
-          return CircularProgressIndicator();
+        future: parseMarkdown,
+        builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done)
+            return snapshot.data;
+          else
+            return CircularProgressIndicator();
         });
   }
 }

@@ -56,7 +56,7 @@ TextStyle getTextStyle({
   assert(!isUnderline || !isLineThrough);
   return TextStyle(
     height: 1.25,
-    letterSpacing: 0.25,
+    letterSpacing: 0.025,
     decorationThickness: 2.0,
     color: color ?? AppTheme.colors.fontPalette[1],
     backgroundColor: backgroundColor,

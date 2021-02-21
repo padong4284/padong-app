@@ -17,7 +17,7 @@ class MarkdownTheme {
   static TextStyle strong = getTextStyle(
       color: AppTheme.colors.primary,
       backgroundColor: AppTheme.colors.semiPrimary);
-  static TextStyle em = getTextStyle(isItalic: true);
+  static TextStyle italic = getTextStyle(isItalic: true);
 
   static TextStyle blockQuote =
       getTextStyle(color: AppTheme.colors.fontPalette[1]);

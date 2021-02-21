@@ -1,7 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:padong/core/models/chatroom/participant.dart';
-
-import '../title_node.dart';
+import 'package:padong/core/models/title_node.dart';
 
 
 /*

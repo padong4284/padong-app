@@ -65,7 +65,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                   Input(
                       controller: this._mdController,
                       hintText: widget.contentHint ?? pipHint,
-                      type: InputType.PLANE)
+                      type: InputType.PLAIN)
                 ]),
           ...(widget.children ?? [])
         ]);

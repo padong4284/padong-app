@@ -24,7 +24,7 @@ class Input extends StatelessWidget {
       this.onChanged,
       this.width,
       this.margin,
-        this.controller,
+      this.controller,
       this.iconTopPosition = 0,
       this.isMultiline = false,
       this.toNext = true,
@@ -51,12 +51,17 @@ class Input extends StatelessWidget {
               child: this.icon == null
                   ? SizedBox.shrink()
                   : IconButton(
-                      // callback with release
                       onPressed: () => [
-                            this.onPressIcon(),
+                            this.onPressIcon(), // callback with release
                             this.toNext ? node.nextFocus() : null
                           ],
-                      icon: this.icon))
+                      icon: this.icon)),
+          this.type == InputType.UNDERLINE
+              ? Container(
+                  height: 2,
+                  margin: const EdgeInsets.only(top: 50),
+                  color: AppTheme.colors.semiSupport)
+              : SizedBox.shrink()
         ]));
   }
 
@@ -89,7 +94,8 @@ class Input extends StatelessWidget {
             filled: true,
             fillColor: AppTheme.colors.lightSupport,
             border: this.getOutline(),
-            focusedBorder: this.getOutline(isFocused: true)),
+            focusedBorder: this.getOutline(color: AppTheme.colors.primary),
+            errorBorder: this.getOutline(color: AppTheme.colors.pointRed)),
         textInputAction: this.isMultiline ? null : TextInputAction.next,
         onEditingComplete: () => node.nextFocus());
   }
@@ -97,26 +103,28 @@ class Input extends StatelessWidget {
   Widget _buildOtherInput({bool plain = false}) {
     return TextField(
       maxLines: plain ? null : 1,
-      style: TextStyle(
+      onChanged: this.onChanged,
+      enabled: this.enabled,
+      controller: this.controller,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: this.hintText,
+          hintStyle: AppTheme.getFont(
+              color: AppTheme.colors.semiSupport,
+              fontSize: plain
+                  ? AppTheme.fontSizes.regular
+                  : AppTheme.fontSizes.xlarge,
+              isBold: !plain)),
+      style: AppTheme.getFont(
           fontSize:
               plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge,
-          fontWeight: plain ? FontWeight.normal : FontWeight.bold),
-      decoration: InputDecoration(
-        border: plain
-            ? InputBorder.none
-            : UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppTheme.colors.semiSupport, width: 2)),
-        hintText: this.hintText,
-      ),
+          isBold: !plain),
     );
   }
 
-  OutlineInputBorder getOutline({bool isFocused = false}) {
+  OutlineInputBorder getOutline({Color color}) {
     return OutlineInputBorder(
-      borderSide: isFocused
-          ? BorderSide(color: AppTheme.colors.primary)
-          : BorderSide.none,
+      borderSide: color != null ? BorderSide(color: color) : BorderSide.none,
       borderRadius: BorderRadius.circular(13.0),
     );
   }

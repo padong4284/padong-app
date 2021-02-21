@@ -7,30 +7,29 @@ class SwitchButton extends StatelessWidget {
   final List<String> options;
   final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
   final bool cancelAble;
-  final dynamic callback; // void Function(String option)
+  final void Function(String selected) onChange;
 
   SwitchButton(
       {@required this.options,
       buttonType,
-      this.callback,
-      this.cancelAble = false}):
-    this.buttonType = buttonType ?? SwitchButtonType.BORDER;
+      this.onChange,
+      this.cancelAble = false})
+      : this.buttonType = buttonType ?? SwitchButtonType.BORDER;
 
   @override
   Widget build(BuildContext context) {
-    if (this.buttonType == SwitchButtonType.TOOLTIP) {
+    if (this.buttonType == SwitchButtonType.TOOLTIP)
       return TipContainer(
           width: 140,
           child: SwitchButtonBase(
               options: this.options,
               buttonType: this.buttonType,
-              callback: this.callback,
+              onChange: this.onChange,
               cancelAble: this.cancelAble));
-    }
     return SwitchButtonBase(
         options: this.options,
         buttonType: this.buttonType,
-        callback: this.callback,
+        onChange: this.onChange,
         cancelAble: this.cancelAble);
   }
 }
@@ -39,12 +38,12 @@ class SwitchButtonBase extends StatefulWidget {
   final List<String> options;
   final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
   final bool cancelAble;
-  final dynamic callback; // void Function(String option)
+  final void Function(String option) onChange;
 
   SwitchButtonBase(
       {@required this.options,
       this.buttonType,
-      this.callback,
+      this.onChange,
       this.cancelAble = false});
 
   @override
@@ -60,20 +59,18 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
         decoration: BoxDecoration(
             color: AppTheme.colors.base,
             border: Border.all(
-              color: widget.buttonType == SwitchButtonType.BORDER
-                  ? AppTheme.colors.primary
-                  : AppTheme.colors.transparent,
-              width: 1,
-            ),
+                color: widget.buttonType == SwitchButtonType.BORDER
+                    ? AppTheme.colors.primary
+                    : AppTheme.colors.transparent,
+                width: 1),
             borderRadius: BorderRadius.all(Radius.circular(20)),
             boxShadow: widget.buttonType == SwitchButtonType.SHADOW
                 ? [
                     BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 5.0,
-                      spreadRadius: 0.0,
-                      offset: Offset(0.0, 0.0),
-                    )
+                        color: Colors.black12,
+                        blurRadius: 5.0,
+                        spreadRadius: 0.0,
+                        offset: Offset(0.0, 0.0))
                   ]
                 : []),
         height: 40.0,
@@ -105,20 +102,18 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
                               } else
                                 this.curIdx = idx;
                             });
+                            widget.onChange(widget.options[idx]);
                           },
                           child: Container(
                               width: widget.options.length == 2 ? 55.0 : 65.0,
                               height: 38,
                               alignment: Alignment.center,
-                              child: Text(
-                                widget.options[idx],
-                                style: TextStyle(
-                                  color: this.curIdx == idx
-                                      ? AppTheme.colors.base
-                                      : AppTheme.colors.primary,
-                                  fontSize: AppTheme.fontSizes.small,
-                                ),
-                              ))))
+                              child: Text(widget.options[idx],
+                                  style: TextStyle(
+                                      color: this.curIdx == idx
+                                          ? AppTheme.colors.base
+                                          : AppTheme.colors.primary,
+                                      fontSize: AppTheme.fontSizes.small)))))
                       .toList()))
         ]));
   }

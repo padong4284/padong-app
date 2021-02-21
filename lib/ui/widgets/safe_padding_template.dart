@@ -12,6 +12,7 @@ class SafePaddingTemplate extends StatefulWidget {
   final Widget Function(bool)
       floatingBottomBarGenerator; // (isScrollingDown) => Widget
   final List<Widget> children;
+  final bool isBottomBar;
 
   const SafePaddingTemplate(
       {this.appBar,
@@ -28,7 +29,9 @@ class SafePaddingTemplate extends StatefulWidget {
         this.floatingActionButton = floatingActionButton,
         this.floatingActionButtonGenerator = floatingActionButtonGenerator,
         this.floatingBottomBar = floatingBottomBar,
-        this.floatingBottomBarGenerator = floatingBottomBarGenerator;
+        this.floatingBottomBarGenerator = floatingBottomBarGenerator,
+        this.isBottomBar =
+            (floatingBottomBar != null) || (floatingBottomBarGenerator != null);
 
   @override
   _SafePaddingTemplateState createState() => new _SafePaddingTemplateState();
@@ -43,7 +46,8 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
     super.initState();
     this._scrollController = new ScrollController();
     this._scrollController.addListener(() {
-      if (this._scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+      if (this._scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
         setState(() {
           isScrollingDown = true;
         });
@@ -80,7 +84,8 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             widget.title.length > 0 ? this._topTitle() : null,
-                            ...widget.children
+                            ...widget.children,
+                            widget.isBottomBar ? SizedBox(height: 80) : null
                           ].where((elm) => elm != null).toList())),
                   Align(
                       alignment: Alignment.bottomCenter,

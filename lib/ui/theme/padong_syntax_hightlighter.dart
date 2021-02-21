@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:highlight/highlight.dart' show highlight, Node;
 import 'package:flutter/painting.dart';
-import 'package:padong/ui/theme/app_theme.dart';
 
 class PadongSyntaxHighlighter extends SyntaxHighlighter {
   final String language;
@@ -15,7 +14,7 @@ class PadongSyntaxHighlighter extends SyntaxHighlighter {
 
   @override
   TextSpan format(String source) {
-    source += '\n'+ ' '*82;
+    source += '\n' + ' ' * 82;
     var _textStyle = TextStyle(
       fontFamily: this._defaultFontFamily,
       color: this.theme[this._rootKey].color ?? this._defaultFontColor,

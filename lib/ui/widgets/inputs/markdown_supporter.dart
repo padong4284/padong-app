@@ -6,7 +6,9 @@ import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 class MarkdownSupporter extends StatelessWidget {
-  MarkdownSupporter();
+  final TextEditingController _mdController;
+
+  MarkdownSupporter(this._mdController);
 
   @override
   Widget build(BuildContext context) {
@@ -30,28 +32,27 @@ class MarkdownSupporter extends StatelessWidget {
 
   void addPhoto() {}
 
-  void applyH(int level) {}
-
-  void emphasis() {}
-
-  void blockQuote() {}
-
-  void codeBlock() {}
-
   List<Widget> supporters() {
     Map<Function, Widget> buttons = {
-      () => this.applyH(1): Text('H1', style: MarkdownTheme.h1),
-      () => this.applyH(2): Text('H2', style: MarkdownTheme.h2),
-      () => this.applyH(3): Text('H3', style: MarkdownTheme.h3),
-      this.emphasis: Text(' emphasis ', style: MarkdownTheme.strong),
+      this.applyH(1): Text('H1', style: MarkdownTheme.h1),
+      this.applyH(2): Text('H2', style: MarkdownTheme.h2),
+      this.applyH(3): Text('H3', style: MarkdownTheme.h3),
+      this.emphasis: Text(' B ', style: MarkdownTheme.strong),
+      this.italic: Text(' I ', style: MarkdownTheme.italic),
+      this.del: Text(' D ', style: MarkdownTheme.del),
       this.blockQuote: Row(children: [
-        Container(width: 4, height: 20, color: AppTheme.colors.support),
+        Container(width: 4, height: 18, color: AppTheme.colors.support),
         Container(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10, right: 5),
             color: AppTheme.colors.lightSupport,
             child: Text('block quote', style: MarkdownTheme.blockQuote))
       ]),
-      this.codeBlock: Text(' code block ', style: MarkdownTheme.codeBlock)
+      this.inlineCode: Text(' inline code ', style: MarkdownTheme.inlineCode),
+      this.codeBlock: Container(
+          color: Color(0xff202326),
+          child: Text(' code ', style: AppTheme.getFont(color: AppTheme.colors.base))),
+      this.link: Icon(Icons.link_rounded, size: 25),
+      this.imgLink: Icon(Icons.image_rounded, size: 20),
     };
     return buttons
         .map((func, widget) => MapEntry(
@@ -66,4 +67,39 @@ class MarkdownSupporter extends StatelessWidget {
         .values
         .toList();
   }
+
+  void _surroundTextSelection(String left, String right) {
+    try {
+      final currentTextValue = this._mdController.value.text;
+      final selection = this._mdController.selection;
+      final middle = selection.textInside(currentTextValue);
+      final newTextValue = selection.textBefore(currentTextValue) +
+          '$left$middle$right' +
+          selection.textAfter(currentTextValue);
+
+      this._mdController.value = this._mdController.value.copyWith(
+          text: newTextValue,
+          selection: TextSelection.collapsed(
+              offset: selection.baseOffset + left.length + middle.length));
+    } catch (RangeError) {} // not focused on
+  }
+
+  Function applyH(int level) =>
+      () => this._surroundTextSelection('#' * level + ' ', '');
+
+  void italic() => this._surroundTextSelection('*', '*');
+
+  void del() => this._surroundTextSelection('~', '~');
+
+  void emphasis() => this._surroundTextSelection('**', '**');
+
+  void link() => _surroundTextSelection('[TITLE](https://', ')');
+
+  void imgLink() => _surroundTextSelection('![IMG](https://', ')');
+
+  void blockQuote() => this._surroundTextSelection('> ', '');
+
+  void inlineCode() => this._surroundTextSelection('`', '`');
+
+  void codeBlock() => this._surroundTextSelection('```\n', '\n```');
 }

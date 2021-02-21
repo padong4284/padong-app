@@ -40,9 +40,6 @@ class MarkdownSupporter extends StatelessWidget {
       this.emphasis: Text(' B ', style: MarkdownTheme.strong),
       this.italic: Text(' I ', style: MarkdownTheme.italic),
       this.del: Text(' D ', style: MarkdownTheme.del),
-      this.link: Icon(Icons.link_rounded, size: 25),
-      this.imgLink: Icon(Icons.image_rounded, size: 20),
-      this.codeBlock: Icon(Icons.code, size: 25),
       this.blockQuote: Row(children: [
         Container(width: 4, height: 18, color: AppTheme.colors.support),
         Container(
@@ -51,6 +48,11 @@ class MarkdownSupporter extends StatelessWidget {
             child: Text('block quote', style: MarkdownTheme.blockQuote))
       ]),
       this.inlineCode: Text(' inline code ', style: MarkdownTheme.inlineCode),
+      this.codeBlock: Container(
+          color: Color(0xff202326),
+          child: Text(' code ', style: AppTheme.getFont(color: AppTheme.colors.base))),
+      this.link: Icon(Icons.link_rounded, size: 25),
+      this.imgLink: Icon(Icons.image_rounded, size: 20),
     };
     return buttons
         .map((func, widget) => MapEntry(

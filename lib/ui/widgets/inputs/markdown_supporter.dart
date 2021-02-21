@@ -4,6 +4,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
+import 'package:padong/ui/widgets/dialogs/image_dialog.dart';
 
 class MarkdownSupporter extends StatelessWidget {
   final TextEditingController _mdController;
@@ -19,7 +20,7 @@ class MarkdownSupporter extends StatelessWidget {
       height: 38,
       child: Row(children: [
         TranspButton(
-            callback: this.addPhoto,
+            callback: this.addPhoto(context),
             buttonSize: ButtonSize.GIANT,
             icon: Icon(Icons.photo_camera_rounded,
                 size: 30, color: AppTheme.colors.support)),
@@ -32,7 +33,9 @@ class MarkdownSupporter extends StatelessWidget {
     ));
   }
 
-  void addPhoto() {}
+  Function addPhoto(context) {
+    return getImageFromUser(context);
+  }
 
   List<Widget> supporters() {
     Map<Function, Widget> buttons = {

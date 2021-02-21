@@ -34,6 +34,7 @@ dependencies:
   get_it: ^1.0.3+2
   flutter_markdown: ^0.5.2
   flutter_highlight: ^0.6.0
+  image_picker: ^0.6.7
 
 dev_dependencies:
   flutter_test:

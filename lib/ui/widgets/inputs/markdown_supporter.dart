@@ -34,10 +34,15 @@ class MarkdownSupporter extends StatelessWidget {
 
   List<Widget> supporters() {
     Map<Function, Widget> buttons = {
-      () => this.applyH(1): Text('H1', style: MarkdownTheme.h1),
-      () => this.applyH(2): Text('H2', style: MarkdownTheme.h2),
-      () => this.applyH(3): Text('H3', style: MarkdownTheme.h3),
-      this.emphasis: Text(' emphasis ', style: MarkdownTheme.strong),
+      this.applyH(1): Text('H1', style: MarkdownTheme.h1),
+      this.applyH(2): Text('H2', style: MarkdownTheme.h2),
+      this.applyH(3): Text('H3', style: MarkdownTheme.h3),
+      this.emphasis: Text(' B ', style: MarkdownTheme.strong),
+      this.italic: Text(' I ', style: MarkdownTheme.italic),
+      this.del: Text(' D ', style: MarkdownTheme.del),
+      this.link: Icon(Icons.link_rounded, size: 25),
+      this.imgLink: Icon(Icons.image_rounded, size: 20),
+      this.codeBlock: Icon(Icons.code, size: 25),
       this.blockQuote: Row(children: [
         Container(width: 4, height: 18, color: AppTheme.colors.support),
         Container(
@@ -45,7 +50,7 @@ class MarkdownSupporter extends StatelessWidget {
             color: AppTheme.colors.lightSupport,
             child: Text('block quote', style: MarkdownTheme.blockQuote))
       ]),
-      this.codeBlock: Text(' code block ', style: MarkdownTheme.codeBlock)
+      this.inlineCode: Text(' inline code ', style: MarkdownTheme.inlineCode),
     };
     return buttons
         .map((func, widget) => MapEntry(
@@ -62,31 +67,37 @@ class MarkdownSupporter extends StatelessWidget {
   }
 
   void _surroundTextSelection(String left, String right) {
-    final currentTextValue = this._mdController.value.text;
-    final selection = this._mdController.selection;
-    final middle = selection.textInside(currentTextValue);
-    final newTextValue = selection.textBefore(currentTextValue) +
-        '$left$middle$right' +
-        selection.textAfter(currentTextValue);
+    try {
+      final currentTextValue = this._mdController.value.text;
+      final selection = this._mdController.selection;
+      final middle = selection.textInside(currentTextValue);
+      final newTextValue = selection.textBefore(currentTextValue) +
+          '$left$middle$right' +
+          selection.textAfter(currentTextValue);
 
-    this._mdController.value = this._mdController.value.copyWith(
-        text: newTextValue,
-        selection: TextSelection.collapsed(
-            offset: selection.baseOffset + left.length + middle.length));
+      this._mdController.value = this._mdController.value.copyWith(
+          text: newTextValue,
+          selection: TextSelection.collapsed(
+              offset: selection.baseOffset + left.length + middle.length));
+    } catch (RangeError) {} // not focused on
   }
 
-  void applyH(int level) {
-    _surroundTextSelection('#' * level + ' ', '');
-  }
+  Function applyH(int level) =>
+      () => this._surroundTextSelection('#' * level + ' ', '');
 
-  void emphasis() {
-    _surroundTextSelection('**', '**');}
+  void italic() => this._surroundTextSelection('*', '*');
 
-  void blockQuote() {
-    _surroundTextSelection('> ', '');
-  }
+  void del() => this._surroundTextSelection('~', '~');
 
-  void codeBlock() {
-    _surroundTextSelection('```\n', '\n```');
-  }
+  void emphasis() => this._surroundTextSelection('**', '**');
+
+  void link() => _surroundTextSelection('[TITLE](https://', ')');
+
+  void imgLink() => _surroundTextSelection('![IMG](https://', ')');
+
+  void blockQuote() => this._surroundTextSelection('> ', '');
+
+  void inlineCode() => this._surroundTextSelection('`', '`');
+
+  void codeBlock() => this._surroundTextSelection('```\n', '\n```');
 }

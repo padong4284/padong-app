@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:padong/ui/theme/app_theme.dart';
@@ -24,16 +23,17 @@ class PadongMarkdown extends StatelessWidget {
               h3: MarkdownTheme.h3,
               strong: MarkdownTheme.strong,
               em: MarkdownTheme.italic,
+              del: MarkdownTheme.del,
               blockquote: MarkdownTheme.blockQuote,
               textScaleFactor: 1.0,
               blockquotePadding:
-                  const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                  const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
               blockquoteDecoration: BoxDecoration(
                   color: AppTheme.colors.lightSupport,
                   border: Border(
                       left: BorderSide(
                           width: 4, color: AppTheme.colors.support))),
-              code: MarkdownTheme.codeBlock,
+              code: MarkdownTheme.inlineCode,
               codeblockDecoration: BoxDecoration(
                 color: Color(0xFF202326),
                 borderRadius: BorderRadius.circular(2.0),

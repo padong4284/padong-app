@@ -23,9 +23,9 @@ class Cover extends ModelCover {
         super.fromMap(snapshot, id);
 
   static Future<Cover> getCoverById(String id) async {
-    DocumentSnapshot docArgue = await _coverDB.ref.doc(id).get();
-    if (docArgue.exists){
-      return Cover.fromMap(docArgue.data(), docArgue.id);
+    DocumentSnapshot docCover = await _coverDB.ref.doc(id).get();
+    if (docCover.exists){
+      return Cover.fromMap(docCover.data(), docCover.id);
     }
     throw Exception("CoverId doesn't exists");
   }

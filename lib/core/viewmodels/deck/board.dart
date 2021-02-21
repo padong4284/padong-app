@@ -23,7 +23,7 @@ class Board extends ModelBoard {
 
   static Future<Board> getBoardById(String id) async {
     DocumentSnapshot docBoard = await _boardDB.ref.doc(id).get();
-    if (docReply.exists){
+    if (docBoard.exists){
       return Board.fromMap(docBoard.data(), docBoard.id);
     }
     throw Exception("BoardId doesn't exists");

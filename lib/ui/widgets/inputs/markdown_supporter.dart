@@ -7,12 +7,14 @@ import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 class MarkdownSupporter extends StatelessWidget {
   final TextEditingController _mdController;
+  final bool withAnonym;
 
-  MarkdownSupporter(this._mdController);
+  MarkdownSupporter(this._mdController, {this.withAnonym=false});
 
   @override
   Widget build(BuildContext context) {
     return FloatingBottomBar(
+      withAnonym: this.withAnonym,
         child: Container(
       height: 38,
       child: Row(children: [

@@ -55,7 +55,13 @@ class Input extends StatelessWidget {
                             this.onPressIcon(), // callback with release
                             this.toNext ? node.nextFocus() : null
                           ],
-                      icon: this.icon))
+                      icon: this.icon)),
+          this.type == InputType.UNDERLINE
+              ? Container(
+                  height: 2,
+                  margin: const EdgeInsets.only(top: 50),
+                  color: AppTheme.colors.semiSupport)
+              : SizedBox.shrink()
         ]));
   }
 
@@ -101,16 +107,17 @@ class Input extends StatelessWidget {
       enabled: this.enabled,
       controller: this.controller,
       decoration: InputDecoration(
-        border: plain
-            ? InputBorder.none
-            : UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppTheme.colors.semiSupport, width: 2)),
-        hintText: this.hintText,
-      ),
+          border: InputBorder.none,
+          hintText: this.hintText,
+          hintStyle: AppTheme.getFont(
+              color: AppTheme.colors.semiSupport,
+              fontSize: plain
+                  ? AppTheme.fontSizes.regular
+                  : AppTheme.fontSizes.xlarge,
+              isBold: !plain)),
       style: AppTheme.getFont(
           fontSize:
-          plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge,
+              plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge,
           isBold: !plain),
     );
   }

@@ -24,7 +24,7 @@ class Input extends StatelessWidget {
       this.onChanged,
       this.width,
       this.margin,
-        this.controller,
+      this.controller,
       this.iconTopPosition = 0,
       this.isMultiline = false,
       this.toNext = true,
@@ -51,9 +51,8 @@ class Input extends StatelessWidget {
               child: this.icon == null
                   ? SizedBox.shrink()
                   : IconButton(
-                      // callback with release
                       onPressed: () => [
-                            this.onPressIcon(),
+                            this.onPressIcon(), // callback with release
                             this.toNext ? node.nextFocus() : null
                           ],
                       icon: this.icon))
@@ -89,7 +88,8 @@ class Input extends StatelessWidget {
             filled: true,
             fillColor: AppTheme.colors.lightSupport,
             border: this.getOutline(),
-            focusedBorder: this.getOutline(isFocused: true)),
+            focusedBorder: this.getOutline(color: AppTheme.colors.primary),
+            errorBorder: this.getOutline(color: AppTheme.colors.pointRed)),
         textInputAction: this.isMultiline ? null : TextInputAction.next,
         onEditingComplete: () => node.nextFocus());
   }
@@ -97,10 +97,9 @@ class Input extends StatelessWidget {
   Widget _buildOtherInput({bool plain = false}) {
     return TextField(
       maxLines: plain ? null : 1,
-      style: TextStyle(
-          fontSize:
-              plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge,
-          fontWeight: plain ? FontWeight.normal : FontWeight.bold),
+      onChanged: this.onChanged,
+      enabled: this.enabled,
+      controller: this.controller,
       decoration: InputDecoration(
         border: plain
             ? InputBorder.none
@@ -109,14 +108,16 @@ class Input extends StatelessWidget {
                     BorderSide(color: AppTheme.colors.semiSupport, width: 2)),
         hintText: this.hintText,
       ),
+      style: AppTheme.getFont(
+          fontSize:
+          plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge,
+          isBold: !plain),
     );
   }
 
-  OutlineInputBorder getOutline({bool isFocused = false}) {
+  OutlineInputBorder getOutline({Color color}) {
     return OutlineInputBorder(
-      borderSide: isFocused
-          ? BorderSide(color: AppTheme.colors.primary)
-          : BorderSide.none,
+      borderSide: color != null ? BorderSide(color: color) : BorderSide.none,
       borderRadius: BorderRadius.circular(13.0),
     );
   }

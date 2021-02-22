@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:padong/core/models/user/user.dart';
+import 'package:padong/core/viewmodels/user/user.dart' as ViewModelUser;
 import 'package:padong/core/services/firestore_api.dart';
 import 'package:padong/locator.dart';
 
@@ -11,11 +12,26 @@ enum SignInReturns { success, failed, wrongEmailOrPassword }
 
 class PadongAuth {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  FirestoreAPI storeUser = locator<FirestoreAPI>('Firesetore:user');
+  FirestoreAPI _userDB = locator<FirestoreAPI>('Firesetore:user');
+
+  Future<ViewModelUser.User> get currentSession async {
+    if (auth.currentUser.email == ""){
+      throw Exception("Not logged in");
+    }
+    QuerySnapshot user =  await _userDB.ref.where("userEmails", arrayContains: [auth.currentUser.email]).get();
+    if (!user.docs[0].exists){
+      throw Exception("There's no user");
+    }
+    ViewModelUser.User docUser = ViewModelUser.User.fromMap(user.docs[0].data(), user.docs[0].id);
+    if (auth.currentUser.email == docUser.userEmails[0]){
+      return docUser;
+    }
+    throw Exception("not validated User");
+  }
 
   Future<SignInReturns> signIn(String id, String pw) async {
     QuerySnapshot user =
-        await storeUser.ref.where("userId", isEqualTo: id).get();
+        await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size == 0) {
       return SignInReturns.wrongEmailOrPassword;
     }
@@ -60,7 +76,7 @@ class PadongAuth {
       docUser.isVerified = sessionUser.emailVerified;
     }
 
-    storeUser.setDocument(docUser.toJson(), docUser.id);
+    _userDB.setDocument(docUser.toJson(), docUser.id);
     return SignInReturns.success;
   }
 
@@ -78,7 +94,7 @@ class PadongAuth {
     @required String email,
   }) async {
     QuerySnapshot user =
-        await storeUser.ref.where("userId", isEqualTo: id).get();
+        await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size > 0) {
       return RegistrationReturns.emailAlreadyInUse;
     }
@@ -109,7 +125,7 @@ class PadongAuth {
       await currentUser.sendEmailVerification();
     }
 
-    storeUser.addDocument({
+    _userDB.addDocument({
       'userName': userName,
       'userId': id,
       'userEmails': [email],
@@ -131,7 +147,7 @@ class PadongAuth {
     if (user == null) {
       return false;
     }
-    QuerySnapshot queryUser = await storeUser.ref
+    QuerySnapshot queryUser = await _userDB.ref
         .where("userEmail", arrayContains: [user.email]).get();
 
     if (queryUser.size == 0) {
@@ -150,8 +166,8 @@ class PadongAuth {
     } on Exception {
       return false;
     }
-    docUser.userEmails.add(email);
-    await storeUser.setDocument(docUser.toJson(), docUser.id);
+    docUser.userEmails[1] = email;
+    await _userDB.setDocument(docUser.toJson(), docUser.id);
     return true;
   }
 }

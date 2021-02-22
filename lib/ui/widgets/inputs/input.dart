@@ -51,11 +51,12 @@ class Input extends StatelessWidget {
               child: this.icon == null
                   ? SizedBox.shrink()
                   : IconButton(
-                      onPressed: () => [
-                            this.onPressIcon(), // callback with release
-                            this.toNext ? node.nextFocus() : null
-                          ],
-                      icon: this.icon)),
+                      icon: this.icon,
+                      onPressed: () {
+                        // callback with release
+                        if (this.onPressIcon != null) this.onPressIcon();
+                        if (this.toNext) node.nextFocus();
+                      })),
           this.type == InputType.UNDERLINE
               ? Container(
                   height: 2,

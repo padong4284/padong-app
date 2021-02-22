@@ -14,6 +14,12 @@ class PadongSyntaxHighlighter extends SyntaxHighlighter {
 
   @override
   TextSpan format(String source) {
+    String lang;
+    if (source.startsWith('!L@NG{[')) {
+      int idx = source.indexOf(']}L@NG!');
+      lang = source.substring(7, idx);
+      source = source.substring(idx + 8);
+    }
     source += '\n' + ' ' * 82;
     var _textStyle = TextStyle(
       fontFamily: this._defaultFontFamily,
@@ -22,7 +28,7 @@ class PadongSyntaxHighlighter extends SyntaxHighlighter {
     return TextSpan(
       style: _textStyle,
       children: _convert(highlight
-          .parse(source, autoDetection: true, language: this.language)
+          .parse(source, autoDetection: true, language: lang ?? this.language)
           .nodes),
     );
   }

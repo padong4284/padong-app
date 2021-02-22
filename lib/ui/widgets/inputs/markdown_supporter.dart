@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
+import 'package:padong/ui/widgets/dialogs/image_uploader.dart';
 
 class MarkdownSupporter extends StatelessWidget {
   final TextEditingController _mdController;
+  final bool withAnonym;
 
-  MarkdownSupporter(this._mdController);
+  MarkdownSupporter(this._mdController, {this.withAnonym=false});
 
   @override
   Widget build(BuildContext context) {
     return FloatingBottomBar(
+      withAnonym: this.withAnonym,
         child: Container(
       height: 38,
       child: Row(children: [
         TranspButton(
-            callback: this.addPhoto,
+            callback: this.addPhoto(context),
             buttonSize: ButtonSize.GIANT,
             icon: Icon(Icons.photo_camera_rounded,
                 size: 30, color: AppTheme.colors.support)),
@@ -30,7 +34,13 @@ class MarkdownSupporter extends StatelessWidget {
     ));
   }
 
-  void addPhoto() {}
+  Function addPhoto(context) {
+    return getImageFromUser(context, (PickedFile image){
+      this._mdController.text += '![IMAGE](' + image.path + ')';
+      // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
+      // TODO: upload to firebase
+    });
+  }
 
   List<Widget> supporters() {
     Map<Function, Widget> buttons = {
@@ -50,7 +60,8 @@ class MarkdownSupporter extends StatelessWidget {
       this.inlineCode: Text(' inline code ', style: MarkdownTheme.inlineCode),
       this.codeBlock: Container(
           color: Color(0xff202326),
-          child: Text(' code ', style: AppTheme.getFont(color: AppTheme.colors.base))),
+          child: Text(' </> ',
+              style: AppTheme.getFont(color: AppTheme.colors.base))),
       this.link: Icon(Icons.link_rounded, size: 25),
       this.imgLink: Icon(Icons.image_rounded, size: 20),
     };

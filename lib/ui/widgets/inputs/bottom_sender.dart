@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
-import 'package:padong/ui/widgets/buttons/switch_button.dart';
-import 'package:padong/ui/widgets/buttons/star_rate_button.dart';
-import 'package:padong/ui/widgets/containers/tip_container.dart';
+import 'package:padong/ui/widgets/dialogs/image_uploader.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 
 const Map<BottomSenderType, String> hints = {
@@ -14,12 +13,13 @@ const Map<BottomSenderType, String> hints = {
   BottomSenderType.CHAT: "Message"
 };
 
-class BottomSender extends StatefulWidget {
+class BottomSender extends StatelessWidget {
   final String hintText;
   final Icon icon;
   final BottomSenderType type;
+  final TextEditingController msgController;
 
-  BottomSender(BottomSenderType senderType)
+  BottomSender(BottomSenderType senderType, {this.msgController})
       : this.hintText = hints[senderType],
         this.icon = Icon(
             BottomSenderType.ARGUE == senderType ? Icons.add : Icons.send,
@@ -28,61 +28,41 @@ class BottomSender extends StatefulWidget {
         this.type = senderType;
 
   @override
-  _BottomSenderState createState() => _BottomSenderState();
-}
-
-class _BottomSenderState extends State<BottomSender> {
-  String message = '';
-
-  @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Container(
-          margin: const EdgeInsets.only(top: 45),
-          child: FloatingBottomBar(
-              child: Container(
-                  padding: EdgeInsets.only(
-                      left: widget.type == BottomSenderType.CHAT
-                          ? AppTheme.horizontalPadding + 20
-                          : 0),
-                  child: Input(
-                      hintText: widget.hintText,
-                      isMultiline: true,
-                      icon: widget.icon,
-                      toNext: false,
-                      onChanged: (String msg) {
-                        setState(() {
-                          this.message = msg;
-                        });
-                      })))),
-      widget.type == BottomSenderType.ARGUE ||
-              widget.type == BottomSenderType.CHAT
-          ? SizedBox.shrink()
-          : this.getTip(),
-      widget.type == BottomSenderType.CHAT
+      FloatingBottomBar(
+          withAnonym: this.type == BottomSenderType.REPLY,
+          withStars: this.type == BottomSenderType.REVIEW,
+          child: Container(
+              padding: EdgeInsets.only(
+                  left: this.type == BottomSenderType.CHAT
+                      ? AppTheme.horizontalPadding + 20
+                      : 0),
+              child: Input(
+                  hintText: this.hintText,
+                  isMultiline: true,
+                  icon: this.icon,
+                  toNext: false,
+                  controller: this.msgController))),
+      this.type == BottomSenderType.CHAT
           ? Container(
+              // Image Uploader
               margin: const EdgeInsets.only(
-                  left: AppTheme.horizontalPadding, top: 52),
+                  left: AppTheme.horizontalPadding - 2, top: 7),
               child: IconButton(
-                  onPressed: () {}, // TODO: get user's attachment
+                  onPressed:
+                      this.addPhoto(context), // TODO: get user's attachment
                   icon: Icon(Icons.photo_camera_rounded,
                       size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()
     ]);
   }
 
-  Widget getTip() { // TODO: handling input from tip
-    return Container(
-        padding:
-            const EdgeInsets.only(left: AppTheme.horizontalPadding, bottom: 56),
-        child: widget.type == BottomSenderType.REVIEW
-            ? TipContainer(
-                width: 180,
-                child: Container(
-                    margin: const EdgeInsets.only(left: 10, top: 3.5),
-                    child: StarRateButton(rate: 0.0)))
-            : SwitchButton(
-                options: ['anonym', 'profile'],
-                buttonType: SwitchButtonType.TOOLTIP));
+  Function addPhoto(context) {
+    return getImageFromUser(context, (PickedFile image) {
+      // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
+      // TODO: upload to firebase
+      this.msgController.text = image.path; // TODO: send img to chatroom
+    });
   }
 }

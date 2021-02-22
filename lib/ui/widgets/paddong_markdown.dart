@@ -13,7 +13,7 @@ class PadongMarkdown extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<Widget> parseMarkdown = new Future(() {
       return MarkdownBody(
-          data: this.data,
+          data: this.codeLangParsing(),
           syntaxHighlighter: MarkdownTheme.syntaxHighlighter,
           styleSheet: MarkdownStyleSheet(
               p: MarkdownTheme.p,
@@ -57,5 +57,16 @@ class PadongMarkdown extends StatelessWidget {
           else
             return CircularProgressIndicator();
         });
+  }
+
+  String codeLangParsing() {
+    String parsed = this.data;
+    RegExp codeSign = new RegExp(r'`{3} *');
+    RegExp pattern = new RegExp(r'`{3} *[\w]+');
+    for (RegExpMatch match in pattern.allMatches(this.data)) {
+      String lang = match.group(0).split(codeSign)[1];
+      parsed = parsed.replaceFirst(match.group(0), '```\n!L@NG{[$lang]}L@NG!');
+    }
+    return parsed;
   }
 }

@@ -31,8 +31,8 @@ class PadongRouter {
       case '/post':
         return MaterialPageRoute(
             builder: (_) => PostView(
-                  id: args['id'],
-                ));
+                  args['id']
+            ));
       case '/search':
         return PageRouteBuilder(
           //pageBuilder: (_, __, ___) => SearchView(),
@@ -43,8 +43,7 @@ class PadongRouter {
       case '/board':
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => BoardView(
-                  title: args['title'],
-                  description: args['description'],
+                  args['id'],
                 ));
       default:
         return MaterialPageRoute(

@@ -51,7 +51,7 @@ class MainView extends StatelessWidget {
                   .toList()),
         ]),
         BoardListTile(
-            boards: ['Global', 'Public', 'Internal'],
+            boardIds: ['1', '2', '3'],
             icons: [Icons.cloud, Icons.public, Icons.badge]),
         PostTile('0321'),
         ReplyTile('0321'),

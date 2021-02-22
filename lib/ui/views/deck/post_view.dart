@@ -4,7 +4,7 @@ import 'package:padong/ui/widgets/safe_padding_template.dart';
 class PostView extends StatelessWidget {
   final String id;
 
-  PostView({ this.id });
+  PostView(this.id);
 
   @override
   Widget build(BuildContext context) {

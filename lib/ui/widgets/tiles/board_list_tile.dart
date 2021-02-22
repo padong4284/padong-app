@@ -1,22 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/models/deck/board.dart';
+import 'package:padong/ui/shared/push_callbacks.dart' as pushNamedCallback;
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
 
+
+ModelBoard getBoardAPI(String id) {
+  ModelBoard result;
+  if (id == '0') {
+    result = ModelBoard(id: id, title: 'Global', description: '''
+This board is GLOBAL board.
+Everyone can read and write in this board.
+''');
+  } else if (id == '1') {
+    result = ModelBoard(id: id, title: 'Public', description: '''
+This board is PUBLIC board.
+Everyone can read this board.
+But, only Georgia Tech students can write.
+''');
+  } else {
+    result = ModelBoard(id: id, title: 'Internal', description: '''
+This board is INTERNAL board.
+ONLY Georgia Tech students can read and write.
+''');
+  }
+  return result;
+}
+
 class BoardListTile extends StatefulWidget {
-  final List<String> boards;
+  final List<String> boardIds;
   final List<IconData> icons;
-  final List<Function> callbacks;
   final bool isAlertTile;
 
   BoardListTile(
-      {@required List<String> boards,
+      {@required List<String> boardIds,
       List<IconData> icons,
       List<Function> callbacks,
       isAlertTile = false})
-      : assert(isAlertTile || (boards.length == icons.length)),
-        this.boards = boards,
+      : assert(isAlertTile || (boardIds.length == icons.length)),
+        this.boardIds = boardIds,
         this.icons = icons,
-        this.callbacks = callbacks,
         this.isAlertTile = isAlertTile;
 
   @override
@@ -29,7 +52,7 @@ class _BoardListTileState extends State<BoardListTile> {
   @override
   void initState() {
     super.initState();
-    this.notifications = Iterable<int>.generate(widget.boards.length).map((_) {
+    this.notifications = Iterable<int>.generate(widget.boardIds.length).map((_) {
       return false; // get notification or not from firebase
     }).toList();
   }
@@ -37,11 +60,13 @@ class _BoardListTileState extends State<BoardListTile> {
   @override
   Widget build(BuildContext context) {
     return BaseTile(
-        children: Iterable<int>.generate(widget.boards.length)
+        children: Iterable<int>.generate(widget.boardIds.length)
             .map(
-              (idx) => InkWell(
+              (idx) {
+                final board = getBoardAPI(widget.boardIds[idx]);
+                return InkWell(
                   onTap: () {
-                    widget.callbacks[idx]();
+                    pushNamedCallback.registeredPushNamed('/board/id=${board.id}');
                   },
                   child: Container(
                       alignment: Alignment.centerLeft,
@@ -67,8 +92,8 @@ class _BoardListTileState extends State<BoardListTile> {
                                     color: this.notifications[idx]
                                         ? AppTheme.colors.pointYellow
                                         : AppTheme.colors.support))),
-                        this.boardText(widget.boards[idx])
-                      ]))),
+                        this.boardText(board.title)
+                      ])));},
             )
             .toList());
   }

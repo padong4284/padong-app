@@ -15,8 +15,7 @@ import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafePaddingTemplate(
+    return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongFloatingButton(onPressAdd: () {}, isScrollingDown: isScrollingDown),
       title: 'Deck',
@@ -53,29 +52,14 @@ class DeckView extends StatelessWidget {
           ),
         ),
         BoardListTile(
-          boards: ['Global', 'Public', 'Internal'],
+          boardIds: ['0', '1', '2'],
           icons: [Icons.cloud, Icons.public, Icons.badge],
-          callbacks: [
-            _registeredPushNamed('Global', '''
-This board is GLOBAL board.
-Everyone can read and write in this board.
-'''),
-            _registeredPushNamed('Public', '''
-This board is PUBLIC board.
-Everyone can read this board.
-But, only Georgia Tech students can write.
-'''),
-            _registeredPushNamed('Internal', '''
-This board is INTERNAL board.
-ONLY Georgia Tech students can read and write.
-'''),
-          ],
         )
       ],
-    ));
+    );
   }
 
-  Function _registeredPushNamed(String title, String description) {
-    return () => pushCallbacks.registeredPushNamed("/board/title=$title&description=$description");
+  Function _registeredPushNamed(String id) {
+    return () => pushCallbacks.registeredPushNamed("/board/id=$id");
   }
 }

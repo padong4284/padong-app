@@ -15,17 +15,25 @@ class PadongAuth {
   FirestoreAPI _userDB = locator<FirestoreAPI>('Firesetore:user');
 
   Future<ViewModelUser.User> get currentSession async {
-    if (auth.currentUser.email == ""){
+    await auth.currentUser.reload();
+    if (auth.currentUser == null){
       throw Exception("Not logged in");
     }
     QuerySnapshot user =  await _userDB.ref.where("userEmails", arrayContains: [auth.currentUser.email]).get();
     if (!user.docs[0].exists){
       throw Exception("There's no user");
     }
-    ViewModelUser.User docUser = ViewModelUser.User.fromMap(user.docs[0].data(), user.docs[0].id);
-    if (auth.currentUser.email == docUser.userEmails[0]){
-      return docUser;
+
+
+    for(var i in user.docs){
+      ViewModelUser.User docUser = ViewModelUser.User.fromMap(i.data(), i.id);
+      // ToDo: have to verify when changeEmail, what is the value of user.emailVerified?
+      // in this situation, i will assume user.emailVerified change to false.
+      if (auth.currentUser.emailVerified && auth.currentUser.email == docUser.userEmails[0]){
+        return docUser;
+      }
     }
+
     throw Exception("not validated User");
   }
 
@@ -68,6 +76,8 @@ class PadongAuth {
 
     // when email verified and userEmails.length > 1 => user changed email.
     // So, clear the email list
+    // ToDo: have to verify when changeEmail, what is the value of user.emailVerified?
+    // in this situation, i will assume user.emailVerified change to false.
     if (sessionUser.emailVerified && docUser.userEmails.length > 1) {
       docUser.userEmails = [sessionUser.email];
     }

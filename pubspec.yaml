@@ -39,6 +39,10 @@ dependencies:
   flutter_highlight: ^0.6.0
   image_picker: ^0.6.7
 
+  google_maps_flutter: ^1.2.0
+  http: ^0.12.2
+  json_serializable: ^3.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

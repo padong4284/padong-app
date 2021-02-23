@@ -10,14 +10,14 @@ import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/cards/post_card.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 
 class DeckView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongFloatingButton(onPressAdd: () {}, isScrollingDown: isScrollingDown),
+          PadongFloatingButton(
+              onPressAdd: () {}, isScrollingDown: isScrollingDown),
       title: 'Deck',
       children: [
         TabContainer(tabWidth: 80.0, tabs: [
@@ -57,9 +57,5 @@ class DeckView extends StatelessWidget {
         )
       ],
     );
-  }
-
-  Function _registeredPushNamed(String id) {
-    return () => pushCallbacks.registeredPushNamed("/board/id=$id");
   }
 }

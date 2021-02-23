@@ -16,13 +16,13 @@ Map<String, dynamic> getEvent(String id) {
 }
 
 class TimelineCard extends StatelessWidget {
-  final String _id; // node's _id
+  final String id; // node's id
   final bool isLecture;
   final Map<String, dynamic> event;
 
   TimelineCard(id, {this.isLecture = false})
       : this.event = getEvent(id),
-        this._id = id;
+        this.id = id;
 
   @override
   Widget build(BuildContext context) {

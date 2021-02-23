@@ -16,11 +16,11 @@ int getUnreadAPI(String chatRoomId) {
 }
 
 class ChatRoomTile extends NodeBaseTile {
-  final String _id;
+  final String id;
   final List<String> participants;
 
   ChatRoomTile(chatRoomId)
-      : this._id = chatRoomId,
+      : this.id = chatRoomId,
         this.participants = getParticipantAPI(chatRoomId),
         super(chatRoomId);
 
@@ -73,14 +73,14 @@ class ChatRoomTile extends NodeBaseTile {
 
   @override
   Widget followText() {
-    return Text(getLastMessageAPI(this._id),
+    return Text(getLastMessageAPI(this.id),
         overflow: TextOverflow.ellipsis,
         style: AppTheme.getFont(color: AppTheme.colors.support));
   }
 
   @override
   Widget bottomArea() {
-    int unread = getUnreadAPI(this._id);
+    int unread = getUnreadAPI(this.id);
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       SizedBox.shrink(),
       unread > 0

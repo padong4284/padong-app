@@ -6,7 +6,7 @@ import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 
 class FriendTile extends StatelessWidget {
-  final String _id;
+  final String id;
   final Map<String, dynamic> user;
   final FriendTileType type;
   final Function chatCallback;
@@ -16,7 +16,7 @@ class FriendTile extends StatelessWidget {
     this.type = FriendTileType.LIST,
     this.chatCallback,
     this.moreCallback,
-  })  : this._id = id,
+  })  : this.id = id,
         this.user = getUserAPI(id);
 
   @override

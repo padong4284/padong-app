@@ -11,11 +11,11 @@ import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
 
 class BoardView extends StatelessWidget {
-  final String _id;
+  final String id;
   final ModelBoard board;
 
   BoardView(id):
-      this._id = id,
+      this.id = id,
       this.board = getBoardAPI(id);
 
   @override

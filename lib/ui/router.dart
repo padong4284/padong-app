@@ -10,7 +10,7 @@ import './views/main/route_view.dart';
 
 class PadongRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final Map<String, dynamic> args = settings.arguments;
+    final Map<String, dynamic> args = new Map<String, dynamic>.from(settings.arguments ?? {});
     switch (settings.name) {
       case '/main':
         return MaterialPageRoute(

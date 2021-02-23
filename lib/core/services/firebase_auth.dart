@@ -66,8 +66,9 @@ class PadongAuth {
       return SignInReturns.failed;
     }
 
-    // clear the email list
-    if (docUser.userEmails.length > 1) {
+    // when email verified and userEmails.length > 1 => user changed email.
+    // So, clear the email list
+    if (sessionUser.emailVerified && docUser.userEmails.length > 1) {
       docUser.userEmails = [sessionUser.email];
     }
 

@@ -158,6 +158,7 @@ class PadongAuth {
     if (user == null) {
       return false;
     }
+
     QuerySnapshot queryUser = await _userDB.ref
         .where("userEmail", arrayContains: [user.email]).get();
 
@@ -177,12 +178,14 @@ class PadongAuth {
     } on Exception {
       return false;
     }
+
     if (docUser.userEmails.length > 1){
       docUser.userEmails[1] = email;
     } else{
       docUser.userEmails.add(email);
     }
     await _userDB.setDocument(docUser.toJson(), docUser.id);
+    await auth.signOut();
     return true;
   }
 }

@@ -166,7 +166,11 @@ class PadongAuth {
     } on Exception {
       return false;
     }
-    docUser.userEmails[1] = email;
+    if (docUser.userEmails.length > 1){
+      docUser.userEmails[1] = email;
+    } else{
+      docUser.userEmails.add(email);
+    }
     await _userDB.setDocument(docUser.toJson(), docUser.id);
     return true;
   }

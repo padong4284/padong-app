@@ -8,12 +8,12 @@ Map<String, String> getNode(String id) {
 }
 
 class PostCard extends StatelessWidget {
-  final String _id; // node's _id
+  final String id; // node's id
   final Map<String, String> node;
 
   PostCard(id)
       : this.node = getNode(id),
-        this._id = id;
+        this.id = id;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class PostCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          pushCallbacks.registeredPushNamed('/post/id=$_id');
+          pushCallbacks.registeredPushNamed('/post/id=$id');
         },
         // TODO: Routing to Post
         child: ConstrainedBox(

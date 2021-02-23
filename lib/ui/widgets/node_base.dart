@@ -20,12 +20,12 @@ Map<String, dynamic> getNode(String id) {
 }
 
 class NodeBase extends StatelessWidget {
-  final String _id;
+  final String id;
   final Map<String, dynamic> node;
   final bool noProfile;
 
   NodeBase(id, {noProfile = false})
-      : this._id = id,
+      : this.id = id,
         this.noProfile = noProfile,
         this.node = getNode(id);
 

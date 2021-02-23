@@ -13,13 +13,13 @@ Map<String, dynamic> getMessageAPI(String id) {
 }
 
 class ChatBalloon extends StatelessWidget {
-  final String _id;
+  final String id;
   final bool hideTimestamp;
   final bool hideSender;
   final Map<String, dynamic> chatMsg;
 
   ChatBalloon(id, {this.hideTimestamp = false, this.hideSender = false})
-      : this._id = id,
+      : this.id = id,
         this.chatMsg = getMessageAPI(id);
 
   @override

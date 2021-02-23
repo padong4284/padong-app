@@ -7,10 +7,10 @@ Map<String, String> getNode(String id) {
 }
 
 class SummaryCard extends StatelessWidget {
-  final String _id; // node's _id
+  final String id; // node's id
   final Map<String, String>  node;
 
-  SummaryCard(id) : this.node = getNode(id), this._id = id;
+  SummaryCard(id) : this.node = getNode(id), this.id = id;
 
   @override
   Widget build(BuildContext context) {

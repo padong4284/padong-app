@@ -16,12 +16,12 @@ Map<String, dynamic> getEvent(String id) {
 }
 
 class EventCard extends StatelessWidget {
-  final String _id; // node's _id
+  final String id; // node's id
   final Map<String, dynamic> event;
 
   EventCard(id)
       : this.event = getEvent(id),
-        this._id = id;
+        this.id = id;
 
   @override
   Widget build(BuildContext context) {

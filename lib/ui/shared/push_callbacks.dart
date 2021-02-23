@@ -10,7 +10,7 @@ Function pushNamedCallback(BuildContext context) {
     Map<String, dynamic> arguments = {};
     if (url.startsWith('/')) url = url.substring(1);
     List<String> parsed = url.split('/');
-    if (parsed.length > 2) {
+    if (parsed.length >= 2) {
       for (String parse in parsed[1].split('&')) {
         assert(parse.indexOf('=') > 0);
         List<String> keyVal = parse.split('=');

@@ -16,11 +16,11 @@ Color lineColor = AppTheme.colors.fontPalette[3];
 class TimeTable extends StatelessWidget {
   // 1 hour Block's height: 42,
   // width: (MediaQuery.of(context).size.width - 2*AppTheme.horizontalPadding -27)/5
-  final String _id; // node's _id
+  final String id; // node's id
   final int startHour; // TODO: get start hour from node data
   final int endHour;
 
-  TimeTable(id, {this.startHour = 9, this.endHour = 16}) : this._id = id;
+  TimeTable(id, {this.startHour = 9, this.endHour = 16}) : this.id = id;
 
   @override
   Widget build(BuildContext context) {

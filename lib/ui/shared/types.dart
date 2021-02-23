@@ -18,7 +18,7 @@ enum UsernamePosition {
 
 enum InputType {
   ROUNDED,
-  PLANE,
+  PLAIN,
   UNDERLINE,
 }
 

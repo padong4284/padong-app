@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/search/search_view.dart';
 import 'package:padong/ui/widgets/markdown_editor_template.dart';
@@ -9,7 +10,7 @@ import './views/main/route_view.dart';
 
 class PadongRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final arguments = settings.arguments;
+    final Map<String, dynamic> args = settings.arguments;
     switch (settings.name) {
       case '/main':
         return MaterialPageRoute(
@@ -30,13 +31,20 @@ class PadongRouter {
       case '/post':
         return MaterialPageRoute(
             builder: (_) => PostView(
-                  arguments: arguments,
-                ));
+                  args['id']
+            ));
       case '/search':
         return PageRouteBuilder(
           //pageBuilder: (_, __, ___) => SearchView(),
             pageBuilder: (_, __, ___) => MarkdownEditorTemplate(),
         );
+
+      /// Deck related routes
+      case '/board':
+        return PageRouteBuilder(
+            pageBuilder: (_, __, ___) => BoardView(
+                  args['id'],
+                ));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

@@ -3,17 +3,18 @@ import '../node.dart';
 
 
 class ModelUser extends ModelNode {
+  String uid;
   String userName;
   String userNickName;
   String userId;
-  List<String> userEmails;
+  String userEmail;
   String profileImage;
   bool isVerified;
   List<String> friendIds;
 
   ModelUser({
-    id,
-    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmails,
+    id, @required this.uid,
+    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
     @required this.profileImage, @required this.isVerified, @required this.friendIds,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
@@ -23,10 +24,11 @@ class ModelUser extends ModelNode {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelUser.fromMap(Map snapshot,String id) :
+        this.uid = snapshot['uid'] ?? "",
         this.userName = snapshot['userName'] ?? "",
         this.userNickName = snapshot['userNickName'] ?? "",
         this.userId = snapshot['userId'] ?? "",
-        this.userEmails = snapshot['userEmails'] ?? [],
+        this.userEmail = snapshot['userEmail'] ?? "",
         this.isVerified = snapshot['isVerified'] ?? false,
         this.friendIds = snapshot['friendIds'] ?? [],
         super.fromMap(snapshot, id);
@@ -34,10 +36,11 @@ class ModelUser extends ModelNode {
   toJson() {
     return {
       ...super.toJson(),
+      'uid': this.uid,
       'userName': this.userName,
       'userNickName': this.userNickName,
       'userId': this.userId,
-      'userEmail': this.userEmails,
+      'userEmail': this.userEmail,
       'isVerified': this.isVerified,
       "friendIds":this.friendIds,
     };

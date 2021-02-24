@@ -13,7 +13,6 @@ class SafePaddingTemplate extends StatefulWidget {
       floatingBottomBarGenerator; // (isScrollingDown) => Widget
   final List<Widget> children;
   final bool isBottomBar;
-  final Widget background;
 
   const SafePaddingTemplate(
       {this.appBar,
@@ -22,7 +21,6 @@ class SafePaddingTemplate extends StatefulWidget {
       floatingBottomBar,
       floatingBottomBarGenerator,
       @required this.children,
-        this.background,
       this.title = ''})
       : assert((floatingActionButton == null) ||
             (floatingActionButtonGenerator == null)),
@@ -69,9 +67,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
             (widget.floatingActionButtonGenerator != null
                 ? widget.floatingActionButtonGenerator(this.isScrollingDown)
                 : SizedBox.shrink()),
-        body: Stack(children: [
-          widget.background ?? SizedBox.shrink(),
-          SafeArea(
+        body: SafeArea(
             child: GestureDetector(
                 onTap: () {
                   FocusScopeNode currentFocus = FocusScope.of(context);
@@ -98,7 +94,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                               ? widget.floatingBottomBarGenerator(
                                   this.isScrollingDown)
                               : SizedBox.shrink()))
-                ])))]));
+                ]))));
   }
 
   Widget _topTitle() {

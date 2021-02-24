@@ -1,14 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/models/deck/like.dart';
 import 'package:padong/core/services/firestore_api.dart';
-
 import 'package:padong/locator.dart';
 
 
 /*
 * ModelLike's parentNodeId is ModelPosts
 * */
-class Like extends ModelLike {
+
+abstract class ILike {
+  Future<bool> createLike();
+  Future<bool> deleteLike();
+}
+
+class Like extends ModelLike{
   static final FirestoreAPI _likeDB = locator<FirestoreAPI>("Firestore:like");
 
   Like({id, parentNodeId, ownerId, pip, createdAt, deletedAt,
@@ -28,5 +33,31 @@ class Like extends ModelLike {
     throw Exception("LikeId doesn't exists");
   }
 
+  Future<bool> addLikeToFirebase() async{
+    try{
+      dynamic instance= await getLikeById(this.id);
+      if (instance != null) {
+        return true; // already like is existed.
+      }
+      return true;
+
+    }on Exception catch(e){
+      _likeDB.ref.add(this.toJson());
+       return true;
+    }
+  }
+
+  Future<bool> deleteLikeAtFirebase() async {
+    try {
+      dynamic instance = await getLikeById(this.id);
+      if (instance != null) {
+        _likeDB.ref.doc(this.id).delete();
+        return true;
+      }
+      return false;
+    } on Exception catch (e) {
+      return false; // already like is existed.
+    }
+  }
 }
 

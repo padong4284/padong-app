@@ -12,7 +12,7 @@
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#c0c5d0"
+        "color": "#D0D5E0"
       }
     ]
   },

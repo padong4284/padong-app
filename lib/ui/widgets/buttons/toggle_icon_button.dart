@@ -12,15 +12,16 @@ class ToggleIconButton extends StatefulWidget {
   final Alignment alignment;
 
   ToggleIconButton(
-      {@required this.defaultIcon,
-      @required this.toggleIcon,
+      {@required defaultIcon, toggleIcon,
       this.size = 25,
       defaultColor,
       toggleColor,
       this.onPressed,
       this.isToggled=false,
       this.alignment=Alignment.center})
-      : defaultColor = defaultColor ?? AppTheme.colors.support,
+      : this.defaultIcon = defaultIcon,
+        this.toggleIcon = toggleIcon ?? defaultIcon,
+        defaultColor = defaultColor ?? AppTheme.colors.support,
         toggleColor = toggleColor ?? (defaultColor ?? AppTheme.colors.support);
 
   @override

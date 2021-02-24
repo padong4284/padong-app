@@ -3,10 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:padong/core/viewmodels/table/memo.dart';
-import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/buttons/button.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
@@ -48,9 +45,8 @@ class MapSampleState extends State<MapView> {
   Widget build(BuildContext context) {
     return new SafePaddingTemplate(
       background: GoogleMap(
-          mapType: MapType.normal,
-          initialCameraPosition: this._georgiaTech,
           zoomControlsEnabled: false,
+          initialCameraPosition: this._georgiaTech,
           onMapCreated: (GoogleMapController controller) {
             controller.setMapStyle(this._mapStyle);
             _controller.complete(controller);
@@ -75,7 +71,6 @@ class MapSampleState extends State<MapView> {
       ],
       floatingBottomBar: HorizontalScroller(
           height: 150,
-          padding: 3.0,
           children: Iterable<int>.generate(10)
               .map((idx) => BuildingCard(idx.toString()))
               .toList()),
@@ -86,24 +81,20 @@ class MapSampleState extends State<MapView> {
 
   Widget selector() {
     return Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide.none,
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 3.0,
         child: Container(
           height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:
-              Iterable<int>.generate(5).map((idx) =>
-              ToggleIconButton(
-                size: 25,
-                defaultIcon: this.icons[idx],
-                toggleColor: AppTheme.colors.primary,
-              )).toList()
-          ),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: Iterable<int>.generate(5)
+                  .map((idx) => ToggleIconButton(
+                        size: 25,
+                        defaultIcon: this.icons[idx],
+                        toggleColor: AppTheme.colors.primary,
+                      ))
+                  .toList()),
         ));
   }
 

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:padong/core/viewmodels/table/memo.dart';
+import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class MapSampleState extends State<MapView> {
 
   final CameraPosition _georgiaTech = CameraPosition(
     target: LatLng(33.775992835163144, -84.3962589592725),
-    zoom: 14.4746,
+    zoom: 17.0,
     //bearing: 192.8334901395799,
     //tilt: 59.440717697143555,
   );
@@ -29,13 +31,19 @@ class MapSampleState extends State<MapView> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: GoogleMap(
-          initialCameraPosition: this._georgiaTech,
-          onMapCreated: (GoogleMapController controller) {
-            controller.setMapStyle(this._mapStyle);
-            _controller.complete(controller);
-          }),
+    double height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
+    return new SafePaddingTemplate(
+        background: GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: this._georgiaTech,
+            zoomControlsEnabled: false,
+            onMapCreated: (GoogleMapController controller) {
+              controller.setMapStyle(this._mapStyle);
+              _controller.complete(controller);
+            }),
+      children: [],
     );
   }
 

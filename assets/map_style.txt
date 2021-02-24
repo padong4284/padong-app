@@ -3,7 +3,7 @@
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#f5f5f5"
+        "color": "#fafafa"
       }
     ]
   },
@@ -12,7 +12,7 @@
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#fdfeff"
+        "color": "#c0c5d0"
       }
     ]
   },
@@ -33,5 +33,5 @@
         "color": "#00a1e0"
       }
     ]
-  }
+  },
 ]

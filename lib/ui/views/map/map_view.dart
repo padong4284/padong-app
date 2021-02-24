@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:padong/core/viewmodels/table/memo.dart';
+import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
+import 'package:padong/ui/widgets/cards/building_card.dart';
+import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 
 class MapView extends StatefulWidget {
@@ -35,15 +38,23 @@ class MapSampleState extends State<MapView> {
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
     return new SafePaddingTemplate(
-        background: GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: this._georgiaTech,
-            zoomControlsEnabled: false,
-            onMapCreated: (GoogleMapController controller) {
-              controller.setMapStyle(this._mapStyle);
-              _controller.complete(controller);
-            }),
+      background: GoogleMap(
+          mapType: MapType.normal,
+          initialCameraPosition: this._georgiaTech,
+          zoomControlsEnabled: false,
+          onMapCreated: (GoogleMapController controller) {
+            controller.setMapStyle(this._mapStyle);
+            _controller.complete(controller);
+          }),
       children: [],
+      floatingBottomBar: HorizontalScroller(
+          height: 150,
+          padding: 3.0,
+          children: Iterable<int>.generate(10)
+              .map((idx) => BuildingCard(idx.toString()))
+              .toList()),
+      floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
+          isScrollingDown: isScrollingDown, onPressAdd: () {}),
     );
   }
 

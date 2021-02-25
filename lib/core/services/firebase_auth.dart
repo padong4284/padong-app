@@ -6,7 +6,7 @@ import 'package:padong/core/viewmodels/user/user.dart' as ViewModelUser;
 import 'package:padong/core/services/firestore_api.dart';
 import 'package:padong/locator.dart';
 
-enum RegistrationReturns { success, failed, weak_password, emailAlreadyInUse }
+enum RegistrationReturns { success, failed, weak_password, emailAlreadyInUse, IdAlreadyInUse }
 
 enum SignInReturns { success, failed, wrongEmailOrPassword }
 
@@ -19,22 +19,11 @@ class PadongAuth {
     if (auth.currentUser == null){
       throw Exception("Not logged in");
     }
-    QuerySnapshot user =  await _userDB.ref.where("userEmails", arrayContains: [auth.currentUser.email]).get();
-    if (!user.docs[0].exists){
+    DocumentSnapshot user =  await _userDB.ref.doc(auth.currentUser.uid).get();
+    if (!user.exists){
       throw Exception("There's no user");
     }
-
-
-    for(var i in user.docs){
-      ViewModelUser.User docUser = ViewModelUser.User.fromMap(i.data(), i.id);
-      // ToDo: have to verify when changeEmail, what is the value of user.emailVerified?
-      // in this situation, i will assume user.emailVerified change to false.
-      if (auth.currentUser.emailVerified && auth.currentUser.email == docUser.userEmails[0]){
-        return docUser;
-      }
-    }
-
-    throw Exception("not validated User");
+    return ViewModelUser.User.fromMap(user.data(), auth.currentUser.uid);
   }
 
   Future<SignInReturns> signIn(String id, String pw) async {
@@ -74,14 +63,6 @@ class PadongAuth {
       return SignInReturns.failed;
     }
 
-    // when email verified and userEmails.length > 1 => user changed email.
-    // So, clear the email list
-    // ToDo: have to verify when changeEmail, what is the value of user.emailVerified?
-    // in this situation, i will assume user.emailVerified change to false.
-    if (sessionUser.emailVerified && docUser.userEmails.length > 1) {
-      docUser.userEmails = [sessionUser.email];
-    }
-
     //user email verify completed or changed Email
     if (sessionUser.emailVerified != docUser.isVerified) {
       docUser.isVerified = sessionUser.emailVerified;
@@ -107,7 +88,7 @@ class PadongAuth {
     QuerySnapshot user =
         await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size > 0) {
-      return RegistrationReturns.emailAlreadyInUse;
+      return RegistrationReturns.IdAlreadyInUse;
     }
 
     try {
@@ -136,7 +117,7 @@ class PadongAuth {
       await currentUser.sendEmailVerification();
     }
 
-    _userDB.addDocument({
+    _userDB.ref.doc(currentUser.uid).set ({
       'userName': userName,
       'userId': id,
       'userEmails': [email],
@@ -154,19 +135,19 @@ class PadongAuth {
   }
 
   Future<bool> changeEmail(String email) async {
+    await auth.currentUser.reload();
     User user = auth.currentUser;
     if (user == null) {
       return false;
     }
 
-    QuerySnapshot queryUser = await _userDB.ref
-        .where("userEmail", arrayContains: [user.email]).get();
+    DocumentSnapshot queryUser = await _userDB.ref.doc(user.uid).get();
 
-    if (queryUser.size == 0) {
+    if (queryUser.exists == false) {
       return false;
     }
-    QueryDocumentSnapshot docSnapshot = queryUser.docs.first;
-    ModelUser docUser = ModelUser.fromMap(docSnapshot.data(), docSnapshot.id);
+
+    ModelUser docUser = ModelUser.fromMap(queryUser.data(), queryUser.id);
 
     try {
       //ToDo: Must Check changeEmail with exist email.
@@ -179,11 +160,8 @@ class PadongAuth {
       return false;
     }
 
-    if (docUser.userEmails.length > 1){
-      docUser.userEmails[1] = email;
-    } else{
-      docUser.userEmails.add(email);
-    }
+    docUser.userEmails = [ user.email, email ];
+
     await _userDB.setDocument(docUser.toJson(), docUser.id);
     await auth.signOut();
     return true;

@@ -13,13 +13,14 @@ class User extends ModelUser {
   static final FirestoreAPI _userDB = locator<FirestoreAPI>("Firestore:user");
 
   User({
-    id,
+    id, uid,
     userName, userNickName, userId, userEmails,
     profileImage, isVerified, friendIds,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
           id: id,
+          uid: uid,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           userEmails: userEmails, userName: userName, userNickName: userNickName,
           userId: userId, profileImage: profileImage, isVerified: isVerified, friendIds: friendIds,

@@ -7,14 +7,14 @@ class ModelUser extends ModelNode {
   String userName;
   String userNickName;
   String userId;
-  String userEmail;
+  List<String> userEmails;
   String profileImage;
   bool isVerified;
   List<String> friendIds;
 
   ModelUser({
     id, @required this.uid,
-    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
+    @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmails,
     @required this.profileImage, @required this.isVerified, @required this.friendIds,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
@@ -24,11 +24,10 @@ class ModelUser extends ModelNode {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelUser.fromMap(Map snapshot,String id) :
-        this.uid = snapshot['uid'] ?? "",
         this.userName = snapshot['userName'] ?? "",
         this.userNickName = snapshot['userNickName'] ?? "",
         this.userId = snapshot['userId'] ?? "",
-        this.userEmail = snapshot['userEmail'] ?? "",
+        this.userEmails = snapshot['userEmails'] ?? [],
         this.isVerified = snapshot['isVerified'] ?? false,
         this.friendIds = snapshot['friendIds'] ?? [],
         super.fromMap(snapshot, id);
@@ -36,11 +35,10 @@ class ModelUser extends ModelNode {
   toJson() {
     return {
       ...super.toJson(),
-      'uid': this.uid,
       'userName': this.userName,
       'userNickName': this.userNickName,
       'userId': this.userId,
-      'userEmail': this.userEmail,
+      'userEmails': this.userEmails,
       'isVerified': this.isVerified,
       "friendIds":this.friendIds,
     };

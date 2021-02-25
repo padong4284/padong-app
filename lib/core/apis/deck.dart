@@ -1,3 +1,6 @@
+import 'dart:math';
+Random rand = Random();
+
 Map<String, dynamic> getUnivAPI(String univId) {
   return {
     'title': 'Georgia Tech',
@@ -33,6 +36,7 @@ Map<String, dynamic> getBoardAPI(String id) {
     return {
       'id': id,
       'title': 'Global',
+      'notification': false,
       'description': '''
 This board is GLOBAL board.
 Everyone can read and write in this board.
@@ -42,6 +46,7 @@ Everyone can read and write in this board.
     return {
       'id': id,
       'title': 'Public',
+      'notification': false,
       'description': '''
 This board is PUBLIC board.
 Everyone can read this board.
@@ -52,6 +57,7 @@ But, only Georgia Tech students can write.
     return {
       'id': id,
       'title': 'Internal',
+      'notification': false,
       'description': '''
 This board is INTERNAL board.
 ONLY Georgia Tech students can read and write.
@@ -61,6 +67,9 @@ ONLY Georgia Tech students can read and write.
   return {
     'id': id,
     'title': 'Board Title',
+    'notification': rand.nextBool(),
     'description': 'sample board description'
   };
 }
+
+void setNotificationBoardAPI(String boardId, bool notification) {}

@@ -57,15 +57,13 @@ class _BoardListTileState extends State<BoardListTile> {
                           ? ToggleIconButton(
                               defaultIcon: Icons.notifications,
                               toggleIcon: Icons.notifications_off,
-                              isToggled: !this.notifications[idx],
+                              isToggled: !board['notification'],
                               defaultColor: AppTheme.colors.pointYellow,
                               toggleColor: AppTheme.colors.support,
                               size: 25,
                               onPressed: () {
-                                setState(() {
-                                  this.notifications[idx] =
-                                      !this.notifications[idx];
-                                });
+                                board['notification'] = !board['notification'];
+                                setNotificationBoardAPI(board['id'], board['notification']);
                               })
                           : Icon(widget.icons[idx],
                               size: 25, color: AppTheme.colors.support)),

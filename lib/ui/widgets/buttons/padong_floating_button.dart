@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
+import 'package:padong/core/apis/padong_router.dart';
 
 class PadongFloatingButton extends StatelessWidget {
   final Function onPressAdd;
@@ -39,7 +39,7 @@ class PadongFloatingButton extends StatelessWidget {
                           color: AppTheme.colors.base, size: 30),
                       backgroundColor: AppTheme.colors.primary,
                       onPressed: () {
-                        pushCallbacks.registeredPushNamed('/search');
+                        PadongRouter.routeURL('/search');
                       }))
             ])));
   }

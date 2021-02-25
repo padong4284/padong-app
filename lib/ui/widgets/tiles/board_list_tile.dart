@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/models/deck/board.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushNamedCallback;
+import 'package:padong/core/apis/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
 
@@ -66,7 +66,7 @@ class _BoardListTileState extends State<BoardListTile> {
                 final board = getBoardAPI(widget.boardIds[idx]);
                 return InkWell(
                   onTap: () {
-                    pushNamedCallback.registeredPushNamed('/board/id=${board.id}');
+                    PadongRouter.routeURL('/board/id=${board.id}');
                   },
                   child: Container(
                       alignment: Alignment.centerLeft,

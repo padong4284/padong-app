@@ -16,11 +16,12 @@ import 'package:padong/ui/widgets/tiles/node/reply_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
 
 ModelUser getUserById(String id) {
-  return ModelUser(id:id, userName: 'kodw0402');
+  return ModelUser(id: id, userName: 'kodw0402');
 }
 
 ModelPost getPostAPI(String id) {
-  return ModelPost(title: 'Title', createdAt: DateTime(2021, 5, 13, 13, 13), description: '''
+  return ModelPost(
+      title: 'Title', createdAt: DateTime(2021, 5, 13, 13, 13), description: '''
 This is the content of this post. You can fill it
 with the "MarkDown".
 
@@ -76,7 +77,8 @@ class PostView extends StatelessWidget {
   }
 
   List<String> getTimes() {
-    final List<String> splitedTime = this.post.createdAt.toIso8601String().split('T');
+    final List<String> splitedTime =
+        this.post.createdAt.toIso8601String().split('T');
     final String yearMonthDay = splitedTime[0];
 
     final List<String> splitedHourMin = splitedTime[1].split(':');
@@ -94,17 +96,14 @@ class PostView extends StatelessWidget {
               username: this.user.userName,
               position: UsernamePosition.RIGHT_CENTER,
               size: 38.0),
-          Row(
-            children: [
-              Text(getTimes()[0], style: AppTheme.getFont(
-                    color: AppTheme.colors.semiSupport
-                )),
-              Padding(
+          Row(children: [
+            Text(getTimes()[0],
+                style: AppTheme.getFont(color: AppTheme.colors.semiSupport)),
+            Padding(
                 padding: EdgeInsets.only(left: 4.0, right: 12.0),
-                child: Text(getTimes()[1], style: AppTheme.getFont(
-                    color: AppTheme.colors.semiSupport
-                ))
-              )
+                child: Text(getTimes()[1],
+                    style:
+                        AppTheme.getFont(color: AppTheme.colors.semiSupport)))
           ])
         ],
       ),
@@ -130,8 +129,7 @@ class PostView extends StatelessWidget {
                             color: AppTheme.colors.support, size: 20),
                         callback: () {}))
               ],
-            )
-        ),
+            )),
         _underLine()
       ],
     );

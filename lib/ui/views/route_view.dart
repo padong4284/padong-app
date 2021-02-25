@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
+import 'package:padong/core/apis/padong_router.dart';
 import 'package:padong/ui/widgets/bars/padong_bottom_navigation_bar.dart';
-
 import 'package:padong/ui/views/cover/wiki_cover_view.dart';
 import 'package:padong/ui/views/deck/deck_view.dart';
 import 'package:padong/ui/views/map/map_view.dart';
@@ -19,8 +18,7 @@ class _RouteViewState extends State<RouteView> {
   @override
   void initState() {
     super.initState();
-    pushCallbacks.registeredPushNamed =
-        pushCallbacks.pushNamedCallback(this.context);
+    PadongRouter.registerContext(this.context);
   }
 
   @override
@@ -46,7 +44,7 @@ class _RouteViewState extends State<RouteView> {
                 _buildOffstageNavigator(1),
                 _buildOffstageNavigator(2),
                 _buildOffstageNavigator(3),
-                _buildOffstageNavigator(4)
+                _buildOffstageNavigator(4),
               ],
             ),
             bottomNavigationBar: PadongBottomNavigationBar(
@@ -73,14 +71,10 @@ class _RouteViewState extends State<RouteView> {
   Widget _buildOffstageNavigator(int index) {
     var routeBuilders = _routeBuilders(context, index);
     return Offstage(
-      offstage: _selectedIndex != index,
-      child: Navigator(
-        onGenerateRoute: (routeSettings) {
+        offstage: _selectedIndex != index,
+        child: Navigator(onGenerateRoute: (routeSettings) {
           return MaterialPageRoute(
-            builder: (context) => routeBuilders[routeSettings.name](context),
-          );
-        },
-      ),
-    );
+              builder: (context) => routeBuilders[routeSettings.name](context));
+        }));
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
+import 'package:padong/core/apis/padong_router.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 class TitleHeader extends StatelessWidget {
@@ -69,7 +69,7 @@ class TitleHeader extends StatelessWidget {
                 buttonSize: ButtonSize.LARGE,
                 callback: () {
                   if (this.link.length > 0)
-                    pushCallbacks.registeredPushNamed(this.link);
+                    PadongRouter.routeURL(this.link);
                 }) // TODO: Route to link
             : SizedBox.shrink();
   }

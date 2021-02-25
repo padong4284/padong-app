@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './ui/router.dart';
+import 'core/apis/padong_router.dart';
 import './ui/theme/app_theme.dart';
 
 void main() {

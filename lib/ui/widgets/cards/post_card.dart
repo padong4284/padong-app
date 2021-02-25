@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
+import 'package:padong/core/apis/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 
@@ -32,7 +32,7 @@ class PostCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          pushCallbacks.registeredPushNamed('/post/id=$id');
+          PadongRouter.routeURL('/post/id=$id');
         },
         // TODO: Routing to Post
         child: ConstrainedBox(

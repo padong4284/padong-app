@@ -17,6 +17,8 @@ void setupLocator() {
   locator.registerLazySingleton(() => FirestoreAPI('reply'), "Firestore:reply");
   locator.registerLazySingleton(() => FirestoreAPI('rereply'), "Firestore:rereply");
   locator.registerLazySingleton(() => FirestoreAPI('like'), "Firestore:like");
+  locator.registerLazySingleton(() => FirestoreAPI('like'), "Firestore:bookmark");
+  locator.registerLazySingleton(() => FirestoreAPI('like'), "Firestore:alert");
   locator.registerLazySingleton(() => FirestoreAPI('attachment'), "Firestore:attachment");
 
   locator.registerLazySingleton(() => FirestoreAPI('cover'), "Firestore:cover");

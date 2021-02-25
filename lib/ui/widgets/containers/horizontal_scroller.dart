@@ -1,14 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
 class HorizontalScroller extends StatelessWidget {
   final List<Widget> children;
   final double padding;
+  final double height;
   final parentLeftPadding;
   final parentRightPadding;
 
   HorizontalScroller(
       {@required this.children,
+        this.height=220,
       this.parentLeftPadding = AppTheme.horizontalPadding,
       this.parentRightPadding = AppTheme.horizontalPadding,
       padding})
@@ -19,7 +22,7 @@ class HorizontalScroller extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     int len = this.children.length;
     return Container(
-        height: 220,
+        height: this.height,
         transform: Matrix4.translationValues(this.parentRightPadding, 0.0, 0.0),
         child: Container(
           transform:

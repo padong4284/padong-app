@@ -2,20 +2,33 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:padong/core/models/user/user.dart';
+import 'package:padong/core/viewmodels/user/user.dart' as ViewModelUser;
 import 'package:padong/core/services/firestore_api.dart';
 import 'package:padong/locator.dart';
 
-enum RegistrationReturns { success, failed, weak_password, emailAlreadyInUse }
+enum RegistrationReturns { success, failed, weak_password, emailAlreadyInUse, IdAlreadyInUse }
 
 enum SignInReturns { success, failed, wrongEmailOrPassword }
 
 class PadongAuth {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  FirestoreAPI storeUser = locator<FirestoreAPI>('Firesetore:user');
+  FirestoreAPI _userDB = locator<FirestoreAPI>('Firesetore:user');
+
+  Future<ViewModelUser.User> get currentSession async {
+    await auth.currentUser.reload();
+    if (auth.currentUser == null){
+      throw Exception("Not logged in");
+    }
+    DocumentSnapshot user =  await _userDB.ref.doc(auth.currentUser.uid).get();
+    if (!user.exists){
+      throw Exception("There's no user");
+    }
+    return ViewModelUser.User.fromMap(user.data(), auth.currentUser.uid);
+  }
 
   Future<SignInReturns> signIn(String id, String pw) async {
     QuerySnapshot user =
-        await storeUser.ref.where("userId", isEqualTo: id).get();
+        await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size == 0) {
       return SignInReturns.wrongEmailOrPassword;
     }
@@ -50,17 +63,12 @@ class PadongAuth {
       return SignInReturns.failed;
     }
 
-    // clear the email list
-    if (docUser.userEmails.length > 1) {
-      docUser.userEmails = [sessionUser.email];
-    }
-
     //user email verify completed or changed Email
     if (sessionUser.emailVerified != docUser.isVerified) {
       docUser.isVerified = sessionUser.emailVerified;
     }
 
-    storeUser.setDocument(docUser.toJson(), docUser.id);
+    _userDB.setDocument(docUser.toJson(), docUser.id);
     return SignInReturns.success;
   }
 
@@ -78,9 +86,9 @@ class PadongAuth {
     @required String email,
   }) async {
     QuerySnapshot user =
-        await storeUser.ref.where("userId", isEqualTo: id).get();
+        await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size > 0) {
-      return RegistrationReturns.emailAlreadyInUse;
+      return RegistrationReturns.IdAlreadyInUse;
     }
 
     try {
@@ -109,7 +117,7 @@ class PadongAuth {
       await currentUser.sendEmailVerification();
     }
 
-    storeUser.addDocument({
+    _userDB.ref.doc(currentUser.uid).set ({
       'userName': userName,
       'userId': id,
       'userEmails': [email],
@@ -127,18 +135,19 @@ class PadongAuth {
   }
 
   Future<bool> changeEmail(String email) async {
+    await auth.currentUser.reload();
     User user = auth.currentUser;
     if (user == null) {
       return false;
     }
-    QuerySnapshot queryUser = await storeUser.ref
-        .where("userEmail", arrayContains: [user.email]).get();
 
-    if (queryUser.size == 0) {
+    DocumentSnapshot queryUser = await _userDB.ref.doc(user.uid).get();
+
+    if (queryUser.exists == false) {
       return false;
     }
-    QueryDocumentSnapshot docSnapshot = queryUser.docs.first;
-    ModelUser docUser = ModelUser.fromMap(docSnapshot.data(), docSnapshot.id);
+
+    ModelUser docUser = ModelUser.fromMap(queryUser.data(), queryUser.id);
 
     try {
       //ToDo: Must Check changeEmail with exist email.
@@ -150,8 +159,11 @@ class PadongAuth {
     } on Exception {
       return false;
     }
-    docUser.userEmails.add(email);
-    await storeUser.setDocument(docUser.toJson(), docUser.id);
+
+    docUser.userEmails = [ user.email, email ];
+
+    await _userDB.setDocument(docUser.toJson(), docUser.id);
+    await auth.signOut();
     return true;
   }
 }

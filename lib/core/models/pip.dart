@@ -1,5 +1,5 @@
 enum PIP{
-  PRIVATE,
   INTERNAL,
+  PRIVATE,
   PUBLIC
 }

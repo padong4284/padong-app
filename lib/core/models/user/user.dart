@@ -3,6 +3,7 @@ import '../node.dart';
 
 
 class ModelUser extends ModelNode {
+  String uid;
   String userName;
   String userNickName;
   String userId;
@@ -12,7 +13,7 @@ class ModelUser extends ModelNode {
   List<String> friendIds;
 
   ModelUser({
-    id,
+    id, @required this.uid,
     @required this.userName, @required this.userNickName, @required this.userId, @required this.userEmails,
     @required this.profileImage, @required this.isVerified, @required this.friendIds,
     parentNodeId, ownerId, pip,
@@ -37,7 +38,7 @@ class ModelUser extends ModelNode {
       'userName': this.userName,
       'userNickName': this.userNickName,
       'userId': this.userId,
-      'userEmail': this.userEmails,
+      'userEmails': this.userEmails,
       'isVerified': this.isVerified,
       "friendIds":this.friendIds,
     };

@@ -20,7 +20,7 @@ class ModelLecture extends ModelEvent {
     times,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Lecture",
           title:title, description: description,
           timeCategory: TIME_CATEGORY.WEEKLY,
           times: times,

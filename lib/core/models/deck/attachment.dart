@@ -14,7 +14,7 @@ class ModelAttachment extends ModelNode {
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
-          id: id,
+          id: id, type: "Attachment",
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

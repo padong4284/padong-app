@@ -10,13 +10,13 @@ class ModelChatroom extends ModelTitleNode {
   List<Participant> participants;
 
   ModelChatroom({
-    id,
+    id, type,
     title, description,
     parentNodeId, ownerId,
     @required this.participants,
     pip, createdAt, deletedAt,
     modifiedAt}):
-        super(id: id,
+        super(id: id, type: "ChatMessage",
           title:title, description: description,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);

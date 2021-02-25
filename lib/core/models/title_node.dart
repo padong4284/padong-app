@@ -8,6 +8,7 @@ class ModelTitleNode extends ModelNode {
 
   ModelTitleNode(
       {id,
+      @required type,
       @required this.title,
       @required this.description,
       parentNodeId,
@@ -18,6 +19,7 @@ class ModelTitleNode extends ModelNode {
       modifiedAt})
       : super(
             id: id,
+            type: type,
             parentNodeId: parentNodeId,
             ownerId: ownerId,
             pip: pip,

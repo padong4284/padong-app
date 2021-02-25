@@ -9,13 +9,13 @@ class ModelOpinion extends ModelReply {
   double score;
 
   ModelOpinion({
-    id,
+    id, type,
     description,
     @required this.score,
     anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: type ?? "Opinion",
           description: description,
           anonymity: anonymity,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,

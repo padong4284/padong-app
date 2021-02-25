@@ -16,7 +16,7 @@ class ModelBuilding extends ModelBoard {
     @required this.lat, @required this.lng,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id,type: "Building",
           title:title, description: description,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);

@@ -11,7 +11,7 @@ class ModelService extends ModelPost {
     anonymity, attachments,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Service",
           title:title, description: description,
           anonymity: anonymity, attachments: attachments,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,

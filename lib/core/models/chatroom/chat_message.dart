@@ -11,13 +11,13 @@ class ModelChatMessage extends ModelNode {
   ModelAttachment attachment;
 
   ModelChatMessage({
-    id,
+    id, type,
     @required this.message,
     this.attachment,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
-          id: id,
+          id: id, type: "ChatMessage",
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

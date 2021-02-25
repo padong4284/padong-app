@@ -8,12 +8,12 @@ class ModelReReply extends ModelNode {
   String description;
   bool anonymity;
   ModelReReply({
-    id,
+    id, type,
     @required this.description, @required this.anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
       super(
-        id: id,
+        id: id, type: type ?? "ReReply",
         parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
         createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt
       );

@@ -11,7 +11,7 @@ class ModelCover extends ModelDeck {
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
-          id: id,
+          id: id, type: "Cover",
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

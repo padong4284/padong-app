@@ -8,7 +8,7 @@ class ModelUniversity extends ModelTitleNode {
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
   super(
-          id: id,
+          id: id, type: "University",
           title:title, description: description,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);

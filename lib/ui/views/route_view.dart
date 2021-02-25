@@ -7,6 +7,8 @@ import 'package:padong/ui/views/map/map_view.dart';
 import 'package:padong/ui/views/schedule/schedule_view.dart';
 import 'package:padong/ui/views/main/main_view.dart';
 
+import 'package:padong/core/apis/session.dart' as Session;
+
 class RouteView extends StatefulWidget {
   @override
   _RouteViewState createState() => _RouteViewState();
@@ -55,12 +57,13 @@ class _RouteViewState extends State<RouteView> {
   }
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
+    // TODO: refactor
     return {
       '/': (context) {
         return [
           MainView(),
           WikiCoverView(),
-          DeckView(),
+          DeckView(Session.user['univId']),
           ScheduleView(),
           MapView(),
         ].elementAt(index);

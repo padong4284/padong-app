@@ -12,13 +12,14 @@ class ToggleIconButton extends StatefulWidget {
   final Alignment alignment;
 
   ToggleIconButton(
-      {@required defaultIcon, toggleIcon,
+      {@required defaultIcon,
+      toggleIcon,
       this.size = 25,
       defaultColor,
       toggleColor,
       this.onPressed,
-      this.isToggled=false,
-      this.alignment=Alignment.center})
+      this.isToggled = false,
+      this.alignment = Alignment.center})
       : this.defaultIcon = defaultIcon,
         this.toggleIcon = toggleIcon ?? defaultIcon,
         defaultColor = defaultColor ?? AppTheme.colors.support,
@@ -39,18 +40,21 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        iconSize: widget.size,
-        padding: const EdgeInsets.all(0),
-        alignment: widget.alignment,
-        onPressed: () {
-          setState(() {
-            this.toggled = !this.toggled;
-          });
-          if (widget.onPressed != null) widget.onPressed();
-        },
-        icon: Icon(this.toggled ? widget.toggleIcon : widget.defaultIcon,
-            color: toggled ? widget.toggleColor : widget.defaultColor,
-            size: widget.size));
+    return Container(
+        width: widget.size,
+        height: widget.size,
+        child: IconButton(
+            iconSize: widget.size,
+            padding: const EdgeInsets.all(0),
+            alignment: widget.alignment,
+            onPressed: () {
+              setState(() {
+                this.toggled = !this.toggled;
+              });
+              if (widget.onPressed != null) widget.onPressed();
+            },
+            icon: Icon(this.toggled ? widget.toggleIcon : widget.defaultIcon,
+                color: toggled ? widget.toggleColor : widget.defaultColor,
+                size: widget.size)));
   }
 }

@@ -11,7 +11,7 @@ class ModelChatMessage extends ModelNode {
   ModelAttachment attachment;
 
   ModelChatMessage({
-    id, type,
+    id,
     @required this.message,
     this.attachment,
     parentNodeId, ownerId, pip,

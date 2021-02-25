@@ -46,12 +46,12 @@ class MapSampleState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     return new SafePaddingTemplate(
-      background: GoogleMap(
+      /*background: GoogleMap(
           zoomControlsEnabled: false,
           initialCameraPosition: this._myUniv,
           onMapCreated: this._onMapCreated,
           markers: {}// this._markers.values.toSet()
-      ),
+      ),*/
       children: [
         SizedBox(height: 10),
         Row(

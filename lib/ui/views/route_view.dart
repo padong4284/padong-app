@@ -9,13 +9,21 @@ import 'package:padong/ui/views/main/main_view.dart';
 
 import 'package:padong/core/apis/session.dart' as Session;
 
+final List<Widget> pages = [
+  MainView(),
+  WikiCoverView(),
+  DeckView(Session.user['univId']),
+  ScheduleView(),
+  MapView(),
+];
+
 class RouteView extends StatefulWidget {
   @override
   _RouteViewState createState() => _RouteViewState();
 }
 
 class _RouteViewState extends State<RouteView> {
-  int _selectedIndex = 0;
+  int _selectedIdx = 0;
 
   @override
   void initState() {
@@ -25,59 +33,13 @@ class _RouteViewState extends State<RouteView> {
 
   @override
   Widget build(BuildContext context) {
-    List<GlobalKey<NavigatorState>> _navigatorKeys = [
-      GlobalKey<NavigatorState>(),
-      GlobalKey<NavigatorState>(),
-      GlobalKey<NavigatorState>(),
-      GlobalKey<NavigatorState>(),
-      GlobalKey<NavigatorState>()
-    ];
-    return WillPopScope(
-        onWillPop: () async {
-          final isFirstRouteInCurrentTab =
-              !await _navigatorKeys[_selectedIndex].currentState.maybePop();
-
-          return isFirstRouteInCurrentTab;
-        },
-        child: Scaffold(
-            body: Stack(
-              children: [
-                _buildOffstageNavigator(0),
-                _buildOffstageNavigator(1),
-                _buildOffstageNavigator(2),
-                _buildOffstageNavigator(3),
-                _buildOffstageNavigator(4),
-              ],
-            ),
-            bottomNavigationBar: PadongBottomNavigationBar(
-                selectedIndex: _selectedIndex,
-                setSelectedIndex: (int index) => setState(() {
-                      this._selectedIndex = index;
-                    }))));
-  }
-
-  Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
-    // TODO: refactor
-    return {
-      '/': (context) {
-        return [
-          MainView(),
-          WikiCoverView(),
-          DeckView(Session.user['univId']),
-          ScheduleView(),
-          MapView(),
-        ].elementAt(index);
-      },
-    };
-  }
-
-  Widget _buildOffstageNavigator(int index) {
-    var routeBuilders = _routeBuilders(context, index);
-    return Offstage(
-        offstage: _selectedIndex != index,
-        child: Navigator(onGenerateRoute: (routeSettings) {
-          return MaterialPageRoute(
-              builder: (context) => routeBuilders[routeSettings.name](context));
-        }));
+    return Scaffold(
+      bottomNavigationBar:  PadongBottomNavigationBar(
+        selectedIdx: _selectedIdx,
+        setSelectedIdx: (int idx) => setState(() {
+      this._selectedIdx = idx;
+    })),
+    body: pages[this._selectedIdx]
+    );
   }
 }

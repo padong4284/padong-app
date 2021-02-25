@@ -88,9 +88,9 @@ class NodeBase extends StatelessWidget {
   Widget bottomArea() {
     return Stack(
       children: [
-        BottomButtons(left: -12, bottoms: this.node['bottoms']),
+        BottomButtons(left: 0, bottoms: this.node['bottoms']),
         Positioned(
-            bottom: 3,
+            bottom: 5,
             right: 0,
             child: TranspButton(
                 buttonSize: ButtonSize.SMALL,

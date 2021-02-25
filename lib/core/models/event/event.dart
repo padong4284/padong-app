@@ -18,13 +18,13 @@ class ModelEvent extends ModelBoard {
   List<TimeRange> times;
 
   ModelEvent({
-    id,
+    id, type,
     title, description,
     @required this.timeCategory,
     @required this.times,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-      super(id: id,
+      super(id: id, type: type ?? "Event",
         title:title, description: description,
         parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
         createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);

@@ -5,9 +5,9 @@ import 'package:padong/core/models/title_node.dart';
 * */
 class ModelBoard extends ModelTitleNode {
 
-  ModelBoard({id, title, description, parentNodeId, ownerId, pip, createdAt, deletedAt,
+  ModelBoard({id, type, title, description, parentNodeId, ownerId, pip, createdAt, deletedAt,
     modifiedAt}):
-        super(id: id,
+        super(id: id, type: type ?? "Board",
           title:title, description: description,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);

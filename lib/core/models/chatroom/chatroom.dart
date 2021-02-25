@@ -16,7 +16,7 @@ class ModelChatroom extends ModelTitleNode {
     @required this.participants,
     pip, createdAt, deletedAt,
     modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Chatroom",
           title:title, description: description,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);

@@ -11,7 +11,7 @@ class ModelMemo extends ModelPost {
     attachments, anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Memo",
           title:title, description: description,
           attachments: attachments, anonymity: anonymity,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,

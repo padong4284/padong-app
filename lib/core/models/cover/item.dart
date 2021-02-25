@@ -11,7 +11,7 @@ class ModelItem extends ModelPost {
     anonymity, attachments,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Item",
           title:title, description: description,
           anonymity: anonymity,
           attachments: attachments,

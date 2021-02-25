@@ -11,7 +11,7 @@ class ModelTip extends ModelOpinion {
     score,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Tip",
           description: description,
           score: score,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,

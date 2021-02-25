@@ -5,6 +5,7 @@ import 'package:padong/core/models/pip.dart';
 
 class ModelNode {
   String id;
+  String type;
   String parentNodeId;
   String ownerId;
   PIP pip;
@@ -13,12 +14,13 @@ class ModelNode {
   DateTime modifiedAt;
 
   ModelNode({
-  @required this.id,
+  @required this.id, @required this.type,
   @required this.parentNodeId, @required this.ownerId, @required this.pip,
     @required this.createdAt, @required this.deletedAt, @required this.modifiedAt});
 
   ModelNode.fromMap(Map snapshot,String id) :
         this.id = id ?? '',
+        this.type = snapshot['type'] ?? '',
         this.parentNodeId = snapshot['parentNodeId'] ?? '',
         this.ownerId = snapshot['ownerId'] ?? '',
         this.pip = snapshot['pip'] ?? PIP.INTERNAL,

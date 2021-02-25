@@ -19,7 +19,7 @@ class ModelUser extends ModelNode {
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
-          id: id,
+          id: id, type:"User",
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

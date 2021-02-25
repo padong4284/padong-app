@@ -14,7 +14,7 @@ class ModelArgue extends ModelReply {
     anonymity,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
-        super(id: id,
+        super(id: id, type: "Argue",
           description: description,
           anonymity: anonymity,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,

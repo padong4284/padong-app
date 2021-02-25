@@ -16,9 +16,9 @@ abstract class ILike {
 class Like extends ModelLike{
   static final FirestoreAPI _likeDB = locator<FirestoreAPI>("Firestore:like");
 
-  Like({id, parentNodeId, ownerId, pip, createdAt, deletedAt,
+  Like({id, type, parentType, parentNodeId, ownerId, pip, createdAt, deletedAt,
     modifiedAt}):
-        super(id: id,
+        super(id: id, type: type, parentType :parentType,
           parentNodeId: parentNodeId, ownerId: ownerId, pip: pip,
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 

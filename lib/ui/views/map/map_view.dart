@@ -112,8 +112,11 @@ class MapSampleState extends State<MapView> {
   Widget bottomBuildingCards() {
     return HorizontalScroller(
         height: 150,
-        children: Iterable<int>.generate(10)
-            .map((idx) => BuildingCard(idx.toString()))
-            .toList());
+        children: [
+          // TODO: get building cards from API
+          ...Iterable<int>.generate(10)
+            .map((idx) => BuildingCard(idx.toString())),
+          SizedBox(width: 60)
+        ]);
   }
 }

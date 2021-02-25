@@ -3,7 +3,7 @@ import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/appending_input.dart';
 import 'package:padong/ui/widgets/inputs/list_picker.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 

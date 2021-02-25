@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
-import 'package:padong/ui/widgets/markdown_editor_template.dart';
+import 'package:padong/ui/views/templates/markdown_editor_template.dart';
 import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
 import 'package:padong/ui/views/sign/forgot_view.dart';

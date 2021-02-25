@@ -7,7 +7,7 @@ import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
 class MapView extends StatefulWidget {
   @override

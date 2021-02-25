@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/cards/time_table.dart';
 import 'package:padong/ui/widgets/containers/vertical_timeline.dart';
 import 'package:padong/ui/widgets/cards/timelines/timeline_card.dart';

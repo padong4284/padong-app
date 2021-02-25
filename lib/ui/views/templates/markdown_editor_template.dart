@@ -7,7 +7,7 @@ import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/widgets/inputs/markdown_supporter.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/title_header.dart';
 
 const List<String> PIP = ['Public', 'Internal', 'Private'];

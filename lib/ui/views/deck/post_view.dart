@@ -10,7 +10,7 @@ import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 import 'package:padong/ui/widgets/inputs/bottom_sender.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/tiles/node/re_reply_tile.dart';
 import 'package:padong/ui/widgets/tiles/node/reply_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';

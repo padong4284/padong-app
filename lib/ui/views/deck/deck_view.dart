@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
-import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
-import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/safe_padding_template.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
@@ -13,10 +10,11 @@ import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 class DeckView extends StatelessWidget {
   final String univId;
   final Map<String, dynamic> univ;
-  final fixedBoards = [
-    'Popular',
-    'Favorite',
-    'Inform',
+  final topBoards = [
+    'Popular', 'Favorite', 'Inform'
+  ];
+  final PIPBoards = [
+    'Global', 'Public', 'Internal'
   ];
 
   DeckView(univId)
@@ -30,32 +28,22 @@ class DeckView extends StatelessWidget {
           onPressAdd: () {}, isScrollingDown: isScrollingDown),
       title: 'Deck',
       children: [
+        SizedBox(height: 10),
         TabContainer(
             tabWidth: 80.0,
-            tabs: this.fixedBoards,
-            children: this.fixedBoards.map((boardName) {
-              String boardId = this.univ['fixedBoards'][boardName];
-              List<String> recent10s = get10RecentPostIdsAPI(boardId);
+            tabs: this.topBoards,
+            moreIds: this.topBoards.map(
+                    (boardName) => this.univ['fixedBoards'][boardName].toString()).toList(),
+            children: this.topBoards.map((boardName) {
+              List<String> recent = get10RecentPostIdsAPI(
+                  this.univ['fixedBoards'][boardName]);
               return HorizontalScroller(
                   padding: 3.0,
-                  children:
-                      recent10s.map((postId) => PostCard(postId)).toList());
+                  children: recent.map((postId) => PostCard(postId)).toList());
             }).toList()),
-        Container(
-          height: 60.0,
-          alignment: Alignment.topRight,
-          padding: EdgeInsets.only(top: 10.0),
-          child: TranspButton(
-            title: 'More',
-            buttonSize: ButtonSize.REGULAR,
-            icon: Icon(Icons.arrow_forward_ios,
-                color: AppTheme.colors.primary,
-                size: AppTheme.fontSizes.regular),
-            isSuffixICon: true,
-          ),
-        ),
+        SizedBox(height: 10),
         BoardListTile(
-          boardIds: ['Global', 'Public', 'Internal']
+          boardIds: this.PIPBoards
               .map(
                   (boardName) => this.univ['fixedBoards'][boardName].toString())
               .toList(),
@@ -64,7 +52,8 @@ class DeckView extends StatelessWidget {
         BoardListTile(
           boardIds: this.univ['boards'],
           isAlertTile: true,
-        )
+        ),
+        SizedBox(height: 10),
       ],
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
-import 'package:padong/ui/views/templates/markdown_editor_template.dart';
+import 'package:padong/ui/views/search/search_view.dart';
 import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
 import 'package:padong/ui/views/sign/forgot_view.dart';
@@ -19,39 +19,34 @@ class PadongRouter {
     switch (settings.name) {
       case '/main':
         Session.currentUniv = getUnivAPI(args['univId']);
-        return MaterialPageRoute(
-          builder: (_) => RouteView(),
+        return PageRouteBuilder(
+          pageBuilder: (_, __, ___) => RouteView(),
         );
       case '/p_main':
         Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
-        return MaterialPageRoute(
-          builder: (_) => RouteView(),
+        return PageRouteBuilder(
+          pageBuilder: (_, __, ___) => RouteView(),
         );
       case '/':
-        return MaterialPageRoute(builder: (_) => SignInView());
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => SignInView());
       case '/sign_up':
         return PageRouteBuilder(
           pageBuilder: (_, __, ___) => SignUpView(),
         );
       case '/forgot':
-        return MaterialPageRoute(builder: (_) => ForgotView());
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => ForgotView());
       case '/post':
-        return MaterialPageRoute(builder: (_) => PostView(args['id']));
-      case '/search':
         return PageRouteBuilder(
-          //pageBuilder: (_, __, ___) => SearchView(),
-          pageBuilder: (_, __, ___) => MarkdownEditorTemplate(),
-        );
+            pageBuilder: (_, __, ___) => PostView(args['id']));
+      case '/search':
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
 
-      /// Deck related routes
       case '/board':
         return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => BoardView(
-                  args['id'],
-                ));
+            pageBuilder: (_, __, ___) => BoardView(args['id']));
       default:
-        return MaterialPageRoute(
-            builder: (_) => Scaffold(
+        return PageRouteBuilder(
+            pageBuilder: (_, __, ___) => Scaffold(
                     body: Center(
                   child: Text('No route defined for ${settings.name}'),
                 )));

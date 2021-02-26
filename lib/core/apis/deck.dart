@@ -88,11 +88,25 @@ Map<String, dynamic> getUserAPI(String id) {
   };
 }
 
+Map<String, dynamic> getNodeAPI(String id) {
+  return {
+    // TODO: move to Logical module
+    'time': '2 minutes',
+    'ownerId': 'u009003',
+    'title': 'Title',
+    'rate': 4.5,
+    'description':
+        "It's description of the Node, very long string. In summary it would be truncated.",
+    'bottoms': [0, 0, 0],
+  };
+}
+
 Map<String, dynamic> getPostAPI(String id) {
   return {
     'id': id,
     'title': 'Title',
     'ownerId': 'u009003',
+    'bottoms': [0, 0, 0],
     'createdAt': DateTime(2021, 5, 13, 13, 13),
     'description': '''
 This is the content of this post. You can fill it
@@ -109,14 +123,13 @@ visit this link!
 width of this area is 650px fixed.
 height of this area is fit-content.
 margin top 26px and bottom 74px.
-'''
+''',
   };
 }
 
 Map<String, dynamic> getMessageAPI(String id) {
   return {
     'ownerId': '0321',
-    'ownerUsername': 'tae7130',
     'createdAt': DateTime.now(),
     'message':
         'this is a chat balloon, U can chat with your friends.\nGood luck!'

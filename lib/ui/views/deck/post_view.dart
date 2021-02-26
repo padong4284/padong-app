@@ -84,7 +84,7 @@ class PostView extends StatelessWidget {
             padding: EdgeInsets.only(top: 32.0),
             child: Stack(
               children: [
-                BottomButtons(bottoms: [1, 2, 3]),
+                BottomButtons(bottoms: this.post['bottoms']),
                 Positioned(
                     bottom: 3,
                     right: 0,

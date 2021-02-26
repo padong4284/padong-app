@@ -1,22 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
-
-Map<String, dynamic> getNode(String id) {
-  return {
-    // TODO: move to Logical module
-    'time': '2 minutes',
-    'ownerId': 'u009003',
-    'title': 'Title',
-    'rate': 4.5,
-    'description':
-        "It's description of the Node, very long string. In summary it would be truncated.",
-    'bottoms': [0, 0, 0],
-  };
-}
 
 class NodeBase extends StatelessWidget {
   final String id;
@@ -26,7 +14,7 @@ class NodeBase extends StatelessWidget {
   NodeBase(id, {noProfile = false})
       : this.id = id,
         this.noProfile = noProfile,
-        this.node = getNode(id);
+        this.node = getNodeAPI(id);
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +53,7 @@ class NodeBase extends StatelessWidget {
   }
 
   Widget topText() {
-    return Text(this.node['owner']['username'],
+    return Text(getUserAPI(this.node['ownerId'])['username'],
         style: AppTheme.getFont(color: AppTheme.colors.semiSupport));
   }
 

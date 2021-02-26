@@ -14,13 +14,15 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List bottoms = this.post['bottoms'];
+    bottoms[1] = null;
     return this.baseCard(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         this.pictureArea(),
         Container(
             padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
             child: this.titleArea()),
-        BottomButtons(left: 8, bottoms: [0, null, 0]),
+        BottomButtons(left: 8, bottoms: bottoms),
       ]),
     );
   }

@@ -15,10 +15,10 @@ class UserProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (position == UsernamePosition.BOTTOM) {
+    if (this.position == UsernamePosition.BOTTOM) {
       return _buildBottomUsername();
-    } else if (position == UsernamePosition.RIGHT_CENTER) {
-      return _buildRightCenterUsername();
+    } else if (this.position == UsernamePosition.RIGHT_CENTER) {
+      return _buildRightUsername();
     }
     return _buildUserIconButton();
   }
@@ -50,24 +50,24 @@ class UserProfileButton extends StatelessWidget {
       children: [
         _buildUserIconButton(),
         SizedBox(height: 5),
-        _buildText(AppTheme.fontSizes.small)
+        username(AppTheme.fontSizes.small)
       ],
     );
   }
 
-  Widget _buildRightCenterUsername() {
+  Widget _buildRightUsername() {
     return Row(
       children: [
         _buildUserIconButton(),
         Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(left: 10),
-            child: _buildText(AppTheme.fontSizes.regular))
+            child: username(AppTheme.fontSizes.regular))
       ],
     );
   }
 
-  Text _buildText(double fontSize) {
+  Text username(double fontSize) {
     return Text(this.user['username'],
         style: AppTheme.getFont(
           fontSize: fontSize,

@@ -12,5 +12,5 @@ class ReReplyTile extends NodeBaseTile {
   }
 
   @override
-  void callback() {}
+  void onTap() {}
 }

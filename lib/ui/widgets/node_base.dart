@@ -20,7 +20,7 @@ class NodeBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: this.routeToPage,
+        onTap: this.onTap,
         child: Column(
           children: [
             Container(
@@ -88,7 +88,7 @@ class NodeBase extends StatelessWidget {
     );
   }
 
-  void routeToPage() {
+  void onTap() {
     // TODO: separate bottom for expand animation
     PadongRouter.routeURL('/post/id=${this.id}');
     // TODO: not a post, this.type!

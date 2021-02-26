@@ -73,6 +73,12 @@ ONLY Georgia Tech students can read and write.
   };
 }
 
+List<String> getPostIdsAPI(String boardId) {
+  return Iterable<int>.generate(10)
+      .map((i) => 'p0090043' + i.toString())
+      .toList();
+}
+
 void setNotificationBoardAPI(String boardId, bool notification) {}
 
 Map<String, dynamic> getUserAPI(String id) {

@@ -22,7 +22,7 @@ class SafePaddingTemplate extends StatefulWidget {
       floatingBottomBar,
       floatingBottomBarGenerator,
       @required this.children,
-        this.background,
+      this.background,
       this.title = ''})
       : assert((floatingActionButton == null) ||
             (floatingActionButtonGenerator == null)),
@@ -72,33 +72,34 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
         body: Stack(children: [
           widget.background ?? SizedBox.shrink(),
           SafeArea(
-            child: GestureDetector(
-                onTap: () {
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus &&
-                      currentFocus.focusedChild != null)
-                    FocusManager.instance.primaryFocus.unfocus();
-                },
-                child: Stack(children: [
-                  SingleChildScrollView(
-                      controller: this._scrollController,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppTheme.horizontalPadding),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            widget.title.length > 0 ? this._topTitle() : null,
-                            ...widget.children,
-                            widget.isBottomBar ? SizedBox(height: 80) : null
-                          ].where((elm) => elm != null).toList())),
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: widget.floatingBottomBar ??
-                          (widget.floatingBottomBarGenerator != null
-                              ? widget.floatingBottomBarGenerator(
-                                  this.isScrollingDown)
-                              : SizedBox.shrink()))
-                ])))]));
+              child: GestureDetector(
+                  onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus &&
+                        currentFocus.focusedChild != null)
+                      FocusManager.instance.primaryFocus.unfocus();
+                  },
+                  child: Stack(children: [
+                    SingleChildScrollView(
+                        controller: this._scrollController,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppTheme.horizontalPadding),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              widget.title.length > 0 ? this._topTitle() : null,
+                              ...widget.children,
+                              widget.isBottomBar ? SizedBox(height: 30) : null
+                            ].where((elm) => elm != null).toList())),
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: widget.floatingBottomBar ??
+                            (widget.floatingBottomBarGenerator != null
+                                ? widget.floatingBottomBarGenerator(
+                                    this.isScrollingDown)
+                                : SizedBox.shrink()))
+                  ])))
+        ]));
   }
 
   Widget _topTitle() {

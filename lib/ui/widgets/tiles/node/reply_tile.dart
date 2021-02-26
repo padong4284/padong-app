@@ -11,7 +11,7 @@ class ReplyTile extends NodeBaseTile {
   }
 
   @override
-  void callback() {
+  void onTap() {
     // TODO: append ReReply to this Reply
   }
 }

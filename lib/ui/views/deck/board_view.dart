@@ -8,7 +8,6 @@ import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
-
 import 'package:padong/core/apis/deck.dart';
 
 class BoardView extends StatelessWidget {
@@ -23,8 +22,8 @@ class BoardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafePaddingTemplate(
-      floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongFloatingButton(isScrollingDown: isScrollingDown),
+      floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
+          isScrollingDown: isScrollingDown, bottomPadding: 40),
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
           title: 'Write', onTap: () {}, isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.board['title'], actions: [
@@ -40,16 +39,8 @@ class BoardView extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: NoticeTile(this.id)),
-        Column(
-          children: [
-            TitleHeader('Posts'),
-            PostTile('123'),
-            PostTile('123'),
-            PostTile('123'),
-            PostTile('123'),
-            PostTile('123'),
-          ],
-        )
+        TitleHeader('Posts'),
+        ...getPostIdsAPI(this.id).map((postId) => PostTile(postId))
       ],
     ));
   }

@@ -7,12 +7,11 @@ import 'package:padong/ui/views/map/map_view.dart';
 import 'package:padong/ui/views/schedule/schedule_view.dart';
 import 'package:padong/ui/views/main/main_view.dart';
 
-import 'package:padong/core/apis/session.dart' as Session;
 
 final List<Widget> pages = [
   MainView(),
   WikiCoverView(),
-  DeckView(Session.user['univId']),
+  DeckView(),
   ScheduleView(),
   MapView(),
 ];

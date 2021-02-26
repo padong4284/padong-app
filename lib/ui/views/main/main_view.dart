@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/views/deck/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
+import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class MainView extends StatelessWidget {
   final bool isPMain;
+  final Map<String, dynamic> univ;
 
-  MainView({this.isPMain = false});
+  MainView({this.isPMain = false})
+      : this.univ = getUnivAPI(Session.user['univId']);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class MainView extends StatelessWidget {
       children: [
         UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
         SizedBox(height: 35),
+        TopBoards(this.univ),
       ],
     );
   }

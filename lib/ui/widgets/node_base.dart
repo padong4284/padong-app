@@ -9,8 +9,7 @@ Map<String, dynamic> getNode(String id) {
   return {
     // TODO: move to Logical module
     'time': '2 minutes',
-    'ownerId': 'tae7130',
-    'owner': getUserAPI('0321'),
+    'ownerId': 'u009003',
     'title': 'Title',
     'rate': 4.5,
     'description':
@@ -46,10 +45,7 @@ class NodeBase extends StatelessWidget {
   Widget profile() {
     return noProfile
         ? SizedBox.shrink()
-        : UserProfileButton(
-            username: this.node['owner']['username'],
-            profileImageURL: this.node['owner']['profileImageURL'],
-            size: 40);
+        : UserProfileButton(this.node['ownerId'], size: 40);
   }
 
   Widget commonArea() {
@@ -60,7 +56,7 @@ class NodeBase extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Expanded(child:this.topText()), this.time()],
+            children: [Expanded(child: this.topText()), this.time()],
           ),
           this.followText()
         ],

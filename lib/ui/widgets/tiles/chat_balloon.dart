@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
-
-Map<String, dynamic> getMessageAPI(String id) {
-  return {
-    'ownerId': '0321',
-    'owner': getUserAPI('0321'),
-    'createdAt': DateTime.now(),
-    'message':
-        'this is a chat balloon, U can chat with your friends.\nGood luck!'
-  };
-}
 
 class ChatBalloon extends StatelessWidget {
   final String id;
@@ -38,7 +29,7 @@ class ChatBalloon extends StatelessWidget {
             isMine || this.hideSender
                 ? SizedBox.shrink()
                 : Text(
-                    this.chatMsg['owner']['username'],
+                    this.chatMsg['ownerUsername'],
                     style:
                         AppTheme.getFont(color: AppTheme.colors.fontPalette[1]),
                   ),
@@ -87,7 +78,6 @@ class ChatBalloon extends StatelessWidget {
         padding: const EdgeInsets.only(top: 5, right: 10),
         child: this.hideSender
             ? SizedBox(width: 40)
-            : UserProfileButton(
-                username: this.chatMsg['owner']['username'], size: 40));
+            : UserProfileButton(this.chatMsg['ownerId'], size: 40));
   }
 }

@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
-Map<String, dynamic> getUserAPI(String id) {
-  return {
-    // TODO: connect to API
-    'username': 'tae7130',
-    'profileImageURL': null,
-    'universityName': "Seoul Nat'l",
-    'entranceYear': 2017,
-    "isVerified": true,
-  };
-}
-
 class UserProfileButton extends StatelessWidget {
-  final String username;
-  final String profileImageURL;
+  final String id;
+  final Map<String, dynamic> user;
   final UsernamePosition position;
   final double size;
 
-  UserProfileButton(
-      {this.username, this.profileImageURL, this.position, this.size = 64});
+  UserProfileButton(id, {this.position, this.size = 64})
+      : this.id = id,
+        this.user = getUserAPI(id);
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +29,20 @@ class UserProfileButton extends StatelessWidget {
           // TODO: routing to userprofile page
         },
         child: Container(
-            child: CircleAvatar(
-          radius: this.size / 2, // size = 2*radius
-          // TODO: use fire storage get profile image
-          // backgroundImage: NetworkImage(this.profileImageURL)
-          backgroundColor: AppTheme.colors.lightSupport,
-        )));
+            child: Stack(children: [
+          Icon(
+            Icons.account_circle_rounded,
+            size: this.size,
+            color: AppTheme.colors.support,
+          ),
+          CircleAvatar(
+            radius: this.size / 2,
+            backgroundColor: AppTheme.colors.transparent,
+            backgroundImage: this.user['profileImgURL'] != null
+                ? NetworkImage(this.user['profileImgURL'])
+                : null,
+          )
+        ])));
   }
 
   Widget _buildBottomUsername() {
@@ -69,7 +68,7 @@ class UserProfileButton extends StatelessWidget {
   }
 
   Text _buildText(double fontSize) {
-    return Text(this.username,
+    return Text(this.user['username'],
         style: AppTheme.getFont(
           fontSize: fontSize,
           color: position == UsernamePosition.RIGHT_CENTER

@@ -1,4 +1,5 @@
 import 'dart:math';
+
 Random rand = Random();
 
 Map<String, dynamic> getUnivAPI(String univId) {
@@ -73,3 +74,51 @@ ONLY Georgia Tech students can read and write.
 }
 
 void setNotificationBoardAPI(String boardId, bool notification) {}
+
+Map<String, dynamic> getUserAPI(String id) {
+  return {
+    'id': 'u009003',
+    'username': 'kodw0402',
+    'univId': 'univ009',
+    'isVerified': true,
+    'universityName': "Georgia Tech",
+    'entranceYear': 2017,
+    'profileImgURL':
+        'https://avatars.githubusercontent.com/u/36005723?s=460&u=49590ea0e7bb1936d515ed627867e8ca217b145b&v=4',
+  };
+}
+
+Map<String, dynamic> getPostAPI(String id) {
+  return {
+    'id': id,
+    'title': 'Title',
+    'ownerId': 'u009003',
+    'createdAt': DateTime(2021, 5, 13, 13, 13),
+    'description': '''
+This is the content of this post. You can fill it
+with the "MarkDown".
+
+If you don't know the "MarkDown", please
+visit this link!
+
+`emphasis` is shown as emphasis
+**bolder** is shown as bolder
+~~tide~~ is shown as tide
+<u>underline</u> is shown as underline
+
+width of this area is 650px fixed.
+height of this area is fit-content.
+margin top 26px and bottom 74px.
+'''
+  };
+}
+
+Map<String, dynamic> getMessageAPI(String id) {
+  return {
+    'ownerId': '0321',
+    'ownerUsername': 'tae7130',
+    'createdAt': DateTime.now(),
+    'message':
+        'this is a chat balloon, U can chat with your friends.\nGood luck!'
+  };
+}

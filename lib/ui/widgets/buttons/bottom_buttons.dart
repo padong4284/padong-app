@@ -25,7 +25,7 @@ class BottomButtons extends StatefulWidget {
   final bool isTwo;
   final dynamic bottoms; // [likes, replies, bookmarks], if null: don't show
 
-  BottomButtons({this.left = 10, this.gap = 40, color, @required bottoms})
+  BottomButtons({this.left = 0, this.gap = 40, color, @required bottoms})
       : this.color = color ?? AppTheme.colors.support,
         this.bottoms = bottoms,
         this.isTwo = bottoms.contains(null);

@@ -45,9 +45,11 @@ class TitleHeader extends StatelessWidget {
                 top: this.link != null ? 8 : 3,
                 bottom: this.link != null ? 14 : 3),
             alignment: Alignment.bottomLeft,
-            color: this.isInputHead
-                ? AppTheme.colors.lightSupport
-                : AppTheme.colors.semiSupport)
+            color: this.link != null
+                ? AppTheme.colors.support
+                : this.isInputHead
+                    ? AppTheme.colors.lightSupport
+                    : AppTheme.colors.semiSupport)
       ],
     );
   }
@@ -68,9 +70,9 @@ class TitleHeader extends StatelessWidget {
                 icon: Icon(Icons.link_rounded, size: 25),
                 buttonSize: ButtonSize.LARGE,
                 callback: () {
-                  if (this.link.length > 0)
-                    PadongRouter.routeURL(this.link);
-                }) // TODO: Route to link
+                  // TODO: save link to clipboard
+                  if (this.link.length > 0) PadongRouter.routeURL(this.link);
+                })
             : SizedBox.shrink();
   }
 }

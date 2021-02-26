@@ -97,13 +97,17 @@ Map<String, dynamic> getUserAPI(String id) {
 Map<String, dynamic> getNodeAPI(String id) {
   return {
     // TODO: move to Logical module
-    'time': '2 minutes',
-    'ownerId': 'u009003',
+    'id': id,
     'title': 'Title',
+    'type': 'node',
+    'ownerId': 'u009003',
+    'bottoms': [0, 0, 0], // likes, replies, bookmarks counting list
+    'isLiked': false,
+    'isBookmarked': false,
+    'createdAt': DateTime(2021, 1, 13, 13, 13),
     'rate': 4.5,
     'description':
-        "It's description of the Node, very long string. In summary it would be truncated.",
-    'bottoms': [0, 0, 0],
+    "It's description of the Node, very long string. In summary it would be truncated.",
   };
 }
 
@@ -111,9 +115,12 @@ Map<String, dynamic> getPostAPI(String id) {
   return {
     'id': id,
     'title': 'Title',
+    'type': 'post',
     'ownerId': 'u009003',
-    'bottoms': [0, 0, 0],
-    'createdAt': DateTime(2021, 5, 13, 13, 13),
+    'bottoms': [0, 0, 0], // likes, replies, bookmarks counting list
+    'isLiked': false,
+    'isBookmarked': false,
+    'createdAt': DateTime(2021, 1, 13, 13, 13),
     'description': '''
 This is the content of this post. You can fill it
 with the "MarkDown".
@@ -146,3 +153,7 @@ List<String> getNoticeIdsAPI(String boardId) {
   // TODO: get post which is Notice (Post.ownerId == Board.ownerId && isNotice)
   return ['123', '456', '789'];
 }
+
+void updateLikeAPI(String postId) {}
+
+void updateBookmarkAPI(String postId) {}

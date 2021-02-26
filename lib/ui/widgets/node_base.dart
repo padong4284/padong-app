@@ -25,10 +25,10 @@ class NodeBase extends StatelessWidget {
           children: [
             Container(
                 child: Stack(children: [
-              this.profile(), // checking noProfile in this Function
-              this.commonArea()
+              Hero(tag: 'node${this.id}owner', child: this.profile()),
+              Hero(tag: 'node${this.id}common', child: this.commonArea())
             ])),
-            this.bottomArea(),
+            Hero(tag: 'node${this.id}bottoms', child: this.bottomArea()),
           ],
         ));
   }
@@ -36,23 +36,20 @@ class NodeBase extends StatelessWidget {
   Widget profile() {
     return noProfile
         ? SizedBox.shrink()
-        : UserProfileButton(this.node['ownerId'], size: 40);
+        : Material(child: UserProfileButton(this.node['ownerId'], size: 40));
   }
 
   Widget commonArea() {
     return Container(
-      padding: EdgeInsets.only(left: this.noProfile ? 4 : 47, right: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        height: 40,
+        padding: EdgeInsets.only(left: this.noProfile ? 4 : 47, right: 10),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [Expanded(child: this.topText()), this.time()],
           ),
           this.followText()
-        ],
-      ),
-    );
+        ]));
   }
 
   Widget topText() {
@@ -61,7 +58,15 @@ class NodeBase extends StatelessWidget {
   }
 
   Widget time() {
-    return Text(this.node['time'],
+    DateTime now = DateTime.now();
+    DateTime created = this.node['createdAt'];
+    Duration diff = now.difference(created);
+    String time = diff.inDays > 0
+        ? '${created.month}/${created.day}/${created.year}'
+        : (diff.inHours > 0
+            ? diff.inHours.toString()
+            : diff.inMinutes.toString());
+    return Text(time,
         style: AppTheme.getFont(
             color: AppTheme.colors.semiSupport,
             fontSize: AppTheme.fontSizes.small));
@@ -73,7 +78,8 @@ class NodeBase extends StatelessWidget {
   }
 
   Widget bottomArea() {
-    return Stack(
+    return Material(
+        child: Stack(
       children: [
         BottomButtons(left: 0, bottoms: this.node['bottoms']),
         Positioned(
@@ -85,7 +91,7 @@ class NodeBase extends StatelessWidget {
                     color: AppTheme.colors.support, size: 20),
                 callback: this.moreCallback))
       ],
-    );
+    ));
   }
 
   void onTap() {

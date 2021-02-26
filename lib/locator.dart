@@ -39,4 +39,6 @@ void setupLocator() {
   locator.registerLazySingleton(() => FirestoreAPI('qna'), "Firestore:qna");
   locator.registerLazySingleton(() => FirestoreAPI('opinion'), "Firestore:opinion");
 
+  locator.registerLazySingleton(() => FirestoreAPI('university'), "Firestore:university");
+
 }

@@ -4,31 +4,30 @@ import 'package:padong/ui/views/deck/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
-import 'package:padong/core/apis/deck.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 class MainView extends StatelessWidget {
   final bool isPMain;
   final Map<String, dynamic> univ;
 
-  MainView({this.isPMain = false})
-      : this.univ = getUnivAPI(Session.user['univId']);
+  MainView({this.isPMain = false}) : this.univ = Session.currentUniv;
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      appBar: _buildTopBar(),
+      appBar: this.topBar(),
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongFloatingButton(isScrollingDown: isScrollingDown),
       children: [
-        UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
+        UnivDoor(
+            univName: this.univ['title'], slogan: this.univ['description']),
         SizedBox(height: 35),
         TopBoards(this.univ),
       ],
     );
   }
 
-  AppBar _buildTopBar() {
+  AppBar topBar() {
     return AppBar(
       brightness: Brightness.light,
       // when dark mode, using dark

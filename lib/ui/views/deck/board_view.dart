@@ -14,9 +14,9 @@ class BoardView extends StatelessWidget {
   final String id;
   final Map<String, dynamic> board;
 
-  BoardView(id):
-      this.id = id,
-      this.board = getBoardAPI(id);
+  BoardView(id)
+      : this.id = id,
+        this.board = getBoardAPI(id);
 
   @override
   Widget build(BuildContext context) {

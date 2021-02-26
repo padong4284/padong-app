@@ -8,12 +8,9 @@ import 'package:padong/core/apis/session.dart' as Session;
 
 class DeckView extends StatelessWidget {
   final Map<String, dynamic> univ;
-  final PIPBoards = [
-    'Global', 'Public', 'Internal'
-  ];
+  final pipBoards = ['Global', 'Public', 'Internal'];
 
-  DeckView()
-      : this.univ = getUnivAPI(Session.user['univId']);
+  DeckView() : this.univ = getUnivAPI(Session.user['univId']);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +23,8 @@ class DeckView extends StatelessWidget {
         TopBoards(this.univ),
         SizedBox(height: 10),
         BoardListTile(
-          boardIds: this.PIPBoards
+          boardIds: this
+              .pipBoards
               .map(
                   (boardName) => this.univ['fixedBoards'][boardName].toString())
               .toList(),

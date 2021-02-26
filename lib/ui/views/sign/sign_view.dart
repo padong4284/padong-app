@@ -211,12 +211,8 @@ class _SignViewState extends State<SignView>
                     'username': 'kod',
                     'univId': 'univ009',
                   };*/
-                  if (widget.isSignIn) {
-                    // FIXME: this is implemented temporarily
-                    Navigator.pushNamed(context, '/main');
-                  } else {
-                    Navigator.pushNamed(context, '/p_main');
-                  }
+                  Navigator.pushNamed(context, '/main',
+                      arguments: {'univId': Session.user['univId']});
                 },
               )
             ])));

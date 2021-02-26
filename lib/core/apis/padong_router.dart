@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
@@ -6,6 +7,7 @@ import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
 import 'package:padong/ui/views/sign/forgot_view.dart';
 import 'package:padong/ui/views/route_view.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class PadongRouter {
   static BuildContext context;
@@ -16,10 +18,12 @@ class PadongRouter {
         new Map<String, dynamic>.from(settings.arguments ?? {});
     switch (settings.name) {
       case '/main':
+        Session.currentUniv = getUnivAPI(args['univId']);
         return MaterialPageRoute(
           builder: (_) => RouteView(),
         );
       case '/p_main':
+        Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
         return MaterialPageRoute(
           builder: (_) => RouteView(),
         );

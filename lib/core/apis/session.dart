@@ -3,3 +3,5 @@ Map<String, dynamic> user = {
   'username': 'kod',
   'univId': 'univ009',
 };
+
+Map<String, dynamic> currentUniv;

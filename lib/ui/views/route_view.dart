@@ -7,7 +7,6 @@ import 'package:padong/ui/views/map/map_view.dart';
 import 'package:padong/ui/views/schedule/schedule_view.dart';
 import 'package:padong/ui/views/main/main_view.dart';
 
-
 final List<Widget> pages = [
   MainView(),
   WikiCoverView(),
@@ -33,12 +32,11 @@ class _RouteViewState extends State<RouteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:  PadongBottomNavigationBar(
-        selectedIdx: _selectedIdx,
-        setSelectedIdx: (int idx) => setState(() {
-      this._selectedIdx = idx;
-    })),
-    body: pages[this._selectedIdx]
-    );
+        bottomNavigationBar: PadongBottomNavigationBar(
+            selectedIdx: _selectedIdx,
+            setSelectedIdx: (int idx) => setState(() {
+                  this._selectedIdx = idx;
+                })),
+        body: pages[this._selectedIdx]);
   }
 }

@@ -135,3 +135,8 @@ Map<String, dynamic> getMessageAPI(String id) {
         'this is a chat balloon, U can chat with your friends.\nGood luck!'
   };
 }
+
+List<String> getNoticeIdsAPI(String boardId) {
+  // TODO: get post which is Notice (Post.ownerId == Board.ownerId && isNotice)
+  return ['123', '456', '789'];
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/apis/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
@@ -18,16 +19,18 @@ class NodeBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-            child: Stack(children: [
-          this.profile(), // checking noProfile in this Function
-          this.commonArea()
-        ])),
-        this.bottomArea(),
-      ],
-    );
+    return InkWell(
+        onTap: this.routeToPage,
+        child: Column(
+          children: [
+            Container(
+                child: Stack(children: [
+              this.profile(), // checking noProfile in this Function
+              this.commonArea()
+            ])),
+            this.bottomArea(),
+          ],
+        ));
   }
 
   Widget profile() {
@@ -83,6 +86,12 @@ class NodeBase extends StatelessWidget {
                 callback: this.moreCallback))
       ],
     );
+  }
+
+  void routeToPage() {
+    // TODO: separate bottom for expand animation
+    PadongRouter.routeURL('/post/id=${this.id}');
+    // TODO: not a post, this.type!
   }
 
   void moreCallback() {

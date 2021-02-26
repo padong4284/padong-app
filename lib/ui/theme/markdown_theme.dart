@@ -5,7 +5,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/padong_syntax_hightlighter.dart';
 
 class MarkdownTheme {
-  static TextStyle p = getTextStyle();
+  static TextStyle p = getTextStyle(color: AppTheme.colors.fontPalette[2]);
   static TextStyle a = getTextStyle(color: AppTheme.colors.primary);
   static TextStyle h1 =
       getTextStyle(fontSize: AppTheme.fontSizes.large, isBold: true);
@@ -13,9 +13,8 @@ class MarkdownTheme {
       getTextStyle(fontSize: AppTheme.fontSizes.mlarge, isBold: true);
   static TextStyle h3 = getTextStyle(isBold: true);
 
-  static TextStyle strong = getTextStyle(
-      isBold: true,
-      backgroundColor: Color(0xB174D2E3));
+  static TextStyle strong =
+      getTextStyle(isBold: true, backgroundColor: Color(0xB174D2E3));
   static TextStyle italic = getTextStyle(isItalic: true);
   static TextStyle del = getTextStyle(isLineThrough: true);
 

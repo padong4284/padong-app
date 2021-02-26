@@ -4,6 +4,7 @@ import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/floating_bottom_button.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
+import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
 import 'package:padong/ui/widgets/tiles/notice_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
@@ -32,14 +33,13 @@ class BoardView extends StatelessWidget {
             onPressed: () {})
       ]),
       children: [
-        Container(
-          padding: EdgeInsets.only(left: 20.0, top: 10.0),
-          alignment: Alignment.centerLeft,
-          child: Text(this.board['description'],
-              style: TextStyle(color: AppTheme.colors.semiSupport)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
+          child: PadongMarkdown(this.board['description']),
         ),
-        Container(
-            padding: EdgeInsets.only(bottom: 41.0), child: NoticeTile('123')),
+        Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: NoticeTile(this.id)),
         Column(
           children: [
             TitleHeader('Posts'),

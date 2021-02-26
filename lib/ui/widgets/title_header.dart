@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/core/padong_router.dart';
@@ -37,7 +38,7 @@ class TitleHeader extends StatelessWidget {
                     : AppTheme.fontSizes.mlarge,
                 isBold: true),
           ),
-          this.getRightButton()
+          this.getRightButton(context)
         ]),
         Container(
             height: 2,
@@ -54,7 +55,7 @@ class TitleHeader extends StatelessWidget {
     );
   }
 
-  Widget getRightButton() {
+  Widget getRightButton(BuildContext context) {
     return this.moreCallback != null
         ? TranspButton(
             title: 'More',
@@ -70,8 +71,17 @@ class TitleHeader extends StatelessWidget {
                 icon: Icon(Icons.link_rounded, size: 25),
                 buttonSize: ButtonSize.LARGE,
                 callback: () {
-                  // TODO: save link to clipboard
-                  if (this.link.length > 0) PadongRouter.routeURL(this.link);
+                  if (this.link.length > 0)
+                    Clipboard.setData(new ClipboardData(text: this.link))
+                        .then((result) {
+                      final snackBar = SnackBar(
+                          content: Text('Copy link to Clipboard'),
+                          action: SnackBarAction(
+                              label: 'Ok',
+                              textColor: AppTheme.colors.primary,
+                              onPressed: () {}));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    });
                 })
             : SizedBox.shrink();
   }

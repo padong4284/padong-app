@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/views/deck/reply_area.dart';
+import 'package:padong/ui/views/deck/reply_view.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/inputs/bottom_sender.dart';
@@ -36,7 +36,7 @@ class PostView extends PostTile {
           SizedBox(height: 20),
           Hero(tag: 'node${this.id}bottoms', child: this.bottomArea()),
           this.underLine(),
-          ReplyArea(this.id, focus: focus)
+          ReplyView(this.id, focus: focus)
         ]);
   }
 

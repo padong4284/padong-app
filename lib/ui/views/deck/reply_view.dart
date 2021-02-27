@@ -4,19 +4,19 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/node/re_reply_tile.dart';
 import 'package:padong/ui/widgets/tiles/node/reply_tile.dart';
 
-class ReplyArea extends StatefulWidget {
+class ReplyView extends StatefulWidget {
   final String parentId;
   final List<String> replies;
   final FocusNode focus;
 
-  ReplyArea(parentId, {this.focus})
+  ReplyView(parentId, {this.focus})
       : this.parentId = parentId,
         this.replies = getReplyIdsAPI(parentId);
 
-  _ReplyAreaState createState() => _ReplyAreaState();
+  _ReplyViewState createState() => _ReplyViewState();
 }
 
-class _ReplyAreaState extends State<ReplyArea> {
+class _ReplyViewState extends State<ReplyView> {
   bool isRendered = false;
   Map<String, bool> readyReReply = {};
 

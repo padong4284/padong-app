@@ -19,11 +19,15 @@ class ReplyView extends StatefulWidget {
 class _ReplyViewState extends State<ReplyView> {
   bool isRendered = false;
   Map<String, bool> readyReReply = {};
+  Map<String, GlobalKey> replyKeys = {};
 
   @override
   void initState() {
     super.initState();
-    for (String rid in widget.replies) this.readyReReply[rid] = false;
+    for (String rid in widget.replies) {
+      this.readyReReply[rid] = false;
+      this.replyKeys[rid] = new GlobalKey();
+    }
     this.isRendered = false;
     this.setRendered();
   }
@@ -45,31 +49,40 @@ class _ReplyViewState extends State<ReplyView> {
         opacity: this.isRendered ? 1 : 0,
         duration: Duration(milliseconds: 400),
         child: Column(
-          children: widget.replies.map((rid) {
-            List<String> reReplies = getReReplyIdsAPI(rid);
-            return Column(children: [
-              GestureDetector(
-                  onTap: () {
-                    bool prev = this.readyReReply[rid];
-                    if (!prev && widget.focus != null)
-                      widget.focus.requestFocus();
-                    // TODO: scroll to focused reply
-                    else
+          children: [
+            ...widget.replies.map((rid) {
+              List<String> reReplies = getReReplyIdsAPI(rid);
+              return Column(children: [
+                GestureDetector(
+                    onTap: () {
+                      bool prev = this.readyReReply[rid];
                       FocusScope.of(context).unfocus();
-                    setState(() {
-                      for (String rid in widget.replies)
-                        this.readyReReply[rid] = false;
-                      this.readyReReply[rid] = !prev;
-                    });
-                  },
-                  child: Container(
-                      color: this.readyReReply[rid]
-                          ? AppTheme.colors.semiPrimary
-                          : null,
-                      child: ReplyTile(rid))),
-              ...reReplies.map((rRid) => ReReplyTile(rRid))
-            ]);
-          }).toList(),
+                      if (!prev && widget.focus != null)
+                        widget.focus.requestFocus();
+                      setState(() {
+                        for (String rid in widget.replies)
+                          this.readyReReply[rid] = false;
+                        this.readyReReply[rid] = !prev;
+                      });
+                      this.scrollToReply(rid);
+                    },
+                    child: Container(
+                        key: this.replyKeys[rid],
+                        color: this.readyReReply[rid]
+                            ? AppTheme.colors.semiPrimary
+                            : null,
+                        child: ReplyTile(rid))),
+                ...reReplies.map((rRid) => ReReplyTile(rRid))
+              ]);
+            }),
+            SizedBox(height: 65)
+          ],
         ));
+  }
+
+  void scrollToReply(String rid) async {
+    await Future.delayed(Duration(milliseconds: 200));
+    Scrollable.ensureVisible(
+        this.replyKeys[rid].currentContext);
   }
 }

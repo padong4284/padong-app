@@ -24,13 +24,8 @@ class _RouteViewState extends State<RouteView> {
   int _selectedIdx = 0;
 
   @override
-  void initState() {
-    super.initState();
-    PadongRouter.registerContext(this.context);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    PadongRouter.registerContext(this.context);
     return Scaffold(
         bottomNavigationBar: PadongBottomNavigationBar(
             selectedIdx: _selectedIdx,

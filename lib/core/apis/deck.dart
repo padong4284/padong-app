@@ -6,9 +6,18 @@ Random rand = Random();
 
 Map<String, dynamic> getUnivAPI(String univId) {
   return {
+    'id': 'univ009',
     'title': 'Georgia Tech',
+    'deckId': 'deck009',
     'description': 'Progress and Service',
     'emblem': 'https://en.wikipedia.org/wiki/File:Georgia_Tech_seal.svg',
+  };
+}
+
+Map<String, dynamic> getDeckAPI(String deckId) {
+  return {
+    'id': 'deck009',
+    'parentId': 'univ009',
     'fixedBoards': {
       'Global': 'b009000',
       'Public': 'b009001',
@@ -20,7 +29,7 @@ Map<String, dynamic> getUnivAPI(String univId) {
     'boards': [
       // List of boardId
       'b009023', 'b009346', 'b0092374', 'b009124', 'b009024',
-    ]
+    ],
   };
 }
 

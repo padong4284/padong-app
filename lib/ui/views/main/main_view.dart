@@ -22,7 +22,7 @@ class MainView extends StatelessWidget {
         UnivDoor(
             univName: this.univ['title'], slogan: this.univ['description']),
         SizedBox(height: 35),
-        TopBoards(this.univ),
+        TopBoards(this.univ['deckId']),
       ],
     );
   }

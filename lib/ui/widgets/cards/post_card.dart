@@ -33,7 +33,6 @@ class PostCard extends StatelessWidget {
         onTap: () {
           PadongRouter.routeURL('/post/id=${this.id}');
         },
-        // TODO: Routing to Post
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),
             child: Card(

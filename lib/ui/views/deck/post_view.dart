@@ -14,6 +14,7 @@ import 'package:padong/ui/widgets/title_header.dart';
 class PostView extends PostTile {
   final String id;
   final Map<String, dynamic> post;
+  final FocusNode focus = FocusNode();
 
   PostView(String id)
       : this.id = id,
@@ -23,7 +24,7 @@ class PostView extends PostTile {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-        floatingBottomBar: BottomSender(BottomSenderType.REPLY),
+        floatingBottomBar: BottomSender(BottomSenderType.REPLY, focus: this.focus),
         appBar: this.likeAndBookmark(),
         children: [
           Stack(children: [
@@ -35,7 +36,7 @@ class PostView extends PostTile {
           SizedBox(height: 20),
           Hero(tag: 'node${this.id}bottoms', child: this.bottomArea()),
           this.underLine(),
-          ReplyArea(this.id)
+          ReplyArea(this.id, focus: focus)
         ]);
   }
 

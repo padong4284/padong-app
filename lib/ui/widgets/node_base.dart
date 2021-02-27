@@ -10,9 +10,10 @@ import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 class NodeBase extends StatelessWidget {
   final String id;
   final Map<String, dynamic> node;
+  final bool isRoute;
   final bool noProfile;
 
-  NodeBase(id, {noProfile = false})
+  NodeBase(id, {noProfile = false, this.isRoute = true})
       : this.id = id,
         this.noProfile = noProfile,
         this.node = getNodeAPI(id);
@@ -20,7 +21,7 @@ class NodeBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: this.onTap,
+        onTap: this.isRoute ? this.routePage : null,
         child: Column(
           children: [
             Container(
@@ -36,7 +37,9 @@ class NodeBase extends StatelessWidget {
   Widget profile() {
     return noProfile
         ? SizedBox.shrink()
-        : Material(child: UserProfileButton(this.node['ownerId'], size: 40));
+        : Material(
+            color: AppTheme.colors.transparent,
+            child: UserProfileButton(this.node['ownerId'], size: 40));
   }
 
   Widget commonArea() {
@@ -78,22 +81,23 @@ class NodeBase extends StatelessWidget {
 
   Widget bottomArea() {
     return Material(
+        color: AppTheme.colors.transparent,
         child: Stack(
-      children: [
-        BottomButtons(left: 0, bottoms: this.node['bottoms']),
-        Positioned(
-            bottom: 5,
-            right: 0,
-            child: TranspButton(
-                buttonSize: ButtonSize.SMALL,
-                icon: Icon(Icons.more_horiz,
-                    color: AppTheme.colors.support, size: 20),
-                callback: this.moreCallback))
-      ],
-    ));
+          children: [
+            BottomButtons(left: 0, bottoms: this.node['bottoms']),
+            Positioned(
+                bottom: 5,
+                right: 0,
+                child: TranspButton(
+                    buttonSize: ButtonSize.SMALL,
+                    icon: Icon(Icons.more_horiz,
+                        color: AppTheme.colors.support, size: 20),
+                    callback: this.moreCallback))
+          ],
+        ));
   }
 
-  void onTap() {
+  void routePage() {
     // TODO: separate bottom for expand animation
     PadongRouter.routeURL('/post/id=${this.id}');
     // TODO: not a post, this.type!

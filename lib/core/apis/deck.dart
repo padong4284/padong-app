@@ -163,7 +163,7 @@ List<String> getReplyIdsAPI(String parentId) {
 }
 
 List<String> getReReplyIdsAPI(String replyId) {
-  int num = rand.nextInt(3);
+  int num = int.parse(replyId[replyId.length - 1]) % 3;
   return Iterable<int>.generate(num)
       .map((i) => 'r' + replyId + i.toString())
       .toList();

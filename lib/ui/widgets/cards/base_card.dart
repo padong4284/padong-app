@@ -8,18 +8,16 @@ class BaseCard extends StatelessWidget {
   final double width;
   final String moreText;
   final List<Widget> children;
-  final Function() tabCallback;
   final Function() moreCallback;
   final double padding;
 
   BaseCard(
       {@required this.children,
-      this.tabCallback,
       this.moreCallback,
       this.height,
       this.width,
       this.moreText,
-      this.padding=17});
+      this.padding = 17});
 
   @override
   Widget build(BuildContext context) {
@@ -28,29 +26,27 @@ class BaseCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         elevation: 1.5,
-        child: InkWell(
-            onTap: this.tabCallback ?? () {}, // TODO: Routing to Post
-            child: Container(
-                width: this.width,
-                height: this.height,
-                padding: EdgeInsets.all(this.padding),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ...this.children,
-                      this.moreCallback != null
-                          ? Container(
-                              alignment: Alignment.bottomRight,
-                              child: TranspButton(
-                                title: this.moreText ?? 'More',
-                                callback: this.moreCallback,
-                                buttonSize: ButtonSize.SMALL,
-                                color: AppTheme.colors.primary,
-                                icon: Icon(Icons.arrow_forward_ios_rounded,
-                                    color: AppTheme.colors.primary, size: 15.0),
-                                isSuffixICon: true,
-                              ))
-                          : null
-                    ].where((element) => element != null).toList()))));
+        child: Container(
+            width: this.width,
+            height: this.height,
+            padding: EdgeInsets.all(this.padding),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ...this.children,
+                  this.moreCallback != null
+                      ? Container(
+                          alignment: Alignment.bottomRight,
+                          child: TranspButton(
+                            title: this.moreText ?? 'More',
+                            callback: this.moreCallback,
+                            buttonSize: ButtonSize.SMALL,
+                            color: AppTheme.colors.primary,
+                            icon: Icon(Icons.arrow_forward_ios_rounded,
+                                color: AppTheme.colors.primary, size: 15.0),
+                            isSuffixICon: true,
+                          ))
+                      : null
+                ].where((element) => element != null).toList())));
   }
 }

@@ -4,13 +4,13 @@ import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 
-class PostCard extends StatelessWidget {
+class PhotoCard extends StatelessWidget {
   final String id; // node's id
   final Map<String, dynamic> post;
 
-  PostCard(id)
+  PhotoCard(id)
       : this.id = id,
-        this.post = getPostAPI(id); // TODO: not only Post, Wiki
+        this.post = getPostAPI(id); // TODO: also wiki!!!
 
   @override
   Widget build(BuildContext context) {

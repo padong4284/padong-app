@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
-import 'package:padong/ui/widgets/cards/post_card.dart';
+import 'package:padong/ui/widgets/cards/photo_card.dart';
 
-class BuildingCard extends PostCard {
+class BuildingCard extends PhotoCard {
   BuildingCard(id) : super(id);
 
   @override

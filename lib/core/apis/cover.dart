@@ -6,6 +6,7 @@ Map<String, dynamic> getCoverAPI(String coverId) {
     'parentId': 'univ009',
     'emblem':
         'https://1000logos.net/wp-content/uploads/2019/06/Georgia-Tech-Logo.png',
+    'loc': 'North Ave NW,\nAtlanta, GA 30332',
     'fixedWikis': {
       'Vision': 'w009000',
       'Mission': 'w009001',
@@ -24,6 +25,10 @@ Map<String, dynamic> getWikiAPI(String wikiId) {
     'id': wikiId,
     'parentId': 'cover009',
     'pip': PIP.PUBLIC,
+    'bottoms': [0, 0, 0], // likes, replies, bookmarks counting list
+    'isLiked': false,
+    'isBookmarked': false,
+    'createdAt': DateTime(2021, 2, 27, 14, 13),
     'title': k > 2 ? 'Title' : ['Vision', 'Mission', 'History'][k],
     'description': """Helping students learn How Work Works.
 ## OUR MISSION

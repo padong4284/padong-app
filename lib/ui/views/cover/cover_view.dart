@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
-import 'package:padong/ui/widgets/cards/post_card.dart';
+import 'package:padong/ui/widgets/cards/photo_card.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
@@ -39,7 +39,7 @@ class CoverView extends StatelessWidget {
         HorizontalScroller(
             padding: 3.0,
             children: get10RecentWikiIdsAPI(this.id)
-                .map((wikiId) => PostCard(wikiId))
+                .map((wikiId) => PhotoCard(wikiId))
                 .toList()),
         SizedBox(height: 40),
       ],
@@ -66,7 +66,7 @@ class CoverView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.place_rounded,
                   color: AppTheme.colors.primary, size: 30)),
-          Text('North Ave NW,\nAtlanta, GA 30332', style: AppTheme.getFont())
+          Text(this.cover['loc'], style: AppTheme.getFont())
         ]));
   }
 }

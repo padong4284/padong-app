@@ -24,7 +24,8 @@ class PostView extends PostTile {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-        floatingBottomBar: BottomSender(BottomSenderType.REPLY, focus: this.focus),
+        floatingBottomBar:
+            BottomSender(BottomSenderType.REPLY, focus: this.focus),
         appBar: this.likeAndBookmark(),
         children: [
           Stack(children: [
@@ -61,7 +62,7 @@ class PostView extends PostTile {
         margin: const EdgeInsets.only(top: 5));
   }
 
-  Widget likeAndBookmark(){
+  Widget likeAndBookmark() {
     return BackAppBar(actions: [
       ToggleIconButton(
           defaultIcon: Icons.favorite_outline_rounded,

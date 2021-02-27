@@ -37,6 +37,10 @@ class _ReplyViewState extends State<ReplyView> {
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.focus.hasFocus)
+      setState(() {
+        for (String rid in widget.replies) this.readyReReply[rid] = false;
+      });
     return AnimatedOpacity(
         opacity: this.isRendered ? 1 : 0,
         duration: Duration(milliseconds: 400),

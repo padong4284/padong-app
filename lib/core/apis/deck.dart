@@ -107,7 +107,7 @@ Map<String, dynamic> getNodeAPI(String id) {
     'createdAt': DateTime(2021, 1, 13, 13, 13),
     'rate': 4.5,
     'description':
-    "It's description of the Node, very long string. In summary it would be truncated.",
+        "It's description of the Node, very long string. In summary it would be truncated.",
   };
 }
 
@@ -157,3 +157,14 @@ List<String> getNoticeIdsAPI(String boardId) {
 void updateLikeAPI(String postId) {}
 
 void updateBookmarkAPI(String postId) {}
+
+List<String> getReplyIdsAPI(String parentId) {
+  return ['rp009008', 'rp0090023', 'rp00902148', 'rp009123'];
+}
+
+List<String> getReReplyIdsAPI(String replyId) {
+  int num = rand.nextInt(3);
+  return Iterable<int>.generate(num)
+      .map((i) => 'r' + replyId + i.toString())
+      .toList();
+}

@@ -10,7 +10,7 @@ class PostCard extends StatelessWidget {
 
   PostCard(id)
       : this.id = id,
-        this.post = getPostAPI(id);
+        this.post = getPostAPI(id); // TODO: not only Post, Wiki
 
   @override
   Widget build(BuildContext context) {

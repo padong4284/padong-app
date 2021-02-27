@@ -55,3 +55,14 @@ future and making a difference in the world
 through innovative, purposeful leadership."""
   };
 }
+
+
+List<String> get10RecentWikiIdsAPI(String coverId) {
+  /* TODO
+  1. Get Board Node
+  2. get 10 recent postIds from Board's children
+  3. return List<postIds>
+  */
+  return Iterable<int>.generate(10).map((i) => 'w' + coverId + i.toString()).toList();
+}
+

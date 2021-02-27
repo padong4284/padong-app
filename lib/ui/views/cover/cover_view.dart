@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
+import 'package:padong/ui/widgets/cards/post_card.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
+import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 import 'package:padong/core/apis/session.dart' as Session;
@@ -28,7 +30,18 @@ class CoverView extends StatelessWidget {
                 .cover['fixedWikis']
                 .values
                 .map((wikiId) => SummaryCard(wikiId))
-                .toList())
+                .toList()),
+        Padding(
+            padding: const EdgeInsets.only(top: 40, bottom: 5),
+            child: Text('Recently Edited',
+                style: AppTheme.getFont(
+                    fontSize: AppTheme.fontSizes.mlarge, isBold: true))),
+        HorizontalScroller(
+            padding: 3.0,
+            children: get10RecentWikiIdsAPI(this.id)
+                .map((wikiId) => PostCard(wikiId))
+                .toList()),
+        SizedBox(height: 40),
       ],
     );
   }

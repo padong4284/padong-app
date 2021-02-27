@@ -19,13 +19,13 @@ class PadongRouter {
     switch (settings.name) {
       case '/main':
         Session.currentUniv = getUnivAPI(args['univId']);
-        return PageRouteBuilder(
-          pageBuilder: (_, __, ___) => RouteView(),
+        return MaterialPageRoute(
+          builder: (_) => RouteView(),
         );
       case '/p_main':
         Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
-        return PageRouteBuilder(
-          pageBuilder: (_, __, ___) => RouteView(),
+        return MaterialPageRoute(
+          builder: (_) => RouteView(),
         );
       case '/':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SignInView());
@@ -35,15 +35,24 @@ class PadongRouter {
         );
       case '/forgot':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => ForgotView());
+
+      case '/board':
+        return MaterialPageRoute(builder: (_) => BoardView(args['id']));
       case '/post':
         return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => PostView(args['id']));
+            pageBuilder: (_, __, ___) => PostView(args['id']),
+            transitionsBuilder: (
+              BuildContext _,
+              Animation<double> animation,
+              Animation<double> __,
+              Widget child,
+            ) =>
+                Align(
+                  child: SizeTransition(sizeFactor: animation, child: child),
+                ));
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
 
-      case '/board':
-        return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => BoardView(args['id']));
       default:
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => Scaffold(

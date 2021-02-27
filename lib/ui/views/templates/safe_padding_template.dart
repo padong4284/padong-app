@@ -40,6 +40,7 @@ class SafePaddingTemplate extends StatefulWidget {
 }
 
 class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
+  bool isRendered = false;
   ScrollController _scrollController; // set controller on scrolling
   bool isScrollingDown = false;
 
@@ -58,6 +59,15 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
           isScrollingDown = false;
         });
       }
+    });
+    this.isRendered = false;
+    this.setRendered();
+  }
+
+  void setRendered() async {
+    await Future.delayed(Duration(milliseconds: 250));
+    setState(() {
+      this.isRendered = true;
     });
   }
 
@@ -81,23 +91,28 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                   },
                   child: Stack(children: [
                     SingleChildScrollView(
-                        controller: this._scrollController,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppTheme.horizontalPadding),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              widget.title.length > 0 ? this._topTitle() : null,
-                              ...widget.children,
-                              widget.isBottomBar ? SizedBox(height: 30) : null
-                            ].where((elm) => elm != null).toList())),
-                    Align(
-                        alignment: Alignment.bottomCenter,
-                        child: widget.floatingBottomBar ??
-                            (widget.floatingBottomBarGenerator != null
-                                ? widget.floatingBottomBarGenerator(
-                                    this.isScrollingDown)
-                                : SizedBox.shrink()))
+                      controller: this._scrollController,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppTheme.horizontalPadding),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            widget.title.length > 0 ? this._topTitle() : null,
+                            ...widget.children,
+                            widget.isBottomBar ? SizedBox(height: 30) : null
+                          ].where((elm) => elm != null).toList()),
+                    ),
+                    AnimatedContainer(
+                      margin: EdgeInsets.only(top: this.isRendered ? 0 : 1000),
+                      duration: Duration(milliseconds: 800),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: widget.floatingBottomBar ??
+                              (widget.floatingBottomBarGenerator != null
+                                  ? widget.floatingBottomBarGenerator(
+                                      this.isScrollingDown)
+                                  : SizedBox.shrink())),
+                    )
                   ])))
         ]));
   }

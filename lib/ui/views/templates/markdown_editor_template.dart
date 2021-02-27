@@ -24,7 +24,7 @@ class MarkdownEditorTemplate extends StatefulWidget {
   MarkdownEditorTemplate(
       {this.children,
       this.withAnonym = false,
-      this.editTxt = 'edit',
+      this.editTxt = 'make',
       this.topArea,
       this.titleHint = 'Title of Board',
       this.onTapOk,
@@ -58,14 +58,14 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
             withAnonym: widget.withAnonym),
         children: [
           this.topArea(),
-          ...(isPreview
+          ...(this.isPreview
               ? [
-                  TitleHeader(_titleController.text, link: ''),
-                  PadongMarkdown(_mdController.text)
+                  TitleHeader(this._titleController.text, link: ''),
+                  PadongMarkdown(this._mdController.text)
                 ]
               : [
                   Input(
-                      controller: _titleController,
+                      controller: this._titleController,
                       hintText: widget.titleHint,
                       type: InputType.UNDERLINE),
                   Input(
@@ -73,6 +73,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                       hintText: widget.contentHint ?? pipHint,
                       type: InputType.PLAIN)
                 ]),
+          SizedBox(height: this.isPreview ? 20 : 0),
           ...(widget.children ?? [])
         ]);
   }
@@ -112,13 +113,4 @@ String pipHint = """PIP Access
   university can edit.
 
 - Private
-  Students of this university can see & edit.
-
-
-You must follow the rules below.
-- Use the Markdown syntax.
-
-- Some syntaxes may not be supported.
-
-- Before finish the editing, check preview.
-""";
+  Students of this university can see & edit.""";

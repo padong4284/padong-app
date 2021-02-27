@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/views/deck/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
@@ -7,16 +8,22 @@ import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 class DeckView extends StatelessWidget {
+  final String id;
   final Map<String, dynamic> univ;
   final pipBoards = ['Global', 'Public', 'Internal'];
 
-  DeckView() : this.univ = getUnivAPI(Session.user['univId']);
+  DeckView()
+      : this.id = Session.user['univId'],
+        this.univ = getUnivAPI(Session.user['univId']);
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
-          onPressAdd: () {}, isScrollingDown: isScrollingDown),
+          onPressAdd: () {
+            PadongRouter.routeURL('make/id=${this.id}');
+          },
+          isScrollingDown: isScrollingDown),
       title: 'Deck',
       children: [
         SizedBox(height: 10),

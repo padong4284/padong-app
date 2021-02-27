@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
-import 'package:padong/core/apis/session.dart' as Session;
 
 class WriteView extends StatelessWidget {
-  String boardId;
+  final String boardId;
   final Map<String, dynamic> board;
 
   WriteView(boardId)

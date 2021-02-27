@@ -32,7 +32,7 @@ List<String> get10RecentPostIdsAPI(String boardId) {
   return Iterable<int>.generate(10).map((i) => boardId + i.toString()).toList();
 }
 
-String RULE = """You must follow the rules below.
+const String RULE = """You must follow the rules below.
 - Use the Markdown syntax.
 
 - Some syntaxes may not be supported.

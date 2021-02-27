@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
+import 'package:padong/ui/views/deck/make_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/deck/write_view.dart';
 import 'package:padong/ui/views/search/search_view.dart';
@@ -52,21 +53,9 @@ class PadongRouter {
                   child: SizeTransition(sizeFactor: animation, child: child),
                 ));
       case '/write':
-        return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => WriteView(args['id']),
-            transitionsBuilder: (
-              BuildContext _,
-              Animation<double> animation,
-              Animation<double> __,
-              Widget child,
-            ) =>
-                SlideTransition(
-                  position: animation.drive(
-                      Tween(begin: Offset(0, 1), end: Offset.zero)
-                          .chain(CurveTween(curve: Curves.ease))),
-                  child: child,
-                ));
-
+        return slideRouter((_, __, ___) => WriteView(args['id']));
+      case '/make':
+        return slideRouter((_, __, ___) => MakeView(args['id']));
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
       default:
@@ -94,5 +83,22 @@ class PadongRouter {
       Navigator.pushNamed(PadongRouter.context, '/' + parsed[0],
           arguments: arguments);
     };
+  }
+
+  static PageRouteBuilder slideRouter(Function(BuildContext, Animation<double>, Animation<double>) pageBuilder){
+    return PageRouteBuilder(
+        pageBuilder: pageBuilder,
+        transitionsBuilder: (
+            BuildContext _,
+            Animation<double> animation,
+            Animation<double> __,
+            Widget child,
+            ) =>
+            SlideTransition(
+              position: animation.drive(
+                  Tween(begin: Offset(0, 1), end: Offset.zero)
+                      .chain(CurveTween(curve: Curves.ease))),
+              child: child,
+            ));
   }
 }

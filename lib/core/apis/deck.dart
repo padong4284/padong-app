@@ -9,6 +9,7 @@ Map<String, dynamic> getUnivAPI(String univId) {
     'id': 'univ009',
     'title': 'Georgia Tech',
     'deckId': 'deck009',
+    'coverId': 'cover009',
     'description': 'Progress and Service',
     'emblem': 'https://en.wikipedia.org/wiki/File:Georgia_Tech_seal.svg',
   };

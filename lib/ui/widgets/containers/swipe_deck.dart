@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/cards/summary_card.dart';
 
 class SwipeDeck extends StatefulWidget {
-  final List<SummaryCard> cards;
+  final List cards;
   final int numCards;
 
-  SwipeDeck({@required List<SummaryCard> children})
+  SwipeDeck({@required children})
       : this.cards = children.reversed.toList(),
         numCards = children.length;
 

@@ -19,8 +19,7 @@ class MainView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongFloatingButton(isScrollingDown: isScrollingDown),
       children: [
-        UnivDoor(
-            univName: this.univ['title'], slogan: this.univ['description']),
+        UnivDoor(),
         SizedBox(height: 35),
         TopBoards(this.univ['deckId']),
       ],

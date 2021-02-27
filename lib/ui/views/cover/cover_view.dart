@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/types.dart';
+import 'package:padong/core/apis/cover.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/inputs/appending_input.dart';
-import 'package:padong/ui/widgets/inputs/list_picker.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
+import 'package:padong/ui/widgets/cards/summary_card.dart';
+import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
-import 'package:padong/ui/widgets/inputs/input.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class CoverView extends StatelessWidget {
+  final String id;
+  final Map<String, dynamic> cover;
+
+  CoverView()
+      : this.id = Session.currentUniv['coverId'],
+        this.cover = getCoverAPI(Session.currentUniv['coverId']);
+
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       title: 'Wiki',
       children: [
-        UnivDoor(univName: 'Georgia Tech', slogan: 'Progress and Service'),
+        UnivDoor(),
         this.emblemArea(),
-        Input(type: InputType.PLAIN, hintText: 'Hint'),
-        SizedBox(height: 20),
-        Input(type: InputType.UNDERLINE, hintText: 'Hint'),
-        SizedBox(height: 20),
-        Input(type: InputType.ROUNDED, hintText: 'Hint'),
-        SizedBox(height: 20),
-        Input(type: InputType.ROUNDED, hintText: 'Hint', isMultiline: true),
-        SizedBox(height: 20),
-        AppendingInput(input: () => new ListPicker(list: [1,2,3]))
+        SizedBox(height: 30),
+        SwipeDeck(
+            children: this
+                .cover['fixedWikis']
+                .values
+                .map((wikiId) => SummaryCard(wikiId))
+                .toList())
       ],
     );
   }
@@ -39,17 +44,16 @@ class CoverView extends StatelessWidget {
                     BoxShadow(color: Colors.black12, blurRadius: 10)
                   ]),
               child: CircleAvatar(
-                radius: 32,
-                // TODO: use fire storage get emblem
-                // backgroundImage: NetworkImage(_profileImageURL)
-                // https://here4you.tistory.com/235
-                backgroundColor: AppTheme.colors.lightSupport,
-              )),
+                  radius: 32,
+                  backgroundColor: AppTheme.colors.transparent,
+                  backgroundImage: this.cover['emblem'] != null
+                      ? NetworkImage(this.cover['emblem'])
+                      : null)),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.place_rounded,
                   color: AppTheme.colors.primary, size: 30)),
-          Text('North Ave NW,\nAtlanta, GA 30332')
+          Text('North Ave NW,\nAtlanta, GA 30332', style: AppTheme.getFont())
         ]));
   }
 }

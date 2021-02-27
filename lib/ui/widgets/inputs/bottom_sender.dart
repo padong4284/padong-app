@@ -40,12 +40,13 @@ class BottomSender extends StatelessWidget {
                       ? AppTheme.horizontalPadding + 20
                       : 0),
               child: Input(
-                  hintText: this.hintText,
-                  isMultiline: true,
-                  icon: this.icon,
-                  toNext: false,
-                  controller: this.msgController,
-                  focus: this.focus))),
+                hintText: this.hintText,
+                isMultiline: true,
+                icon: this.icon,
+                toNext: false,
+                controller: this.msgController,
+                focus: this.focus,
+              ))),
       this.type == BottomSenderType.CHAT
           ? Container(
               // Image Uploader

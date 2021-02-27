@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
+import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 
 class WriteView extends StatelessWidget {
   final String boardId;
@@ -19,7 +20,7 @@ class WriteView extends StatelessWidget {
       withAnonym: true,
       topArea: this.pipLevel(),
       contentHint: this.board['rule'],
-      onTapOk: this.createPost,
+      onSubmit: this.createPost,
     );
   }
 
@@ -41,11 +42,16 @@ class WriteView extends StatelessWidget {
                 color: AppTheme.colors.base,
                 fontSize: AppTheme.fontSizes.small),
           )),
-      Text(this.board['title'], style: AppTheme.getFont(isBold: true),)
+      Text(
+        this.board['title'],
+        style: AppTheme.getFont(isBold: true),
+      )
     ]);
   }
 
-  void createPost() {
-    // TODO: create Post
+  void createPost(Map data) {
+    data['pip'] = this.board['pip'];
+    data['isAnonym'] = TipInfo.isAnonym;
+    createPostAPI(data);
   }
 }

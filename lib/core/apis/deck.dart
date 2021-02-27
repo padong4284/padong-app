@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();
 
@@ -185,4 +186,16 @@ List<String> getReReplyIdsAPI(String replyId) {
   return Iterable<int>.generate(num)
       .map((i) => 'r' + replyId + i.toString())
       .toList();
+}
+
+void createBoardAPI(Map data){
+  data['ownerId'] = Session.user['id'];
+  data['createdAt'] = DateTime.now();
+  print(data);
+}
+
+void createPostAPI(Map data){
+  data['ownerId'] = Session.user['id'];
+  data['createdAt'] = DateTime.now();
+  print(data);
 }

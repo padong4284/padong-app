@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
@@ -14,7 +15,7 @@ class MakeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MarkdownEditorTemplate(
-      onTapOk: this.createBoard,
+      onSubmit: this.createBoard,
       children: [
         TitleHeader('Rule'),
         Input(
@@ -32,7 +33,9 @@ it may be cut off, so break the line.
     );
   }
 
-  void createBoard() {
+  void createBoard(Map data) {
     // TODO: create Board
+    data['rule'] = this._ruleController.text;
+    createBoardAPI(data);
   }
 }

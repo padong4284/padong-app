@@ -85,15 +85,17 @@ class PadongRouter {
     };
   }
 
-  static PageRouteBuilder slideRouter(Function(BuildContext, Animation<double>, Animation<double>) pageBuilder){
+  static PageRouteBuilder slideRouter(
+      Function(BuildContext, Animation<double>, Animation<double>)
+          pageBuilder) {
     return PageRouteBuilder(
         pageBuilder: pageBuilder,
         transitionsBuilder: (
-            BuildContext _,
-            Animation<double> animation,
-            Animation<double> __,
-            Widget child,
-            ) =>
+          BuildContext _,
+          Animation<double> animation,
+          Animation<double> __,
+          Widget child,
+        ) =>
             SlideTransition(
               position: animation.drive(
                   Tween(begin: Offset(0, 1), end: Offset.zero)
@@ -101,4 +103,6 @@ class PadongRouter {
               child: child,
             ));
   }
+
+  static goBack() => Navigator.pop(context);
 }

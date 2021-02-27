@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/padong_router.dart';
+import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/title_header.dart';
+import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
-import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/widgets/inputs/markdown_supporter.dart';
-import 'package:padong/ui/widgets/paddong_markdown.dart';
+import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
-import 'package:padong/ui/widgets/title_header.dart';
 
 const List<String> PIPs = ['Public', 'Internal', 'Private'];
 
@@ -19,7 +22,7 @@ class MarkdownEditorTemplate extends StatefulWidget {
   final String editTxt;
   final String titleHint;
   final String contentHint;
-  final Function onTapOk;
+  final Function(Map) onSubmit;
 
   MarkdownEditorTemplate(
       {this.children,
@@ -27,7 +30,7 @@ class MarkdownEditorTemplate extends StatefulWidget {
       this.editTxt = 'make',
       this.topArea,
       this.titleHint = 'Title of Board',
-      this.onTapOk,
+      @required this.onSubmit,
       this.contentHint});
 
   @override
@@ -51,7 +54,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                   title: 'Ok',
                   buttonSize: ButtonSize.SMALL,
                   borderColor: AppTheme.colors.primary,
-                  callback: widget.onTapOk,
+                  callback: this.onTabOk,
                   shadow: false)
             ]),
         floatingBottomBar: MarkdownSupporter(this._mdController,
@@ -73,7 +76,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                       hintText: widget.contentHint ?? pipHint,
                       type: InputType.PLAIN)
                 ]),
-          SizedBox(height: this.isPreview ? 20 : 0),
+          SizedBox(height: 20),
           ...(widget.children ?? [])
         ]);
   }
@@ -101,6 +104,19 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                     this.pipIdx = PIPs.indexOf(selected);
                   });
                 }));
+  }
+
+  void onTabOk() {
+    Map data = {
+      'title': this._titleController.text,
+      'description': this._mdController.text,
+    };
+    if (widget.topArea == null)
+      data['pip'] = [PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE][this.pipIdx];
+    widget.onSubmit(data);
+    TipInfo.initialize();
+    PadongRouter.goBack();
+    // TODO: show dialog or snackBar to alert submit complete
   }
 }
 

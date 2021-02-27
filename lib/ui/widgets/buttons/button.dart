@@ -11,7 +11,7 @@ class Button extends StatelessWidget {
   final Widget icon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
   final bool shadow;
-  final dynamic callback;
+  final Function callback;
 
   Button(
       {this.title,

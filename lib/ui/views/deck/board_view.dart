@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/floating_bottom_button.dart';
@@ -25,7 +26,11 @@ class BoardView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
           isScrollingDown: isScrollingDown, bottomPadding: 40),
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
-          title: 'Write', onTap: () {}, isScrollingDown: isScrollingDown),
+          title: 'write',
+          onTap: () {
+            PadongRouter.routeURL('write/id=${this.id}');
+          },
+          isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.board['title'], actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),

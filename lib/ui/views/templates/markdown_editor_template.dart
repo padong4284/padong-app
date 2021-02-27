@@ -10,20 +10,24 @@ import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/title_header.dart';
 
-const List<String> PIP = ['Public', 'Internal', 'Private'];
+const List<String> PIPs = ['Public', 'Internal', 'Private'];
 
 class MarkdownEditorTemplate extends StatefulWidget {
   final List<Widget> children;
+  final bool withAnonym;
   final Widget topArea;
   final String editTxt;
   final String titleHint;
   final String contentHint;
+  final Function onTapOk;
 
   MarkdownEditorTemplate(
       {this.children,
+      this.withAnonym = false,
       this.editTxt = 'edit',
       this.topArea,
-      this.titleHint = 'Title of Post',
+      this.titleHint = 'Title of Board',
+      this.onTapOk,
       this.contentHint});
 
   @override
@@ -47,9 +51,11 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                   title: 'Ok',
                   buttonSize: ButtonSize.SMALL,
                   borderColor: AppTheme.colors.primary,
+                  callback: widget.onTapOk,
                   shadow: false)
             ]),
-        floatingBottomBar: MarkdownSupporter(this._mdController),
+        floatingBottomBar: MarkdownSupporter(this._mdController,
+            withAnonym: widget.withAnonym),
         children: [
           this.topArea(),
           ...(isPreview
@@ -87,11 +93,11 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
         alignment: Alignment.centerLeft,
         child: widget.topArea ??
             SwitchButton(
-                options: PIP,
+                options: PIPs,
                 buttonType: SwitchButtonType.SHADOW,
                 onChange: (String selected) {
                   setState(() {
-                    this.pipIdx = PIP.indexOf(selected);
+                    this.pipIdx = PIPs.indexOf(selected);
                   });
                 }));
   }

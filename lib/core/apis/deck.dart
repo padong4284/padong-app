@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:padong/core/models/pip.dart';
 
 Random rand = Random();
 
@@ -31,6 +32,15 @@ List<String> get10RecentPostIdsAPI(String boardId) {
   return Iterable<int>.generate(10).map((i) => boardId + i.toString()).toList();
 }
 
+String RULE = """You must follow the rules below.
+- Use the Markdown syntax.
+
+- Some syntaxes may not be supported.
+
+- Before finish the editing, check preview.
+
+- Rules of this Board""";
+
 Map<String, dynamic> getBoardAPI(String id) {
   // TODO: get board Node from Firebase
   if (id.endsWith('0')) {
@@ -38,6 +48,8 @@ Map<String, dynamic> getBoardAPI(String id) {
       'id': id,
       'title': 'Global',
       'notification': false,
+      'pip': PIP.PUBLIC,
+      'rule': RULE,
       'description': '''
 This board is GLOBAL board.
 Everyone can read and write in this board.
@@ -48,6 +60,8 @@ Everyone can read and write in this board.
       'id': id,
       'title': 'Public',
       'notification': false,
+      'pip': PIP.INTERNAL,
+      'rule': RULE,
       'description': '''
 This board is PUBLIC board.
 Everyone can read this board.
@@ -59,6 +73,8 @@ But, only Georgia Tech students can write.
       'id': id,
       'title': 'Internal',
       'notification': false,
+      'pip': PIP.PRIVATE,
+      'rule': RULE,
       'description': '''
 This board is INTERNAL board.
 ONLY Georgia Tech students can read and write.
@@ -68,6 +84,8 @@ ONLY Georgia Tech students can read and write.
   return {
     'id': id,
     'title': 'Board Title',
+    'pip': PIP.PRIVATE,
+    'rule': RULE,
     'notification': rand.nextBool(),
     'description': 'sample board description'
   };

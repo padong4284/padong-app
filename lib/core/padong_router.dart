@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
+import 'package:padong/ui/views/deck/write_view.dart';
 import 'package:padong/ui/views/search/search_view.dart';
 import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
@@ -50,9 +51,24 @@ class PadongRouter {
                 Align(
                   child: SizeTransition(sizeFactor: animation, child: child),
                 ));
+      case '/write':
+        return PageRouteBuilder(
+            pageBuilder: (_, __, ___) => WriteView(args['id']),
+            transitionsBuilder: (
+              BuildContext _,
+              Animation<double> animation,
+              Animation<double> __,
+              Widget child,
+            ) =>
+                SlideTransition(
+                  position: animation.drive(
+                      Tween(begin: Offset(0, 1), end: Offset.zero)
+                          .chain(CurveTween(curve: Curves.ease))),
+                  child: child,
+                ));
+
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
-
       default:
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => Scaffold(

@@ -7,7 +7,7 @@ import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 
-class WikiCoverView extends StatelessWidget {
+class CoverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(

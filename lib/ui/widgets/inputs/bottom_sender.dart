@@ -17,10 +17,16 @@ class BottomSender extends StatelessWidget {
   final String hintText;
   final Icon icon;
   final BottomSenderType type;
+  final Function onSubmit;
   final TextEditingController msgController;
+  final bool afterHide;
   final FocusNode focus;
 
-  BottomSender(BottomSenderType senderType, {this.msgController, this.focus})
+  BottomSender(BottomSenderType senderType,
+      {@required this.onSubmit,
+      this.msgController,
+      this.focus,
+      this.afterHide = false})
       : this.hintText = hints[senderType],
         this.icon = Icon(
             BottomSenderType.ARGUE == senderType ? Icons.add : Icons.send,
@@ -43,8 +49,9 @@ class BottomSender extends StatelessWidget {
                 hintText: this.hintText,
                 isMultiline: true,
                 icon: this.icon,
-                toNext: false,
+                toNext: this.afterHide,
                 controller: this.msgController,
+                onPressIcon: this.onSubmit,
                 focus: this.focus,
               ))),
       this.type == BottomSenderType.CHAT

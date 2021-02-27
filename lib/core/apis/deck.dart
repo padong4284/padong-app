@@ -188,14 +188,14 @@ List<String> getReReplyIdsAPI(String replyId) {
       .toList();
 }
 
-void createBoardAPI(Map data){
+void create(Map data) {
   data['ownerId'] = Session.user['id'];
   data['createdAt'] = DateTime.now();
   print(data);
 }
 
-void createPostAPI(Map data){
-  data['ownerId'] = Session.user['id'];
-  data['createdAt'] = DateTime.now();
-  print(data);
-}
+void createBoardAPI(Map data) => create(data);
+
+void createPostAPI(Map data) => create(data);
+
+void createReplyAPI(Map data) => create(data);

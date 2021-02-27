@@ -4,6 +4,7 @@ import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/deck/reply_view.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
+import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/inputs/bottom_sender.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
@@ -15,6 +16,7 @@ class PostView extends PostTile {
   final String id;
   final Map<String, dynamic> post;
   final FocusNode focus = FocusNode();
+  final TextEditingController _replyController = TextEditingController();
 
   PostView(String id)
       : this.id = id,
@@ -24,8 +26,11 @@ class PostView extends PostTile {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-        floatingBottomBar:
-            BottomSender(BottomSenderType.REPLY, focus: this.focus),
+        floatingBottomBar: BottomSender(BottomSenderType.REPLY,
+            onSubmit: this.sendReply,
+            msgController: this._replyController,
+            focus: this.focus,
+            afterHide: true),
         appBar: this.likeAndBookmark(),
         children: [
           Stack(children: [
@@ -75,5 +80,14 @@ class PostView extends PostTile {
           isToggled: this.post['isBookmarked'],
           onPressed: () => updateBookmarkAPI(this.id))
     ]);
+  }
+
+  void sendReply() {
+    createReplyAPI({
+      'parentId': this.id, // TODO: rereply
+      'description': this._replyController.text,
+      'isAnonym': TipInfo.isAnonym,
+    });
+    this._replyController.text = '';
   }
 }

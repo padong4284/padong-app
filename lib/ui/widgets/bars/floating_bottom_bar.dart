@@ -29,6 +29,7 @@ class FloatingBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool withTip = this.withAnonym || this.withStars;
+    TipInfo.initialize();
     return Stack(children: [
       Container(
           margin: EdgeInsets.only(top: withTip ? 45 : 0),

@@ -10,7 +10,7 @@ class ForgotView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
         appBar: BackAppBar(title: 'tae7130'),
-        floatingBottomBar: BottomSender(BottomSenderType.REVIEW, msgController: msgCotroller),
+        floatingBottomBar: BottomSender(BottomSenderType.REVIEW, onSubmit: (){}, msgController: msgCotroller),
         children: [
         ],
     );

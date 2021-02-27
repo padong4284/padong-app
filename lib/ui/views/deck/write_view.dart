@@ -50,6 +50,7 @@ class WriteView extends StatelessWidget {
   }
 
   void createPost(Map data) {
+    data['parentId'] = this.boardId;
     data['pip'] = this.board['pip'];
     data['isAnonym'] = TipInfo.isAnonym;
     createPostAPI(data);

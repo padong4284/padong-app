@@ -10,7 +10,6 @@ import 'package:padong/ui/widgets/buttons/button.dart';
 import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/widgets/inputs/markdown_supporter.dart';
-import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
 const List<String> PIPs = ['Public', 'Internal', 'Private'];
@@ -114,7 +113,6 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
     if (widget.topArea == null)
       data['pip'] = [PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE][this.pipIdx];
     widget.onSubmit(data);
-    TipInfo.initialize();
     PadongRouter.goBack();
     // TODO: show dialog or snackBar to alert submit complete
   }

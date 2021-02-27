@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/core/padong_router.dart';
-import 'package:padong/ui/widgets/top_boards.dart';
+import 'package:padong/ui/views/deck/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';

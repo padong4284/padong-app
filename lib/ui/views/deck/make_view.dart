@@ -9,7 +9,6 @@ class MakeView extends StatelessWidget {
   final String univId;
   final TextEditingController _ruleController = TextEditingController();
 
-
   MakeView(this.univId);
 
   @override
@@ -28,13 +27,14 @@ class MakeView extends StatelessWidget {
 * Caution
 If the sentence is too long,
 it may be cut off, so break the line.
-""", type: InputType.PLAIN)
+""",
+            type: InputType.PLAIN)
       ],
     );
   }
 
   void createBoard(Map data) {
-    // TODO: create Board
+    data['parentId'] = this.univId;
     data['rule'] = this._ruleController.text;
     createBoardAPI(data);
   }

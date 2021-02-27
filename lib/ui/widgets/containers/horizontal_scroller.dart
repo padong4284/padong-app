@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
@@ -11,7 +10,7 @@ class HorizontalScroller extends StatelessWidget {
 
   HorizontalScroller(
       {@required this.children,
-        this.height=220,
+      this.height = 220,
       this.parentLeftPadding = AppTheme.horizontalPadding,
       this.parentRightPadding = AppTheme.horizontalPadding,
       padding})

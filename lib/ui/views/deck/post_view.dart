@@ -84,7 +84,7 @@ class PostView extends PostTile {
 
   void sendReply() {
     createReplyAPI({
-      'parentId': this.id, // TODO: rereply
+      'parentId': ReReplyFocus.replyId ?? this.id, // TODO: rereply
       'description': this._replyController.text,
       'isAnonym': TipInfo.isAnonym,
     });

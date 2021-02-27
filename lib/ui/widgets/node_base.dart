@@ -41,7 +41,6 @@ class NodeBase extends StatelessWidget {
 
   Widget commonArea() {
     return Container(
-        height: 40,
         padding: EdgeInsets.only(left: this.noProfile ? 4 : 47, right: 10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(

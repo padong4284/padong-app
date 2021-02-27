@@ -11,7 +11,7 @@ class BuildingCard extends PhotoCard {
         width: 255,
         height: 140,
         child: Row(children: [
-          this.pictureArea(isRoate: true, height: 140),
+          this.pictureArea(isRotated: true, height: 140),
           Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

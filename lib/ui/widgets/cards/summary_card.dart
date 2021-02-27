@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
-import 'package:padong/ui/widgets/paddong_markdown.dart';
 
 class SummaryCard extends StatelessWidget {
   final String id; // node's id
@@ -16,16 +16,19 @@ class SummaryCard extends StatelessWidget {
         width: // for draggable
             MediaQuery.of(context).size.width - AppTheme.horizontalPadding * 2,
         height: 160,
-        moreCallback: () {},
+        moreCallback: () {
+          PadongRouter.routeURL('/wiki/id=${this.id}');
+        },
         children: <Widget>[
+          SizedBox(height: 2),
           Text(this.wiki['title'],
               style: AppTheme.getFont(
                   color: AppTheme.colors.fontPalette[1],
                   fontSize: AppTheme.fontSizes.large,
                   isBold: true)),
           Container(
-              height: 75,
-              margin: const EdgeInsets.only(top: 4, bottom: 9),
+              height: 70,
+              margin: const EdgeInsets.only(top: 6, bottom: 9),
               child: Text(this.wiki['description'],
                   overflow: TextOverflow.ellipsis,
                   style: AppTheme.getFont(

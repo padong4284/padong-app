@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
+import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/cards/photo_card.dart';
 import 'package:padong/ui/widgets/cards/summary_card.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
@@ -20,6 +22,11 @@ class CoverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
+      floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
+          onPressAdd: () {
+            PadongRouter.routeURL('edit/id=${this.id}');
+          },
+          isScrollingDown: isScrollingDown),
       title: 'Wiki',
       children: [
         UnivDoor(),
@@ -39,7 +46,7 @@ class CoverView extends StatelessWidget {
         HorizontalScroller(
             padding: 3.0,
             children: get10RecentWikiIdsAPI(this.id)
-                .map((wikiId) => PhotoCard(wikiId))
+                .map((wikiId) => PhotoCard(wikiId, isWiki: true))
                 .toList()),
         SizedBox(height: 40),
       ],

@@ -21,8 +21,7 @@ class BoardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafePaddingTemplate(
+    return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
           isScrollingDown: isScrollingDown, bottomPadding: 40),
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
@@ -47,6 +46,6 @@ class BoardView extends StatelessWidget {
         TitleHeader('Posts'),
         ...getPostIdsAPI(this.id).map((postId) => PostTile(postId))
       ],
-    ));
+    );
   }
 }

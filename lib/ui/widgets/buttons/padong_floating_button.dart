@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
+import 'package:padong/core/padong_router.dart';
 
 class PadongFloatingButton extends StatelessWidget {
   final Function onPressAdd;
   final bool isScrollingDown;
+  final double bottomPadding;
 
-  PadongFloatingButton({this.onPressAdd, this.isScrollingDown = false});
+  PadongFloatingButton(
+      {this.onPressAdd, this.isScrollingDown = false, this.bottomPadding = 0});
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
         visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
         child: Container(
-            padding: EdgeInsets.only(right: 10.0, bottom: 10.0),
+            padding: EdgeInsets.only(right: 10.0, bottom: 10.0 + bottomPadding),
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
               this.onPressAdd != null
                   ? AnimatedOpacity(
@@ -39,7 +41,7 @@ class PadongFloatingButton extends StatelessWidget {
                           color: AppTheme.colors.base, size: 30),
                       backgroundColor: AppTheme.colors.primary,
                       onPressed: () {
-                        pushCallbacks.registeredPushNamed('/search');
+                        PadongRouter.routeURL('/search');
                       }))
             ])));
   }

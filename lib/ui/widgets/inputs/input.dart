@@ -15,6 +15,7 @@ class Input extends StatelessWidget {
   final bool enabled;
   final EdgeInsets margin;
   final TextEditingController controller;
+  final FocusNode focus;
 
   Input(
       {this.hintText,
@@ -25,6 +26,7 @@ class Input extends StatelessWidget {
       this.width,
       this.margin,
       this.controller,
+      this.focus,
       this.iconTopPosition = 0,
       this.isMultiline = false,
       this.toNext = true,
@@ -77,6 +79,7 @@ class Input extends StatelessWidget {
         onChanged: this.onChanged,
         enabled: this.enabled,
         controller: this.controller,
+        focusNode: this.focus,
         style: AppTheme.getFont(
             color: AppTheme.colors.support, fontSize: fontSize),
         decoration: InputDecoration(
@@ -109,6 +112,7 @@ class Input extends StatelessWidget {
       onChanged: this.onChanged,
       enabled: this.enabled,
       controller: this.controller,
+      focusNode: this.focus,
       decoration: InputDecoration(
           border: InputBorder.none,
           hintText: this.hintText,

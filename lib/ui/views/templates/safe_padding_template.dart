@@ -22,7 +22,7 @@ class SafePaddingTemplate extends StatefulWidget {
       floatingBottomBar,
       floatingBottomBarGenerator,
       @required this.children,
-        this.background,
+      this.background,
       this.title = ''})
       : assert((floatingActionButton == null) ||
             (floatingActionButtonGenerator == null)),
@@ -40,6 +40,7 @@ class SafePaddingTemplate extends StatefulWidget {
 }
 
 class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
+  bool isRendered = false;
   ScrollController _scrollController; // set controller on scrolling
   bool isScrollingDown = false;
 
@@ -59,6 +60,15 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
         });
       }
     });
+    this.isRendered = false;
+    this.setRendered();
+  }
+
+  void setRendered() async {
+    await Future.delayed(Duration(milliseconds: 250));
+    setState(() {
+      this.isRendered = true;
+    });
   }
 
   @override
@@ -72,15 +82,15 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
         body: Stack(children: [
           widget.background ?? SizedBox.shrink(),
           SafeArea(
-            child: GestureDetector(
-                onTap: () {
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus &&
-                      currentFocus.focusedChild != null)
-                    FocusManager.instance.primaryFocus.unfocus();
-                },
-                child: Stack(children: [
-                  SingleChildScrollView(
+              child: GestureDetector(
+                  onTap: () {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    if (!currentFocus.hasPrimaryFocus &&
+                        currentFocus.focusedChild != null)
+                      FocusManager.instance.primaryFocus.unfocus();
+                  },
+                  child: Stack(children: [
+                    SingleChildScrollView(
                       controller: this._scrollController,
                       padding: EdgeInsets.symmetric(
                           horizontal: AppTheme.horizontalPadding),
@@ -89,16 +99,22 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                           children: [
                             widget.title.length > 0 ? this._topTitle() : null,
                             ...widget.children,
-                            widget.isBottomBar ? SizedBox(height: 80) : null
-                          ].where((elm) => elm != null).toList())),
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: widget.floatingBottomBar ??
-                          (widget.floatingBottomBarGenerator != null
-                              ? widget.floatingBottomBarGenerator(
-                                  this.isScrollingDown)
-                              : SizedBox.shrink()))
-                ])))]));
+                            widget.isBottomBar ? SizedBox(height: 30) : null
+                          ].where((elm) => elm != null).toList()),
+                    ),
+                    AnimatedContainer(
+                      margin: EdgeInsets.only(top: this.isRendered ? 0 : 1000),
+                      duration: Duration(milliseconds: 800),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: widget.floatingBottomBar ??
+                              (widget.floatingBottomBarGenerator != null
+                                  ? widget.floatingBottomBarGenerator(
+                                      this.isScrollingDown)
+                                  : SizedBox.shrink())),
+                    )
+                  ])))
+        ]));
   }
 
   Widget _topTitle() {

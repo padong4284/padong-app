@@ -28,7 +28,9 @@ class HistoryCard extends NodeBase {
 
   @override
   Widget build(BuildContext context) {
-    return BaseCard(children: [super.build(context)]);
+    return InkWell(
+        onTap: this.routePage,
+        child: BaseCard(children: [super.build(context)]));
   }
 
   @override

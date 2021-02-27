@@ -17,9 +17,16 @@ class BottomSender extends StatelessWidget {
   final String hintText;
   final Icon icon;
   final BottomSenderType type;
+  final Function onSubmit;
   final TextEditingController msgController;
+  final bool afterHide;
+  final FocusNode focus;
 
-  BottomSender(BottomSenderType senderType, {this.msgController})
+  BottomSender(BottomSenderType senderType,
+      {@required this.onSubmit,
+      this.msgController,
+      this.focus,
+      this.afterHide = false})
       : this.hintText = hints[senderType],
         this.icon = Icon(
             BottomSenderType.ARGUE == senderType ? Icons.add : Icons.send,
@@ -39,19 +46,21 @@ class BottomSender extends StatelessWidget {
                       ? AppTheme.horizontalPadding + 20
                       : 0),
               child: Input(
-                  hintText: this.hintText,
-                  isMultiline: true,
-                  icon: this.icon,
-                  toNext: false,
-                  controller: this.msgController))),
+                hintText: this.hintText,
+                isMultiline: true,
+                icon: this.icon,
+                toNext: this.afterHide,
+                controller: this.msgController,
+                onPressIcon: this.onSubmit,
+                focus: this.focus,
+              ))),
       this.type == BottomSenderType.CHAT
           ? Container(
               // Image Uploader
               margin: const EdgeInsets.only(
                   left: AppTheme.horizontalPadding - 2, top: 7),
               child: IconButton(
-                  onPressed:
-                      this.addPhoto(context), // TODO: get user's attachment
+                  onPressed: this.addPhoto(context),
                   icon: Icon(Icons.photo_camera_rounded,
                       size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()

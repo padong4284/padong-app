@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
+import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 
-Map<String, String> getNode(String id) {
-  return {'title': 'Title' + id, 'description': "It's sample description"};
-}
-
 class PostCard extends StatelessWidget {
   final String id; // node's id
-  final Map<String, String> node;
+  final Map<String, dynamic> post;
 
   PostCard(id)
-      : this.node = getNode(id),
-        this.id = id;
+      : this.id = id,
+        this.post = getPostAPI(id);
 
   @override
   Widget build(BuildContext context) {
+    List bottoms = this.post['bottoms'];
+    bottoms[1] = null;
     return this.baseCard(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         this.pictureArea(),
         Container(
             padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
             child: this.titleArea()),
-        BottomButtons(bottoms: [0, null, 0]),
+        BottomButtons(left: 8, bottoms: bottoms),
       ]),
     );
   }
@@ -32,9 +31,8 @@ class PostCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          pushCallbacks.registeredPushNamed('/post/id=$id');
+          PadongRouter.routeURL('/post/id=${this.id}');
         },
-        // TODO: Routing to Post
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),
             child: Card(
@@ -48,11 +46,11 @@ class PostCard extends StatelessWidget {
 
   Widget titleArea() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(this.node['title'],
+      Text(this.post['title'],
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(
               color: AppTheme.colors.fontPalette[2], isBold: true)),
-      Text(this.node['description'],
+      Text(this.post['description'],
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3]))
     ]);

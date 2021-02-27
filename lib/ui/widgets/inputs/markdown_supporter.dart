@@ -11,31 +11,31 @@ class MarkdownSupporter extends StatelessWidget {
   final TextEditingController _mdController;
   final bool withAnonym;
 
-  MarkdownSupporter(this._mdController, {this.withAnonym=false});
+  MarkdownSupporter(this._mdController, {this.withAnonym = false});
 
   @override
   Widget build(BuildContext context) {
     return FloatingBottomBar(
-      withAnonym: this.withAnonym,
+        withAnonym: this.withAnonym,
         child: Container(
-      height: 38,
-      child: Row(children: [
-        TranspButton(
-            callback: this.addPhoto(context),
-            buttonSize: ButtonSize.GIANT,
-            icon: Icon(Icons.photo_camera_rounded,
-                size: 30, color: AppTheme.colors.support)),
-        Container(width: 2, color: AppTheme.colors.semiSupport),
-        Expanded(
-            child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [SizedBox(width: 10), ...this.supporters()]))
-      ]),
-    ));
+          height: 38,
+          child: Row(children: [
+            TranspButton(
+                callback: this.addPhoto(context),
+                buttonSize: ButtonSize.GIANT,
+                icon: Icon(Icons.photo_camera_rounded,
+                    size: 30, color: AppTheme.colors.support)),
+            Container(width: 2, color: AppTheme.colors.semiSupport),
+            Expanded(
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [SizedBox(width: 10), ...this.supporters()]))
+          ]),
+        ));
   }
 
   Function addPhoto(context) {
-    return getImageFromUser(context, (PickedFile image){
+    return getImageFromUser(context, (PickedFile image) {
       this._mdController.text += '![IMAGE](' + image.path + ')';
       // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
       // TODO: upload to firebase
@@ -60,8 +60,8 @@ class MarkdownSupporter extends StatelessWidget {
       this.inlineCode: Text(' inline code ', style: MarkdownTheme.inlineCode),
       this.codeBlock: Container(
           color: Color(0xff202326),
-          child: Text(' </> ',
-              style: AppTheme.getFont(color: AppTheme.colors.base))),
+          child:
+              Icon(Icons.code_rounded, color: AppTheme.colors.base, size: 20)),
       this.link: Icon(Icons.link_rounded, size: 25),
       this.imgLink: Icon(Icons.image_rounded, size: 20),
     };

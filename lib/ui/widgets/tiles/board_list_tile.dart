@@ -1,31 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/models/deck/board.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushNamedCallback;
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
 
-
-ModelBoard getBoardAPI(String id) {
-  ModelBoard result;
-  if (id == '0') {
-    result = ModelBoard(id: id, title: 'Global', description: '''
-This board is GLOBAL board.
-Everyone can read and write in this board.
-''');
-  } else if (id == '1') {
-    result = ModelBoard(id: id, title: 'Public', description: '''
-This board is PUBLIC board.
-Everyone can read this board.
-But, only Georgia Tech students can write.
-''');
-  } else {
-    result = ModelBoard(id: id, title: 'Internal', description: '''
-This board is INTERNAL board.
-ONLY Georgia Tech students can read and write.
-''');
-  }
-  return result;
-}
+import 'package:padong/core/apis/deck.dart';
 
 class BoardListTile extends StatefulWidget {
   final List<String> boardIds;
@@ -52,7 +31,8 @@ class _BoardListTileState extends State<BoardListTile> {
   @override
   void initState() {
     super.initState();
-    this.notifications = Iterable<int>.generate(widget.boardIds.length).map((_) {
+    this.notifications =
+        Iterable<int>.generate(widget.boardIds.length).map((_) {
       return false; // get notification or not from firebase
     }).toList();
   }
@@ -60,42 +40,37 @@ class _BoardListTileState extends State<BoardListTile> {
   @override
   Widget build(BuildContext context) {
     return BaseTile(
-        children: Iterable<int>.generate(widget.boardIds.length)
-            .map(
-              (idx) {
-                final board = getBoardAPI(widget.boardIds[idx]);
-                return InkWell(
-                  onTap: () {
-                    pushNamedCallback.registeredPushNamed('/board/id=${board.id}');
-                  },
-                  child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(children: [
-                        Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
-                            child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    this.notifications[idx] =
-                                        widget.isAlertTile &&
-                                            !this.notifications[idx];
-                                  });
-                                },
-                                child: Icon(
-                                    widget.isAlertTile
-                                        ? this.notifications[idx]
-                                            ? Icons.notifications
-                                            : Icons.notifications_off
-                                        : widget.icons[idx],
-                                    size: 25,
-                                    color: this.notifications[idx]
-                                        ? AppTheme.colors.pointYellow
-                                        : AppTheme.colors.support))),
-                        this.boardText(board.title)
-                      ])));},
-            )
-            .toList());
+        children: Iterable<int>.generate(widget.boardIds.length).map(
+      (idx) {
+        final board = getBoardAPI(widget.boardIds[idx]);
+        return InkWell(
+            onTap: () {
+              PadongRouter.routeURL('/board/id=${board['id']}');
+            },
+            child: Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Row(children: [
+                  Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: widget.isAlertTile
+                          ? ToggleIconButton(
+                              defaultIcon: Icons.notifications,
+                              toggleIcon: Icons.notifications_off,
+                              isToggled: !board['notification'],
+                              defaultColor: AppTheme.colors.pointYellow,
+                              toggleColor: AppTheme.colors.support,
+                              size: 25,
+                              onPressed: () {
+                                board['notification'] = !board['notification'];
+                                setNotificationBoardAPI(board['id'], board['notification']);
+                              })
+                          : Icon(widget.icons[idx],
+                              size: 25, color: AppTheme.colors.support)),
+                  this.boardText(board['title'])
+                ])));
+      },
+    ).toList());
   }
 
   Text boardText(text) {

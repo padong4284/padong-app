@@ -4,20 +4,20 @@ import 'package:padong/ui/theme/app_theme.dart';
 
 class PadongBottomNavigationBar extends StatelessWidget {
   final size = 40.0;
-  final int selectedIndex;
-  final Function setSelectedIndex;
+  final int selectedIdx;
+  final Function setSelectedIdx;
 
-  PadongBottomNavigationBar({this.selectedIndex, this.setSelectedIndex});
+  PadongBottomNavigationBar({this.selectedIdx, this.setSelectedIdx});
 
   @override
   Widget build(BuildContext context) {
     const padding = AppTheme.horizontalPadding + 5;
     return BottomNavigationBar(
-        currentIndex: this.selectedIndex ?? 0,
+        currentIndex: this.selectedIdx ?? 0,
         selectedItemColor: AppTheme.colors.primary,
         unselectedItemColor: AppTheme.colors.semiSupport,
-        onTap: (index) {
-          this.setSelectedIndex(index);
+        onTap: (int idx) {
+          this.setSelectedIdx(idx);
         },
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -49,10 +49,7 @@ class PadongBottomNavigationBar extends StatelessWidget {
             label: 'Map',
             icon: Padding(
                 padding: const EdgeInsets.only(right: padding),
-                child: Icon(
-                  Icons.place,
-                  size: this.size,
-                )),
+                child: Icon(Icons.place, size: this.size)),
           ),
         ]);
   }

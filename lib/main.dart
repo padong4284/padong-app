@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './ui/router.dart';
+import 'core/padong_router.dart';
 import './ui/theme/app_theme.dart';
 
 void main() {
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PADONG',
       theme: AppTheme.define(),
       onGenerateRoute: PadongRouter.generateRoute,
     );

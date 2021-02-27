@@ -25,7 +25,7 @@ class BuildingCard extends PostCard {
                 Container(
                     width: 100,
                     margin: const EdgeInsets.only(bottom: 10),
-                    child: BottomButtons(bottoms: [0, null, 0])),
+                    child: BottomButtons(left: 8, bottoms: [0, null, 0])),
               ])
         ]));
   }

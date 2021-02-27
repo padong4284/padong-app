@@ -7,6 +7,8 @@ import 'package:padong/ui/utils/wave/wave_clipper.dart';
 import 'package:padong/ui/utils/wave/wave.dart';
 import 'package:padong/ui/shared/types.dart';
 
+import 'package:padong/core/apis/session.dart' as Session;
+
 Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
 
@@ -203,12 +205,14 @@ class _SignViewState extends State<SignView>
                 child: Icon(Icons.east, color: AppTheme.colors.base),
                 backgroundColor: AppTheme.colors.primary,
                 onPressed: () {
-                  if (widget.isSignIn) {
-                    // FIXME: this is implemented temporarily
-                    Navigator.pushNamed(context, '/main');
-                  } else {
-                    Navigator.pushNamed(context, '/p_main');
-                  }
+                  /* TODO: register user to session
+                  Session.user = {
+                    'id': 'u009003',
+                    'username': 'kod',
+                    'univId': 'univ009',
+                  };*/
+                  Navigator.pushNamed(context, '/main',
+                      arguments: {'univId': Session.user['univId']});
                 },
               )
             ])));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/shared/push_callbacks.dart' as pushCallbacks;
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
 class TitleHeader extends StatelessWidget {
@@ -37,7 +37,7 @@ class TitleHeader extends StatelessWidget {
                     : AppTheme.fontSizes.mlarge,
                 isBold: true),
           ),
-          this.getRightButton()
+          this.getRightButton(context)
         ]),
         Container(
             height: 2,
@@ -45,14 +45,16 @@ class TitleHeader extends StatelessWidget {
                 top: this.link != null ? 8 : 3,
                 bottom: this.link != null ? 14 : 3),
             alignment: Alignment.bottomLeft,
-            color: this.isInputHead
-                ? AppTheme.colors.lightSupport
-                : AppTheme.colors.semiSupport)
+            color: this.link != null
+                ? AppTheme.colors.support
+                : this.isInputHead
+                    ? AppTheme.colors.lightSupport
+                    : AppTheme.colors.semiSupport)
       ],
     );
   }
 
-  Widget getRightButton() {
+  Widget getRightButton(BuildContext context) {
     return this.moreCallback != null
         ? TranspButton(
             title: 'More',
@@ -69,8 +71,17 @@ class TitleHeader extends StatelessWidget {
                 buttonSize: ButtonSize.LARGE,
                 callback: () {
                   if (this.link.length > 0)
-                    pushCallbacks.registeredPushNamed(this.link);
-                }) // TODO: Route to link
+                    Clipboard.setData(new ClipboardData(text: this.link))
+                        .then((result) {
+                      final snackBar = SnackBar(
+                          content: Text('Copy link to Clipboard'),
+                          action: SnackBarAction(
+                              label: 'Ok',
+                              textColor: AppTheme.colors.primary,
+                              onPressed: () {}));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    });
+                })
             : SizedBox.shrink();
   }
 }

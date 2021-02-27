@@ -25,7 +25,7 @@ class BottomButtons extends StatefulWidget {
   final bool isTwo;
   final dynamic bottoms; // [likes, replies, bookmarks], if null: don't show
 
-  BottomButtons({this.left = -10, this.gap = 47, color, @required bottoms})
+  BottomButtons({this.left = 0, this.gap = 40, color, @required bottoms})
       : this.color = color ?? AppTheme.colors.support,
         this.bottoms = bottoms,
         this.isTwo = bottoms.contains(null);
@@ -61,7 +61,7 @@ class _BottomButtonsState extends State<BottomButtons> {
           .map((idx) => widget.bottoms[idx] == null
               ? null
               : Positioned(
-                  left: widget.left + 33 + widget.gap * this.getGapIdx(idx),
+                  left: widget.left + 20 + widget.gap * this.getGapIdx(idx),
                   bottom: 1,
                   child: getNumText(idx)))
           .where((element) => element != null)

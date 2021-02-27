@@ -5,6 +5,16 @@ import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/buttons/star_rate_button.dart';
 import 'package:padong/ui/widgets/containers/tip_container.dart';
 
+class TipInfo {
+  static bool isAnonym = true;
+  static double starRate = 0.0;
+
+  static void initialize() {
+    isAnonym = true;
+    starRate = 0.0;
+  }
+}
+
 class FloatingBottomBar extends StatelessWidget {
   final Widget child;
   final bool withAnonym;
@@ -19,6 +29,7 @@ class FloatingBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool withTip = this.withAnonym || this.withStars;
+    TipInfo.initialize();
     return Stack(children: [
       Container(
           margin: EdgeInsets.only(top: withTip ? 45 : 0),
@@ -46,9 +57,16 @@ class FloatingBottomBar extends StatelessWidget {
                 width: 180,
                 child: Container(
                     margin: const EdgeInsets.only(left: 10, top: 3.5),
-                    child: StarRateButton(rate: 0.0)))
+                    child: StarRateButton(
+                        rate: TipInfo.starRate,
+                        onChange: (rate) {
+                          TipInfo.starRate = rate;
+                        })))
             : SwitchButton(
                 options: ['anonym', 'profile'],
-                buttonType: SwitchButtonType.TOOLTIP));
+                buttonType: SwitchButtonType.TOOLTIP,
+                onChange: (selected) {
+                  TipInfo.isAnonym = (selected == 'anonym');
+                }));
   }
 }

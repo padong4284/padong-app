@@ -5,8 +5,10 @@ class StarRateButton extends StatefulWidget {
   final double rate;
   final bool disable;
   final double size;
+  final Function(double) onChange;
 
-  StarRateButton({@required rate, this.disable = false, this.size = 32.0})
+  StarRateButton(
+      {@required rate, this.disable = false, this.size = 32.0, this.onChange})
       : assert(rate <= 5.0),
         this.rate = rate;
 
@@ -43,6 +45,8 @@ class _StarRateButtonState extends State<StarRateButton> {
                                       this.curr = 0;
                                     else
                                       this.curr = idx + 1;
+                                    if (widget.onChange != null)
+                                      widget.onChange(this.curr / 10);
                                   });
                                 },
                                 child: this.getIthStarIcon(idx)))))

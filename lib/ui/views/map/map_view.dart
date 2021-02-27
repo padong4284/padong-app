@@ -7,7 +7,7 @@ import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class MapSampleState extends State<MapView> {
   void initState() {
     super.initState();
     this._markers = {};
-      rootBundle.loadString('assets/map_style.txt').then((style) {
+    rootBundle.loadString('assets/map_style.txt').then((style) {
       this._mapStyle = style;
     });
   }
@@ -92,7 +92,8 @@ class MapSampleState extends State<MapView> {
   Widget selector() {
     double height = 40.0;
     return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(height/2)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(height / 2)),
         elevation: 3.0,
         child: Container(
           height: height,
@@ -100,23 +101,22 @@ class MapSampleState extends State<MapView> {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: Iterable<int>.generate(5)
-                  .map((idx) => ToggleIconButton(
+                  .map((idx) => Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      child: ToggleIconButton(
                         size: 25,
                         defaultIcon: this.icons[idx],
                         toggleColor: AppTheme.colors.primary,
-                      ))
+                      )))
                   .toList()),
         ));
   }
 
   Widget bottomBuildingCards() {
-    return HorizontalScroller(
-        height: 150,
-        children: [
-          // TODO: get building cards from API
-          ...Iterable<int>.generate(10)
-            .map((idx) => BuildingCard(idx.toString())),
-          SizedBox(width: 60)
-        ]);
+    return HorizontalScroller(height: 150, children: [
+      // TODO: get building cards from API
+      ...Iterable<int>.generate(10).map((idx) => BuildingCard(idx.toString())),
+      SizedBox(width: 60)
+    ]);
   }
 }

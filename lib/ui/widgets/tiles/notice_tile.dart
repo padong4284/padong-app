@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
-List<String> getNoticeIdsAPI(String id) {
-  return ['123', '456', '789'];
-}
-
 class NoticeTile extends StatefulWidget {
   final List<String> notices;
-  final String id;
+  final String boardId;
 
-  NoticeTile(this.id) : this.notices = getNoticeIdsAPI(id);
+  NoticeTile(boardId)
+      : this.boardId = boardId,
+        this.notices = getNoticeIdsAPI(boardId);
 
   @override
   _NoticeTileState createState() => _NoticeTileState();
@@ -69,7 +68,8 @@ class _NoticeTileState extends State<NoticeTile> {
       Container(height: 2, color: AppTheme.colors.support),
       ...Iterable<int>.generate(this.isFolded ? 2 : widget.notices.length)
           .map(
-            (idx) => _NoticeTile(widget.notices[idx]),
+            (idx) => _NoticeTile(widget.notices[idx],
+                (this.isFolded ? 2 : widget.notices.length) == idx + 1),
           )
           .toList()
     ]);
@@ -77,10 +77,22 @@ class _NoticeTileState extends State<NoticeTile> {
 }
 
 class _NoticeTile extends NodeBaseTile {
-  _NoticeTile(id) : super(id, noProfile: true);
+  final bool isLast;
+
+  _NoticeTile(id, this.isLast) : super(id, noProfile: true);
 
   @override
   Widget bottomArea() {
-    return SizedBox(height: 10);
+    return SizedBox(height: 5);
+  }
+
+  @override
+  Widget underLine() {
+    return this.isLast
+        ? SizedBox.shrink()
+        : Container(
+            height: 2,
+            color: AppTheme.colors.lightSupport,
+            margin: const EdgeInsets.only(top: 5));
   }
 }

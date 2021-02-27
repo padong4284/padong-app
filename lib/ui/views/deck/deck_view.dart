@@ -1,60 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/padong_router.dart';
+import 'package:padong/ui/views/deck/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
-import 'package:padong/ui/widgets/buttons/transp_button.dart';
-import 'package:padong/ui/widgets/containers/tab_container.dart';
-import 'package:padong/ui/widgets/safe_padding_template.dart';
-import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
-import 'package:padong/ui/widgets/containers/swipe_deck.dart';
-import 'package:padong/ui/widgets/cards/post_card.dart';
-import 'package:padong/ui/widgets/cards/summary_card.dart';
+import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class DeckView extends StatelessWidget {
+  final String id;
+  final Map<String, dynamic> deck;
+  final pipBoards = ['Global', 'Public', 'Internal'];
+
+  DeckView()
+      : this.id = Session.currentUniv['deckId'],
+        this.deck = getDeckAPI(Session.currentUniv['deckId']);
+
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongFloatingButton(
-              onPressAdd: () {}, isScrollingDown: isScrollingDown),
+      floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
+          onPressAdd: () {
+            PadongRouter.routeURL('make/id=${this.id}');
+          },
+          isScrollingDown: isScrollingDown),
       title: 'Deck',
       children: [
-        TabContainer(tabWidth: 80.0, tabs: [
-          'Popular',
-          'Favorite',
-          'Inform',
-        ], children: [
-          HorizontalScroller(
-              padding: 3.0,
-              children: Iterable<int>.generate(10)
-                  .map((idx) => PostCard(idx.toString()))
-                  .toList()),
-          SwipeDeck(
-              children: [SummaryCard('1'), SummaryCard('2'), SummaryCard('3')]),
-          HorizontalScroller(
-              padding: 3.0,
-              children: Iterable<int>.generate(10)
-                  .map((idx) => PostCard(idx.toString()))
-                  .toList()),
-        ]),
-        Container(
-          height: 69.0,
-          alignment: Alignment.topRight,
-          padding: EdgeInsets.only(top: 5.0, right: 16.0),
-          child: TranspButton(
-            title: 'More',
-            buttonSize: ButtonSize.REGULAR,
-            icon: Icon(Icons.arrow_forward_ios,
-                color: AppTheme.colors.primary,
-                size: AppTheme.fontSizes.regular),
-            isSuffixICon: true,
-          ),
+        SizedBox(height: 10),
+        TopBoards(this.deck['id']),
+        SizedBox(height: 10),
+        BoardListTile(
+          boardIds: this
+              .pipBoards
+              .map(
+                  (boardName) => this.deck['fixedBoards'][boardName].toString())
+              .toList(),
+          icons: [Icons.cloud, Icons.public, Icons.badge],
         ),
         BoardListTile(
-          boardIds: ['0', '1', '2'],
-          icons: [Icons.cloud, Icons.public, Icons.badge],
-        )
+          boardIds: this.deck['boards'],
+          isAlertTile: true,
+        ),
+        SizedBox(height: 10),
       ],
     );
   }

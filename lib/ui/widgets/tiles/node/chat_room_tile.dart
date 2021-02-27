@@ -53,10 +53,10 @@ class ChatRoomTile extends NodeBaseTile {
           mainAxisAlignment: align,
           children: [
             users[0] != null
-                ? UserProfileButton(username: users[0], size: size)
+                ? UserProfileButton(users[0], size: size)
                 : SizedBox.shrink(),
             users[1] != null
-                ? UserProfileButton(username: users[1], size: size)
+                ? UserProfileButton(users[1], size: size)
                 : SizedBox.shrink(),
           ],
         ));

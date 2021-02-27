@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -12,7 +13,8 @@ class FriendTile extends StatelessWidget {
   final Function chatCallback;
   final Function moreCallback;
 
-  FriendTile(id,{
+  FriendTile(
+    id, {
     this.type = FriendTileType.LIST,
     this.chatCallback,
     this.moreCallback,
@@ -30,7 +32,7 @@ class FriendTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(children: [
-          UserProfileButton(username: this.user['username']),
+          UserProfileButton(this.user['id']),
           Padding(
               padding: EdgeInsets.only(left: 10.0),
               child: Column(

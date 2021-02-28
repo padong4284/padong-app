@@ -13,11 +13,9 @@ class ScheduleView extends StatelessWidget {
         TimeTable('1234'),
         VerticalTimeline(date: '04/02/2021', dots: [
           '09:15',
-          '10:30',
           '11:45'
         ], cards: [
           [TimelineCard('1')],
-          [HistoryCard('2'), HistoryCard('3')],
           [TimelineCard('4'), TimelineCard('5'), TimelineCard('6')]
         ])
       ],

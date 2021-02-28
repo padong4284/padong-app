@@ -8,7 +8,7 @@ Map<String, dynamic> getCoverAPI(String coverId) {
     'id': 'cover009',
     'parentId': 'univ009',
     'emblem':
-        'https://1000logos.net/wp-content/uploads/2019/06/Georgia-Tech-Logo.png',
+    'https://1000logos.net/wp-content/uploads/2019/06/Georgia-Tech-Logo.png',
     'loc': 'North Ave NW,\nAtlanta, GA 30332',
     'fixedWikis': {
       'Vision': 'w009000',
@@ -86,9 +86,43 @@ List<String> getItemIdsAPI(String wikiId) {
 
 int cnt = 1;
 Map<String, dynamic> getItemAPI(itemId) {
-  if(rand.nextBool()) cnt += 1;
+  if (rand.nextBool()) cnt += 1;
   return {
-    'createdAt': DateTime(2021, 2, 25-cnt, 14, 15)
+    'parentId': 'w009000',
+    'pip': PIP.INTERNAL,
+    'bottoms': [0, 0, 0], // likes, replies, bookmarks counting list
+    'isLiked': false,
+    'isBookmarked': false,
+    'createdAt': DateTime(2021, 2, 27 - cnt, 14, 13),
+    'title': 'Vision',
+    'description': """Helping students learn How Work Works.
+## OUR MISSION
+To provide career education, resources, 
+and experiential opportunities to Georgia 
+Tech students across all majors so that they 
+are positioned to launch and sustain 
+satisfying and successful careers that make 
+a meaningful contribution to society.
+
+In collaboration with campus and global 
+community partners, we aim to support a 
+broad spectrum of career directions, 
+including: employment in private, public, 
+and non-profit sectors; pursuit of graduate 
+studies, professional school, and prestigious 
+fellowships; entrepreneurship and 
+innovation; research; and service activities.
+
+## OUR VISION
+
+Georgia Tech students who participate in the 
+career center’s educational and experiential 
+offerings will not only graduate with a 
+promising future; they will be equipped with 
+the career management skills and 
+knowledge necessary for navigating that 
+future and making a difference in the world 
+through innovative, purposeful leadership."""
   };
 }
 
@@ -98,4 +132,8 @@ List<String> getBackLinksAPI(String wikiId) {
 
 List<String> getFrontLinksAPI(String wikiId) {
   return get10RecentWikiIdsAPI(wikiId);
+}
+
+void requestRevertAPI(String wikiId, String itemId) {
+  // TODO: revert wiki
 }

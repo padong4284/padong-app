@@ -98,11 +98,7 @@ class NodeBase extends StatelessWidget {
         ));
   }
 
-  void routePage() {
-    // TODO: separate bottom for expand animation
-    PadongRouter.routeURL('/post/id=${this.id}');
-    // TODO: not a post, this.type!
-  }
+  void routePage() => PadongRouter.routeURL('/post/id=${this.id}');
 
   void moreCallback() {
     // TODO: Click more button " ... "

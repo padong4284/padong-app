@@ -19,10 +19,8 @@ class HistoryView extends StatelessWidget {
           hideTopDate: true,
           dots: this.dayAndIds.keys.toList(),
           cards: [
-            ...this
-                .dayAndIds
-                .values
-                .map((ids) => ids.map((id) => HistoryCard(id)).toList())
+            ...this.dayAndIds.values.map(
+                (ids) => ids.map((id) => HistoryCard(id, this.id)).toList())
           ])
     ]);
   }

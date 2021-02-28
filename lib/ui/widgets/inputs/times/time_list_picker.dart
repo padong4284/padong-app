@@ -21,16 +21,14 @@ class TimeListPicker extends StatelessWidget {
   List<List> getHourNMinute() {
     return [
       List.generate(24, this.numFormatting),
-      List.generate(60 ~/ this.minuteGap,
-          (m) => this.numFormatting(m * this.minuteGap))
+      List.generate(
+          60 ~/ this.minuteGap, (m) => this.numFormatting(m * this.minuteGap))
     ];
   }
 
   String numFormatting(int num) {
     String numStr = num.toString();
-    if (numStr.length == 2)
-      return numStr;
-    else
-      return '0' + numStr;
+    if (numStr.length != 2) numStr = '0' + numStr;
+    return numStr;
   }
 }

@@ -69,3 +69,10 @@ List<String> get10RecentWikiIdsAPI(String coverId) {
   */
   return List.generate(10, (i) => 'w' + coverId.substring(5) + i.toString());
 }
+
+Map<String, List<String>> getArguesAPI(String wikiId) {
+  return {
+    'opened': ['argue00901234', 'argue009013'],
+    'closed': ['argue00900235', 'argue009011', 'argue009914', 'argue00912414'],
+  };
+}

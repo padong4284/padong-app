@@ -46,10 +46,9 @@ class _TabContainerState extends State<TabContainer> {
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(left: 2),
                           child: Text(widget.tabs[idx],
-                              style: TextStyle(
-                                fontWeight: this.curIdx == idx
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
+                              style: AppTheme.getFont(
+                                isBold: this.curIdx == idx,
+                                color: AppTheme.colors.fontPalette[1],
                                 fontSize: AppTheme.fontSizes.mlarge,
                               )))))),
           Container(

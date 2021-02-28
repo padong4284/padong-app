@@ -7,6 +7,8 @@ import 'package:padong/ui/widgets/buttons/button.dart';
 import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/buttons/transp_button.dart';
 
+const BOTTOM = 40.0;
+
 class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
@@ -14,12 +16,21 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget> actions;
   final SwitchButton switchButton;
   final bool isClose;
+  final Widget bottom;
 
-  BackAppBar({Key key, title, switchButton, this.actions, this.isClose = false})
-      : preferredSize = Size.fromHeight(kToolbarHeight),
+  BackAppBar(
+      {Key key,
+      title,
+      switchButton,
+      this.actions,
+      this.isClose = false,
+      bottom})
+      : preferredSize =
+            Size.fromHeight(kToolbarHeight + (bottom != null ? BOTTOM : 0.0)),
         assert(title == null || switchButton == null),
         this.title = title,
         this.switchButton = switchButton,
+        this.bottom = bottom,
         super(key: key);
 
   @override
@@ -56,6 +67,10 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: SizedBox(width: button is Button ? 67 : 32, child: button))),
         SizedBox(width: AppTheme.horizontalPadding)
       ],
+      bottom: this.bottom != null
+          ? PreferredSize(
+              preferredSize: Size.fromHeight(BOTTOM), child: this.bottom)
+          : null,
     );
   }
 }

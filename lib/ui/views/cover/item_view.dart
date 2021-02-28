@@ -20,9 +20,22 @@ class ItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafePaddingTemplate(children: [
-      Column(children: [TitleHeader(this.wiki['title'], link: "/wiki/id=${this.id}"),
-        PadongMarkdown(this.wiki['description'])]),
-    ]);
+    return SafePaddingTemplate(
+        floatingActionButtonGenerator: (isScrollingDown) =>
+            PadongFloatingButton(
+                isScrollingDown: isScrollingDown, bottomPadding: 40),
+        floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
+            title: 'edit',
+            onTap: () {
+              PadongRouter.routeURL(
+                  'edit/id=${this.wiki['parentId']}&wikiId=${this.id}');
+            },
+            isScrollingDown: isScrollingDown),
+        children: [
+          Column(children: [
+            TitleHeader(this.wiki['title'], link: "/wiki/id=${this.id}"),
+            PadongMarkdown(this.wiki['description'])
+          ]),
+        ]);
   }
 }

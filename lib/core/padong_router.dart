@@ -30,14 +30,10 @@ class PadongRouter {
     switch (settings.name) {
       case '/main':
         Session.currentUniv = getUnivAPI(args['univId']);
-        return MaterialPageRoute(
-          builder: (_) => RouteView(),
-        );
+        return MaterialPageRoute(builder: (_) => RouteView());
       case '/p_main':
         Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
-        return MaterialPageRoute(
-          builder: (_) => RouteView(),
-        );
+        return MaterialPageRoute(builder: (_) => RouteView());
       case '/':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SignInView());
       case '/sign_up':
@@ -45,7 +41,7 @@ class PadongRouter {
           pageBuilder: (_, __, ___) => SignUpView(),
         );
       case '/forgot':
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => ForgotView());
+        return MaterialPageRoute(builder: (_) => ForgotView());
 
       case '/board':
         return slideRouter(
@@ -65,7 +61,9 @@ class PadongRouter {
             pageBuilder: (_, __, ___) =>
                 EditView(args['id'], wikiId: args['wikiId']));
       case '/compare':
-        return sizeRouter(pageBuilder: (_, __, ___) => CompareView(args['id'], wikiId: args['wikiId']));
+        return sizeRouter(
+            pageBuilder: (_, __, ___) =>
+                CompareView(args['id'], wikiId: args['wikiId']));
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());

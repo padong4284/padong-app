@@ -91,3 +91,11 @@ Map<String, dynamic> getItemAPI(itemId) {
     'createdAt': DateTime(2021, 2, 25-cnt, 14, 15)
   };
 }
+
+List<String> getBackLinksAPI(String wikiId) {
+  return get10RecentWikiIdsAPI(wikiId);
+}
+
+List<String> getFrontLinksAPI(String wikiId) {
+  return get10RecentWikiIdsAPI(wikiId);
+}

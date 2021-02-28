@@ -13,7 +13,7 @@ import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
-const List<String> routines = ['Annual', 'Monthly', 'Weekly'];
+const List<String> routines = ['Annually', 'Monthly', 'Weekly'];
 
 class UpdateView extends StatefulWidget {
   final String id;

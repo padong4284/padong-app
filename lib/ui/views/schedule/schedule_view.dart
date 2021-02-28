@@ -33,16 +33,10 @@ class ScheduleView extends StatelessWidget {
           'Table',
           'Lecture'
         ], children: [
-          TimeTable('1234'),
+          TimeTable(lectureIds: this.schedule['lectureIds']),
           BoardListTile(
-            boardIds: [
-              'l0090848',
-              'l00908186',
-              'l0090487',
-              'l0090885',
-              'l0090749'
-            ],
-            isAlertTile: true,
+            boardIds: this.schedule['lectureIds'],
+            isLecture: true,
           )
         ]),
         SizedBox(

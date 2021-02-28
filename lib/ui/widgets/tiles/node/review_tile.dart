@@ -4,7 +4,7 @@ import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 import 'package:padong/ui/widgets/buttons/star_rate_button.dart';
 
 class ReviewTile extends NodeBaseTile {
-  ReviewTile(id) : super(id, leftPadding: 8);
+  ReviewTile(id) : super(id, leftPadding: 8, isRoute: false);
 
   @override
   Widget followText() {
@@ -18,6 +18,7 @@ class ReviewTile extends NodeBaseTile {
 
   @override
   Widget bottomArea() {
+    this.node['bottoms'][1] = null;
     this.node['bottoms'][2] = null;
     return super.bottomArea();
   }

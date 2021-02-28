@@ -28,7 +28,7 @@ class LectureCard extends EventCard {
                 rate: this.event['rate'],
                 disable: true,
               )),
-          ...this.getInfoList(['professor', 'room', 'grade', 'exam']),
+          ...this.getInfoList(['professor', 'room', 'grade', 'exam'] + (this.isToReview ? [] : ['attendance', 'book'])),
         ]);
   }
 }

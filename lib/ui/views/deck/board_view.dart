@@ -25,7 +25,7 @@ class BoardView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
           isScrollingDown: isScrollingDown, bottomPadding: 40),
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
-          title: 'write',
+          title: 'Write',
           onTap: () {
             PadongRouter.routeURL('write/id=${this.id}');
           },

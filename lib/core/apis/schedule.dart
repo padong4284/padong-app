@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();
 
@@ -23,8 +22,13 @@ Map<String, dynamic> getLectureAPI(String lectureId) {
       'Data Structure',
       'Algorithm'
     ][k%5],
+    'rate': 3.8,
     'notification': rand.nextBool(),
-    'description': 'Computer Science is so interesting!\nI love CSE!',
+    'description': """Computer Science is so interesting!
+I love CSE!
+This Lecture page is board Level page.
+You can talk with classmates.
+Ask and Answer about lecture!""",
     'professor': 'Daewoong Ko',
     'room': 'Klaus 314',
     'grade': 'Absolute',
@@ -40,6 +44,19 @@ Map<String, dynamic> getLectureAPI(String lectureId) {
     ][k%5]
   };
 }
+
+Map<String, dynamic> getEvent(String id) {
+  return {
+    'title': 'Birthday',
+    'timeRange': '00:00 ~ 24:00',
+    'date': '03/21/2021',
+    'rate': 4.5,
+    'infos': {
+      'Periodicity': 'Annual',
+      'Alerts': '00:00',
+    }
+  };
+} // PREVIOUS
 
 Map<String, dynamic> getEventAPI(String eventId) {
   int k = int.parse(eventId[eventId.length - 1]);

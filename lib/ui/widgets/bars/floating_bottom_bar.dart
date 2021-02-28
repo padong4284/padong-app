@@ -60,7 +60,7 @@ class FloatingBottomBar extends StatelessWidget {
                     child: StarRateButton(
                         rate: TipInfo.starRate,
                         onChange: (rate) {
-                          TipInfo.starRate = rate;
+                          TipInfo.starRate = rate * 5;
                         })))
             : SwitchButton(
                 options: ['anonym', 'profile'],

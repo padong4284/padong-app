@@ -3,26 +3,13 @@ import 'package:padong/core/apis/schedule.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 
-Map<String, dynamic> getEvent(String id) {
-  return {
-    'title': 'Birthday',
-    'timeRange': '00:00 ~ 24:00',
-    'date': '03/21/2021',
-    'rate': 4.5,
-    'infos': {
-      'Periodicity': 'Annual',
-      'Alerts': '00:00',
-    }
-  };
-}
-
 class EventCard extends StatelessWidget {
   final String id; // node's id
   final Map<String, dynamic> event;
 
-  EventCard(id)
+  EventCard(id, {isLecture = false})
       : this.id = id,
-        this.event = getEventAPI(id);
+        this.event = isLecture ? getLectureAPI(id) : getEventAPI(id);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +18,7 @@ class EventCard extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.only(top: 12, bottom: 15),
           child: this.dateNYear()),
-      ...this.getInfoList(),
+      ...this.getInfoList(['periodicity', 'alerts']),
     ]);
   }
 
@@ -40,9 +27,9 @@ class EventCard extends StatelessWidget {
         style: AppTheme.getFont(color: AppTheme.colors.primary, isBold: true));
   }
 
-  List<Row> getInfoList() {
+  List<Row> getInfoList(List<String> infos) {
     List<Row> infoList = [];
-    ['periodicity', 'alerts'].forEach((info) => infoList.add(Row(children: [
+    infos.forEach((info) => infoList.add(Row(children: [
           Text(info[0].toUpperCase() + info.substring(1),
               style: AppTheme.getFont(
                   color: AppTheme.colors.fontPalette[2], isBold: true)),

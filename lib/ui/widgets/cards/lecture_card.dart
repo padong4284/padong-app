@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/widgets/buttons/star_rate_button.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 import 'package:padong/ui/widgets/cards/event_card.dart';
@@ -9,13 +10,16 @@ class LectureCard extends EventCard {
   LectureCard(
     id, {
     this.isToReview = false,
-  }) : super(id);
+  }) : super(id, isLecture: true);
 
   @override
   Widget build(BuildContext context) {
     return BaseCard(
         moreText: this.isToReview ? 'Reviews' : null,
-        moreCallback: this.isToReview ? () {} : null, // TODO: route to reviews
+        moreCallback: this.isToReview
+            ? () => PadongRouter.routeURL('/review/id=${this.id}')
+            : null,
+        // TODO: route to reviews
         children: [
           this.getTimeRange(),
           Padding(
@@ -24,8 +28,7 @@ class LectureCard extends EventCard {
                 rate: this.event['rate'],
                 disable: true,
               )),
-          ...this.getInfoList(),
-          ...this.getInfoList(),
+          ...this.getInfoList(['professor', 'room', 'grade', 'exam']),
         ]);
   }
 }

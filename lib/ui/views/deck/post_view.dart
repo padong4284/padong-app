@@ -83,11 +83,12 @@ class PostView extends PostTile {
   }
 
   void sendReply() {
-    createReplyAPI({
-      'parentId': ReReplyFocus.replyId ?? this.id, // TODO: rereply
-      'description': this._replyController.text,
-      'isAnonym': TipInfo.isAnonym,
-    });
+    if (this._replyController.text.length > 0)
+      createReplyAPI({
+        'parentId': ReReplyFocus.replyId ?? this.id, // TODO: rereply
+        'description': this._replyController.text,
+        'isAnonym': TipInfo.isAnonym,
+      });
     this._replyController.text = '';
   }
 }

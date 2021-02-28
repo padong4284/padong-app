@@ -18,12 +18,12 @@ class ArgueFocus {
 }
 
 class ArgueView extends StatefulWidget {
-  final String parentId;
+  final String wikiId;
   final Map<String, List<String>> argues;
 
-  ArgueView(parentId)
-      : this.parentId = parentId,
-        this.argues = getArgueIdsAPI(parentId);
+  ArgueView(wikiId)
+      : this.wikiId = wikiId,
+        this.argues = getArgueIdsAPI(wikiId);
 
   _ArgueViewState createState() => _ArgueViewState();
 }
@@ -106,7 +106,12 @@ class _ArgueViewState extends State<ArgueView> {
     ArgueFocus.initialize();
   }
 
-  void sendArgue(data) {
-    print(data);
+  void sendArgue() {
+    if (this._argueController.text.length > 0)
+      createReplyAPI({
+        'parentId': ArgueFocus.replyId ?? widget.wikiId, // TODO: rereply
+        'description': this._argueController.text,
+      });
+    this._argueController.text = '';
   }
 }

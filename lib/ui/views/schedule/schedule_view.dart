@@ -34,20 +34,7 @@ class ScheduleView extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Stack(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox.shrink(),
-              SizedBox(
-                  height: 25,
-                  child: IconButton(
-                      padding: const EdgeInsets.all(0),
-                      icon: Icon(Icons.format_list_bulleted_rounded,
-                          color: AppTheme.colors.support, size: 25),
-                      onPressed: () =>
-                          PadongRouter.routeURL('/rail/id=${this.id}')))
-            ],
-          ),
+          this.eventsButton(),
           TabContainer(tabWidth: 70.0, tabs: [
             'Table',
             'Lecture'
@@ -71,5 +58,18 @@ class ScheduleView extends StatelessWidget {
         ])
       ],
     );
+  }
+
+  Widget eventsButton() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      SizedBox.shrink(),
+      SizedBox(
+          height: 25,
+          child: IconButton(
+              padding: const EdgeInsets.all(0),
+              icon: Icon(Icons.format_list_bulleted_rounded,
+                  color: AppTheme.colors.support, size: 25),
+              onPressed: () => PadongRouter.routeURL('/rail/id=${this.id}')))
+    ]);
   }
 }

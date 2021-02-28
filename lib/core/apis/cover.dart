@@ -67,7 +67,5 @@ List<String> get10RecentWikiIdsAPI(String coverId) {
   2. get 10 recent postIds from Board's children
   3. return List<postIds>
   */
-  return Iterable<int>.generate(10)
-      .map((i) => 'w' + coverId.substring(5) + i.toString())
-      .toList();
+  return List.generate(10, (i) => 'w' + coverId.substring(5) + i.toString());
 }

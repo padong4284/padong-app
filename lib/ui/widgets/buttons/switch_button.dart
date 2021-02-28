@@ -104,9 +104,9 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Iterable<int>.generate(widget.options.length)
-                      .toList()
-                      .map((idx) => InkWell(
+                  children: List.generate(
+                      widget.options.length,
+                      (idx) => InkWell(
                           onTap: () {
                             setState(() {
                               if (widget.cancelAble && this.curIdx == idx) {
@@ -126,8 +126,8 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
                                       color: this.curIdx == idx
                                           ? AppTheme.colors.base
                                           : AppTheme.colors.primary,
-                                      fontSize: AppTheme.fontSizes.small)))))
-                      .toList()))
+                                      fontSize: AppTheme
+                                          .fontSizes.small)))))))
         ]));
   }
 }

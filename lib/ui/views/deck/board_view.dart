@@ -33,7 +33,7 @@ class BoardView extends StatelessWidget {
       appBar: BackAppBar(title: this.board['title'], actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-            onPressed: () {})
+            onPressed: () {}) // TODO: more dialog
       ]),
       children: [
         Padding(

@@ -58,7 +58,7 @@ class _ListPickerState extends State<ListPicker> {
     super.initState();
     this.beforePickInfo = '';
     this.selectedIdxs = widget.initIdxs ??
-        Iterable<int>.generate(widget.lists.length).map((_) => 0).toList();
+        List.generate(widget.lists.length, (_) => 0);
   }
 
   @override
@@ -83,7 +83,12 @@ class _ListPickerState extends State<ListPicker> {
 
   void showPicker(BuildContext context) async {
     int len = widget.lists.length;
-    if (widget.beforePick != null) await widget.beforePick(context, (info) => setState((){this.beforePickInfo = info;}));
+    if (widget.beforePick != null)
+      await widget.beforePick(
+          context,
+          (info) => setState(() {
+                this.beforePickInfo = info;
+              }));
     this.setText(0, this.selectedIdxs[0]);
     showCupertinoModalPopup(
         context: context,
@@ -94,8 +99,9 @@ class _ListPickerState extends State<ListPicker> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppTheme.horizontalPadding),
                   child: Row(
-                    children: Iterable<int>.generate(len)
-                        .map((listIdx) => Expanded(
+                    children: List.generate(
+                        len,
+                        (listIdx) => Expanded(
                                 child: CupertinoPicker(
                               looping: widget.looping,
                               itemExtent: 35,
@@ -110,8 +116,7 @@ class _ListPickerState extends State<ListPicker> {
                               onSelectedItemChanged: (idx) {
                                 this.setText(listIdx, idx);
                               },
-                            )))
-                        .toList(), // Add other Lists
+                            ))), // Add other Lists
                   )),
               this.titleArea()
             ]));

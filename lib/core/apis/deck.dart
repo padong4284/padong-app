@@ -40,7 +40,7 @@ List<String> get10RecentPostIdsAPI(String boardId) {
   2. get 10 recent postIds from Board's children
   3. return List<postIds>
   */
-  return Iterable<int>.generate(10).map((i) => boardId + i.toString()).toList();
+  return List.generate(10, (i) => boardId + i.toString());
 }
 
 const String RULE = """You must follow the rules below.
@@ -103,9 +103,7 @@ ONLY Georgia Tech students can read and write.
 }
 
 List<String> getPostIdsAPI(String boardId) {
-  return Iterable<int>.generate(10)
-      .map((i) => 'p0090043' + i.toString())
-      .toList();
+  return List.generate(10, (i) => 'p0090043' + i.toString());
 }
 
 void setNotificationBoardAPI(String boardId, bool notification) {}
@@ -193,9 +191,7 @@ List<String> getReplyIdsAPI(String parentId) {
 
 List<String> getReReplyIdsAPI(String replyId) {
   int num = int.parse(replyId[replyId.length - 1]) % 3;
-  return Iterable<int>.generate(num)
-      .map((i) => 'r' + replyId + i.toString())
-      .toList();
+  return List.generate(num, (i) => 'r' + replyId + i.toString());
 }
 
 void create(Map data) {

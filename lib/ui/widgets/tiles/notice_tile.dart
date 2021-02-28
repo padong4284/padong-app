@@ -66,12 +66,11 @@ class _NoticeTileState extends State<NoticeTile> {
             ],
           )),
       Container(height: 2, color: AppTheme.colors.support),
-      ...Iterable<int>.generate(this.isFolded ? 2 : widget.notices.length)
-          .map(
-            (idx) => _NoticeTile(widget.notices[idx],
-                (this.isFolded ? 2 : widget.notices.length) == idx + 1),
-          )
-          .toList()
+      ...List.generate(
+        this.isFolded ? 2 : widget.notices.length,
+        (idx) => _NoticeTile(widget.notices[idx],
+            (this.isFolded ? 2 : widget.notices.length) == idx + 1),
+      )
     ]);
   }
 }

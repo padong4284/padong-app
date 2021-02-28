@@ -6,7 +6,7 @@ class TimeListPicker extends StatelessWidget {
   final int minuteGap;
   final int initHour;
 
-  TimeListPicker({this.hintText, this.minuteGap = 1, this.initHour=8});
+  TimeListPicker({this.hintText, this.minuteGap = 1, this.initHour = 8});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,9 @@ class TimeListPicker extends StatelessWidget {
 
   List<List> getHourNMinute() {
     return [
-      Iterable<int>.generate(24).map(this.numFormatting).toList(),
-      Iterable<int>.generate(60 ~/ this.minuteGap)
-          .map((m) => this.numFormatting(m * this.minuteGap))
-          .toList()
+      List.generate(24, this.numFormatting),
+      List.generate(60 ~/ this.minuteGap,
+          (m) => this.numFormatting(m * this.minuteGap))
     ];
   }
 

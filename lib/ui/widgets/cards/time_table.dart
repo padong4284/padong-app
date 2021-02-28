@@ -9,14 +9,19 @@ import 'package:padong/ui/widgets/cards/base_card.dart';
 double blockWidth;
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 final List<Color> blockColors = [
-  ...AppTheme.colors.fontPalette,
-  AppTheme.colors.primary,
   AppTheme.colors.semiPrimary,
+  AppTheme.colors.primary,
+  AppTheme.colors.semiSupport,
+  AppTheme.colors.support,
+  AppTheme.colors.fontPalette[3],
+  AppTheme.colors.fontPalette[1],
+  AppTheme.colors.fontPalette[0],
   AppTheme.colors.pointYellow,
 ];
 
 class TimeTable extends StatefulWidget {
   final List lectures;
+  // TODO: this week's events
 
   TimeTable({@required lectureIds})
       : this.lectures = lectureIds.map((id) => getLectureAPI(id)).toList();

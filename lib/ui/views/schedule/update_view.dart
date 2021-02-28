@@ -118,7 +118,7 @@ class _UpdateViewState extends State<UpdateView> {
       'title': this._titleController.text,
       'description': this._contentController.text,
     };
-    if (!this.isLecture) data['routine'] = this.routine ?? 'none';
+    if (!this.isLecture) data['periodicity'] = this.routine ?? 'none';
     // TODO: call create API
     PadongRouter.goBack();
     // TODO: show dialog or snackBar to alert submit complete

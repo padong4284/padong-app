@@ -22,7 +22,7 @@ Map<String, dynamic> getLectureAPI(String lectureId) {
       'Philosophy',
       'Data Structure',
       'Algorithm'
-    ][k],
+    ][k%5],
     'notification': rand.nextBool(),
     'description': 'Computer Science is so interesting!\nI love CSE!',
     'professor': 'Daewoong Ko',
@@ -37,7 +37,7 @@ Map<String, dynamic> getLectureAPI(String lectureId) {
       ['Fri | 09:00 ~ 12:00'],
       ['Mon | 12:30 ~ 15:00'],
       ['Tue | 13:30 ~ 15:45', 'Thu | 13:30 ~ 15:45'],
-    ][k]
+    ][k%5]
   };
 }
 
@@ -51,25 +51,29 @@ Map<String, dynamic> getEventAPI(String eventId) {
       'Internship', // weekly
       'Birth Day', // annually
       'volunteer' // monthly
-    ][k],
+    ][k%4],
     'description': [
       'Google Job Interview! *final',
       'Going Home~~',
       "It's my BIRTH DAY! yeah",
       'Teaching children'
-    ][k],
-    'routine': ['none', 'Weekly', 'Annually', 'Monthly'][k],
+    ][k%4],
+    'periodicity': ['none', 'Weekly', 'Annually', 'Monthly'][k%4],
     'times': [
       ['02/24/2021 | 12:00 ~ 13:15'],
       ['03/13/2021 | 07:00 ~ 08:00'],
       ['03/21/2021 | 00:00 ~ 00:00'],
       ['03/12/2021 | 17:00 ~ 20:00', '03/19/2021 | 17:00 ~ 20:00']
-    ][k],
+    ][k%4],
     'alerts': [
       ['10:00', '11:55'],
       ['06:00'],
       [],
       ['16:30']
-    ][k]
+    ][k%4]
   };
+}
+
+List<String> getTodayEventIds(String scheduleId) {
+  return ['l009001', 'l009004'];
 }

@@ -7,6 +7,7 @@ import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/make_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/deck/write_view.dart';
+import 'package:padong/ui/views/schedule/event_view.dart';
 import 'package:padong/ui/views/schedule/update_view.dart';
 import 'package:padong/ui/views/search/search_view.dart';
 import 'package:padong/ui/views/sign/sign_in_view.dart';
@@ -66,6 +67,9 @@ class PadongRouter {
             pageBuilder: (_, __, ___) =>
                 CompareView(args['id'], wikiId: args['wikiId']));
 
+      case '/event':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => EventView(args['id']), direction: 1);
       case '/update':
         return slideRouter(
             pageBuilder: (_, __, ___) =>

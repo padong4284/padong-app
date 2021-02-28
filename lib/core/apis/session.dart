@@ -11,3 +11,13 @@ Map<String, dynamic> user = {
 };
 
 Map<String, dynamic> currentUniv;
+
+String todayString() {
+  DateTime now = DateTime.now();
+  return '${now.month}/${now.day}/${now.year}';
+}
+
+String todayWeekday() {
+  DateTime now = DateTime.now();
+  return ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][now.weekday];
+}

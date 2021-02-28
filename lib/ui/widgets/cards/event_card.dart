@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/schedule.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 
@@ -20,8 +21,8 @@ class EventCard extends StatelessWidget {
   final Map<String, dynamic> event;
 
   EventCard(id)
-      : this.event = getEvent(id),
-        this.id = id;
+      : this.id = id,
+        this.event = getEventAPI(id);
 
   @override
   Widget build(BuildContext context) {
@@ -35,30 +36,27 @@ class EventCard extends StatelessWidget {
   }
 
   Text getTimeRange() {
-    return Text(this.event['timeRange'],
-        style: AppTheme.getFont(
-            color: AppTheme.colors.primary,
-            isBold: true));
+    return Text(this.event['times'][0].split(' | ')[1],
+        style: AppTheme.getFont(color: AppTheme.colors.primary, isBold: true));
   }
 
   List<Row> getInfoList() {
     List<Row> infoList = [];
-    this.event['infos'].forEach((k, v) => infoList.add(Row(children: [
-          Text(k,
+    ['periodicity', 'alerts'].forEach((info) => infoList.add(Row(children: [
+          Text(info[0].toUpperCase() + info.substring(1),
               style: AppTheme.getFont(
-                  color: AppTheme.colors.fontPalette[2],
-                  isBold: true)),
+                  color: AppTheme.colors.fontPalette[2], isBold: true)),
           Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(v,
-                  style: AppTheme.getFont(
-                      color: AppTheme.colors.fontPalette[2])))
+              child: Text(this.event[info].toString(),
+                  style:
+                      AppTheme.getFont(color: AppTheme.colors.fontPalette[2])))
         ])));
     return infoList;
   }
 
   Widget dateNYear() {
-    List<String> mdy = this.event['date'].split("/");
+    List<String> mdy = this.event['times'][0].split(' | ')[0].split("/");
     List<String> dateYear = [mdy[0] + '/' + mdy[1], mdy[2]];
     return Row(children: [
       Text(dateYear[0],

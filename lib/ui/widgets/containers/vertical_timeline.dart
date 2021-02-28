@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class VerticalTimeline extends StatelessWidget {
   final String date; // TODO: DateTime class
@@ -44,7 +45,7 @@ class VerticalTimeline extends StatelessWidget {
   }
 
   Widget getTopDate() {
-    bool isToday = false; // TODO check this.head is today
+    bool isToday = Session.todayString() == this.date;
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

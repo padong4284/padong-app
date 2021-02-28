@@ -12,10 +12,12 @@ import 'package:padong/core/apis/session.dart' as Session;
 
 class ScheduleView extends StatelessWidget {
   final String id;
+  final List<String> todayEventIds;
   final Map<String, dynamic> schedule;
 
   ScheduleView()
       : this.id = Session.user['scheduleId'],
+        this.todayEventIds = getTodayEventIds(Session.user['scheduleId']),
         this.schedule = getScheduleAPI(Session.user['scheduleId']);
 
   @override
@@ -42,7 +44,7 @@ class ScheduleView extends StatelessWidget {
         SizedBox(
           height: 40,
         ),
-        VerticalTimeline(date: '04/02/2021', dots: [
+        VerticalTimeline(date: Session.todayString(), dots: [
           '09:15',
           '11:45'
         ], cards: [

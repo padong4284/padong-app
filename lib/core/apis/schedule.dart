@@ -98,3 +98,7 @@ List<String> getTodayEventIds(String scheduleId) {
 List<String> getReviewIdsAPI(String lectureId) {
   return List.generate(7, (i) => 'rv0090' + i.toString());
 }
+
+List<String> getEventIdsAPI(String scheduleId) {
+  return ['e009001', 'e009002', 'e009003', 'e009004'];
+}

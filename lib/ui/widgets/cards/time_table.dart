@@ -32,6 +32,7 @@ class TimeTable extends StatefulWidget {
 class _TimeTableState extends State<TimeTable> {
   int startHour;
   int endHour;
+  int cntBlcok = 0;
   List<List> blocks = [];
 
   @override
@@ -95,7 +96,6 @@ class _TimeTableState extends State<TimeTable> {
               height: 42 * (durationMin / 60),
               child: Container(
                 color: blockColors[title.length % blockColors.length],
-                // TODO: random color
                 padding: const EdgeInsets.all(2),
                 child: Text(title,
                     style: AppTheme.getFont(

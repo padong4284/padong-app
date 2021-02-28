@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/models/pip.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/appending_input.dart';
-import 'package:padong/ui/widgets/inputs/list_picker.dart';
 import 'package:padong/ui/widgets/inputs/times/date_time_range_picker.dart';
 import 'package:padong/ui/widgets/inputs/times/day_time_range_picker.dart';
+import 'package:padong/ui/widgets/inputs/times/time_list_picker.dart';
 import 'package:padong/ui/widgets/title_header.dart';
-import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
 import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
-import 'package:padong/ui/widgets/inputs/markdown_supporter.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
 const List<String> routines = ['Annual', 'Monthly', 'Weekly'];
@@ -69,6 +66,7 @@ class _UpdateViewState extends State<UpdateView> {
           this.routine == routines[2] || this.isLecture
               ? AppendingInput(input: () => DayTimeRangePicker())
               : AppendingInput(input: () => DateTimeRangePicker()),
+          // FIXME: initialize
           ...this.bottomInputs()
         ]);
   }
@@ -102,7 +100,17 @@ class _UpdateViewState extends State<UpdateView> {
   }
 
   List<Widget> bottomInputs() {
-    return [SizedBox(height: 70), TitleHeader('Alert', isInputHead: true)];
+    return [
+      SizedBox(height: 70),
+      TitleHeader('Alert', isInputHead: true),
+      ...(this.isLecture
+          ? ['Room', 'Grade', 'Exam', 'Attendance', 'Book']
+              .map((hint) => Padding(padding: const EdgeInsets.symmetric(vertical: 5), child:Input(hintText: hint)))
+          : [
+              AppendingInput(
+                  input: () => TimeListPicker(hintText: 'Alert', minuteGap: 5))
+            ]),
+    ];
   }
 
   void onTabOk() {

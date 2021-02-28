@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/ui/views/cover/edit_view.dart';
 import 'package:padong/ui/views/cover/wiki_view.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/make_view.dart';
@@ -58,6 +59,10 @@ class PadongRouter {
       case '/wiki':
         return slideRouter(
             pageBuilder: (_, __, ___) => WikiView(args['id']), direction: 1);
+      case '/edit':
+        return slideRouter(
+            pageBuilder: (_, __, ___) =>
+                EditView(args['id'], wikiId: args['wikiId']));
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());

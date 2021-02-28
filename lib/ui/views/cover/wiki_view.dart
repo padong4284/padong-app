@@ -7,6 +7,7 @@ import 'package:padong/ui/widgets/buttons/floating_bottom_button.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
+import 'package:padong/ui/widgets/title_header.dart';
 
 class WikiView extends StatelessWidget {
   final String id;
@@ -24,7 +25,7 @@ class WikiView extends StatelessWidget {
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
           title: 'edit',
           onTap: () {
-            PadongRouter.routeURL('write/id=${this.id}');
+            PadongRouter.routeURL('edit/id=${this.wiki['parentId']}&wikiId=${this.id}');
           },
           isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.wiki['title'], actions: [
@@ -33,10 +34,8 @@ class WikiView extends StatelessWidget {
             onPressed: () {})
       ]),
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
-          child: PadongMarkdown(this.wiki['description']),
-        ),
+        TitleHeader(this.wiki['title'], link: "/wiki/id=${this.id}"),
+        PadongMarkdown(this.wiki['description']),
       ],
     );
   }

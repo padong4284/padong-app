@@ -20,11 +20,11 @@ Map<String, dynamic> getCoverAPI(String coverId) {
 }
 
 Map<String, dynamic> getWikiAPI(String wikiId) {
-  int k = int.parse(wikiId[wikiId.length-1]);
+  int k = int.parse(wikiId[wikiId.length - 1]);
   return {
     'id': wikiId,
     'parentId': 'cover009',
-    'pip': PIP.PUBLIC,
+    'pip': PIP.INTERNAL,
     'bottoms': [0, 0, 0], // likes, replies, bookmarks counting list
     'isLiked': false,
     'isBookmarked': false,
@@ -61,13 +61,13 @@ through innovative, purposeful leadership."""
   };
 }
 
-
 List<String> get10RecentWikiIdsAPI(String coverId) {
   /* TODO
   1. Get Board Node
   2. get 10 recent postIds from Board's children
   3. return List<postIds>
   */
-  return Iterable<int>.generate(10).map((i) => 'w' + coverId + i.toString()).toList();
+  return Iterable<int>.generate(10)
+      .map((i) => 'w' + coverId.substring(5) + i.toString())
+      .toList();
 }
-

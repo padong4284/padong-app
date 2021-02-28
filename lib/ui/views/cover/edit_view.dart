@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
-import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
 
 class EditView extends StatelessWidget {

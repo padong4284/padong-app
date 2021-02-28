@@ -8,7 +8,7 @@ class VerticalTimeline extends StatelessWidget {
   final bool hideTopDate;
 
   VerticalTimeline(
-      {@required this.date,
+      {this.date,
       @required List<String> dots,
       @required List<List<Widget>> cards,
       this.hideTopDate = false})

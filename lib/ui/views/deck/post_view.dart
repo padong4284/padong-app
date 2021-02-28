@@ -37,7 +37,7 @@ class PostView extends PostTile {
             Hero(tag: 'node${this.id}owner', child: this.profile()),
             Hero(tag: 'node${this.id}common', child: this.commonArea())
           ]),
-          TitleHeader(this.post['title'], isInputHead: true, link: "/post"),
+          TitleHeader(this.post['title'], link: "/post/id=${this.id}"),
           PadongMarkdown(this.post['description']),
           SizedBox(height: 20),
           Hero(tag: 'node${this.id}bottoms', child: this.bottomArea()),
@@ -83,11 +83,12 @@ class PostView extends PostTile {
   }
 
   void sendReply() {
-    createReplyAPI({
-      'parentId': ReReplyFocus.replyId ?? this.id, // TODO: rereply
-      'description': this._replyController.text,
-      'isAnonym': TipInfo.isAnonym,
-    });
+    if (this._replyController.text.length > 0)
+      createReplyAPI({
+        'parentId': ReReplyFocus.replyId ?? this.id, // TODO: rereply
+        'description': this._replyController.text,
+        'isAnonym': TipInfo.isAnonym,
+      });
     this._replyController.text = '';
   }
 }

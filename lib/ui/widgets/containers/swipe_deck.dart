@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/cards/summary_card.dart';
 
 class SwipeDeck extends StatefulWidget {
-  final List<SummaryCard> cards;
+  final List cards;
   final int numCards;
 
-  SwipeDeck({@required List<SummaryCard> children})
+  SwipeDeck({@required children})
       : this.cards = children.reversed.toList(),
         numCards = children.length;
 
@@ -34,21 +33,25 @@ class _SwipeDeckState extends State<SwipeDeck> {
             height: 205,
             alignment: Alignment.bottomCenter,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ...Iterable<int>.generate(widget.numCards).map((idx) => Padding(
-                  padding: const EdgeInsets.only(left: 1, right: 1),
-                  child: Icon(
-                      this.curr == idx
-                          ? Icons.circle
-                          : Icons.radio_button_unchecked,
-                      color: AppTheme.colors.support,
-                      size: 9)))
+              ...List.generate(
+                  widget.numCards,
+                  (idx) => Padding(
+                      padding: const EdgeInsets.only(left: 1, right: 1),
+                      child: Icon(
+                          this.curr == idx
+                              ? Icons.circle
+                              : Icons.radio_button_unchecked,
+                          color: AppTheme.colors.support,
+                          size: 9)))
             ])),
-        ...Iterable<int>.generate(cardList.length).map((idx) => Container(
-            margin:
-                EdgeInsets.only(top: 16.0 * (cardList.length - 1) - idx * 16.0),
-            child: Transform.scale(
-                scale: 1 / (1 + 0.1 * (cardList.length - 1 - idx)),
-                child: cardList[idx])))
+        ...List.generate(
+            cardList.length,
+            (idx) => Container(
+                margin: EdgeInsets.only(
+                    top: 16.0 * (cardList.length - 1) - idx * 16.0),
+                child: Transform.scale(
+                    scale: 1 / (1 + 0.1 * (cardList.length - 1 - idx)),
+                    child: cardList[idx])))
       ],
     );
   }

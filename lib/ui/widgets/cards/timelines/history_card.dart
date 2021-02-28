@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 import 'package:padong/ui/widgets/node_base.dart';
@@ -17,13 +18,11 @@ Map<String, dynamic> getEvent(String id) {
 }
 
 class HistoryCard extends NodeBase {
-  final String historyId;
+  final String wikiId;
   final Map<String, dynamic> event;
 
-  HistoryCard(id)
+  HistoryCard(id, this.wikiId)
       : this.event = getEvent(id),
-        historyId = id,
-        // TODO: get history id by id
         super(id);
 
   @override
@@ -34,9 +33,20 @@ class HistoryCard extends NodeBase {
   }
 
   @override
-  Widget commonArea() {
-    this.node['time'] = '13:27:04'; // TODO:  HH:MM:SS timestamp
-    return super.commonArea();
+  Widget time() {
+    DateTime created = this.node['createdAt'];
+    String time =
+        '${this.numFormatting(created.hour)}:${this.numFormatting(created.minute)}:${this.numFormatting(created.second)}';
+    return Text(time,
+        style: AppTheme.getFont(
+            color: AppTheme.colors.semiSupport,
+            fontSize: AppTheme.fontSizes.small));
+  }
+
+  String numFormatting(int num) {
+    String numStr = num.toString();
+    if (numStr.length != 2) numStr = '0' + numStr;
+    return numStr;
   }
 
   @override
@@ -70,7 +80,7 @@ class HistoryCard extends NodeBase {
                 bottom: 2,
                 right: 0,
                 child: Text(
-                  'e0434' + this.historyId, // TODO: history ID
+                  'e' + this.id, // TODO: history ID
                   style: AppTheme.getFont(
                       color: AppTheme.colors.fontPalette[2],
                       fontSize: AppTheme.fontSizes.small),
@@ -78,4 +88,8 @@ class HistoryCard extends NodeBase {
           ],
         ));
   }
+
+  @override
+  void routePage() =>
+      PadongRouter.routeURL('/compare/id=${this.id}&wikiId=${this.wikiId}');
 }

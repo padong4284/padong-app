@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/cover.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 
-class PostCard extends StatelessWidget {
+class PhotoCard extends StatelessWidget {
   final String id; // node's id
-  final Map<String, dynamic> post;
+  final Map<String, dynamic> node;
+  final bool isWiki;
 
-  PostCard(id)
-      : this.id = id,
-        this.post = getPostAPI(id);
+  PhotoCard(id, {isWiki = false})
+      : this.id = id, // TODO: getNode(id, type)
+        this.node = isWiki? getWikiAPI(id) : getPostAPI(id),
+        this.isWiki = isWiki;
 
   @override
   Widget build(BuildContext context) {
-    List bottoms = this.post['bottoms'];
+    List bottoms = this.node['bottoms'];
     bottoms[1] = null;
     return this.baseCard(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -31,7 +34,8 @@ class PostCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          PadongRouter.routeURL('/post/id=${this.id}');
+          PadongRouter.routeURL(
+              '/${this.isWiki ? 'wiki' : 'post'}/id=${this.id}');
         },
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),
@@ -46,24 +50,24 @@ class PostCard extends StatelessWidget {
 
   Widget titleArea() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(this.post['title'],
+      Text(this.node['title'],
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(
               color: AppTheme.colors.fontPalette[2], isBold: true)),
-      Text(this.post['description'],
+      Text(this.node['description'],
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3]))
     ]);
   }
 
-  Widget pictureArea({bool isRoate = false, double height = 130}) {
+  Widget pictureArea({bool isRotated = false, double height = 130}) {
     return Container(
       decoration: BoxDecoration(
           color: AppTheme.colors.lightSupport,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(5),
-              topRight: Radius.circular(isRoate ? 0 : 5),
-              bottomLeft: Radius.circular(isRoate ? 5 : 0))),
+              topRight: Radius.circular(isRotated ? 0 : 5),
+              bottomLeft: Radius.circular(isRotated ? 5 : 0))),
       width: 140,
       height: height,
     );

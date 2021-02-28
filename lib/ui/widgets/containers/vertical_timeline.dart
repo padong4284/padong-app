@@ -8,7 +8,7 @@ class VerticalTimeline extends StatelessWidget {
   final bool hideTopDate;
 
   VerticalTimeline(
-      {@required this.date,
+      {this.date,
       @required List<String> dots,
       @required List<List<Widget>> cards,
       this.hideTopDate = false})
@@ -31,12 +31,14 @@ class VerticalTimeline extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 20),
           child: Column(children: [
             this.hideTopDate ? SizedBox.shrink() : this.getTopDate(),
-            ...Iterable<int>.generate(len).map((idx) => Column(children: [
-                  this.getDotTime(this.dots[idx]),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Column(children: this.cards[idx]))
-                ]))
+            ...List.generate(
+                len,
+                (idx) => Column(children: [
+                      this.getDotTime(this.dots[idx]),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Column(children: this.cards[idx]))
+                    ]))
           ]))
     ]);
   }
@@ -55,8 +57,7 @@ class VerticalTimeline extends StatelessWidget {
           ),
           isToday
               ? Text(this.date,
-                  style: AppTheme.getFont(
-                      color: AppTheme.colors.semiSupport))
+                  style: AppTheme.getFont(color: AppTheme.colors.semiSupport))
               : null
         ].where((elm) => elm != null).toList());
   }
@@ -74,8 +75,7 @@ class VerticalTimeline extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(dotTime,
-                  style: AppTheme.getFont(
-                      color: AppTheme.colors.semiSupport)),
+                  style: AppTheme.getFont(color: AppTheme.colors.semiSupport)),
             )
           ],
         ));

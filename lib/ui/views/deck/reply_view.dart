@@ -66,7 +66,7 @@ class _ReplyViewState extends State<ReplyView> {
                     setState(() {
                       this.initReplyFocus();
                       this.readyReReply[rid] = next;
-                      ReReplyFocus.replyId = rid;
+                      ReReplyFocus.replyId = next ? rid : null;
                     });
                     this.scrollToReply(rid);
                   },

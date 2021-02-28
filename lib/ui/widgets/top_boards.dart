@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
-import 'package:padong/ui/widgets/cards/post_card.dart';
+import 'package:padong/ui/widgets/cards/photo_card.dart';
 
 class TopBoards extends StatelessWidget {
   final Map<String, dynamic> deck;
@@ -25,7 +25,7 @@ class TopBoards extends StatelessWidget {
                   get10RecentPostIdsAPI(this.deck['fixedBoards'][boardName]);
               return HorizontalScroller(
                   padding: 3.0,
-                  children: recent.map((postId) => PostCard(postId)).toList());
+                  children: recent.map((postId) => PhotoCard(postId)).toList());
             }).toList());
   }
 }

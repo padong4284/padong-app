@@ -31,16 +31,16 @@ class _BoardListTileState extends State<BoardListTile> {
   @override
   void initState() {
     super.initState();
-    this.notifications =
-        Iterable<int>.generate(widget.boardIds.length).map((_) {
+    this.notifications = List.generate(widget.boardIds.length, (_) {
       return false; // get notification or not from firebase
-    }).toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseTile(
-        children: Iterable<int>.generate(widget.boardIds.length).map(
+        children: List.generate(
+      widget.boardIds.length,
       (idx) {
         final board = getBoardAPI(widget.boardIds[idx]);
         return InkWell(
@@ -63,14 +63,15 @@ class _BoardListTileState extends State<BoardListTile> {
                               size: 25,
                               onPressed: () {
                                 board['notification'] = !board['notification'];
-                                setNotificationBoardAPI(board['id'], board['notification']);
+                                setNotificationBoardAPI(
+                                    board['id'], board['notification']);
                               })
                           : Icon(widget.icons[idx],
                               size: 25, color: AppTheme.colors.support)),
                   this.boardText(board['title'])
                 ])));
       },
-    ).toList());
+    ));
   }
 
   Text boardText(text) {

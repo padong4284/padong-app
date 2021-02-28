@@ -28,8 +28,7 @@ class UserProfileButton extends StatelessWidget {
         onTap: () {
           // TODO: routing to userprofile page
         },
-        child: Container(
-            child: Stack(children: [
+        child: Stack(children: [
           Icon(
             Icons.account_circle_rounded,
             size: this.size,
@@ -42,7 +41,7 @@ class UserProfileButton extends StatelessWidget {
                 ? NetworkImage(this.user['profileImgURL'])
                 : null,
           )
-        ])));
+        ]));
   }
 
   Widget _buildBottomUsername() {

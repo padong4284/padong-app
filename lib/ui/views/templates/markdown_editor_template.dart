@@ -21,26 +21,43 @@ class MarkdownEditorTemplate extends StatefulWidget {
   final String editTxt;
   final String titleHint;
   final String contentHint;
+  final String title;
+  final String content;
+  final PIP initPIP;
   final Function(Map) onSubmit;
 
-  MarkdownEditorTemplate(
-      {this.children,
-      this.withAnonym = false,
-      this.editTxt = 'make',
-      this.topArea,
-      this.titleHint = 'Title of Board',
-      @required this.onSubmit,
-      this.contentHint});
+  MarkdownEditorTemplate({
+    this.children,
+    this.withAnonym = false,
+    this.editTxt = 'make',
+    this.topArea,
+    this.titleHint = 'Title of Board',
+    this.contentHint,
+    this.title,
+    this.content,
+    this.initPIP,
+    @required this.onSubmit,
+  });
 
   @override
   _MarkdownEditorTemplateState createState() => _MarkdownEditorTemplateState();
 }
 
 class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
-  int pipIdx = 0;
+  int pipIdx;
   bool isPreview = false;
   TextEditingController _titleController = TextEditingController();
   TextEditingController _mdController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    this.pipIdx = widget.initPIP != null
+        ? [PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE].indexOf(widget.initPIP)
+        : 0;
+    this._titleController.text = widget.title;
+    this._mdController.text = widget.content;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +115,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
             SwitchButton(
                 options: PIPs,
                 buttonType: SwitchButtonType.SHADOW,
+                initIdx: this.pipIdx,
                 onChange: (String selected) {
                   setState(() {
                     this.pipIdx = PIPs.indexOf(selected);

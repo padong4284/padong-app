@@ -32,9 +32,9 @@ class _TabContainerState extends State<TabContainer> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: Iterable<int>.generate(widget.tabs.length)
-                  .toList()
-                  .map((idx) => InkWell(
+              children: List.generate(
+                  widget.tabs.length,
+                  (idx) => InkWell(
                       onTap: () {
                         setState(() {
                           this.curIdx = idx;
@@ -45,16 +45,12 @@ class _TabContainerState extends State<TabContainer> {
                           width: widget.tabWidth,
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(left: 2),
-                          child: Text(
-                            widget.tabs[idx],
-                            style: TextStyle(
-                              fontWeight: this.curIdx == idx
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              fontSize: AppTheme.fontSizes.mlarge,
-                            ),
-                          ))))
-                  .toList()),
+                          child: Text(widget.tabs[idx],
+                              style: AppTheme.getFont(
+                                isBold: this.curIdx == idx,
+                                color: AppTheme.colors.fontPalette[1],
+                                fontSize: AppTheme.fontSizes.mlarge,
+                              )))))),
           Container(
               child: AnimatedPadding(
             padding: EdgeInsets.only(
@@ -66,19 +62,22 @@ class _TabContainerState extends State<TabContainer> {
                 color: AppTheme.colors.support),
           )),
           widget.children[this.curIdx],
-        widget.moreIds != null ? Container(
-            height: 40.0,
-            alignment: Alignment.topRight,
-            padding: EdgeInsets.only(top: 10.0),
-            child: TranspButton(
-              title: 'More',
-              buttonSize: ButtonSize.REGULAR,
-              icon: Icon(Icons.arrow_forward_ios,
-                  color: AppTheme.colors.primary,
-                  size: AppTheme.fontSizes.regular),
-              isSuffixICon: true,
-              callback: () => PadongRouter.routeURL('/board/id=${widget.moreIds[this.curIdx]}'),
-            )): SizedBox.shrink(),
+          widget.moreIds != null
+              ? Container(
+                  height: 40.0,
+                  alignment: Alignment.topRight,
+                  padding: EdgeInsets.only(top: 10.0),
+                  child: TranspButton(
+                    title: 'More',
+                    buttonSize: ButtonSize.REGULAR,
+                    icon: Icon(Icons.arrow_forward_ios,
+                        color: AppTheme.colors.primary,
+                        size: AppTheme.fontSizes.regular),
+                    isSuffixICon: true,
+                    callback: () => PadongRouter.routeURL(
+                        '/board/id=${widget.moreIds[this.curIdx]}'),
+                  ))
+              : SizedBox.shrink(),
           // Positioned(top: 25, child: widget.children[this.curIdx])
         ]));
   }

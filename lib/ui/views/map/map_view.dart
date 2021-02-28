@@ -100,22 +100,22 @@ class MapSampleState extends State<MapView> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: Iterable<int>.generate(5)
-                  .map((idx) => Container(
+              children: List.generate(
+                  5,
+                  (idx) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       child: ToggleIconButton(
                         size: 25,
                         defaultIcon: this.icons[idx],
                         toggleColor: AppTheme.colors.primary,
-                      )))
-                  .toList()),
+                      )))),
         ));
   }
 
   Widget bottomBuildingCards() {
     return HorizontalScroller(height: 150, children: [
       // TODO: get building cards from API
-      ...Iterable<int>.generate(10).map((idx) => BuildingCard(idx.toString())),
+      ...List.generate(10, (idx) => BuildingCard(idx.toString())),
       SizedBox(width: 60)
     ]);
   }

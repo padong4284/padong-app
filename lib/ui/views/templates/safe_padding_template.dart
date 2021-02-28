@@ -49,16 +49,11 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
     super.initState();
     this._scrollController = new ScrollController();
     this._scrollController.addListener(() {
-      if (this._scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        setState(() {
-          isScrollingDown = true;
-        });
-      } else {
-        setState(() {
-          isScrollingDown = false;
-        });
-      }
+      setState(() {
+        isScrollingDown =
+            (this._scrollController.position.userScrollDirection ==
+                ScrollDirection.reverse);
+      });
     });
     this.isRendered = false;
     this.setRendered();
@@ -66,7 +61,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
 
   void setRendered() async {
     await Future.delayed(Duration(milliseconds: 250));
-    setState(() {
+    if (this.mounted) setState(() {
       this.isRendered = true;
     });
   }
@@ -75,10 +70,12 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: widget.appBar,
-        floatingActionButton: widget.floatingActionButton ??
-            (widget.floatingActionButtonGenerator != null
-                ? widget.floatingActionButtonGenerator(this.isScrollingDown)
-                : SizedBox.shrink()),
+        floatingActionButton: Visibility(
+            visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
+            child: widget.floatingActionButton ??
+                (widget.floatingActionButtonGenerator != null
+                    ? widget.floatingActionButtonGenerator(this.isScrollingDown)
+                    : SizedBox.shrink())),
         body: Stack(children: [
           widget.background ?? SizedBox.shrink(),
           SafeArea(

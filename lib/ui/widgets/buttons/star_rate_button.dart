@@ -29,8 +29,9 @@ class _StarRateButtonState extends State<StarRateButton> {
   Widget build(BuildContext context) {
     return Container(
         child: Row(
-            children: Iterable<int>.generate(10)
-                .map((idx) => ClipRect(
+            children: List.generate(
+                10,
+                (idx) => ClipRect(
                     child: Align(
                         alignment: idx % 2 == 0
                             ? Alignment.topLeft
@@ -49,8 +50,7 @@ class _StarRateButtonState extends State<StarRateButton> {
                                       widget.onChange(this.curr / 10);
                                   });
                                 },
-                                child: this.getIthStarIcon(idx)))))
-                .toList()));
+                            child: this.getIthStarIcon(idx)))))));
   }
 
   Icon getIthStarIcon(idx) {

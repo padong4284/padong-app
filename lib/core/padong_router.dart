@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/ui/views/cover/compare_view.dart';
+import 'package:padong/ui/views/cover/edit_view.dart';
+import 'package:padong/ui/views/cover/wiki_view.dart';
 import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/make_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
@@ -45,25 +48,28 @@ class PadongRouter {
         return PageRouteBuilder(pageBuilder: (_, __, ___) => ForgotView());
 
       case '/board':
-        return slideRouter((_, __, ___) => BoardView(args['id']), direction: 1);
+        return slideRouter(
+            pageBuilder: (_, __, ___) => BoardView(args['id']), direction: 1);
       case '/post':
-        return PageRouteBuilder(
-            pageBuilder: (_, __, ___) => PostView(args['id']),
-            transitionsBuilder: (
-              BuildContext _,
-              Animation<double> animation,
-              Animation<double> __,
-              Widget child,
-            ) =>
-                Align(
-                  child: SizeTransition(sizeFactor: animation, child: child),
-                ));
+        return sizeRouter(pageBuilder: (_, __, ___) => PostView(args['id']));
       case '/write':
-        return slideRouter((_, __, ___) => WriteView(args['id']));
+        return slideRouter(pageBuilder: (_, __, ___) => WriteView(args['id']));
       case '/make':
-        return slideRouter((_, __, ___) => MakeView(args['id']));
+        return slideRouter(pageBuilder: (_, __, ___) => MakeView(args['id']));
+
+      case '/wiki':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => WikiView(args['id']), direction: 1);
+      case '/edit':
+        return slideRouter(
+            pageBuilder: (_, __, ___) =>
+                EditView(args['id'], wikiId: args['wikiId']));
+      case '/compare':
+        return sizeRouter(pageBuilder: (_, __, ___) => CompareView(args['id'], wikiId: args['wikiId']));
+
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
+
       default:
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => Scaffold(
@@ -92,9 +98,11 @@ class PadongRouter {
         arguments: arguments);
   }
 
+  static goBack() => Navigator.pop(PadongRouter.context);
+
   static PageRouteBuilder slideRouter(
-      Function(BuildContext, Animation<double>, Animation<double>) pageBuilder,
-      {int direction = 0}) {
+      {Function(BuildContext, Animation<double>, Animation<double>) pageBuilder,
+      int direction = 0}) {
     return PageRouteBuilder(
         pageBuilder: pageBuilder,
         transitionsBuilder: (
@@ -111,5 +119,19 @@ class PadongRouter {
             ));
   }
 
-  static goBack() => Navigator.pop(PadongRouter.context);
+  static PageRouteBuilder sizeRouter({
+    Function(BuildContext, Animation<double>, Animation<double>) pageBuilder,
+  }) {
+    return PageRouteBuilder(
+        pageBuilder: pageBuilder,
+        transitionsBuilder: (
+          BuildContext _,
+          Animation<double> animation,
+          Animation<double> __,
+          Widget child,
+        ) =>
+            Align(
+              child: SizeTransition(sizeFactor: animation, child: child),
+            ));
+  }
 }

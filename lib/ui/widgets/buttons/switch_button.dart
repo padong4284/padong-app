@@ -7,12 +7,14 @@ class SwitchButton extends StatelessWidget {
   final List<String> options;
   final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
   final bool cancelAble;
+  final int initIdx;
   final void Function(String selected) onChange;
 
   SwitchButton(
       {@required this.options,
       buttonType,
       this.onChange,
+      this.initIdx = 0,
       this.cancelAble = false})
       : this.buttonType = buttonType ?? SwitchButtonType.BORDER;
 
@@ -25,11 +27,13 @@ class SwitchButton extends StatelessWidget {
               options: this.options,
               buttonType: this.buttonType,
               onChange: this.onChange,
+              initIdx: this.initIdx,
               cancelAble: this.cancelAble));
     return SwitchButtonBase(
         options: this.options,
         buttonType: this.buttonType,
         onChange: this.onChange,
+        initIdx: this.initIdx,
         cancelAble: this.cancelAble);
   }
 }
@@ -38,12 +42,14 @@ class SwitchButtonBase extends StatefulWidget {
   final List<String> options;
   final SwitchButtonType buttonType; // BORDER, SHADOW, TOOLTIP
   final bool cancelAble;
+  final int initIdx;
   final void Function(String option) onChange;
 
   SwitchButtonBase(
       {@required this.options,
       this.buttonType,
       this.onChange,
+      this.initIdx,
       this.cancelAble = false});
 
   @override
@@ -51,7 +57,13 @@ class SwitchButtonBase extends StatefulWidget {
 }
 
 class _SwitchButtonBaseState extends State<SwitchButtonBase> {
-  int curIdx = 0;
+  int curIdx;
+
+  @override
+  void initState() {
+    super.initState();
+    this.curIdx = widget.initIdx;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +104,9 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Iterable<int>.generate(widget.options.length)
-                      .toList()
-                      .map((idx) => InkWell(
+                  children: List.generate(
+                      widget.options.length,
+                      (idx) => InkWell(
                           onTap: () {
                             setState(() {
                               if (widget.cancelAble && this.curIdx == idx) {
@@ -114,8 +126,8 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
                                       color: this.curIdx == idx
                                           ? AppTheme.colors.base
                                           : AppTheme.colors.primary,
-                                      fontSize: AppTheme.fontSizes.small)))))
-                      .toList()))
+                                      fontSize: AppTheme
+                                          .fontSizes.small)))))))
         ]));
   }
 }

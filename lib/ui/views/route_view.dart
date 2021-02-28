@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/widgets/bars/padong_bottom_navigation_bar.dart';
-import 'package:padong/ui/views/cover/wiki_cover_view.dart';
+import 'package:padong/ui/views/cover/cover_view.dart';
 import 'package:padong/ui/views/deck/deck_view.dart';
 import 'package:padong/ui/views/map/map_view.dart';
 import 'package:padong/ui/views/schedule/schedule_view.dart';
@@ -9,7 +9,7 @@ import 'package:padong/ui/views/main/main_view.dart';
 
 final List<Widget> pages = [
   MainView(),
-  WikiCoverView(),
+  CoverView(),
   DeckView(),
   ScheduleView(),
   MapView(),

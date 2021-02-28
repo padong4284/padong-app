@@ -52,5 +52,6 @@ class DateTimeRangePicker extends TimeRangePicker {
               child: child);
         });
     if (date != null) update(date.toString().split(' ')[0]);
+    else update(DateTime.now().toString().split(' ')[0]);
   }
 }

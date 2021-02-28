@@ -17,13 +17,10 @@ Map<String, dynamic> getEvent(String id) {
 }
 
 class HistoryCard extends NodeBase {
-  final String historyId;
   final Map<String, dynamic> event;
 
   HistoryCard(id)
       : this.event = getEvent(id),
-        historyId = id,
-        // TODO: get history id by id
         super(id);
 
   @override
@@ -70,7 +67,7 @@ class HistoryCard extends NodeBase {
                 bottom: 2,
                 right: 0,
                 child: Text(
-                  'e0434' + this.historyId, // TODO: history ID
+                  'e' + this.id, // TODO: history ID
                   style: AppTheme.getFont(
                       color: AppTheme.colors.fontPalette[2],
                       fontSize: AppTheme.fontSizes.small),

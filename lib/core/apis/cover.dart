@@ -1,4 +1,7 @@
+import 'dart:math';
 import 'package:padong/core/models/pip.dart';
+
+Random rand = Random();
 
 Map<String, dynamic> getCoverAPI(String coverId) {
   return {
@@ -70,9 +73,21 @@ List<String> get10RecentWikiIdsAPI(String coverId) {
   return List.generate(10, (i) => 'w' + coverId.substring(5) + i.toString());
 }
 
-Map<String, List<String>> getArguesAPI(String wikiId) {
+Map<String, List<String>> getArgueIdsAPI(String wikiId) {
   return {
     'opened': ['argue00901234', 'argue009013'],
     'closed': ['argue00900235', 'argue009011', 'argue009914', 'argue00912414'],
+  };
+}
+
+List<String> getItemIdsAPI(String wikiId) {
+  return List.generate(10, (i) => 'i091232' + i.toString());
+}
+
+int cnt = 1;
+Map<String, dynamic> getItemAPI(itemId) {
+  if(rand.nextBool()) cnt += 1;
+  return {
+    'createdAt': DateTime(2021, 2, 25-cnt, 14, 15)
   };
 }

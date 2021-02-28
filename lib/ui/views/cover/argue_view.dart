@@ -23,7 +23,7 @@ class ArgueView extends StatefulWidget {
 
   ArgueView(parentId)
       : this.parentId = parentId,
-        this.argues = getArguesAPI(parentId);
+        this.argues = getArgueIdsAPI(parentId);
 
   _ArgueViewState createState() => _ArgueViewState();
 }

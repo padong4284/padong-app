@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/core/apis/session.dart' as Session;
 import 'package:padong/ui/utils/time_manager.dart';
 
 class VerticalTimeline extends StatelessWidget {

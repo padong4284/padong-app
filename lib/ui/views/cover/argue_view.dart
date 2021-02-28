@@ -109,7 +109,7 @@ class _ArgueViewState extends State<ArgueView> {
   void sendArgue() {
     if (this._argueController.text.length > 0)
       createReplyAPI({
-        'parentId': ArgueFocus.replyId ?? widget.wikiId, // TODO: rereply
+        'parentId': ArgueFocus.replyId ?? widget.wikiId,
         'description': this._argueController.text,
       });
     this._argueController.text = '';

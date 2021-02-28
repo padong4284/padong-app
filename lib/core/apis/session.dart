@@ -2,6 +2,7 @@ Map<String, dynamic> user = {
   'id': 'u009003',
   'username': 'kodw0402',
   'univId': 'univ009',
+  'scheduleId': 's009003',
   'isVerified': true,
   'universityName': "Georgia Tech",
   'entranceYear': 2017,

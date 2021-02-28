@@ -14,7 +14,6 @@ class BoardListTile extends StatefulWidget {
   BoardListTile(
       {@required List<String> boardIds,
       List<IconData> icons,
-      List<Function> callbacks,
       isAlertTile = false})
       : assert(isAlertTile || (boardIds.length == icons.length)),
         this.boardIds = boardIds,

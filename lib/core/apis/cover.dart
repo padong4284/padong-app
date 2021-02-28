@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();
 
@@ -113,4 +114,14 @@ List<String> getFrontLinksAPI(String wikiId) {
 
 void requestRevertAPI(String wikiId, String itemId) {
   // TODO: revert wiki
+}
+
+void createWikiAPI(Map data) => create(data);
+
+void createItemAPI(Map data) => create(data);
+
+void create(Map data) {
+  data['ownerId'] = Session.user['id'];
+  data['createdAt'] = DateTime.now();
+  print(data);
 }

@@ -29,11 +29,11 @@ class EditView extends StatelessWidget {
 
   void createWiki(Map data) {
     data['parentId'] = this.coverId;
-    createPostAPI(data);
+    createWikiAPI(data);
   }
 
   void updateWiki(Map data) {
     data['parentId'] = this.wikiId;
-    //createItemAPI(data);
+    createItemAPI(data);
   }
 }

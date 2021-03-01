@@ -9,10 +9,10 @@ import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/tiles/node/chat_room_tile.dart';
 
 class ChatsView extends StatelessWidget {
-  final List<String> chatroomIds;
+  final List<String> chatRoomIds;
 
   ChatsView()
-      : this.chatroomIds = getChatroomIdsAPI();
+      : this.chatRoomIds = getChatRoomIdsAPI();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class ChatsView extends StatelessWidget {
             onPressed: () {}) // TODO: more dialog
       ]),
       children: [
-        ...this.chatroomIds.map((chatroomId) => ChatRoomTile(chatroomId))
+        ...this.chatRoomIds.map((chatRoomId) => ChatRoomTile(chatRoomId))
       ],
     );
   }

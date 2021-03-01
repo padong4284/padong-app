@@ -3,7 +3,6 @@ import 'package:padong/core/apis/chat.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/views/templates/markdown_editor_template.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
@@ -33,18 +32,18 @@ class _ChatViewState extends State<ChatView> {
             title: 'Ok',
             buttonSize: ButtonSize.SMALL,
             borderColor: AppTheme.colors.primary,
-            callback: this.createChatroom,
+            callback: this.createChatRoom,
             shadow: false)
       ]),
       children: [
         this.topArea(),
         Input(
             controller: this._titleController,
-            hintText: 'Title of Chatroom',
+            hintText: 'Title of Chat Room',
             type: InputType.UNDERLINE),
         Input(
             controller: this._contentController,
-            hintText: pipHint,
+            hintText: CHATRULE,
             type: InputType.PLAIN),
         SizedBox(height: 40,),
         TitleHeader('Invite Friends'),
@@ -68,8 +67,22 @@ class _ChatViewState extends State<ChatView> {
             }));
   }
 
-  void createChatroom(Map data) {
+  void createChatRoom(Map data) {
     data['parentId'] = Session.user['id'];
     createBoardAPI(data);
   }
 }
+
+const CHATRULE = """PIP Access 
+
+- Public
+  Group Chat Room which anyone can search
+  and join.
+
+- Internal
+  Group Chat Room which only invitees 
+  participate
+
+- Private
+  1:1 Chat Room.
+""";

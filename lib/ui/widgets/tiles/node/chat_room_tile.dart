@@ -1,11 +1,13 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();
+
 List<String> getParticipantAPI(String chatRoomId) {
   return ['jtj0321', 'kdw0402', 'hsb0422', 'khs0502'].sublist(rand.nextInt(4));
 }
@@ -28,9 +30,12 @@ class ChatRoomTile extends NodeBaseTile {
         super(chatRoomId);
 
   @override
+  void routePage() => PadongRouter.routeURL('chat_room/id=${this.id}');
+
+  @override
   Widget profile() {
-    List<String> others = // TODO: exclude myself
-        this.participants.where((id) => id != 'jtj0321').toList();
+    List<String> others =
+        this.participants.where((id) => id != Session.user['id']).toList();
     int len = others.length;
     double size = len > 2 ? 20.0 : (55.0 - len * 15);
     others += [null, null, null];
@@ -68,8 +73,7 @@ class ChatRoomTile extends NodeBaseTile {
   @override
   Widget topText() {
     return Text(
-        // TODO: exclude myself
-        this.participants.where((id) => id != 'jtj0321').join(', '),
+        this.participants.where((id) => id != Session.user['id']).join(', '),
         overflow: TextOverflow.ellipsis,
         style: AppTheme.getFont(color: AppTheme.colors.semiSupport));
   }
@@ -102,7 +106,8 @@ class ChatRoomTile extends NodeBaseTile {
                     style: AppTheme.getFont(
                         color: AppTheme.colors.base,
                         fontSize: AppTheme.fontSizes.small),
-                  )))
+                  )),
+            )
           : SizedBox.shrink()
     ]);
   }

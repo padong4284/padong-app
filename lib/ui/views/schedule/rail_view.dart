@@ -3,6 +3,7 @@ import 'package:padong/core/apis/schedule.dart';
 import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
+import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/cards/timelines/timeline_card.dart';
 import 'package:padong/ui/widgets/containers/vertical_timeline.dart';
 
@@ -20,6 +21,8 @@ class RailView extends StatelessWidget {
     sorted.sort();
     return SafePaddingTemplate(
         appBar: BackAppBar(title: 'Events', isClose: true),
+        floatingActionButtonGenerator: (isScrollingDown) =>
+            PadongFloatingButton(isScrollingDown: isScrollingDown, bottomPadding: 40),
         children: [
           VerticalTimeline(hideTopDate: true, dots: sorted, cards: [
             ...sorted.map((date) => this

@@ -63,9 +63,15 @@ class _UpdateViewState extends State<UpdateView> {
           ...(this.isLecture ? [] : []),
           SizedBox(height: 40),
           TitleHeader('Time', isInputHead: true),
-          this.routine == routines[2] || this.isLecture
-              ? AppendingInput(input: () => DayTimeRangePicker())
-              : AppendingInput(input: () => DateTimeRangePicker()),
+          ...(this.routine == routines[2] || this.isLecture
+              ? [
+                  new AppendingInput(input: () => DayTimeRangePicker()),
+                  SizedBox.shrink()
+                ]
+              : [
+                  SizedBox.shrink(),
+                  new AppendingInput(input: () => DateTimeRangePicker())
+                ]),
           // FIXME: initialize
           ...this.bottomInputs()
         ]);
@@ -104,12 +110,14 @@ class _UpdateViewState extends State<UpdateView> {
       SizedBox(height: 70),
       TitleHeader('Alert', isInputHead: true),
       ...(this.isLecture
-          ? ['Room', 'Grade', 'Exam', 'Attendance', 'Book']
-              .map((hint) => Padding(padding: const EdgeInsets.symmetric(vertical: 5), child:Input(hintText: hint)))
+          ? ['Room', 'Grade', 'Exam', 'Attendance', 'Book'].map((hint) =>
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Input(hintText: hint)))
           : [
               AppendingInput(
                   input: () => TimeListPicker(hintText: 'Alert', minuteGap: 5))
-            ]),
+            ])
     ];
   }
 

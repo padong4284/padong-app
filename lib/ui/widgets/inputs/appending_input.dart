@@ -12,12 +12,21 @@ class AppendingInput extends StatefulWidget {
 }
 
 class _AppendingInputState extends State<AppendingInput> {
+  Widget Function() input;
   List<Widget> inputs = [];
 
   @override
   void initState() {
     super.initState();
+    this.input = widget.input;
     this.inputs.add(widget.input());
+  }
+
+  void clearInputs(Widget Function() input){
+    setState(() {
+      this.input = input;
+      this.inputs = [this.input()];
+    });
   }
 
   @override
@@ -50,7 +59,7 @@ class _AppendingInputState extends State<AppendingInput> {
   Function reLine(int idx) {
     return () => this.setState(() {
           if (this.inputs.length - 1 == idx)
-            this.inputs.add(widget.input());
+            this.inputs.add(this.input());
           else
             this.inputs.removeAt(idx);
         });

@@ -7,6 +7,13 @@ import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/make_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/deck/write_view.dart';
+import 'package:padong/ui/views/schedule/ask_view.dart';
+import 'package:padong/ui/views/schedule/event_view.dart';
+import 'package:padong/ui/views/schedule/lecture_view.dart';
+import 'package:padong/ui/views/schedule/memo_view.dart';
+import 'package:padong/ui/views/schedule/rail_view.dart';
+import 'package:padong/ui/views/schedule/review_view.dart';
+import 'package:padong/ui/views/schedule/update_view.dart';
 import 'package:padong/ui/views/search/search_view.dart';
 import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
@@ -30,14 +37,10 @@ class PadongRouter {
     switch (settings.name) {
       case '/main':
         Session.currentUniv = getUnivAPI(args['univId']);
-        return MaterialPageRoute(
-          builder: (_) => RouteView(),
-        );
+        return MaterialPageRoute(builder: (_) => RouteView());
       case '/p_main':
         Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
-        return MaterialPageRoute(
-          builder: (_) => RouteView(),
-        );
+        return MaterialPageRoute(builder: (_) => RouteView());
       case '/':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SignInView());
       case '/sign_up':
@@ -45,7 +48,7 @@ class PadongRouter {
           pageBuilder: (_, __, ___) => SignUpView(),
         );
       case '/forgot':
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => ForgotView());
+        return MaterialPageRoute(builder: (_) => ForgotView());
 
       case '/board':
         return slideRouter(
@@ -65,7 +68,30 @@ class PadongRouter {
             pageBuilder: (_, __, ___) =>
                 EditView(args['id'], wikiId: args['wikiId']));
       case '/compare':
-        return sizeRouter(pageBuilder: (_, __, ___) => CompareView(args['id'], wikiId: args['wikiId']));
+        return sizeRouter(
+            pageBuilder: (_, __, ___) =>
+                CompareView(args['id'], wikiId: args['wikiId']));
+
+      case '/event':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => EventView(args['id']), direction: 1);
+      case '/lecture':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => LectureView(args['id']), direction: 1);
+      case '/review':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => ReviewView(args['id']), direction: 1);
+      case '/rail':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => RailView(args['id']), direction: 1);
+      case '/update':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => UpdateView(args['id'],
+                eventId: args['eventId'], lectureId: args['lectureId']));
+      case '/ask':
+        return slideRouter(pageBuilder: (_, __, ___) => AskView(args['id']));
+      case '/memo':
+        return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['id']));
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());

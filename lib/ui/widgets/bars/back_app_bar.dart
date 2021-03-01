@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
@@ -55,7 +54,7 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: TranspButton(
               buttonSize: ButtonSize.LARGE,
               callback: () {
-                PadongRouter.goBack();
+                Navigator.pop(context);
               },
               icon: Icon(
                   this.isClose ? Icons.close : Icons.arrow_back_ios_rounded,

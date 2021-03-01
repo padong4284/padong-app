@@ -115,7 +115,7 @@ class _SwitchButtonBaseState extends State<SwitchButtonBase> {
                                 this.curIdx = idx;
                             });
                             if (widget.onChange != null)
-                              widget.onChange(widget.options[idx]);
+                              widget.onChange(idx >= 0 ? widget.options[idx] : null);
                           },
                           child: Container(
                               width: widget.options.length == 2 ? 55.0 : 65.0,

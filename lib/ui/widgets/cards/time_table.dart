@@ -1,89 +1,96 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/schedule.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 
 double blockWidth;
-List<Color> blockColors = [
-  AppTheme.colors.primary,
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+final List<Color> blockColors = [
   AppTheme.colors.semiPrimary,
-  AppTheme.colors.support,
+  AppTheme.colors.primary,
   AppTheme.colors.semiSupport,
-  AppTheme.colors.lightSupport,
+  AppTheme.colors.support,
+  AppTheme.colors.fontPalette[3],
+  AppTheme.colors.fontPalette[1],
+  AppTheme.colors.fontPalette[0],
   AppTheme.colors.pointYellow,
 ];
-Color lineColor = AppTheme.colors.fontPalette[3];
 
-class TimeTable extends StatelessWidget {
-  // 1 hour Block's height: 42,
-  // width: (MediaQuery.of(context).size.width - 2*AppTheme.horizontalPadding -27)/5
-  final String id; // node's id
-  final int startHour; // TODO: get start hour from node data
-  final int endHour;
+class TimeTable extends StatefulWidget {
+  final List lectures;
 
-  TimeTable(id, {this.startHour = 9, this.endHour = 16}) : this.id = id;
+  // TODO: this week's events
+
+  TimeTable({@required lectureIds})
+      : this.lectures = lectureIds.map((id) => getLectureAPI(id)).toList();
+
+  _TimeTableState createState() => _TimeTableState();
+}
+
+class _TimeTableState extends State<TimeTable> {
+  int startHour;
+  int endHour;
+  List lectureTimes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    this.startHour = 9;
+    this.endHour = 16;
+    for (Map<String, dynamic> lecture in widget.lectures) {
+      for (String time in lecture['times']) {
+        TimeManager tm = TimeManager.fromString(time);
+        this.lectureTimes.add([lecture['id'], lecture['title'], tm]);
+        this.startHour = min(this.startHour, tm.hour);
+        this.endHour = max(this.startHour, tm.hour + 1 + tm.dMin ~/ 60);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    blockWidth = (MediaQuery.of(context).size.width -
-            2 * AppTheme.horizontalPadding -
-            35) /
-        5;
-
-    List<Widget> hourLines = [];
-    for (int h = this.startHour; h < this.endHour; h++) {
-      hourLines.add(getHourLine(h));
-      hourLines.add(Container(height: 2, color: AppTheme.colors.lightSupport));
-    }
-    hourLines.add(getHourLine(this.endHour, isLast: true));
+    double width = MediaQuery.of(context).size.width;
+    blockWidth = (width - 2 * AppTheme.horizontalPadding - 35) / 5;
 
     return Stack(children: [
       BaseCard(padding: 0, width: 25 + blockWidth * 5, children: <Widget>[
-        this.getWeekDays(),
-        Container(height: 2, color: lineColor), // horizontalLine
-        ...hourLines,
+        this.weekDays(),
+        Container(height: 2, color: AppTheme.colors.fontPalette[3]),
+        // horizontalLine
+        ...this.hourLines(),
       ]),
       this.getVerticalLine(),
-      this.getBlock('Algorithm', 0, 9, 0, 120),
-      this.getBlock('Data Structure', 1, 10, 0, 100),
-      this.getBlock('System Programming', 2, 11, 0, 80),
-      this.getBlock('Interview', 3, 12, 0, 60),
-      this.getBlock('Title', 4, 13, 0, 40),
+      ...this.lectureTimes.map((lectureTime) =>
+          this.getBlock(lectureTime[0], lectureTime[1], lectureTime[2]))
     ]);
   }
 
-  Widget getBlock(
-    String title,
-    int day,
-    int hour,
-    int minute,
-    int durationMin,
-  ) {
-    // day {Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4}
-    // duration: minute
+  Widget getBlock(String lectureId, String title, TimeManager timeManager) {
     return Positioned(
-        left: 31 + blockWidth * day,
-        top: 31 + 42 * (hour - this.startHour + minute / 60),
+        left: 31 + blockWidth * (timeManager.weekday - 1),
+        top: 31 +
+            42 * (timeManager.hour - this.startHour + timeManager.minute / 60),
         child: InkWell(
-            onTap: () {
-              // TODO: routing Lecture
-            },
-            child: SizedBox(
-                width: blockWidth - 2,
-                height: 42 * (durationMin / 60),
-                child: Container(
-                  color: blockColors[title.length % 6], // TODO: random color
-                  padding: const EdgeInsets.all(2),
-                  child: Text(
-                    title,
+          onTap: () => PadongRouter.routeURL('/lecture/id=$lectureId'),
+          child: SizedBox(
+              width: blockWidth - 2,
+              height: 42 * (timeManager.dMin / 60),
+              child: Container(
+                color: blockColors[title.length % blockColors.length],
+                padding: const EdgeInsets.all(2),
+                child: Text(title,
                     style: AppTheme.getFont(
-                        color: AppTheme.colors.fontPalette[4]),
-                  ),
-                ))));
+                        color: AppTheme.colors.fontPalette[4])),
+              )),
+        ));
   }
 
-  Widget getWeekDays() {
+  Widget weekDays() {
     List<Widget> days = [];
-    for (String day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']) {
+    for (String day in DAYS) {
       days.add(Container(
           width: 2,
           height: 25,
@@ -93,7 +100,8 @@ class TimeTable extends StatelessWidget {
           width: blockWidth - 7,
           child: Text(day,
               style: AppTheme.getFont(
-                  color: AppTheme.colors.fontPalette[1]))));
+                color: AppTheme.colors.fontPalette[1],
+              ))));
     }
     return Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -107,7 +115,17 @@ class TimeTable extends StatelessWidget {
         child: Container(
             width: 2,
             height: 47.0 + 42 * (this.endHour - this.startHour),
-            color: lineColor));
+            color: AppTheme.colors.fontPalette[3]));
+  }
+
+  List<Widget> hourLines() {
+    List<Widget> lines = [];
+    for (int h = this.startHour; h < this.endHour; h++) {
+      lines.add(this.getHourLine(h));
+      lines.add(Container(height: 2, color: AppTheme.colors.lightSupport));
+    }
+    lines.add(getHourLine(this.endHour, isLast: true));
+    return lines;
   }
 
   Widget getHourLine(int hour, {isLast = false}) {
@@ -125,8 +143,7 @@ class TimeTable extends StatelessWidget {
           width: 25,
           height: height,
           child: Text(hour.toString(),
-              style: AppTheme.getFont(
-                  color: AppTheme.colors.fontPalette[3]))),
+              style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3]))),
       ...hourLine
     ]);
   }

@@ -22,7 +22,7 @@ class ItemView extends StatelessWidget {
             PadongFloatingButton(
                 isScrollingDown: isScrollingDown, bottomPadding: 40),
         floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
-            title: 'edit',
+            title: 'Edit',
             onTap: () {
               PadongRouter.routeURL(
                   'edit/id=${this.wiki['parentId']}&wikiId=${this.id}');

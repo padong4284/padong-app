@@ -48,7 +48,6 @@ class FloatingBottomBar extends StatelessWidget {
   }
 
   Widget getTip() {
-    // TODO: handling input from tip -> get SetState from caller
     return Container(
         padding:
             const EdgeInsets.only(left: AppTheme.horizontalPadding, bottom: 56),
@@ -60,7 +59,7 @@ class FloatingBottomBar extends StatelessWidget {
                     child: StarRateButton(
                         rate: TipInfo.starRate,
                         onChange: (rate) {
-                          TipInfo.starRate = rate;
+                          TipInfo.starRate = rate * 5;
                         })))
             : SwitchButton(
                 options: ['anonym', 'profile'],

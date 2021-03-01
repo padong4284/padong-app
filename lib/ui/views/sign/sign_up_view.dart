@@ -10,6 +10,9 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  TextEditingController _univController = TextEditingController();
+  TextEditingController _yearController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double paddingBottom = MediaQuery.of(context).padding.bottom;
@@ -35,11 +38,12 @@ class _SignUpViewState extends State<SignUpView> {
                       Input(
                           margin: EdgeInsets.only(top: 20.0 + paddingBottom),
                           hintText: 'Name'),
-                      ListPicker(
+                      ListPicker(this._univController,
                           margin: EdgeInsets.only(top: 10.0),
                           hintText: 'University',
                           list: ['Georgia Tech']),
                       ListPicker(
+                        this._yearController,
                         margin: EdgeInsets.only(top: 10.0),
                         hintText: 'Entrance Year',
                         list: List.generate(10, (y) => 2021 - y),

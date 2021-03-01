@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/schedule.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
@@ -10,16 +11,19 @@ class BoardListTile extends StatefulWidget {
   final List<String> boardIds;
   final List<IconData> icons;
   final bool isAlertTile;
+  final bool isLecture;
 
   BoardListTile(
       {@required List<String> boardIds,
       List<IconData> icons,
-      List<Function> callbacks,
-      isAlertTile = false})
-      : assert(isAlertTile || (boardIds.length == icons.length)),
+      isAlertTile = false,
+      isLecture = false})
+      : assert(isAlertTile || isLecture || (boardIds.length == icons.length)),
+        assert(!isLecture || !isAlertTile),
         this.boardIds = boardIds,
         this.icons = icons,
-        this.isAlertTile = isAlertTile;
+        this.isAlertTile = isLecture || isAlertTile,
+        this.isLecture = isLecture;
 
   @override
   _BoardListTileState createState() => _BoardListTileState();
@@ -42,10 +46,13 @@ class _BoardListTileState extends State<BoardListTile> {
         children: List.generate(
       widget.boardIds.length,
       (idx) {
-        final board = getBoardAPI(widget.boardIds[idx]);
+        final node = widget.isLecture
+            ? getLectureAPI(widget.boardIds[idx])
+            : getBoardAPI(widget.boardIds[idx]);
         return InkWell(
             onTap: () {
-              PadongRouter.routeURL('/board/id=${board['id']}');
+              PadongRouter.routeURL(
+                  '/${widget.isLecture ? 'lecture' : 'board'}/id=${node['id']}');
             },
             child: Container(
                 alignment: Alignment.centerLeft,
@@ -57,18 +64,18 @@ class _BoardListTileState extends State<BoardListTile> {
                           ? ToggleIconButton(
                               defaultIcon: Icons.notifications,
                               toggleIcon: Icons.notifications_off,
-                              isToggled: !board['notification'],
+                              isToggled: !node['notification'],
                               defaultColor: AppTheme.colors.pointYellow,
                               toggleColor: AppTheme.colors.support,
                               size: 25,
                               onPressed: () {
-                                board['notification'] = !board['notification'];
+                                node['notification'] = !node['notification'];
                                 setNotificationBoardAPI(
-                                    board['id'], board['notification']);
+                                    node['id'], node['notification']);
                               })
                           : Icon(widget.icons[idx],
                               size: 25, color: AppTheme.colors.support)),
-                  this.boardText(board['title'])
+                  this.boardText(node['title'])
                 ])));
       },
     ));

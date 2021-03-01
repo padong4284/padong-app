@@ -24,7 +24,6 @@ class _CompareViewState extends State<CompareView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return CompareViewBase(
         widget.id,
         widget.wikiId,

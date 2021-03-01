@@ -3,16 +3,15 @@ import 'package:padong/ui/theme/app_theme.dart';
 
 class AppendsController {
   List<TextEditingController> ctrls;
+  List get list => Set.from(this.ctrls.map((ctrl) => ctrl.text))
+      .where((elm) => elm.length > 0)
+      .toList();
 
   AppendsController() : this.ctrls = [];
 
   void init() => this.ctrls = [];
-
   void add(TextEditingController ctrl) => this.ctrls.add(ctrl);
-
   void removeAt(int idx) => this.ctrls.removeAt(idx);
-
-  List<String> getList() => this.ctrls.map((ctrl) => ctrl.text).toList();
 }
 
 // only last one is + else x

@@ -30,12 +30,16 @@ class _UpdateViewState extends State<UpdateView> {
   bool isLecture = false;
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentController = TextEditingController();
+  TextEditingController _professorController = TextEditingController();
   AppendsController _timeController = AppendsController();
   AppendsController _alertController = AppendsController();
+  Map<String, TextEditingController> _lectureInfoControllers = {};
 
   @override
   void initState() {
     super.initState();
+    for (String info in ['Room', 'Grade', 'Exam', 'Attendance', 'Book'])
+      this._lectureInfoControllers[info] = TextEditingController();
   }
 
   @override
@@ -96,7 +100,8 @@ class _UpdateViewState extends State<UpdateView> {
         height: 55,
         alignment: Alignment.centerLeft,
         child: this.isLecture
-            ? Input(hintText: 'Professor')
+            ? Input(
+                hintText: 'Professor', controller: this._professorController)
             : SwitchButton(
                 options: routines,
                 buttonType: SwitchButtonType.SHADOW,
@@ -114,10 +119,12 @@ class _UpdateViewState extends State<UpdateView> {
       SizedBox(height: 70),
       TitleHeader('Alert', isInputHead: true),
       ...(this.isLecture
-          ? ['Room', 'Grade', 'Exam', 'Attendance', 'Book'].map((hint) =>
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Input(hintText: hint)))
+          ? this._lectureInfoControllers.keys.map((info) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Input(
+                hintText: info,
+                controller: this._lectureInfoControllers[info],
+              )))
           : [
               AppendingInput(this._alertController,
                   input: (ctrl) =>
@@ -131,12 +138,16 @@ class _UpdateViewState extends State<UpdateView> {
       'title': this._titleController.text,
       'description': this._contentController.text,
     };
-    if (this.isLecture)
-      data['professor'] = '';
-    else
+    data['times'] = this._timeController.list;
+    if (this.isLecture) {
+      data['professor'] = this._professorController.text;
+      for (String info in this._lectureInfoControllers.keys)
+        data[info] = this._lectureInfoControllers[info].text;
+    } else {
       data['periodicity'] = this.routine ?? 'none';
+      data['alerts'] = this._alertController.list;
+    }
 
-    print(this._alertController.getList());
     createEventAPI(data);
     PadongRouter.goBack();
     // TODO: show dialog or snackBar to alert submit complete

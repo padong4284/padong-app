@@ -14,50 +14,40 @@ import 'package:padong/core/apis/session.dart' as Session;
 
 class ScheduleView extends StatelessWidget {
   final String id;
-  final List<String> todayEventIds;
+  final List<Map> todayEvents;
   final Map<String, dynamic> schedule;
 
   ScheduleView()
       : this.id = Session.user['scheduleId'],
-        this.todayEventIds = getTodayEventIds(Session.user['scheduleId']),
+        this.todayEvents = getTodayEvents(Session.user['scheduleId']),
         this.schedule = getScheduleAPI(Session.user['scheduleId']);
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
-          onPressAdd: () {
-            PadongRouter.routeURL('update/id=${this.id}');
-          },
-          isScrollingDown: isScrollingDown),
-      title: 'Schedule',
-      children: [
-        SizedBox(height: 10),
-        Stack(children: [
-          this.eventsButton(),
-          TabContainer(tabWidth: 70.0, tabs: [
-            'Table',
-            'Lecture'
-          ], children: [
-            TimeTable(lectureIds: this.schedule['lectureIds']),
-            BoardListTile(
-              boardIds: this.schedule['lectureIds'],
-              isLecture: true,
-            )
-          ])
-        ]),
-        SizedBox(
-          height: 40,
-        ),
-        VerticalTimeline(date: TimeManager.todayString(), dots: [
-          '09:15',
-          '11:45'
-        ], cards: [
-          [TimelineCard('1')],
-          [TimelineCard('4'), TimelineCard('5'), TimelineCard('6')]
-        ])
-      ],
-    );
+        floatingActionButtonGenerator: (isScrollingDown) =>
+            PadongFloatingButton(
+                onPressAdd: () {
+                  PadongRouter.routeURL('update/id=${this.id}');
+                },
+                isScrollingDown: isScrollingDown),
+        title: 'Schedule',
+        children: [
+          SizedBox(height: 10),
+          Stack(children: [
+            this.eventsButton(),
+            TabContainer(tabWidth: 70.0, tabs: [
+              'Table',
+              'Lecture'
+            ], children: [
+              TimeTable(lectureIds: this.schedule['lectureIds']),
+              BoardListTile(
+                  boardIds: this.schedule['lectureIds'], isLecture: true)
+            ])
+          ]),
+          SizedBox(height: 40),
+          this.todayTimeline()
+        ]);
   }
 
   Widget eventsButton() {
@@ -71,5 +61,25 @@ class ScheduleView extends StatelessWidget {
                   color: AppTheme.colors.support, size: 25),
               onPressed: () => PadongRouter.routeURL('/rail/id=${this.id}')))
     ]);
+  }
+
+  Widget todayTimeline() {
+    List<String> dots = [];
+    List<Map> events = [];
+    for (Map event in this.todayEvents) {
+      for (String time in event['times']) {
+        TimeManager tm = TimeManager.fromString(time);
+        if (tm.isToday()) {
+          dots.add(tm.time);
+          events.add(event);
+        }
+      }
+    }
+    return VerticalTimeline(
+        date: TimeManager.todayString(),
+        dots: dots,
+        cards: [
+          ...events.map((event) => [TimelineCard(event)])
+        ]);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/inputs/list_picker.dart';
 
 class TimeListPicker extends StatelessWidget {
@@ -20,15 +21,9 @@ class TimeListPicker extends StatelessWidget {
 
   List<List> getHourNMinute() {
     return [
-      List.generate(24, this.numFormatting),
+      List.generate(24, TimeManager.formatHM),
       List.generate(
-          60 ~/ this.minuteGap, (m) => this.numFormatting(m * this.minuteGap))
+          60 ~/ this.minuteGap, (m) => TimeManager.formatHM(m * this.minuteGap))
     ];
-  }
-
-  String numFormatting(int num) {
-    String numStr = num.toString();
-    if (numStr.length != 2) numStr = '0' + numStr;
-    return numStr;
   }
 }

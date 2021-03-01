@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/cards/base_card.dart';
 import 'package:padong/ui/widgets/node_base.dart';
 
@@ -24,17 +25,11 @@ class HistoryCard extends NodeBase {
   Widget time() {
     DateTime created = this.node['createdAt'];
     String time =
-        '${this.numFormatting(created.hour)}:${this.numFormatting(created.minute)}:${this.numFormatting(created.second)}';
+        '${TimeManager.formatHM(created.hour)}:${TimeManager.formatHM(created.minute)}:${TimeManager.formatHM(created.second)}';
     return Text(time,
         style: AppTheme.getFont(
             color: AppTheme.colors.semiSupport,
             fontSize: AppTheme.fontSizes.small));
-  }
-
-  String numFormatting(int num) {
-    String numStr = num.toString();
-    if (numStr.length != 2) numStr = '0' + numStr;
-    return numStr;
   }
 
   @override

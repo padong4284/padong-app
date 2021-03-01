@@ -7,10 +7,7 @@ import 'package:padong/ui/widgets/cards/event_card.dart';
 class LectureCard extends EventCard {
   final bool isToReview;
 
-  LectureCard(
-    id, {
-    this.isToReview = false,
-  }) : super(id, isLecture: true);
+  LectureCard(id, {this.isToReview = false}) : super(id, isLecture: true);
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +17,15 @@ class LectureCard extends EventCard {
             ? () => PadongRouter.routeURL('/review/id=${this.id}')
             : null,
         children: [
-          this.getTimeRange(),
+          this.timeRange(),
           Padding(
               padding: const EdgeInsets.only(top: 12, bottom: 15),
               child: StarRateButton(
                 rate: this.event['rate'],
                 disable: true,
               )),
-          ...this.getInfoList(['professor', 'room', 'grade', 'exam'] + (this.isToReview ? [] : ['attendance', 'book'])),
+          ...this.infoList(['professor', 'room', 'grade', 'exam'] +
+              (this.isToReview ? [] : ['attendance', 'book'])),
         ]);
   }
 }

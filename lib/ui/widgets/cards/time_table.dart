@@ -42,7 +42,7 @@ class _TimeTableState extends State<TimeTable> {
     this.endHour = 16;
     for (Map<String, dynamic> lecture in widget.lectures) {
       for (String time in lecture['times']) {
-        TimeManager tm = TimeManager.dayNRange(time);
+        TimeManager tm = TimeManager.fromString(time);
         this.lectureTimes.add([lecture['id'], lecture['title'], tm]);
         this.startHour = min(this.startHour, tm.hour);
         this.endHour = max(this.startHour, tm.hour + 1 + tm.dMin ~/ 60);

@@ -8,10 +8,21 @@ class TimeManager {
   List<int> startT;
 
   int dMin;
+  int get year => this.dateTime.year;
+  int get month => this.dateTime.month;
   int get day => this.dateTime.day;
   int get hour => this.dateTime.hour;
   int get minute => this.dateTime.minute;
   int get weekday => this.dateTime.weekday;
+  String get date => formatDate(this.dateTime);
+  String get time => '${formatHM(this.hour)}:${formatHM(this.minute)}';
+  String get range => this.dr[1];
+
+  static TimeManager fromString(String time) {
+    if (num.tryParse(time.split(' | ')[0][0]) != null)
+      return TimeManager.dateNRange(time);
+    return TimeManager.dayNRange(time);
+  }
 
   TimeManager.dayNRange(String dayTimeRange) {
     /// WD | HH:MM ~ HH:MM
@@ -61,16 +72,24 @@ class TimeManager {
     this.dMin = (endT[0] - this.startT[0]) * 60 + endT[1] - this.startT[1];
   }
 
-  String getDate() {
-    return _formatDateString(this.dateTime);
+  void setThisMonday() {
+    DateTime now = DateTime.now();
+    this.thisMon = DateTime(now.year, now.month, now.day - (now.weekday - 1));
   }
 
-  static String _formatDateString(DateTime dt) {
-    return '${dt.month}/${dt.day}/${dt.year}';
+  bool isToday() {
+    DateTime now = DateTime.now();
+    return (now.year == this.year) &&
+        (now.month == this.month) &&
+        (now.day == this.day);
+  }
+
+  static String formatDate(DateTime dt) {
+    return '${formatHM(dt.month)}/${formatHM(dt.day)}/${dt.year}';
   }
 
   static String todayString() {
-    return _formatDateString(DateTime.now());
+    return formatDate(DateTime.now());
   }
 
   static String todayWeekday() {
@@ -78,8 +97,27 @@ class TimeManager {
     return ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][now.weekday];
   }
 
-  void setThisMonday() {
-    DateTime now = DateTime.now();
-    this.thisMon = DateTime(now.year, now.month, now.day - (now.weekday - 1));
+  static String formatHM(int hm) {
+    String numStr = hm.toString();
+    if (numStr.length != 2) numStr = '0' + numStr;
+    return numStr;
+  }
+
+  static List<List<String>> summaryTimes(List<String> times, bool showWeekday) {
+    /// 1st, time range equality
+    /// 2nd, date equality
+    Map<String, List> ranges = {};
+    List<TimeManager> tms =
+        times.map((t) => TimeManager.fromString(t)).toList();
+    for (TimeManager tm in tms) {
+      ranges[tm.range] = (ranges[tm.range] ?? []) +
+          [showWeekday ? WEEKDAYS[tm.weekday] : tm.date.substring(0, 5)];
+    }
+    List<List<String>> summary = [];
+    for(String range in ranges.keys) {
+      String temp = ranges[range].toString();
+      summary.add([range, temp.substring(1, temp.length-1)]);
+    }
+    return summary;
   }
 }

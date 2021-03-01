@@ -5,23 +5,23 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
 import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
 
-class AskView extends StatelessWidget {
-  final String lectureId;
-  final Map<String, dynamic> lecture;
+class MemoView extends StatelessWidget {
+  final String eventId;
+  final Map<String, dynamic> event;
 
-  AskView(lectureId)
-      : this.lectureId = lectureId,
-        this.lecture = getLectureAPI(lectureId);
+  MemoView(eventId)
+      : this.eventId = eventId,
+        this.event = getEventAPI(eventId);
 
   @override
   Widget build(BuildContext context) {
     return MarkdownEditorTemplate(
-      editTxt: 'ask',
-      titleHint: 'Title of Question',
-      contentHint: QuestionHint,
+      editTxt: 'memo',
+      titleHint: 'Title of Memo',
+      contentHint: MemoHint,
       withAnonym: true,
       topArea: this.lectureInfo(),
-      onSubmit: this.createQuestion,
+      onSubmit: this.createMemo,
     );
   }
 
@@ -36,28 +36,25 @@ class AskView extends StatelessWidget {
               color: AppTheme.colors.primary,
               borderRadius: BorderRadius.circular(15)),
           child: Text(
-            this.lecture['title'],
+            this.event['title'],
             style: AppTheme.getFont(color: AppTheme.colors.base),
           )),
       Text(
-        this.lecture['professor'],
+        this.event['periodicity'],
         style: AppTheme.getFont(isBold: true),
       )
     ]);
   }
 
-  void createQuestion(Map data) {
-    data['parentId'] = this.lectureId;
+  void createMemo(Map data) {
+    data['parentId'] = this.eventId;
     data['isAnonym'] = TipInfo.isAnonym;
     createPostAPI(data);
   }
 }
 
-const String QuestionHint = """You can ask anything!
-Question is always Public.
+const String MemoHint = """You can memo anything!
+Memo is always Internal.
 
-Anyone can see your Question,
-and Everyone can help you.
-
-Ask Freely! It's Free!
+only you and your friends can read and write!
 """;

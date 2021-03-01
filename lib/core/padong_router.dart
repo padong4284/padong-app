@@ -10,6 +10,7 @@ import 'package:padong/ui/views/deck/write_view.dart';
 import 'package:padong/ui/views/schedule/ask_view.dart';
 import 'package:padong/ui/views/schedule/event_view.dart';
 import 'package:padong/ui/views/schedule/lecture_view.dart';
+import 'package:padong/ui/views/schedule/memo_view.dart';
 import 'package:padong/ui/views/schedule/rail_view.dart';
 import 'package:padong/ui/views/schedule/review_view.dart';
 import 'package:padong/ui/views/schedule/update_view.dart';
@@ -89,6 +90,8 @@ class PadongRouter {
                 eventId: args['eventId'], lectureId: args['lectureId']));
       case '/ask':
         return slideRouter(pageBuilder: (_, __, ___) => AskView(args['id']));
+      case '/memo':
+        return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['id']));
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());

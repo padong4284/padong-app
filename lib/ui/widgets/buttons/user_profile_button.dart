@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
@@ -25,9 +26,7 @@ class UserProfileButton extends StatelessWidget {
 
   Widget _buildUserIconButton() {
     return InkWell(
-        onTap: () {
-          // TODO: routing to userprofile page
-        },
+        onTap: () => PadongRouter.routeURL('profile/id=${this.id}'),
         child: Stack(children: [
           Icon(
             Icons.account_circle_rounded,

@@ -49,12 +49,14 @@ class MainView extends StatelessWidget {
         SizedBox(
             width: 32.0,
             child: IconButton(
-              onPressed: () => PadongRouter.routeURL('/chats'),
+                onPressed: () => PadongRouter.routeURL('/chats'),
                 icon:
                     Icon(Icons.mode_comment, color: AppTheme.colors.support))),
         SizedBox(
             width: 32.0,
             child: IconButton(
+                onPressed: () =>
+                    PadongRouter.routeURL('/profile/id=${Session.user['id']}'),
                 icon: Icon(Icons.account_circle,
                     color: AppTheme.colors.support))),
         SizedBox(width: AppTheme.horizontalPadding)

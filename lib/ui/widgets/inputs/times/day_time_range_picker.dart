@@ -27,7 +27,7 @@ class DayTimeRangePicker extends TimeRangePicker {
       ],
       initIdxs: [0, ...this.getInitIdxs()],
       separators: [' | ', ':', ' ', ' ', ':'],
-      titles: [' ', 'Start', ' ', 'Finish'],
+      titles: [' ', 'Start', ' ', 'End'],
     );
   }
 }

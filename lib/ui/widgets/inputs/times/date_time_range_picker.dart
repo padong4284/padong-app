@@ -26,7 +26,7 @@ class DateTimeRangePicker extends TimeRangePicker {
       lists: [...this.getTimeRange()],
       initIdxs: [...this.getInitIdxs()],
       separators: [':', ' ', ' ', ':'],
-      titles: ['Start', ' ', 'Finish'],
+      titles: ['Start', ' ', 'End'],
       beforePick: this.pickDate,
     );
   }

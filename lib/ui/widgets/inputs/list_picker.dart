@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:padong/core/padong_router.dart';
+import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
+
+final hPadding = AppTheme.horizontalPadding + 20;
 
 class ListPicker extends StatefulWidget {
   final String hintText;
@@ -14,8 +19,7 @@ class ListPicker extends StatefulWidget {
   final Function beforePick;
   final TextEditingController controller;
 
-  ListPicker(
-      this.controller,
+  ListPicker(this.controller,
       {this.hintText,
       @required List list,
       String title,
@@ -30,8 +34,7 @@ class ListPicker extends StatefulWidget {
         this.separators = null,
         this.titles = [title];
 
-  ListPicker.multiple(
-      this.controller,
+  ListPicker.multiple(this.controller,
       {this.hintText,
       @required List<List> lists,
       List<String> separators,
@@ -96,10 +99,10 @@ class _ListPickerState extends State<ListPicker> {
         context: context,
         builder: (_) => Stack(children: [
               Container(
-                  height: 250,
+                  height: 250.0 + (widget.titles.length > 0 ? 50 : 0),
                   color: AppTheme.colors.base,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppTheme.horizontalPadding),
+                  padding:
+                      EdgeInsets.only(top: 40, left: hPadding, right: hPadding),
                   child: Row(
                     children: List.generate(
                         len,
@@ -120,18 +123,42 @@ class _ListPickerState extends State<ListPicker> {
                               },
                             ))), // Add other Lists
                   )),
-              this.titleArea()
+              this.topArea()
             ]));
+  }
+
+  Widget topArea() {
+    return Stack(children: [
+      Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TranspButton(
+                  title: 'CANCEL',
+                  buttonSize: ButtonSize.LARGE,
+                  callback: () {
+                    widget.controller.text = '';
+                    PadongRouter.goBack();
+                  }),
+              TranspButton(
+                  title: 'OK',
+                  buttonSize: ButtonSize.LARGE,
+                  callback: () => PadongRouter.goBack())
+            ],
+          )),
+      widget.titles.length > 0
+          ? Padding(
+              padding: const EdgeInsets.only(top: 45), child: this.titleArea())
+          : SizedBox.shrink()
+    ]);
   }
 
   Widget titleArea() {
     return Container(
-        height: 50,
+        height: 40,
         color: AppTheme.colors.base,
-        padding: const EdgeInsets.only(
-            top: 10,
-            left: AppTheme.horizontalPadding,
-            right: AppTheme.horizontalPadding),
+        padding: EdgeInsets.only(bottom: 10, left: hPadding, right: hPadding),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: widget.titles
@@ -139,7 +166,7 @@ class _ListPickerState extends State<ListPicker> {
                 .map((title) => Text(
                       title,
                       style: AppTheme.getFont(
-                          color: AppTheme.colors.primary,
+                          color: AppTheme.colors.semiPrimary,
                           fontSize: AppTheme.fontSizes.large),
                     ))
                 .toList()));

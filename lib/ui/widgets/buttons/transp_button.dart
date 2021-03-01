@@ -12,7 +12,12 @@ class TranspButton extends StatelessWidget {
   final Function callback;
 
   TranspButton(
-      {this.title, @required this.buttonSize, color, this.icon, this.isSuffixICon=false, this.callback})
+      {this.title,
+      this.buttonSize = ButtonSize.REGULAR,
+      color,
+      this.icon,
+      this.isSuffixICon = false,
+      this.callback})
       : this.color = color ?? AppTheme.colors.primary;
 
   final buttonSizes = {
@@ -61,7 +66,6 @@ class TranspButton extends StatelessWidget {
     return Text(this.title ?? '',
         textAlign: TextAlign.left,
         style: AppTheme.getFont(
-            color: this.color,
-            fontSize: buttonProperty.fontSize));
+            color: this.color, fontSize: buttonProperty.fontSize));
   }
 }

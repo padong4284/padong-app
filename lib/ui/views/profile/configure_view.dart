@@ -17,13 +17,18 @@ class ConfigureView extends StatefulWidget {
 
 class _ConfigureViewState extends State<ConfigureView> {
   Map<String, dynamic> user;
-  TextEditingController _univController = TextEditingController();
-  TextEditingController _yearController = TextEditingController();
+  List<TextEditingController> _controllers;
 
   @override
   void initState() {
     super.initState();
     this.user = Session.user;
+    this._controllers = List.generate(7, (_) => TextEditingController());
+    this._controllers[0].text = this.user['username'];
+    this._controllers[3].text = this.user['name'];
+    this._controllers[4].text = this.user['universityName'];
+    this._controllers[5].text = this.user['entranceYear'].toString();
+    this._controllers[6].text = this.user['email'];
   }
 
   @override
@@ -71,25 +76,27 @@ class _ConfigureViewState extends State<ConfigureView> {
             width: MediaQuery.of(context).size.width -
                 2 * (AppTheme.horizontalPadding + 30),
             child: Column(children: [
-              Input(margin: EdgeInsets.only(top: 10.0), hintText: 'ID'),
-              Input(margin: EdgeInsets.only(top: 10.0), hintText: 'Password'),
-              Input(
+              Input(controller: this._controllers[0],
+                  margin: EdgeInsets.only(top: 10.0), hintText: 'ID'),
+              Input(controller: this._controllers[1],
+                  margin: EdgeInsets.only(top: 10.0), hintText: 'Password'),
+              Input(controller: this._controllers[2],
                   margin: EdgeInsets.only(top: 10.0),
                   hintText: 'Repeat Password'),
-              Input(
+              Input(controller: this._controllers[3],
                   margin: EdgeInsets.only(top: 20.0 + paddingBottom),
                   hintText: 'Name'),
-              ListPicker(this._univController,
+              ListPicker(this._controllers[4],
                   margin: EdgeInsets.only(top: 10.0),
                   hintText: 'University',
                   list: ['Georgia Tech']),
-              ListPicker(
-                this._yearController,
+              ListPicker(this._controllers[5],
                 margin: EdgeInsets.only(top: 10.0),
                 hintText: 'Entrance Year',
                 list: List.generate(10, (y) => 2021 - y),
               ),
-              Input(margin: EdgeInsets.only(top: 10.0), hintText: 'Email'),
+              Input(controller: this._controllers[6],
+                  margin: EdgeInsets.only(top: 10.0), hintText: 'Email'),
               Container(
                   height: 40,
                   alignment: Alignment.center,

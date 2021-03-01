@@ -126,10 +126,12 @@ Map<String, dynamic> getUserAPI(String id) {
   return {
     'id': id,
     'username': 'kodw0402',
+    'name': 'Daewoong Ko',
     'univId': 'univ009',
     'isVerified': true,
     'universityName': "Georgia Tech",
     'entranceYear': 2017,
+    'email': 'kod0402@gatech.edu',
     'profileImgURL':
         'https://avatars.githubusercontent.com/u/36005723?s=460&u=49590ea0e7bb1936d515ed627867e8ca217b145b&v=4',
     'friends': List.generate(15, (i) => 'u009002' + i.toString()),

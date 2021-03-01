@@ -113,11 +113,9 @@ class PadongRouter {
         return slideRouter(
             pageBuilder: (_, __, ___) => ProfileView(args['id']), direction: 1);
       case '/configure':
-        return slideRouter(
-            pageBuilder: (_, __, ___) => ConfigureView());
+        return fadeRouter(pageBuilder: (_, __, ___) => ConfigureView());
       case '/friends':
-        return sizeRouter(
-            pageBuilder: (_, __, ___) => FriendsView(args['id']));
+        return sizeRouter(pageBuilder: (_, __, ___) => FriendsView(args['id']));
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
@@ -184,6 +182,23 @@ class PadongRouter {
         ) =>
             Align(
               child: SizeTransition(sizeFactor: animation, child: child),
+            ));
+  }
+
+  static PageRouteBuilder fadeRouter({
+    Function(BuildContext, Animation<double>, Animation<double>) pageBuilder,
+  }) {
+    return PageRouteBuilder(
+        pageBuilder: pageBuilder,
+        transitionsBuilder: (
+          BuildContext _,
+          Animation<double> animation,
+          Animation<double> __,
+          Widget child,
+        ) =>
+            FadeTransition(
+              opacity: animation,
+              child: child,
             ));
   }
 }

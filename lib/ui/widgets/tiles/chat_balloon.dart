@@ -1,43 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class ChatBalloon extends StatelessWidget {
-  final String id;
+  final bool isMine;
   final bool hideTimestamp;
   final bool hideSender;
   final Map<String, dynamic> chatMsg;
 
-  ChatBalloon(id, {this.hideTimestamp = false, this.hideSender = false})
-      : this.id = id,
-        this.chatMsg = getMessageAPI(id);
+  ChatBalloon(Map<String, dynamic> chatMsg,
+      {Map<String, dynamic> prev, Map<String, dynamic> next})
+      : this.chatMsg = chatMsg,
+        this.isMine = Session.user['id'] == chatMsg['ownerId'],
+        this.hideTimestamp = checkHideTimestamp(chatMsg, next),
+        this.hideSender = checkHideSender(prev, chatMsg);
 
   @override
   Widget build(BuildContext context) {
-    bool isMine = false; // TODO: check owner == me
-    List<Widget> message = [this.messageBox(isMine)];
-    if (!this.hideTimestamp) message.add(this.timestamp(isMine));
+    List<Widget> message = [this.messageBox(this.isMine)];
+    if (!this.hideTimestamp) message.add(this.timestamp(this.isMine));
     return Container(
+        padding: EdgeInsets.only(top: this.hideSender ? 0 : 10),
         child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment:
-                isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+                this.isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
-          isMine ? SizedBox.shrink() : this.sender(),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            isMine || this.hideSender
-                ? SizedBox.shrink()
-                : Text(
-                    this.chatMsg['ownerUsername'],
-                    style:
-                        AppTheme.getFont(color: AppTheme.colors.fontPalette[1]),
-                  ),
-            Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [...(isMine ? message.reversed : message)])
-          ])
-        ]));
+              this.isMine ? SizedBox.shrink() : this.sender(),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                this.isMine || this.hideSender
+                    ? SizedBox.shrink()
+                    : Text(
+                        this.chatMsg['username'],
+                        style: AppTheme.getFont(
+                            color: AppTheme.colors.fontPalette[1]),
+                      ),
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [...(this.isMine ? message.reversed : message)])
+              ])
+            ]));
   }
 
   Widget messageBox(bool isMine) {
@@ -79,5 +83,15 @@ class ChatBalloon extends StatelessWidget {
         child: this.hideSender
             ? SizedBox(width: 40)
             : UserProfileButton(this.chatMsg['ownerId'], size: 40));
+  }
+
+  static bool checkHideTimestamp(Map cur, Map next) {
+    return next != null
+        ? TimeManager.isSameYMDHM(cur['createdAt'], next['createdAt'])
+        : false;
+  }
+
+  static bool checkHideSender(Map prev, Map cur) {
+    return prev != null ? prev['ownerId'] == cur['ownerId'] : false;
   }
 }

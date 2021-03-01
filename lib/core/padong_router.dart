@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/ui/views/chat/chat_view.dart';
+import 'package:padong/ui/views/chat/chat_room_view.dart';
+import 'package:padong/ui/views/chat/chats_view.dart';
 import 'package:padong/ui/views/cover/compare_view.dart';
 import 'package:padong/ui/views/cover/edit_view.dart';
 import 'package:padong/ui/views/cover/wiki_view.dart';
@@ -92,6 +95,15 @@ class PadongRouter {
         return slideRouter(pageBuilder: (_, __, ___) => AskView(args['id']));
       case '/memo':
         return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['id']));
+
+      case '/chats':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => ChatsView(), direction: 1);
+      case '/chat_room':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => ChatRoomView(args['id']), direction: 2);
+      case '/chat':
+        return slideRouter(pageBuilder: (_, __, ___) => ChatView());
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());

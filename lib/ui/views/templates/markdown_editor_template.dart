@@ -12,8 +12,6 @@ import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/widgets/inputs/markdown_supporter.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
-const List<String> PIPs = ['Public', 'Internal', 'Private'];
-
 class MarkdownEditorTemplate extends StatefulWidget {
   final List<Widget> children;
   final bool withAnonym;

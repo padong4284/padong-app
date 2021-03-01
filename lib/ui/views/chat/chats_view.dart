@@ -21,9 +21,7 @@ class ChatsView extends StatelessWidget {
           isScrollingDown: isScrollingDown, bottomPadding: 40),
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
           title: 'Chat',
-          onTap: () {
-            PadongRouter.routeURL('/chat');
-          },
+          onTap: () => PadongRouter.routeURL('/chat'),
           isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: 'Chats', actions: [
         IconButton(

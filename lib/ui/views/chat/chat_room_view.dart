@@ -18,6 +18,7 @@ class ChatRoomView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    updateChatRoomAPI(this.id); // unread = 0
     List<Widget> msgs = [];
     List<Map> messages = this.chatRoom['messages'].reversed.toList();
     for (int i = 0; i < messages.length; i++) {

@@ -14,14 +14,21 @@ List<String> getChatRoomIdsAPI() {
 Map<String, dynamic> getChatRoomAPI(String chatRoomId) {
   return {
     'title': 'ChatRoom',
-    'ownerId': 'u00900',
-    'parentId': 'u00900',
+    'ownerId': 'u009003',
+    'parentId': 'u009003', // it can be different when owner get out
     'description': 'thi is the chat room!',
     'createdAt': DateTime.now(),
     'pip': PIP.PRIVATE,
-    'participants': ['u00900', 'u00901'],
+    'unreads' : 1,
+    'participants': ['u0090013', 'u009003'],
     'messages': [
       // sorted by createdAt recent -> old
+      {
+        'ownerId': 'u0090013',
+        'username': 'tae7130',
+        'message': 'This message from other',
+        'createdAt': DateTime(2021, 3, 1, 14, 58)
+      },
       {
         'ownerId': 'u009003',
         'username': 'kodw0402',
@@ -65,4 +72,8 @@ void creatChatRoomAPI(data) {
   data['ownerId'] = Session.user['id'];
   data['createdAt'] = DateTime.now();
   print(data);
+}
+
+void updateChatRoomAPI(String chatRoomId) {
+  // TODO: set unreads = 0
 }

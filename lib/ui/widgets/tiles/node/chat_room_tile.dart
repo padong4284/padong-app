@@ -1,32 +1,18 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/chat.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
-Random rand = Random();
-
-List<String> getParticipantAPI(String chatRoomId) {
-  return ['jtj0321', 'kdw0402', 'hsb0422', 'khs0502'].sublist(rand.nextInt(4));
-}
-
-String getLastMessageAPI(String chatRoomId) {
-  return "It's Last Message of this chat room. If you want to read, click it!";
-}
-
-int getUnreadAPI(String chatRoomId) {
-  return int.parse(chatRoomId.substring(1)) % 2 > 0 ? 5 : 0;
-}
-
 class ChatRoomTile extends NodeBaseTile {
   final String id;
-  final List<String> participants;
+  final Map<String, dynamic> chatRoom;
 
   ChatRoomTile(chatRoomId)
       : this.id = chatRoomId,
-        this.participants = getParticipantAPI(chatRoomId),
+        this.chatRoom = getChatRoomAPI(chatRoomId),
         super(chatRoomId);
 
   @override
@@ -34,8 +20,10 @@ class ChatRoomTile extends NodeBaseTile {
 
   @override
   Widget profile() {
-    List<String> others =
-        this.participants.where((id) => id != Session.user['id']).toList();
+    List<String> others = this
+        .chatRoom['participants']
+        .where((id) => id != Session.user['id'])
+        .toList();
     int len = others.length;
     double size = len > 2 ? 20.0 : (55.0 - len * 15);
     others += [null, null, null];
@@ -57,37 +45,33 @@ class ChatRoomTile extends NodeBaseTile {
   Widget profileLine(List<String> users, double size, MainAxisAlignment align) {
     return Container(
         width: 40,
-        child: Row(
-          mainAxisAlignment: align,
-          children: [
-            users[0] != null
-                ? UserProfileButton(users[0], size: size)
-                : SizedBox.shrink(),
-            users[1] != null
-                ? UserProfileButton(users[1], size: size)
-                : SizedBox.shrink(),
-          ],
-        ));
+        child: Row(mainAxisAlignment: align, children: [
+          users[0] != null
+              ? UserProfileButton(users[0], size: size)
+              : SizedBox.shrink(),
+          users[1] != null
+              ? UserProfileButton(users[1], size: size)
+              : SizedBox.shrink(),
+        ]));
   }
 
   @override
   Widget topText() {
-    return Text(
-        this.participants.where((id) => id != Session.user['id']).join(', '),
+    return Text(this.chatRoom['title'],
         overflow: TextOverflow.ellipsis,
         style: AppTheme.getFont(color: AppTheme.colors.semiSupport));
   }
 
   @override
   Widget followText() {
-    return Text(getLastMessageAPI(this.id),
+    return Text(this.chatRoom['messages'][0]['message'],
         overflow: TextOverflow.ellipsis,
         style: AppTheme.getFont(color: AppTheme.colors.support));
   }
 
   @override
   Widget bottomArea() {
-    int unread = getUnreadAPI(this.id);
+    int unread = this.chatRoom['unreads'];
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       SizedBox.shrink(),
       unread > 0

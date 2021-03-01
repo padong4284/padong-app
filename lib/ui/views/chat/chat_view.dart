@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/chat.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/core/models/pip.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -91,11 +92,14 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void onTabOk() {
+    List<String> participants = this.invites + [Session.user['id']];
     Map<String, dynamic> data = {
       'parentId': Session.user['id'],
-      'title': this._titleController.text,
+      'title': this._titleController.text.length > 0
+          ? this._titleController.text
+          : participants.map((id) => getUserAPI(id)['username']).join(', '),
       'description': this._contentController.text,
-      'participant': this.invites + [Session.user['id']],
+      'participants': participants,
       'pip': [PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE][this.pipIdx],
     };
     creatChatRoomAPI(data);

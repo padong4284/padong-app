@@ -21,7 +21,7 @@ class MarkdownSupporter extends StatelessWidget {
           height: 38,
           child: Row(children: [
             TranspButton(
-                callback: this.addPhoto(context),
+                callback: this.addPhotoFunction(context),
                 buttonSize: ButtonSize.GIANT,
                 icon: Icon(Icons.photo_camera_rounded,
                     size: 30, color: AppTheme.colors.support)),
@@ -34,7 +34,7 @@ class MarkdownSupporter extends StatelessWidget {
         ));
   }
 
-  Function addPhoto(context) {
+  Function addPhotoFunction(context) {
     return getImageFromUser(context, (PickedFile image) {
       this._mdController.text += '![IMAGE](' + image.path + ')';
       // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart

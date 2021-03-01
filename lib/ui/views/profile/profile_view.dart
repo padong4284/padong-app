@@ -21,8 +21,7 @@ class ProfileView extends StatefulWidget {
 
   ProfileView(String id)
       : this.id = id,
-        this.isMine = false,
-        // Session.user['id'] == id,
+        this.isMine = Session.user['id'] == id,
         this.user = getUserAPI(id);
 
   _ProfileViewState createState() => _ProfileViewState();
@@ -126,7 +125,8 @@ class _ProfileViewState extends State<ProfileView> {
         icon: this.relation % 2 == 0
             ? Padding(
                 padding: const EdgeInsets.only(right: 5),
-                child: Icon([
+                child: Icon(
+                    [
                       Icons.check_rounded,
                       Icons.close_rounded
                     ][this.relation ~/ 2],

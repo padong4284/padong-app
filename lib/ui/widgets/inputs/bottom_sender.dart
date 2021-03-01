@@ -60,14 +60,14 @@ class BottomSender extends StatelessWidget {
               margin: const EdgeInsets.only(
                   left: AppTheme.horizontalPadding - 2, top: 7),
               child: IconButton(
-                  onPressed: this.addPhoto(context),
+                  onPressed: this.addPhotoFunction(context),
                   icon: Icon(Icons.photo_camera_rounded,
                       size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()
     ]);
   }
 
-  Function addPhoto(context) {
+  Function addPhotoFunction(context) {
     return getImageFromUser(context, (PickedFile image) {
       // https://github.com/ptyagicodecamp/flutter_cookbook/blob/widgets/flutter_widgets/lib/images/upload_image.dart
       // TODO: upload to firebase

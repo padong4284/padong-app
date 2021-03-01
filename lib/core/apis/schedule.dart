@@ -97,6 +97,8 @@ List<String> getEventIdsAPI(String scheduleId) {
   return ['e009000', 'e009001', 'e009002', 'e009003', 'e009004'];
 }
 
+void updateEventAPI(Map data) => createEventAPI(data);
+
 void createEventAPI(Map data){
   data['ownerId'] = Session.user['id'];
   data['createdAt'] = DateTime.now();

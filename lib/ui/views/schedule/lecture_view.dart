@@ -33,11 +33,15 @@ class LectureView extends StatelessWidget {
           isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.lecture['title'], actions: [
         IconButton(
-            icon: Icon(Icons.mode_comment_outlined, color: AppTheme.colors.support),
+            icon: Icon(Icons.mode_comment_outlined,
+                color: AppTheme.colors.support),
             onPressed: () {}), // TODO: route to chat
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-            onPressed: () {}) // TODO: more dialog
+            onPressed: () {
+              PadongRouter.routeURL(
+                  '/update/id=${this.lecture['parentId']}&lectureId=${this.id}');
+            }) // TODO: more dialog
       ]),
       children: [
         Padding(

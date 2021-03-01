@@ -33,7 +33,10 @@ class EventView extends StatelessWidget {
       appBar: BackAppBar(title: this.event['title'], actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-            onPressed: () {}) // TODO: more dialog
+            onPressed: () {
+              PadongRouter.routeURL(
+                  '/update/id=${this.event['parentId']}&eventId=${this.id}');
+            }) // TODO: more dialog
       ]),
       children: [
         Padding(

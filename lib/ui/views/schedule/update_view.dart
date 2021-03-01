@@ -14,12 +14,17 @@ import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 
-const List<String> routines = ['Annually', 'Monthly', 'Weekly'];
+const List<String> ROUTINES = ['Annually', 'Monthly', 'Weekly'];
 
 class UpdateView extends StatefulWidget {
-  final String id;
+  final String id; // scheduleId
+  final String eventId;
+  final String lectureId;
+  final bool isEditing;
 
-  UpdateView(this.id);
+  UpdateView(this.id, {this.eventId, this.lectureId})
+      : assert((eventId == null) || (lectureId == null)),
+        this.isEditing = (eventId != null) || (lectureId != null);
 
   @override
   _UpdateViewState createState() => _UpdateViewState();
@@ -28,6 +33,7 @@ class UpdateView extends StatefulWidget {
 class _UpdateViewState extends State<UpdateView> {
   String routine;
   bool isLecture = false;
+  int initRoutine = -1;
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentController = TextEditingController();
   TextEditingController _professorController = TextEditingController();
@@ -40,6 +46,9 @@ class _UpdateViewState extends State<UpdateView> {
     super.initState();
     for (String info in ['Room', 'Grade', 'Exam', 'Attendance', 'Book'])
       this._lectureInfoControllers[info] = TextEditingController();
+    if (widget.lectureId != null)
+      this.editLecture();
+    else if (widget.eventId != null) this.editEvent();
   }
 
   @override
@@ -47,7 +56,7 @@ class _UpdateViewState extends State<UpdateView> {
     return SafePaddingTemplate(
         appBar: BackAppBar(
             isClose: true,
-            switchButton: this.lectureSwitch(),
+            switchButton: widget.isEditing ? null : this.lectureSwitch(),
             actions: [
               Button(
                   title: 'Ok',
@@ -69,17 +78,7 @@ class _UpdateViewState extends State<UpdateView> {
           ...(this.isLecture ? [] : []),
           SizedBox(height: 40),
           TitleHeader('Time', isInputHead: true),
-          ...(this.routine == routines[2] || this.isLecture
-              ? [
-                  new AppendingInput(this._timeController,
-                      input: (ctrl) => DayTimeRangePicker(ctrl)),
-                  SizedBox.shrink()
-                ]
-              : [
-                  SizedBox.shrink(),
-                  new AppendingInput(this._timeController,
-                      input: (ctrl) => DateTimeRangePicker(ctrl))
-                ]),
+          ...this.timeInput(),
           ...this.bottomInputs()
         ]);
   }
@@ -97,21 +96,37 @@ class _UpdateViewState extends State<UpdateView> {
 
   Widget topArea() {
     return Container(
-        height: 55,
-        alignment: Alignment.centerLeft,
-        child: this.isLecture
-            ? Input(
-                hintText: 'Professor', controller: this._professorController)
-            : SwitchButton(
-                options: routines,
-                buttonType: SwitchButtonType.SHADOW,
-                initIdx: -1,
-                cancelAble: true,
-                onChange: (String selected) {
-                  setState(() {
-                    this.routine = selected;
-                  });
-                }));
+      height: 55,
+      alignment: Alignment.centerLeft,
+      child: this.isLecture
+          ? Input(hintText: 'Professor', controller: this._professorController)
+          : SwitchButton(
+              options: ROUTINES,
+              buttonType: SwitchButtonType.SHADOW,
+              initIdx: this.initRoutine,
+              cancelAble: true,
+              onChange: (String selected) {
+                setState(() {
+                  this.routine = selected;
+                });
+              }),
+    );
+  }
+
+  List<Widget> timeInput() {
+    return this.routine == ROUTINES[2] || this.isLecture
+        ? [
+            AppendingInput(this._timeController,
+                initialized: widget.isEditing,
+                input: (ctrl) => DayTimeRangePicker(ctrl)),
+            SizedBox.shrink()
+          ]
+        : [
+            SizedBox.shrink(),
+            AppendingInput(this._timeController,
+                initialized: widget.isEditing,
+                input: (ctrl) => DateTimeRangePicker(ctrl))
+          ];
   }
 
   List<Widget> bottomInputs() {
@@ -133,6 +148,26 @@ class _UpdateViewState extends State<UpdateView> {
     ];
   }
 
+  void editEvent() {
+    Map event = getEventAPI(widget.eventId);
+    this._titleController.text = event['title'];
+    this._contentController.text = event['description'];
+    this.initRoutine = ROUTINES.indexOf(event['periodicity']);
+    this._timeController.list = event['times'];
+    this._alertController.list = event['alerts'];
+  }
+
+  void editLecture() {
+    this.isLecture = true;
+    Map lecture = getLectureAPI(widget.lectureId);
+    this._titleController.text = lecture['title'];
+    this._contentController.text = lecture['description'];
+    this._professorController.text = lecture['professor'];
+    this._timeController.list = lecture['times'];
+    for (String info in ['Room', 'Grade', 'Exam', 'Attendance', 'Book'])
+      this._lectureInfoControllers[info].text = lecture[info];
+  }
+
   void onTabOk() {
     Map data = {
       'title': this._titleController.text,
@@ -147,8 +182,11 @@ class _UpdateViewState extends State<UpdateView> {
       data['periodicity'] = this.routine ?? 'none';
       data['alerts'] = this._alertController.list;
     }
-
-    createEventAPI(data);
+    if (widget.isEditing) {
+      data['id'] = widget.lectureId ?? widget.eventId;
+      updateEventAPI(data);
+    } else
+      createEventAPI(data); // TODO: edit or create
     PadongRouter.goBack();
     // TODO: show dialog or snackBar to alert submit complete
   }

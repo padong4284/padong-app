@@ -81,9 +81,12 @@ class PadongRouter {
         return slideRouter(
             pageBuilder: (_, __, ___) => ReviewView(args['id']), direction: 1);
       case '/rail':
-        return slideRouter(pageBuilder: (_, __, ___) => RailView(args['id']), direction: 1);
+        return slideRouter(
+            pageBuilder: (_, __, ___) => RailView(args['id']), direction: 1);
       case '/update':
-        return slideRouter(pageBuilder: (_, __, ___) => UpdateView(args['id']));
+        return slideRouter(
+            pageBuilder: (_, __, ___) => UpdateView(args['id'],
+                eventId: args['eventId'], lectureId: args['lectureId']));
       case '/ask':
         return slideRouter(pageBuilder: (_, __, ___) => AskView(args['id']));
 

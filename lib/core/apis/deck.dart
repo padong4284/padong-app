@@ -135,6 +135,8 @@ Map<String, dynamic> getUserAPI(String id) {
     'profileImgURL':
         'https://avatars.githubusercontent.com/u/36005723?s=460&u=49590ea0e7bb1936d515ed627867e8ca217b145b&v=4',
     'friends': List.generate(15, (i) => 'u009002' + i.toString()),
+    'receives': List.generate(5, (i) => 'u009002' + i.toString()),
+    'sends': List.generate(7, (i) => 'u009002' + i.toString()),
     'writtenIds': List.generate(12, (i) => 'p009002' + i.toString()),
     'myBoards': ['bu0090030', 'bu0090031', 'bu0090032', 'bu0090033'],
     'relationWith': (id) => rand.nextInt(4), // 0: friend, 1: received, 2: send, 3: none

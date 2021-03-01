@@ -101,6 +101,7 @@ class _ProfileViewState extends State<ProfileView> {
             SizedBox(
                 width: 32,
                 child: IconButton(
+                  // TODO: check chatRoom is exists
                     onPressed: () => PadongRouter.routeURL('/chat'),
                     icon: Icon(Icons.mode_comment_outlined,
                         color: AppTheme.colors.support))),

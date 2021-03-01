@@ -20,7 +20,8 @@ Map<String, dynamic> getChatRoomAPI(String chatRoomId) {
     'createdAt': DateTime.now(),
     'pip': PIP.PRIVATE,
     'participants': ['u00900', 'u00901'],
-    'messages': [ // sorted by createdAt recent -> old
+    'messages': [
+      // sorted by createdAt recent -> old
       {
         'ownerId': 'u009003',
         'username': 'kodw0402',
@@ -42,7 +43,8 @@ Map<String, dynamic> getChatRoomAPI(String chatRoomId) {
       {
         'ownerId': 'u0090013',
         'username': 'tae7130',
-        'message': 'This message is long message! very long long more more more!!',
+        'message':
+            'This message is long message! very long long more more more!!',
         'createdAt': DateTime(2021, 3, 1, 14, 51)
       },
       {
@@ -57,4 +59,10 @@ Map<String, dynamic> getChatRoomAPI(String chatRoomId) {
 
 List<String> getFriendIdsAPI() {
   return List.generate(10, (i) => "u0090" + i.toString());
+}
+
+void creatChatRoomAPI(data) {
+  data['ownerId'] = Session.user['id'];
+  data['createdAt'] = DateTime.now();
+  print(data);
 }

@@ -8,23 +8,14 @@ class TimeManager {
   List<int> startT;
 
   int dMin;
-
   int get year => this.dateTime.year;
-
   int get month => this.dateTime.month;
-
   int get day => this.dateTime.day;
-
   int get hour => this.dateTime.hour;
-
   int get minute => this.dateTime.minute;
-
   int get weekday => this.dateTime.weekday;
-
   String get date => formatDate(this.dateTime);
-
   String get time => '${formatHM(this.hour)}:${formatHM(this.minute)}';
-
   String get range => this.dr[1];
 
   static TimeManager fromString(String time) {

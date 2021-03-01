@@ -10,6 +10,7 @@ class FriendTile extends StatelessWidget {
   final String id;
   final Map<String, dynamic> user;
   final FriendTileType type;
+  final bool invited;
   final Function(String id) chatCallback;
   final Function moreCallback;
 
@@ -18,6 +19,7 @@ class FriendTile extends StatelessWidget {
     this.type = FriendTileType.LIST,
     this.chatCallback,
     this.moreCallback,
+    this.invited = false,
   })  : this.id = id,
         this.user = getUserAPI(id);
 
@@ -31,7 +33,7 @@ class FriendTile extends StatelessWidget {
             UserProfileButton(this.user['id'], size: 40),
             SizedBox(width: 10),
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(this.user['username'],
+              Text(this.user['username'] + this.id,
                   style: AppTheme.getFont(
                       color: AppTheme.colors.support,
                       fontSize: AppTheme.fontSizes.mlarge,
@@ -79,13 +81,20 @@ class FriendTile extends StatelessWidget {
               onPressed: this.moreCallback != null ? this.moreCallback : null,
             ))
       ]);
-    return ToggleIconButton(
-        defaultIcon: Icons.mode_comment_outlined,
-        toggleIcon: CustomIcons.chat_checked,
-        defaultColor: AppTheme.colors.support,
-        toggleColor: AppTheme.colors.primary,
-        onPressed: this.chatCallback != null
-            ? () => this.chatCallback(this.id)
-            : null);
+    return SizedBox(
+        width: 25,
+        height: 25,
+        child: IconButton(
+          icon: Icon(
+              this.invited
+                  ? CustomIcons.chat_checked
+                  : Icons.mode_comment_outlined,
+              color: this.invited
+                  ? AppTheme.colors.primary
+                  : AppTheme.colors.support,
+              size: 25),
+          padding: const EdgeInsets.all(0),
+          onPressed: () => this.chatCallback(this.id),
+        ));
   }
 }

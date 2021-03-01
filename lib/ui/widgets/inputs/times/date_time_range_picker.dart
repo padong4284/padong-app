@@ -8,17 +8,20 @@ class DateTimeRangePicker extends TimeRangePicker {
   final int minuteGap;
   final int initStartHour;
   final int initFinishHour;
+  final TextEditingController controller;
 
   DateTimeRangePicker(
+      this.controller,
       {this.hintText = 'Date | Start ~ Finish',
       this.minuteGap = 1,
       this.initStartHour = 0,
       this.initFinishHour = 23})
-      : super(hintText: hintText, minuteGap: minuteGap);
+      : super(controller, hintText: hintText, minuteGap: minuteGap);
 
   @override
   Widget build(BuildContext context) {
     return ListPicker.multiple(
+      this.controller,
       hintText: this.hintText,
       lists: [...this.getTimeRange()],
       initIdxs: [...this.getInitIdxs()],

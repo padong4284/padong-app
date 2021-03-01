@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/schedule.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -29,6 +30,8 @@ class _UpdateViewState extends State<UpdateView> {
   bool isLecture = false;
   TextEditingController _titleController = TextEditingController();
   TextEditingController _contentController = TextEditingController();
+  AppendsController _timeController = AppendsController();
+  AppendsController _alertController = AppendsController();
 
   @override
   void initState() {
@@ -57,22 +60,22 @@ class _UpdateViewState extends State<UpdateView> {
               type: InputType.UNDERLINE),
           Input(
               controller: this._contentController,
-              hintText:
-                  'Plain text Content\nDo not support Markdown\n\n\n\n\n\n',
+              hintText: 'Plain text Content\nNot support Markdown' + '\n' * 6,
               type: InputType.PLAIN),
           ...(this.isLecture ? [] : []),
           SizedBox(height: 40),
           TitleHeader('Time', isInputHead: true),
           ...(this.routine == routines[2] || this.isLecture
               ? [
-                  new AppendingInput(input: () => DayTimeRangePicker()),
+                  new AppendingInput(this._timeController,
+                      input: (ctrl) => DayTimeRangePicker(ctrl)),
                   SizedBox.shrink()
                 ]
               : [
                   SizedBox.shrink(),
-                  new AppendingInput(input: () => DateTimeRangePicker())
+                  new AppendingInput(this._timeController,
+                      input: (ctrl) => DateTimeRangePicker(ctrl))
                 ]),
-          // FIXME: initialize
           ...this.bottomInputs()
         ]);
   }
@@ -83,6 +86,7 @@ class _UpdateViewState extends State<UpdateView> {
         onChange: (String selected) {
           setState(() {
             this.isLecture = selected == 'lecture';
+            this.routine = null;
           });
         });
   }
@@ -115,8 +119,9 @@ class _UpdateViewState extends State<UpdateView> {
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Input(hintText: hint)))
           : [
-              AppendingInput(
-                  input: () => TimeListPicker(hintText: 'Alert', minuteGap: 5))
+              AppendingInput(this._alertController,
+                  input: (ctrl) =>
+                      TimeListPicker(ctrl, hintText: 'Alert', minuteGap: 5))
             ])
     ];
   }
@@ -126,8 +131,13 @@ class _UpdateViewState extends State<UpdateView> {
       'title': this._titleController.text,
       'description': this._contentController.text,
     };
-    if (!this.isLecture) data['periodicity'] = this.routine ?? 'none';
-    // TODO: call create API
+    if (this.isLecture)
+      data['professor'] = '';
+    else
+      data['periodicity'] = this.routine ?? 'none';
+
+    print(this._alertController.getList());
+    createEventAPI(data);
     PadongRouter.goBack();
     // TODO: show dialog or snackBar to alert submit complete
   }

@@ -6,12 +6,15 @@ class TimeListPicker extends StatelessWidget {
   final String hintText;
   final int minuteGap;
   final int initHour;
+  final TextEditingController controller;
 
-  TimeListPicker({this.hintText, this.minuteGap = 1, this.initHour = 8});
+  TimeListPicker(this.controller,
+      {this.hintText, this.minuteGap = 1, this.initHour = 8});
 
   @override
   Widget build(BuildContext context) {
     return ListPicker.multiple(
+      this.controller,
       hintText: this.hintText,
       lists: this.getHourNMinute(),
       initIdxs: [this.initHour, 30 ~/ this.minuteGap],

@@ -12,9 +12,10 @@ class ListPicker extends StatefulWidget {
   final List<String> titles;
   final EdgeInsets margin;
   final Function beforePick;
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
 
   ListPicker(
+      this.controller,
       {this.hintText,
       @required List list,
       String title,
@@ -30,6 +31,7 @@ class ListPicker extends StatefulWidget {
         this.titles = [title];
 
   ListPicker.multiple(
+      this.controller,
       {this.hintText,
       @required List<List> lists,
       List<String> separators,

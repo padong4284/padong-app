@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();
 
@@ -94,4 +95,10 @@ List<String> getReviewIdsAPI(String lectureId) {
 List<String> getEventIdsAPI(String scheduleId) {
   /// sorted by time
   return ['e009000', 'e009001', 'e009002', 'e009003', 'e009004'];
+}
+
+void createEventAPI(Map data){
+  data['ownerId'] = Session.user['id'];
+  data['createdAt'] = DateTime.now();
+  print(data);
 }

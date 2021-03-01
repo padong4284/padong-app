@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
+import 'package:padong/core/apis/session.dart' as Session;
 
 class ChatBalloon extends StatelessWidget {
-  final String id;
   final bool hideTimestamp;
   final bool hideSender;
   final Map<String, dynamic> chatMsg;
 
-  ChatBalloon(id, {this.hideTimestamp = false, this.hideSender = false})
-      : this.id = id,
-        this.chatMsg = getMessageAPI(id);
+  ChatBalloon(this.chatMsg, {this.hideTimestamp = false, this.hideSender = false});
 
   @override
   Widget build(BuildContext context) {
-    bool isMine = false; // TODO: check owner == me
+    bool isMine = Session.user['id'] == this.chatMsg['ownerId']; // TODO: check owner == me
     List<Widget> message = [this.messageBox(isMine)];
     if (!this.hideTimestamp) message.add(this.timestamp(isMine));
     return Container(
@@ -29,7 +26,7 @@ class ChatBalloon extends StatelessWidget {
             isMine || this.hideSender
                 ? SizedBox.shrink()
                 : Text(
-                    this.chatMsg['ownerUsername'],
+                    this.chatMsg['username'],
                     style:
                         AppTheme.getFont(color: AppTheme.colors.fontPalette[1]),
                   ),

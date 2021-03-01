@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/chat.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/models/pip.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
@@ -11,8 +12,6 @@ import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/widgets/tiles/friend_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
 import 'package:padong/core/apis/session.dart' as Session;
-
-const List<String> PIPs = ['Public', 'Internal', 'Private'];
 
 class ChatView extends StatefulWidget {
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
@@ -48,6 +49,7 @@ class MainView extends StatelessWidget {
         SizedBox(
             width: 32.0,
             child: IconButton(
+              onPressed: () => PadongRouter.routeURL('/chats'),
                 icon:
                     Icon(Icons.mode_comment, color: AppTheme.colors.support))),
         SizedBox(

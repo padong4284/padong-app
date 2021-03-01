@@ -1,10 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
+Random rand = Random();
 List<String> getParticipantAPI(String chatRoomId) {
-  return ['jtj0321', 'kdw0402', 'hsb0422', 'khs0502'];
+  return ['jtj0321', 'kdw0402', 'hsb0422', 'khs0502'].sublist(rand.nextInt(4));
 }
 
 String getLastMessageAPI(String chatRoomId) {
@@ -12,7 +15,7 @@ String getLastMessageAPI(String chatRoomId) {
 }
 
 int getUnreadAPI(String chatRoomId) {
-  return int.parse(chatRoomId) % 2 > 0 ? 5 : 0;
+  return int.parse(chatRoomId.substring(1)) % 2 > 0 ? 5 : 0;
 }
 
 class ChatRoomTile extends NodeBaseTile {

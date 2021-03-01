@@ -10,7 +10,7 @@ class FriendTile extends StatelessWidget {
   final String id;
   final Map<String, dynamic> user;
   final FriendTileType type;
-  final Function chatCallback;
+  final Function(String id) chatCallback;
   final Function moreCallback;
 
   FriendTile(
@@ -23,87 +23,69 @@ class FriendTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildCommonFriendTile(this.type == FriendTileType.LIST);
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Row(children: [
+            UserProfileButton(this.user['id'], size: 40),
+            SizedBox(width: 10),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(this.user['username'],
+                  style: AppTheme.getFont(
+                      color: AppTheme.colors.support,
+                      fontSize: AppTheme.fontSizes.mlarge,
+                      isBold: true)),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Padding(
+                    padding: EdgeInsets.only(right: 4.0),
+                    child: Text(this.user['universityName'],
+                        style: AppTheme.getFont(
+                            color: AppTheme.colors.primary,
+                            fontSize: AppTheme.fontSizes.regular))),
+                Padding(
+                    padding: EdgeInsets.only(right: 4.0),
+                    child: Text(this.user['entranceYear'].toString(),
+                        style: AppTheme.getFont(
+                            color: AppTheme.colors.support,
+                            fontSize: AppTheme.fontSizes.regular))),
+                this.user['isVerified']
+                    ? Icon(Icons.verified,
+                        color: AppTheme.colors.semiPrimary, size: 20.0)
+                    : SizedBox.shrink()
+              ])
+            ])
+          ]),
+          this.rightButtons()
+        ]));
   }
 
-  Widget _buildCommonFriendTile(bool isList) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(children: [
-          UserProfileButton(this.user['id']),
-          Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: Text(this.user['username'],
-                          style: AppTheme.getFont(
-                              color: AppTheme.colors.support,
-                              fontSize: AppTheme.fontSizes.large,
-                              isBold: true)),
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                      Padding(
-                          padding: EdgeInsets.only(right: 4.0),
-                          child: Text(this.user['universityName'],
-                              style: AppTheme.getFont(
-                                  color: AppTheme.colors.primary,
-                                  fontSize: AppTheme.fontSizes.mlarge))),
-                      Padding(
-                        padding: EdgeInsets.only(right: 4.0),
-                        child: Text(this.user['entranceYear'].toString(),
-                            style: AppTheme.getFont(
-                                color: AppTheme.colors.support,
-                                fontSize: AppTheme.fontSizes.mlarge)),
-                      ),
-                      this.user['isVerified']
-                          ? Icon(
-                              Icons.verified,
-                              color: AppTheme.colors.semiPrimary,
-                              size: 20.0,
-                            )
-                          : SizedBox.shrink()
-                    ])
-                  ]))
-        ]),
-        Row(children: _buildIcons(isList))
-      ],
-    );
-  }
-
-  List<Widget> _buildIcons(bool isList) {
-    if (isList) {
-      return [
+  Widget rightButtons() {
+    if (this.type == FriendTileType.LIST)
+      return Row(children: [
         SizedBox(
             width: 32.0,
             child: IconButton(
-              icon: Icon(
-                Icons.mode_comment_outlined,
-                color: AppTheme.colors.support,
-              ),
-              onPressed: this.chatCallback,
+              icon: Icon(Icons.mode_comment_outlined,
+                  color: AppTheme.colors.support),
+              onPressed: this.chatCallback != null
+                  ? () => this.chatCallback(this.id)
+                  : null,
             )),
         SizedBox(
             width: 32.0,
             child: IconButton(
-              icon: Icon(
-                Icons.more_horiz,
-                color: AppTheme.colors.support,
-              ),
-              onPressed: this.moreCallback,
+              icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
+              onPressed: this.moreCallback != null ? this.moreCallback : null,
             ))
-      ];
-    }
-    return [
-      ToggleIconButton(
-          defaultIcon: Icons.mode_comment_outlined,
-          toggleIcon: CustomIcons.chat_checked,
-          defaultColor: AppTheme.colors.support,
-          toggleColor: AppTheme.colors.primary,
-          onPressed: this.chatCallback)
-    ];
+      ]);
+    return ToggleIconButton(
+        defaultIcon: Icons.mode_comment_outlined,
+        toggleIcon: CustomIcons.chat_checked,
+        defaultColor: AppTheme.colors.support,
+        toggleColor: AppTheme.colors.primary,
+        onPressed: this.chatCallback != null
+            ? () => this.chatCallback(this.id)
+            : null);
   }
 }

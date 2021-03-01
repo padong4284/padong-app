@@ -8,22 +8,18 @@ class TopBoards extends StatelessWidget {
   final Map<String, dynamic> deck;
   final List<String> topBoards = ['Popular', 'Favorite', 'Inform'];
 
-  TopBoards(deckId): this.deck = getDeckAPI(deckId);
+   TopBoards(deckId): this.deck = getDeckAPI(deckId);
 
   @override
   Widget build(BuildContext context) {
     return TabContainer(
             tabWidth: 80.0,
             tabs: this.topBoards,
-            moreIds: this
-                .topBoards
-                .map((boardName) =>
-                    this.deck['fixedBoards'][boardName].toString())
-                .toList(),
             children: this.topBoards.map((boardName) {
               List<String> recent =
                   get10RecentPostIdsAPI(this.deck['fixedBoards'][boardName]);
               return HorizontalScroller(
+                  moreId: this.deck['fixedBoards'][boardName],
                   padding: 3.0,
                   children: recent.map((postId) => PhotoCard(postId)).toList());
             }).toList());

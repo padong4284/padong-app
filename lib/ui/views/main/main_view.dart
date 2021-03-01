@@ -33,28 +33,28 @@ class MainView extends StatelessWidget {
       // when dark mode, using dark
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: Visibility(
-        child: Container(
-          padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
-          alignment: Alignment.center,
-          child: Text('PADONG',
-              style: AppTheme.getFont(
-                  fontSize: AppTheme.fontSizes.large,
-                  color: AppTheme.colors.semiPrimary)),
-        ),
-        visible: !this.isPMain,
-      ),
+      leading: this.isPMain
+          ? null
+          : Container(
+              padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
+              alignment: Alignment.center,
+              child: Text('PADONG',
+                  style: AppTheme.getFont(
+                      fontSize: AppTheme.fontSizes.large,
+                      color: AppTheme.colors.semiPrimary))),
       leadingWidth: 110.0,
       actions: [
         SizedBox(
             width: 32.0,
             child: IconButton(
-              onPressed: () => PadongRouter.routeURL('/chats'),
+                onPressed: () => PadongRouter.routeURL('/chats'),
                 icon:
                     Icon(Icons.mode_comment, color: AppTheme.colors.support))),
         SizedBox(
             width: 32.0,
             child: IconButton(
+                onPressed: () =>
+                    PadongRouter.routeURL('/profile/id=${Session.user['id']}'),
                 icon: Icon(Icons.account_circle,
                     color: AppTheme.colors.support))),
         SizedBox(width: AppTheme.horizontalPadding)

@@ -54,7 +54,21 @@ const String RULE = """You must follow the rules below.
 
 Map<String, dynamic> getBoardAPI(String id) {
   // TODO: get board Node from Firebase
-  if (id.endsWith('0')) {
+  if (id.startsWith('bu')) {
+    int k = int.parse(id[id.length-1]);
+    return {
+      'id': id,
+      'title': ['Written', 'Replied', 'Liked', 'Bookmarked'][k%4],
+      'notification': true,
+      'pip': PIP.PRIVATE,
+      'rule': RULE,
+      'description': '''
+This board is GLOBAL board.
+Everyone can read and write in this board.
+'''
+    };
+  }
+  else if (id.endsWith('0')) {
     return {
       'id': id,
       'title': 'Global',
@@ -110,14 +124,22 @@ void setNotificationBoardAPI(String boardId, bool notification) {}
 
 Map<String, dynamic> getUserAPI(String id) {
   return {
-    'id': 'u009003',
+    'id': id,
     'username': 'kodw0402',
+    'name': 'Daewoong Ko',
     'univId': 'univ009',
     'isVerified': true,
     'universityName': "Georgia Tech",
     'entranceYear': 2017,
+    'email': 'kod0402@gatech.edu',
     'profileImgURL':
         'https://avatars.githubusercontent.com/u/36005723?s=460&u=49590ea0e7bb1936d515ed627867e8ca217b145b&v=4',
+    'friends': List.generate(15, (i) => 'u009002' + i.toString()),
+    'receives': List.generate(5, (i) => 'u009002' + i.toString()),
+    'sends': List.generate(7, (i) => 'u009002' + i.toString()),
+    'writtenIds': List.generate(12, (i) => 'p009002' + i.toString()),
+    'myBoards': ['bu0090030', 'bu0090031', 'bu0090032', 'bu0090033'],
+    'relationWith': (id) => rand.nextInt(4), // 0: friend, 1: received, 2: send, 3: none
   };
 }
 

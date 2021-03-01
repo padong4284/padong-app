@@ -10,6 +10,9 @@ import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/make_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/deck/write_view.dart';
+import 'package:padong/ui/views/profile/configure_view.dart';
+import 'package:padong/ui/views/profile/friends_view.dart';
+import 'package:padong/ui/views/profile/profile_view.dart';
 import 'package:padong/ui/views/schedule/ask_view.dart';
 import 'package:padong/ui/views/schedule/event_view.dart';
 import 'package:padong/ui/views/schedule/lecture_view.dart';
@@ -101,9 +104,18 @@ class PadongRouter {
             pageBuilder: (_, __, ___) => ChatsView(), direction: 1);
       case '/chat_room':
         return slideRouter(
-            pageBuilder: (_, __, ___) => ChatRoomView(args['id']), direction: 2);
+            pageBuilder: (_, __, ___) => ChatRoomView(args['id']),
+            direction: 2);
       case '/chat':
         return slideRouter(pageBuilder: (_, __, ___) => ChatView());
+
+      case '/profile':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => ProfileView(args['id']), direction: 1);
+      case '/configure':
+        return fadeRouter(pageBuilder: (_, __, ___) => ConfigureView());
+      case '/friends':
+        return sizeRouter(pageBuilder: (_, __, ___) => FriendsView(args['id']));
 
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
@@ -170,6 +182,23 @@ class PadongRouter {
         ) =>
             Align(
               child: SizeTransition(sizeFactor: animation, child: child),
+            ));
+  }
+
+  static PageRouteBuilder fadeRouter({
+    Function(BuildContext, Animation<double>, Animation<double>) pageBuilder,
+  }) {
+    return PageRouteBuilder(
+        pageBuilder: pageBuilder,
+        transitionsBuilder: (
+          BuildContext _,
+          Animation<double> animation,
+          Animation<double> __,
+          Widget child,
+        ) =>
+            FadeTransition(
+              opacity: animation,
+              child: child,
             ));
   }
 }

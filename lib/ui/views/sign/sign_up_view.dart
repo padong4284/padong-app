@@ -34,14 +34,14 @@ class _SignUpViewState extends State<SignUpView> {
                           hintText: 'Password'),
                       Input(
                           margin: EdgeInsets.only(top: 10.0),
-                          hintText: 'Repeat Password'),
+                          hintText: 'Repeat Password'), // TODO: check match feedback real-time
                       Input(
                           margin: EdgeInsets.only(top: 20.0 + paddingBottom),
                           hintText: 'Name'),
                       ListPicker(this._univController,
                           margin: EdgeInsets.only(top: 10.0),
                           hintText: 'University',
-                          list: ['Georgia Tech']),
+                          list: ['Georgia Tech']), // TODO: get univ list
                       ListPicker(
                         this._yearController,
                         margin: EdgeInsets.only(top: 10.0),

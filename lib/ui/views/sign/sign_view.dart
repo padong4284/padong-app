@@ -6,7 +6,6 @@ import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/utils/wave/wave_clipper.dart';
 import 'package:padong/ui/utils/wave/wave.dart';
 import 'package:padong/ui/shared/types.dart';
-
 import 'package:padong/core/apis/session.dart' as Session;
 
 Wave primaryWave = new Wave(50, -5, 280, 4);

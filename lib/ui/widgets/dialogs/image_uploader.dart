@@ -45,7 +45,7 @@ class _ImageUploaderState extends State<ImageUploader> {
     return AlertDialog(
       titlePadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       contentPadding: const EdgeInsets.only(left: 0, right: 0, bottom: 20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.0)),
       title: Container(
           height: 40,
           child:

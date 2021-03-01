@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
@@ -113,10 +113,12 @@ class MapSampleState extends State<MapView> {
   }
 
   Widget bottomBuildingCards() {
-    return HorizontalScroller(height: 150, children: [
+    return Container(
+        height: 150,
+        child: HorizontalScroller(height: 150, children: [
       // TODO: get building cards from API
       ...List.generate(10, (idx) => BuildingCard(idx.toString())),
       SizedBox(width: 60)
-    ]);
+    ]));
   }
 }

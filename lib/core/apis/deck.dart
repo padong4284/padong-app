@@ -124,7 +124,7 @@ void setNotificationBoardAPI(String boardId, bool notification) {}
 
 Map<String, dynamic> getUserAPI(String id) {
   return {
-    'id': 'u009003',
+    'id': id,
     'username': 'kodw0402',
     'univId': 'univ009',
     'isVerified': true,
@@ -135,6 +135,7 @@ Map<String, dynamic> getUserAPI(String id) {
     'friends': List.generate(15, (i) => 'u009002' + i.toString()),
     'writtenIds': List.generate(12, (i) => 'p009002' + i.toString()),
     'myBoards': ['bu0090030', 'bu0090031', 'bu0090032', 'bu0090033'],
+    'relationWith': (id) => rand.nextInt(4), // 0: friend, 1: received, 2: send, 3: none
   };
 }
 

@@ -11,6 +11,7 @@ class Button extends StatelessWidget {
   final Widget icon;
   final ButtonSize buttonSize; //  GIANT, LARGE, REGULAR, SMALL
   final bool shadow;
+  final double paddingRight;
   final Function callback;
 
   Button(
@@ -21,6 +22,7 @@ class Button extends StatelessWidget {
       type,
       this.icon,
       this.shadow = true,
+      this.paddingRight = 0,
       this.callback})
       : this.color = color ??
             (borderColor != null
@@ -77,6 +79,7 @@ class Button extends StatelessWidget {
                         style: AppTheme.getFont(
                             color: this.borderColor ?? AppTheme.colors.base,
                             fontSize: buttonProperty.fontSize)),
+                SizedBox(width: this.paddingRight)
               ].where((element) => element != null).toList()),
           onPressed: () {
             if (this.callback != null) this.callback();

@@ -13,6 +13,8 @@ import 'package:padong/core/apis/deck.dart';
 
 class BoardView extends StatelessWidget {
   final String id;
+  final bool readOnly =
+      false; // TODO: PIP / Written, Replied, Liked, Bookmarked
   final Map<String, dynamic> board;
 
   BoardView(id)
@@ -24,12 +26,14 @@ class BoardView extends StatelessWidget {
     return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
           isScrollingDown: isScrollingDown, bottomPadding: 40),
-      floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
-          title: 'Write',
-          onTap: () {
-            PadongRouter.routeURL('write/id=${this.id}');
-          },
-          isScrollingDown: isScrollingDown),
+      floatingBottomBarGenerator: !this.readOnly
+          ? (isScrollingDown) => FloatingBottomButton(
+              title: 'Write',
+              onTap: () {
+                PadongRouter.routeURL('write/id=${this.id}');
+              },
+              isScrollingDown: isScrollingDown)
+          : null,
       appBar: BackAppBar(title: this.board['title'], actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),

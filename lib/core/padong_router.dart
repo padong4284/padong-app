@@ -114,9 +114,9 @@ class PadongRouter {
             pageBuilder: (_, __, ___) => ProfileView(args['id']), direction: 1);
       case '/configure':
         return slideRouter(
-            pageBuilder: (_, __, ___) => ConfigureView(), direction: 2);
+            pageBuilder: (_, __, ___) => ConfigureView());
       case '/friends':
-        return slideRouter(
+        return sizeRouter(
             pageBuilder: (_, __, ___) => FriendsView(args['id']));
 
       case '/search':

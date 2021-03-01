@@ -3,6 +3,7 @@ import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/core/apis/session.dart' as Session;
+import 'package:padong/ui/widgets/containers/tab_container.dart';
 
 class FriendsView extends StatelessWidget {
   final String id;
@@ -17,7 +18,12 @@ class FriendsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-        appBar: BackAppBar(),
-        children: []);
+        appBar: BackAppBar(isClose: true, title: 'Friends'),
+        children: [
+          SizedBox(height: 10),
+          TabContainer(tabWidth: 85.0,
+              tabs: ['Friends', 'Receives', 'Sends'],
+              children: [Container(), Container(), Container()])
+        ]);
   }
 }

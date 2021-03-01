@@ -8,14 +8,23 @@ class TimeManager {
   List<int> startT;
 
   int dMin;
+
   int get year => this.dateTime.year;
+
   int get month => this.dateTime.month;
+
   int get day => this.dateTime.day;
+
   int get hour => this.dateTime.hour;
+
   int get minute => this.dateTime.minute;
+
   int get weekday => this.dateTime.weekday;
+
   String get date => formatDate(this.dateTime);
+
   String get time => '${formatHM(this.hour)}:${formatHM(this.minute)}';
+
   String get range => this.dr[1];
 
   static TimeManager fromString(String time) {
@@ -114,10 +123,18 @@ class TimeManager {
           [showWeekday ? WEEKDAYS[tm.weekday] : tm.date.substring(0, 5)];
     }
     List<List<String>> summary = [];
-    for(String range in ranges.keys) {
+    for (String range in ranges.keys) {
       String temp = ranges[range].toString();
-      summary.add([range, temp.substring(1, temp.length-1)]);
+      summary.add([range, temp.substring(1, temp.length - 1)]);
     }
     return summary;
+  }
+
+  static bool isSameYMDHM(DateTime one, DateTime another) {
+    return (one.minute == another.minute) &&
+        (one.hour == another.hour) &&
+        (one.day == another.day) &&
+        (one.month == another.month) &&
+        (one.year == another.year);
   }
 }

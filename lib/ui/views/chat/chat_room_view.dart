@@ -18,6 +18,14 @@ class ChatRoomView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> msgs = [];
+    List<Map> messages = this.chatRoom['messages'].reversed.toList();
+    for (int i = 0; i < messages.length; i++) {
+      Map chatMsg = messages[i];
+      msgs.add(ChatBalloon(chatMsg,
+          prev: i > 0 ? messages[i - 1] : null,
+          next: i < messages.length - 1 ? messages[i + 1] : null));
+    }
     return SafePaddingTemplate(
       appBar:
           BackAppBar(title: this.chatRoom['title'], isClose: true, actions: [
@@ -25,11 +33,15 @@ class ChatRoomView extends StatelessWidget {
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
             onPressed: () {}) // TODO: more dialog
       ]),
-      floatingBottomBar: BottomSender(BottomSenderType.CHAT,
-          onSubmit: () {}, msgController: this._msgController),
-      children: [
-        ...this.chatRoom['messages'].reversed.map((msg)=> ChatBalloon(msg))
-      ],
+      floatingBottomBar: BottomSender(
+        BottomSenderType.CHAT,
+        msgController: this._msgController,
+        onSubmit: () {
+          // TODO: send and receive messages !
+          this._msgController.text = '';
+        },
+      ),
+      children: [...msgs, SizedBox(height: 40)],
     );
   }
 }

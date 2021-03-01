@@ -33,17 +33,15 @@ class MainView extends StatelessWidget {
       // when dark mode, using dark
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: Visibility(
-        child: Container(
-          padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
-          alignment: Alignment.center,
-          child: Text('PADONG',
-              style: AppTheme.getFont(
-                  fontSize: AppTheme.fontSizes.large,
-                  color: AppTheme.colors.semiPrimary)),
-        ),
-        visible: !this.isPMain,
-      ),
+      leading: this.isPMain
+          ? null
+          : Container(
+              padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
+              alignment: Alignment.center,
+              child: Text('PADONG',
+                  style: AppTheme.getFont(
+                      fontSize: AppTheme.fontSizes.large,
+                      color: AppTheme.colors.semiPrimary))),
       leadingWidth: 110.0,
       actions: [
         SizedBox(

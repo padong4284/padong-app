@@ -37,10 +37,12 @@ class FriendsView extends StatelessWidget {
   Widget friendList(List<String> friendIds) {
     return Column(
         children: friendIds
-            .map((id) =>
-                FriendTile(id, chatCallback: this.chatWith, moreCallback: () {
+            .map((id) => InkWell(
+                onTap: () => PadongRouter.routeURL('/profile/id=$id'),
+                child: FriendTile(id, chatCallback: this.chatWith,
+                    moreCallback: () {
                   // TODO: more dialog
-                }))
+                })))
             .toList());
   }
 

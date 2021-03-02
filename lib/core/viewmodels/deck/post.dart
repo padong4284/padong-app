@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/models/deck/post.dart';
 import 'package:padong/core/services/firestore_api.dart';
-
 import 'package:padong/locator.dart';
-
 
 /*
 * ModelPost's parentNodeId is ModelBoard
 * * */
 class Post extends ModelPost {
-  static final FirestoreAPI _postDB = locator<FirestoreAPI>("Firestore:post");
-
   Post({
     id,
     title, description,
@@ -28,6 +24,7 @@ class Post extends ModelPost {
   Post.fromMap(Map snapshot,String id) :
         super.fromMap(snapshot, id);
 
+  static final FirestoreAPI _postDB = locator<FirestoreAPI>("Firestore:post");
   static Future<Post> getPostById(String id) async {
     DocumentSnapshot docPost = await _postDB.ref.doc(id).get();
     if (docPost.exists){
@@ -35,6 +32,5 @@ class Post extends ModelPost {
     }
     throw Exception("PostId doesn't exists");
   }
-
 }
 

@@ -4,11 +4,12 @@ class TitleNode extends Node {
   String title;
   String description;
 
-  TitleNode.fromMap(Map snapshot, String id)
+  TitleNode.fromMap(String id, Map snapshot)
       : this.title = snapshot['title'],
         this.description = snapshot['description'],
-        super.fromMap(snapshot, id);
+        super.fromMap(id, snapshot);
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),

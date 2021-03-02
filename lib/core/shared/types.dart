@@ -5,3 +5,10 @@ enum PIP{
   PRIVATE,
   PUBLIC
 }
+
+enum RELATION {
+  FRIEND,
+  RECEIVED,
+  SEND,
+  NONE,
+}

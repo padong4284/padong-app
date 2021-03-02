@@ -1,4 +1,4 @@
-import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/shared/types.dart';
 
 class Node {
   String id;
@@ -10,7 +10,7 @@ class Node {
   DateTime deletedAt;
   DateTime modifiedAt;
 
-  Node.fromMap(Map snapshot, String id)
+  Node.fromMap(String id, Map snapshot)
       : this.id = id,
         this.pip = snapshot['pip'],
         this.type = snapshot['type'],

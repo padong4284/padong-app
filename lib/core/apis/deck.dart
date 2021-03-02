@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();

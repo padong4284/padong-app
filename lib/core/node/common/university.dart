@@ -1,11 +1,14 @@
 import 'package:padong/core/node/title_node.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // parent:
 class University extends TitleNode {
   String emblemImgURL;
+  LatLng location;
 
   University.fromMap(String id, Map snapshot)
       : this.emblemImgURL = snapshot['emblemImgURL'],
+        this.location = LatLng.fromJson(snapshot['location']),
         super.fromMap(id, snapshot);
 
   @override
@@ -13,6 +16,7 @@ class University extends TitleNode {
     return {
       ...super.toJson(),
       'emblemImgURL': this.emblemImgURL,
+      'location': this.location.toJson(),
     };
   }
 }

@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:padong/core/shared/types.dart';
 
 class Node {
@@ -52,11 +53,18 @@ class Node {
     //create the Fire Store data
   }
 
+  Node getById(String id, Type nodeClass) {
+    // TODO: get Node by id (any class)
+    // nodeClass.fromMap(id, getSnapshot(id))
+    return this;
+  }
+
   Node getParent() {
     return this;
   }
 
-  List<Node> getChildren() {
+  List<Node> getChildren({@required String type, int howMany}) {
+    // TODO: filter with type
     return [];
   }
 

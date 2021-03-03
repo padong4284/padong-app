@@ -5,7 +5,7 @@ import 'package:padong/core/shared/types.dart';
 class User extends Node {
   String uid;
   String name;
-  String username;
+  String userId;
   bool isVerified;
   int entranceYear;
   List<String> userEmails;
@@ -15,7 +15,7 @@ class User extends Node {
   User.fromMap(String id, Map snapshot)
       : this.uid = snapshot['uid'],
         this.name = snapshot['name'],
-        this.username = snapshot['username'],
+        this.userId = snapshot['userId'],
         this.isVerified = snapshot['isVerified'],
         this.entranceYear = snapshot['entranceYear'],
         this.userEmails = snapshot['userEmails'],
@@ -29,7 +29,7 @@ class User extends Node {
       ...super.toJson(),
       'uid': this.uid,
       'name': this.name,
-      'username': this.username,
+      'userId': this.userId,
       'isVerified': this.isVerified,
       'entranceYear': this.entranceYear,
       'userEmails': this.userEmails,

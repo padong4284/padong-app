@@ -1,11 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:padong/core/models/user/user.dart';
 import 'package:padong/core/services/firestore_api.dart';
+=======
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+>>>>>>> refactor: rename username -> userId
 import 'package:padong/locator.dart';
+import 'package:padong/core/services/firestore_api.dart';
+import 'package:padong/core/node/common/user.dart' as userNode;
 
-enum RegistrationReturns { success, failed, weak_password, emailAlreadyInUse, IdAlreadyInUse }
+enum RegistrationReturns {
+  success,
+  failed,
+  weak_password,
+  emailAlreadyInUse,
+  IdAlreadyInUse
+}
 
 enum SignInReturns { success, failed, wrongEmailOrPassword }
 
@@ -13,26 +24,34 @@ class PadongAuth {
   final FirebaseAuth auth = FirebaseAuth.instance;
   FirestoreAPI _userDB = locator<FirestoreAPI>('Firesetore:user');
 
+<<<<<<< HEAD
   Future<ModelUser> get currentSession async {
+=======
+  Future<userNode.User> get currentSession async {
+    // TODO: current Univ
+>>>>>>> refactor: rename username -> userId
     await auth.currentUser.reload();
-    if (auth.currentUser == null){
+    if (auth.currentUser == null) {
       throw Exception("Not logged in");
     }
-    DocumentSnapshot user =  await _userDB.ref.doc(auth.currentUser.uid).get();
-    if (!user.exists){
+    DocumentSnapshot user = await _userDB.ref.doc(auth.currentUser.uid).get();
+    if (!user.exists) {
       throw Exception("There's no user");
     }
+<<<<<<< HEAD
     return ModelUser.fromMap(user.data(), auth.currentUser.uid);
+=======
+    return userNode.User.fromMap(auth.currentUser.uid, user.data());
+>>>>>>> refactor: rename username -> userId
   }
 
   Future<SignInReturns> signIn(String id, String pw) async {
-    QuerySnapshot user =
-        await _userDB.ref.where("userId", isEqualTo: id).get();
+    QuerySnapshot user = await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size == 0) {
       return SignInReturns.wrongEmailOrPassword;
     }
     QueryDocumentSnapshot docSnapshot = user.docs.first;
-    ModelUser docUser = ModelUser.fromMap(docSnapshot.data(), docSnapshot.id);
+    userNode.User docUser = userNode.User.fromMap(docSnapshot.id, docSnapshot.data());
 
     SignInReturns lastStatus;
     for (String email in docUser.userEmails) {
@@ -81,11 +100,10 @@ class PadongAuth {
   Future<RegistrationReturns> registerWithEmail({
     @required String id,
     @required String pw,
-    @required String userName,
+    @required String name,
     @required String email,
   }) async {
-    QuerySnapshot user =
-        await _userDB.ref.where("userId", isEqualTo: id).get();
+    QuerySnapshot user = await _userDB.ref.where("userId", isEqualTo: id).get();
     if (user.size > 0) {
       return RegistrationReturns.IdAlreadyInUse;
     }
@@ -116,19 +134,14 @@ class PadongAuth {
       await currentUser.sendEmailVerification();
     }
 
-    _userDB.ref.doc(currentUser.uid).set ({
-      'userName': userName,
+    _userDB.ref.doc(currentUser.uid).set({
       'userId': id,
+      'name': name,
       'userEmails': [email],
-      'profileImage': "",
       'isVerified': false,
+      'profileImageURL': "",
       'createdAt': DateTime.now().toIso8601String(),
     });
-    //ModelUser user = ModelUser.fromMap(docUser.data(), sessionUser.uid);
-    /*@required this.userName, @required this.userNickName, @required this.userId, @required this.userEmail,
-    @required this.profileImage, @required this.isVerified, @required this.friendIds,
-    parentNodeId, ownerId, pip,
-    createdAt, deletedAt, modifiedAt*/
 
     return RegistrationReturns.success;
   }
@@ -146,7 +159,7 @@ class PadongAuth {
       return false;
     }
 
-    ModelUser docUser = ModelUser.fromMap(queryUser.data(), queryUser.id);
+    userNode.User docUser = userNode.User.fromMap(queryUser.id, queryUser.data());
 
     try {
       //ToDo: Must Check changeEmail with exist email.
@@ -159,7 +172,7 @@ class PadongAuth {
       return false;
     }
 
-    docUser.userEmails = [ user.email, email ];
+    docUser.userEmails = [user.email, email];
 
     await _userDB.setDocument(docUser.toJson(), docUser.id);
     await auth.signOut();

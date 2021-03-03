@@ -1,9 +1,11 @@
 const WEEKDAYS = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 class TimeManager {
+  String source;
   DateTime thisMon;
   DateTime startTime;
   Duration duration;
+
   DateTime get endTime => this.startTime.add(this.duration);
   List<String> dr;
   List<int> startT;
@@ -21,7 +23,7 @@ class TimeManager {
 
   static TimeManager fromString(String time) {
     if (num.tryParse(time.split(' | ')[0][0]) != null)
-      return TimeManager.dateNRange(time);
+      return TimeManager.dateNRange(time); // start with number
     return TimeManager.dayNRange(time);
   }
 
@@ -59,19 +61,17 @@ class TimeManager {
     }
   }
 
-  static List<int> parseTime(timeStr) {
-    List temp = timeStr.split(':').map((t) => int.parse(t)).toList();
-    return <int>[temp[0], temp[1]];
-  }
-
-  void init(String dateTimeRange) {
+  void init(String source) {
+    this.source = source;
     this.setThisMonday();
-    this.dr = dateTimeRange.split(' | ');
+    this.dr = source.split(' | ');
     List<String> startEnd = this.dr[1].split(' ~ ');
     this.startT = parseTime(startEnd[0]);
     List<int> endT = parseTime(startEnd[1]);
     this.dMin = (endT[0] - this.startT[0]) * 60 + endT[1] - this.startT[1];
   }
+
+  String toString() => this.source;
 
   void setThisMonday() {
     DateTime now = DateTime.now();
@@ -87,6 +87,15 @@ class TimeManager {
 
   static String formatDate(DateTime dt) {
     return '${formatHM(dt.month)}/${formatHM(dt.day)}/${dt.year}';
+  }
+
+  static String formatTime(int hour, int minute) {
+    return '${formatHM(hour)}:${formatHM(minute)}';
+  }
+
+  static List<int> parseTime(timeStr) {
+    List temp = timeStr.split(':').map((t) => int.parse(t)).toList();
+    return <int>[temp[0], temp[1]];
   }
 
   static String todayString() {

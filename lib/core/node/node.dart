@@ -13,7 +13,7 @@ class Node {
 
   Node.fromMap(String id, Map snapshot)
       : this.id = id,
-        this.pip = snapshot['pip'],
+        this.pip = parsePIP(snapshot['pip']),
         this.type = snapshot['type'],
         this.parentId = snapshot['parentId'],
         this.ownerId = snapshot['ownerId'],
@@ -26,7 +26,7 @@ class Node {
   Map<String, dynamic> toJson() {
     return {
       "id": this.id,
-      "pip": this.pip,
+      "pip": pipToString(this.pip),
       "type": this.type,
       "parentId": this.parentId,
       "ownerId": this.ownerId,

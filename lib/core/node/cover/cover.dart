@@ -1,12 +1,11 @@
-import 'package:padong/core/node/deck/deck.dart';
 import 'package:padong/core/node/cover/wiki.dart';
+import 'package:padong/core/node/node.dart';
 
 // parent: University
-class Cover extends Deck {
+class Cover extends Node {
   Cover.fromMap(String id, Map snapshot) : super.fromMap(id, snapshot);
 
-  @override
-  Map<String, Wiki> getFixedChildren() {
+  Map<String, Wiki> getFixedWikis() {
     // TODO: get fixed wiki!
     return {
       'Vision': null,

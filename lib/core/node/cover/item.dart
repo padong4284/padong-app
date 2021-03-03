@@ -3,9 +3,18 @@ import 'package:padong/core/node/deck/post.dart';
 // parent: Wiki
 class Item extends Post {
   @override // always profile!
-  final bool anonymity = false;
+  bool anonymity = false;
 
-  Item.fromMap(String id, Map snapshot) : super.fromMap(id, snapshot);
+  Item.fromMap(String id, Map snapshot)
+      : super.fromMap(id, {...snapshot, 'anonymity': false});
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      ...super.toJson(),
+      'anonymity': false,
+    };
+  }
 
   void revertWikiToThisItem() {
     // TODO: revert Wiki to this Item

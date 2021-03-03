@@ -39,7 +39,6 @@ class User extends Node {
   }
 
   RELATION getRelationWith(User other) {
-    if (this.id == other.id) return null; // it's me!
     bool received = this.friendIds.contains(other.id);
     bool send = other.friendIds.contains(this.id);
     if (received) {
@@ -47,6 +46,6 @@ class User extends Node {
       return RELATION.RECEIVED;
     }
     if (send) return RELATION.SEND;
-    return RELATION.NONE;
+    return null;
   }
 }

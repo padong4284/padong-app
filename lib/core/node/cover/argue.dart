@@ -1,13 +1,15 @@
 import 'package:padong/core/node/deck/reply.dart';
 
-// parent: Wiki
+// parent: Item
 class Argue extends Reply {
   @override // always profile!
   bool anonymity = false;
   bool isClosed;
+  String wikiId;
 
   Argue.fromMap(String id, Map snapshot)
       : this.isClosed = snapshot['isClosed'],
+        this.wikiId = snapshot['wikiId'],
         super.fromMap(id, {...snapshot, 'anonymity': false});
 
   @override
@@ -16,6 +18,7 @@ class Argue extends Reply {
       ...super.toJson(),
       'anonymity': false,
       'isClosed': this.isClosed,
+      'wikiId': this.wikiId,
     };
   }
 }

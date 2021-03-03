@@ -1,3 +1,4 @@
+import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/shared/statistics.dart';
 
@@ -18,6 +19,12 @@ class Wiki extends TitleNode with Statistics {
       'backLinks': this.backLinks,
       'frontLinks': this.frontLinks,
     };
+  }
+
+  List<Argue> getArgues() {
+    // TODO: without getChildren
+    // using wikiId
+    return [];
   }
 
   void updateBackLinks(String wikiId, {bool isRemove=false}) {

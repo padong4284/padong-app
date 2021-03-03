@@ -4,21 +4,21 @@ import 'package:padong/core/shared/types.dart';
 class Node {
   String id;
   PIP pip;
-  String type;
   String parentId;
   String ownerId;
   DateTime createdAt;
   DateTime deletedAt;
   DateTime modifiedAt;
+  String get type => this.toString().split("'")[1];
 
   Node.fromMap(String id, Map snapshot)
       : this.id = id,
         this.pip = parsePIP(snapshot['pip']),
-        this.type = snapshot['type'],
         this.parentId = snapshot['parentId'],
         this.ownerId = snapshot['ownerId'],
         this.createdAt = DateTime.parse(snapshot['createdAt']),
-        this.modifiedAt = DateTime.parse(snapshot['modifiedAt']),
+        this.modifiedAt = // not modified yet
+            DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
             : DateTime.parse(snapshot['deletedAt']);
@@ -31,7 +31,7 @@ class Node {
       "parentId": this.parentId,
       "ownerId": this.ownerId,
       "createdAt": this.createdAt.toIso8601String(),
-      "modifiedAt": this.modifiedAt.toIso8601String(),
+      "modifiedAt": (this.modifiedAt ?? this.createdAt).toIso8601String(),
       "deletedAt": this.deletedAt == null
           ? null // It may not deleted
           : this.deletedAt.toIso8601String(),
@@ -48,9 +48,10 @@ class Node {
   }
 
   // APIs
-  void create() {
+  bool create() {
     if (!this.isValidate()) throw Exception('invalid data Node call create');
     //create the Fire Store data
+    return true; // success or not
   }
 
   Node getById(String id, Type nodeClass) {
@@ -63,17 +64,20 @@ class Node {
     return this;
   }
 
-  List<Node> getChildren({@required String type, int howMany}) {
+  List getChildren({@required String type, int howMany}) {
     // TODO: filter with type
+    // List of What ?? snapshot or Node
     return [];
   }
 
-  void update(Map data) {
+  bool update(Map data) {
     // update Fire Store data
+    return true; // success or not
   }
 
-  void delete() {
+  bool delete() {
     // set deleteAt and call update()
     this.deletedAt = DateTime.now();
+    return true; // success or not
   }
 }

@@ -6,16 +6,18 @@ enum PIP {
   PRIVATE,
 }
 
-PIP parsePIP(String pip) => {
+PIP parsePIP(String pip) =>
+    {
       'Public': PIP.PUBLIC,
       'Internal': PIP.INTERNAL,
-      'Private': PIP.PRIVATE
+      'Private': PIP.PRIVATE,
     }[pip];
 
-String pipToString(PIP pip) => {
+String pipToString(PIP pip) =>
+    {
       PIP.PUBLIC: 'Public',
       PIP.INTERNAL: 'Internal',
-      PIP.PRIVATE: 'Private'
+      PIP.PRIVATE: 'Private',
     }[pip];
 
 enum RELATION {
@@ -24,13 +26,15 @@ enum RELATION {
   SEND,
 }
 
-RELATION parseRELATION(String relation) => {
+RELATION parseRELATION(String relation) =>
+    {
       'Friend': RELATION.FRIEND,
       'Received': RELATION.RECEIVED,
-      'Send': RELATION.SEND
+      'Send': RELATION.SEND,
     }[relation];
 
-String relationToString(RELATION relation) => {
+String relationToString(RELATION relation) =>
+    {
       RELATION.FRIEND: 'Public',
       RELATION.RECEIVED: 'Internal',
       RELATION.SEND: 'Private'
@@ -42,14 +46,41 @@ enum PERIODICITY {
   WEEKLY,
 }
 
-PERIODICITY parsePERIODICITY(String periodicity) => {
+PERIODICITY parsePERIODICITY(String periodicity) =>
+    {
       'Friend': PERIODICITY.ANNUALLY,
       'Received': PERIODICITY.MONTHLY,
-      'Send': PERIODICITY.WEEKLY
+      'Send': PERIODICITY.WEEKLY,
     }[periodicity];
 
-String periodicityToString(PERIODICITY periodicity) => {
+String periodicityToString(PERIODICITY periodicity) =>
+    {
       PERIODICITY.ANNUALLY: 'Public',
       PERIODICITY.MONTHLY: 'Internal',
-      PERIODICITY.WEEKLY: 'Private'
+      PERIODICITY.WEEKLY: 'Private',
     }[periodicity];
+
+enum SERVICE {
+  LIBRARY,
+  RESTAURANT,
+  PARKING,
+  MEDICAL,
+  CUSTOM,
+}
+
+SERVICE parseSERVICE(String service) =>
+    {
+      'Library': SERVICE.LIBRARY,
+      'Restaurant': SERVICE.RESTAURANT,
+      'Parking': SERVICE.PARKING,
+      'Medical': SERVICE.MEDICAL,
+      'Custom': SERVICE.CUSTOM,
+    }[service];
+
+String serviceToString(SERVICE service) => {
+  SERVICE.LIBRARY: 'Library',
+  SERVICE.RESTAURANT: 'Restaurant',
+  SERVICE.PARKING: 'Parking',
+  SERVICE.MEDICAL: 'Medical',
+  SERVICE.CUSTOM: 'Custom',
+}[service];

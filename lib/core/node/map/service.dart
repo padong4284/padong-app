@@ -1,9 +1,19 @@
 import 'package:padong/core/node/schedule/evaluation.dart';
+import 'package:padong/core/shared/types.dart';
 
-// parent: Lecture (1:1 match)
+// parent: Building
 class Service extends Evaluation {
-  /// TODO: Service Category ENUM!
+  SERVICE category;
 
   Service.fromMap(String id, Map snapshot)
-      : super.fromMap(id, {...snapshot, 'anonymity': false});
+      : this.category = parseSERVICE(snapshot['category']),
+        super.fromMap(id, {...snapshot, 'anonymity': false});
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      ...super.toJson(),
+      'category': serviceToString(this.category),
+    };
+  }
 }

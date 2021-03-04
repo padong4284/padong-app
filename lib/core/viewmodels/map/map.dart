@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:padong/core/models/map/map.dart';
+import 'package:padong/core/models/map/mappa.dart';
 import 'package:padong/core/services/firestore_api.dart';
 
 import 'package:padong/locator.dart';

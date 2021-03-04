@@ -27,7 +27,7 @@ class ModelTitleNode extends ModelNode {
             deletedAt: deletedAt,
             modifiedAt: modifiedAt);
 
-  ModelTitleNode.fromMap(Map snapshot, String id)
+  ModelTitleNode.fromMap(String id, Map snapshot)
       : this.title = snapshot['title'] ?? "",
         this.description = snapshot['description'] ?? "",
         super.fromMap(snapshot, id);

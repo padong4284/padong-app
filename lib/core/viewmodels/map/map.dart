@@ -4,7 +4,6 @@ import 'package:padong/core/services/firestore_api.dart';
 
 import 'package:padong/locator.dart';
 
-
 /*
 * ModelMap's parentNodeId is ModelUniversity
 * */

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:padong/core/models/user/user.dart';
-import 'package:padong/core/viewmodels/user/user.dart' as ViewModelUser;
 import 'package:padong/core/services/firestore_api.dart';
 import 'package:padong/locator.dart';
 
@@ -14,7 +13,7 @@ class PadongAuth {
   final FirebaseAuth auth = FirebaseAuth.instance;
   FirestoreAPI _userDB = locator<FirestoreAPI>('Firesetore:user');
 
-  Future<ViewModelUser.User> get currentSession async {
+  Future<ModelUser> get currentSession async {
     await auth.currentUser.reload();
     if (auth.currentUser == null){
       throw Exception("Not logged in");
@@ -23,7 +22,7 @@ class PadongAuth {
     if (!user.exists){
       throw Exception("There's no user");
     }
-    return ViewModelUser.User.fromMap(user.data(), auth.currentUser.uid);
+    return ModelUser.fromMap(user.data(), auth.currentUser.uid);
   }
 
   Future<SignInReturns> signIn(String id, String pw) async {

@@ -5,12 +5,11 @@ import 'package:padong/core/models/node.dart';
 * ModelAttachment has no parent
 * */
 class ModelAttachment extends ModelNode {
-  String type;
   String location;
 
   ModelAttachment({
     id,
-    @required this.type, @required this.location,
+    @required this.location,
     parentNodeId, ownerId, pip,
     createdAt, deletedAt, modifiedAt}):
         super(
@@ -19,7 +18,6 @@ class ModelAttachment extends ModelNode {
           createdAt: createdAt, deletedAt: deletedAt, modifiedAt: modifiedAt);
 
   ModelAttachment.fromMap(Map snapshot,String id) :
-        this.type = snapshot['anonymity'] ?? "",
         this.location = snapshot['location'] ?? "",
         super.fromMap(snapshot, id);
 

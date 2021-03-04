@@ -11,6 +11,10 @@ void setupLocator() {
 
   locator.registerLazySingleton(() => FirestoreAPI('user'), "Firestore:user");
 
+  locator.registerLazySingleton(() => FirestoreAPI('chatroom'), "Firestore:chatroom");
+  locator.registerLazySingleton(() => FirestoreAPI('participant'), "Firestore:participant");
+  locator.registerLazySingleton(() => FirestoreAPI('chatmessage'), "Firestore:chatmessage");
+
   locator.registerLazySingleton(() => FirestoreAPI('deck'), "Firestore:deck");
   locator.registerLazySingleton(() => FirestoreAPI('board'), "Firestore:board");
   locator.registerLazySingleton(() => FirestoreAPI('post'), "Firestore:post");

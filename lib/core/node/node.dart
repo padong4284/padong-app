@@ -1,5 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:padong/core/shared/types.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final FirebaseFirestore fireDB = FirebaseFirestore.instance;
 
 class Node {
   String id;
@@ -9,7 +12,8 @@ class Node {
   DateTime createdAt;
   DateTime deletedAt;
   DateTime modifiedAt;
-  String get type => this.toString().split("'")[1];
+
+  String get type => this.toString().split("'")[1].toLowerCase();
 
   Node.fromMap(String id, Map snapshot)
       : this.id = id,
@@ -54,14 +58,22 @@ class Node {
     return true; // success or not
   }
 
-  Node getById(String id, Type nodeClass) {
-    // TODO: get Node by id (any class)
-    // nodeClass.fromMap(id, getSnapshot(id))
-    return this;
+  Future<Node> getById(String id, {Type nodeType}) async {
+    // TODO: test this method
+    /// Usage:
+    /// - Deck myDeck = Deck().getById('092897');
+    /// - Post myPost = Node().getById('004885', Post);
+    dynamic nodeClass = nodeType ?? this.runtimeType;
+    String path = nodeType != null
+        ? nodeType.toString().split("'")[1].toLowerCase()
+        : this.type;
+    DocumentSnapshot doc = await fireDB.collection(path).doc(id).get();
+    if (doc.exists) return nodeClass.fromMap(id, doc.data());
+    throw Exception("${this.type.toUpperCase()} $id DOES NOT EXISTS");
   }
 
-  Node getParent() {
-    return this;
+  Future<Node> getParent() async {
+    return await this.getById(this.parentId);
   }
 
   List getChildren({@required String type, int howMany}) {

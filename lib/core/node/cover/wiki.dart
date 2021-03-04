@@ -27,9 +27,9 @@ class Wiki extends TitleNode with Statistics {
     return [];
   }
 
-  void updateBackLinks(String wikiId, {bool isRemove=false}) {
+  void updateBackLinks(String wikiId, {bool isRemove=false}) async {
     // TODO: update firebase
-    Wiki target = this.getById(wikiId, Wiki);
+    Wiki target = await this.getById(wikiId);
     bool isContain = this.backLinks.contains(wikiId);
     if (isRemove && isContain) {
       this.backLinks.remove(wikiId);
@@ -41,9 +41,9 @@ class Wiki extends TitleNode with Statistics {
     }
   }
 
-  void updateFrontLinks(String wikiId, {bool isRemove=false}) {
+  void updateFrontLinks(String wikiId, {bool isRemove=false}) async {
     // TODO: update firebase
-    Wiki target = this.getById(wikiId, Wiki);
+    Wiki target = await this.getById(wikiId);
     bool isContain = this.backLinks.contains(wikiId);
     if (isRemove && isContain) {
       this.frontLinks.remove(wikiId);

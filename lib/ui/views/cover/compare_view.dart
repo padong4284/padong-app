@@ -9,6 +9,7 @@ import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
+import 'package:diff_match_patch/diff_match_patch.dart';
 
 class CompareView extends StatefulWidget {
   final String id;

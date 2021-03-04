@@ -9,7 +9,6 @@ import 'package:padong/ui/widgets/buttons/switch_button.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
 import 'package:padong/ui/widgets/title_header.dart';
-import 'package:diff_match_patch/diff_match_patch.dart';
 
 class CompareView extends StatefulWidget {
   final String id;
@@ -42,12 +41,14 @@ class CompareViewBase extends PostTile {
   final Map<String, dynamic> wiki;
   final bool isPrev;
   final Function checkPrev;
+  final String compared;
 
   CompareViewBase(id, wikiId, this.isPrev, this.checkPrev)
       : this.id = id,
         this.wikiId = wikiId,
         this.item = getItemAPI(id),
         this.wiki = getWikiAPI(wikiId),
+        this.compared = getCompared(id),
         super(id);
 
   @override
@@ -59,9 +60,8 @@ class CompareViewBase extends PostTile {
       ]),
       TitleHeader(this.item['title'], link: "/post/id=${this.id}"),
       this.isPrev
-          ? PadongMarkdown(this.item['description'])
+          ? PadongMarkdown(this.compared)
           : Text(
-              // TODO: highlight remove and add
               this.item['description'],
               style: AppTheme.getFont(),
             ),

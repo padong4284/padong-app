@@ -8,7 +8,7 @@ class Node {
   String id;
   PIP pip;
   String parentId;
-  String ownerId;
+  String ownerId; // Node User's id
   DateTime createdAt;
   DateTime deletedAt;
   DateTime modifiedAt;

@@ -4,9 +4,11 @@ import 'package:padong/core/shared/statistics.dart';
 // parent: Board
 class Post extends TitleNode with Statistics {
   bool anonymity; // hide profile
+  bool isNotice;
 
   Post.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
+        this.isNotice = snapshot['isNotice'],
         super.fromMap(id, snapshot);
 
   @override
@@ -14,6 +16,7 @@ class Post extends TitleNode with Statistics {
     return {
       ...super.toJson(),
       'anonymity': this.anonymity,
+      'isNotice': this.isNotice,
     };
   }
 }

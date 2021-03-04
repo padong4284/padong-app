@@ -6,15 +6,13 @@ enum PIP {
   PRIVATE,
 }
 
-PIP parsePIP(String pip) =>
-    {
+PIP parsePIP(String pip) => {
       'Public': PIP.PUBLIC,
       'Internal': PIP.INTERNAL,
       'Private': PIP.PRIVATE,
     }[pip];
 
-String pipToString(PIP pip) =>
-    {
+String pipToString(PIP pip) => {
       PIP.PUBLIC: 'Public',
       PIP.INTERNAL: 'Internal',
       PIP.PRIVATE: 'Private',
@@ -26,15 +24,13 @@ enum RELATION {
   SEND,
 }
 
-RELATION parseRELATION(String relation) =>
-    {
+RELATION parseRELATION(String relation) => {
       'Friend': RELATION.FRIEND,
       'Received': RELATION.RECEIVED,
       'Send': RELATION.SEND,
     }[relation];
 
-String relationToString(RELATION relation) =>
-    {
+String relationToString(RELATION relation) => {
       RELATION.FRIEND: 'Public',
       RELATION.RECEIVED: 'Internal',
       RELATION.SEND: 'Private'
@@ -46,15 +42,13 @@ enum PERIODICITY {
   WEEKLY,
 }
 
-PERIODICITY parsePERIODICITY(String periodicity) =>
-    {
+PERIODICITY parsePERIODICITY(String periodicity) => {
       'Friend': PERIODICITY.ANNUALLY,
       'Received': PERIODICITY.MONTHLY,
       'Send': PERIODICITY.WEEKLY,
     }[periodicity];
 
-String periodicityToString(PERIODICITY periodicity) =>
-    {
+String periodicityToString(PERIODICITY periodicity) => {
       PERIODICITY.ANNUALLY: 'Public',
       PERIODICITY.MONTHLY: 'Internal',
       PERIODICITY.WEEKLY: 'Private',
@@ -68,8 +62,7 @@ enum SERVICE {
   CUSTOM,
 }
 
-SERVICE parseSERVICE(String service) =>
-    {
+SERVICE parseSERVICE(String service) => {
       'Library': SERVICE.LIBRARY,
       'Restaurant': SERVICE.RESTAURANT,
       'Parking': SERVICE.PARKING,
@@ -78,9 +71,27 @@ SERVICE parseSERVICE(String service) =>
     }[service];
 
 String serviceToString(SERVICE service) => {
-  SERVICE.LIBRARY: 'Library',
-  SERVICE.RESTAURANT: 'Restaurant',
-  SERVICE.PARKING: 'Parking',
-  SERVICE.MEDICAL: 'Medical',
-  SERVICE.CUSTOM: 'Custom',
-}[service];
+      SERVICE.LIBRARY: 'Library',
+      SERVICE.RESTAURANT: 'Restaurant',
+      SERVICE.PARKING: 'Parking',
+      SERVICE.MEDICAL: 'Medical',
+      SERVICE.CUSTOM: 'Custom',
+    }[service];
+
+enum ROLE {
+  PROFESSOR,
+  TA,
+  STUDENT,
+}
+
+ROLE parseROLE(String role) => {
+      'Professor': ROLE.PROFESSOR,
+      'TA': ROLE.TA,
+      'Student': ROLE.STUDENT,
+    }[role];
+
+String roleToString(ROLE role) => {
+      ROLE.PROFESSOR: 'Professor',
+      ROLE.TA: 'TA',
+      ROLE.STUDENT: 'Student',
+    }[role];

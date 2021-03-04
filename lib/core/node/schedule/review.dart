@@ -20,9 +20,9 @@ class Review extends Reply {
   }
 
   @override
-  bool create() {
+  Future<bool> create(String parentId, Map data) async {
     // TODO: transaction to update Evaluation's rate
-    return super.create();
+    return await super.create(parentId, data);
   }
 
   @override

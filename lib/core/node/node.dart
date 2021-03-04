@@ -15,6 +15,8 @@ class Node {
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
+  Node();
+
   Node.fromMap(String id, Map snapshot)
       : this.id = id,
         this.pip = parsePIP(snapshot['pip']),
@@ -52,10 +54,20 @@ class Node {
   }
 
   // APIs
-  bool create() {
-    if (!this.isValidate()) throw Exception('invalid data Node call create');
-    //create the Fire Store data
-    return true; // success or not
+  Future<bool> create(String parentId, Map data) async {
+    // TODO: set this.id, because it's new!
+    /// Usage:
+    /// Post newPost = Post().create({ ... })
+    // if (!this.isValidate()) throw Exception('invalid data Node call create');
+    DocumentReference node = await fireDB.collection(this.type).add({
+      ...data,
+      'parentId': parentId,
+      'type': this.type,
+      //'ownerId': me.id, TODO: get id from Session
+      'createdAt': DateTime.now().toIso8601String(),
+      'modifiedAt': DateTime.now().toIso8601String()});
+    if (node.id != "") return true;
+    return false;
   }
 
   Future<Node> getById(String id, {Type nodeType}) async {

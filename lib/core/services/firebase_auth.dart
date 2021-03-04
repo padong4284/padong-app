@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:padong/core/models/user/user.dart';
 import 'package:padong/core/services/firestore_api.dart';
-=======
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
->>>>>>> refactor: rename username -> userId
 import 'package:padong/locator.dart';
-import 'package:padong/core/services/firestore_api.dart';
 import 'package:padong/core/node/common/user.dart' as userNode;
 
 enum RegistrationReturns {
@@ -24,12 +19,8 @@ class PadongAuth {
   final FirebaseAuth auth = FirebaseAuth.instance;
   FirestoreAPI _userDB = locator<FirestoreAPI>('Firesetore:user');
 
-<<<<<<< HEAD
-  Future<ModelUser> get currentSession async {
-=======
   Future<userNode.User> get currentSession async {
     // TODO: current Univ
->>>>>>> refactor: rename username -> userId
     await auth.currentUser.reload();
     if (auth.currentUser == null) {
       throw Exception("Not logged in");
@@ -38,11 +29,7 @@ class PadongAuth {
     if (!user.exists) {
       throw Exception("There's no user");
     }
-<<<<<<< HEAD
-    return ModelUser.fromMap(user.data(), auth.currentUser.uid);
-=======
     return userNode.User.fromMap(auth.currentUser.uid, user.data());
->>>>>>> refactor: rename username -> userId
   }
 
   Future<SignInReturns> signIn(String id, String pw) async {
@@ -178,4 +165,25 @@ class PadongAuth {
     await auth.signOut();
     return true;
   }
+}
+
+// TODO: move! FIXME: !!
+getChatRoomList() async {
+  final PadongAuth auth = locator<PadongAuth>();
+
+  ModelUser user = await auth.currentSession;
+  List<ModelChatroom> result;
+  List<String> chatroomIds;
+
+  QuerySnapshot queryResult = await _participantDB.ref.where('ownerId',isEqualTo: user.id).get();
+  for(var i in queryResult.docs){
+    chatroomIds.add(i.data()['parentNodeId']);
+  }
+
+  queryResult = await _chatroomDB.ref.where('id', whereIn: chatroomIds ).get();
+  for(var i in queryResult.docs){
+    result.add(ModelChatroom.fromMap(i.id, i.data()));
+  }
+
+  return result;
 }

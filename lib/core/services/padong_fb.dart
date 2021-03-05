@@ -21,7 +21,7 @@ class PadongFB {
 
   static Future<Node> createNode(dynamic nodeType, Map data) async {
     Node node = nodeType.fromMap('', {
-      'ownerId': (await Session.currentUser).id,
+      'ownerId': (await Session.currentUser)?.id,
       ...data, // position is important! (participant's ownerId)
       'createdAt': DateTime.now(),
     });
@@ -40,7 +40,7 @@ class PadongFB {
   static Future<Node> setNode(dynamic nodeType, Map data, String id) async {
     Node node = nodeType.fromMap('', {
       'id': id,
-      'ownerId': (await Session.currentUser).id,
+      'ownerId': (await Session.currentUser)?.id,
       ...data, // position is important! (participant's ownerId)
       'createdAt': DateTime.now(),
     });

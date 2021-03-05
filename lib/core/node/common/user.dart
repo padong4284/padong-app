@@ -1,5 +1,8 @@
+import 'package:padong/core/node/chat/chat_room.dart';
+import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/services/padong_fb.dart';
+import 'package:padong/core/services/session.dart';
 import 'package:padong/core/shared/types.dart';
 
 // parent: University
@@ -45,6 +48,20 @@ class User extends Node {
     }
     if (send) return RELATION.SEND;
     return null;
+  }
+
+  Future<List<ChatRoom>> getMyChatRooms() async {
+    User me = await currentUser;
+    if (this != me) throw Exception("Not me!");
+
+    List<String> chatRoomIds;
+    List<Participant> myParticipants = await PadongFB.getNodesByRule(
+        Participant,
+        rule: (query) => query.where('ownerId', isEqualTo: me.id));
+    for (Participant p in myParticipants) chatRoomIds.add(p.parentId);
+
+    return await PadongFB.getNodesByRule(ChatRoom,
+        rule: (query) => query.where('id', whereIn: chatRoomIds));
   }
 
   static Future<User> getByUserId(String userId) async {

@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/core/apis/session.dart' as Session;
 import 'package:diff_match_patch/diff_match_patch.dart';
+import 'package:padong/core/apis/session.dart' as Session;
+import 'package:padong/ui/utils/compare/diff.dart' as padong;
+
 
 Random rand = Random();
 
@@ -102,8 +104,7 @@ void create(Map data) {
 
 String getCompared(String itemId) {
   String compared = '';
-  DiffMatchPatch dmp = new DiffMatchPatch();
-  List<Diff> diffs = dmp.diff(PREVIOUS, WIKI_CONTENT);
+  List<Diff> diffs = padong.diff(PREVIOUS, WIKI_CONTENT);
   for (Diff diff in diffs) {
     if (diff.operation == DIFF_EQUAL)
       compared += diff.text;
@@ -112,7 +113,7 @@ String getCompared(String itemId) {
           ? '--'
           : '++'; // diff.operation == DIFF_INSERT
       compared +=
-          '$token${diff.text.endsWith('\n') ? diff.text.substring(0, diff.text.length - 1) : diff.text}$token${diff.text.endsWith('\n') ? '\n' : ''}';
+          '$token${diff.text}$token${'\n'}';
     }
   }
   return compared;

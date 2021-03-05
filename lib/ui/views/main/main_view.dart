@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/cover/wiki.dart';
-import 'package:padong/core/node/node.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/top_boards.dart';

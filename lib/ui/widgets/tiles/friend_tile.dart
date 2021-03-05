@@ -3,7 +3,6 @@ import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 
 class FriendTile extends StatelessWidget {

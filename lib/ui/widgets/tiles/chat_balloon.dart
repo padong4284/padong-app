@@ -5,6 +5,7 @@ import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 class ChatBalloon extends StatelessWidget {
+  // TODO: img!
   final bool isMine;
   final bool hideTimestamp;
   final bool hideSender;

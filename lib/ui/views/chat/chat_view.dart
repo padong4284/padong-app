@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/chat.dart';
 import 'package:padong/core/apis/deck.dart';
-import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';

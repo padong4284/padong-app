@@ -1,26 +1,29 @@
 const WEEKDAYS = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 class TimeManager {
+  String source;
   DateTime thisMon;
-  DateTime dateTime;
+  DateTime startTime;
   Duration duration;
+
+  DateTime get endTime => this.startTime.add(this.duration);
   List<String> dr;
   List<int> startT;
 
   int dMin;
-  int get year => this.dateTime.year;
-  int get month => this.dateTime.month;
-  int get day => this.dateTime.day;
-  int get hour => this.dateTime.hour;
-  int get minute => this.dateTime.minute;
-  int get weekday => this.dateTime.weekday;
-  String get date => formatDate(this.dateTime);
+  int get year => this.startTime.year;
+  int get month => this.startTime.month;
+  int get day => this.startTime.day;
+  int get hour => this.startTime.hour;
+  int get minute => this.startTime.minute;
+  int get weekday => this.startTime.weekday;
+  String get date => formatDate(this.startTime);
   String get time => '${formatHM(this.hour)}:${formatHM(this.minute)}';
   String get range => this.dr[1];
 
   static TimeManager fromString(String time) {
     if (num.tryParse(time.split(' | ')[0][0]) != null)
-      return TimeManager.dateNRange(time);
+      return TimeManager.dateNRange(time); // start with number
     return TimeManager.dayNRange(time);
   }
 
@@ -29,7 +32,7 @@ class TimeManager {
     try {
       this.init(dayTimeRange);
       assert(WEEKDAYS.indexOf(this.dr[0]) > 0);
-      this.dateTime = DateTime(
+      this.startTime = DateTime(
           this.thisMon.year,
           this.thisMon.month,
           this.thisMon.day + (WEEKDAYS.indexOf(this.dr[0]) - 1),
@@ -48,7 +51,7 @@ class TimeManager {
     try {
       this.init(dateTimeRange);
       List<int> date = this.dr[0].split('/').map((d) => int.parse(d)).toList();
-      this.dateTime =
+      this.startTime =
           DateTime(date[2], date[0], date[1], this.startT[0], this.startT[1]);
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);
     } catch (e) {
@@ -58,19 +61,17 @@ class TimeManager {
     }
   }
 
-  static List<int> parseTime(timeStr) {
-    List temp = timeStr.split(':').map((t) => int.parse(t)).toList();
-    return <int>[temp[0], temp[1]];
-  }
-
-  void init(String dateTimeRange) {
+  void init(String source) {
+    this.source = source;
     this.setThisMonday();
-    this.dr = dateTimeRange.split(' | ');
+    this.dr = source.split(' | ');
     List<String> startEnd = this.dr[1].split(' ~ ');
     this.startT = parseTime(startEnd[0]);
     List<int> endT = parseTime(startEnd[1]);
     this.dMin = (endT[0] - this.startT[0]) * 60 + endT[1] - this.startT[1];
   }
+
+  String toString() => this.source;
 
   void setThisMonday() {
     DateTime now = DateTime.now();
@@ -86,6 +87,15 @@ class TimeManager {
 
   static String formatDate(DateTime dt) {
     return '${formatHM(dt.month)}/${formatHM(dt.day)}/${dt.year}';
+  }
+
+  static String formatTime(int hour, int minute) {
+    return '${formatHM(hour)}:${formatHM(minute)}';
+  }
+
+  static List<int> parseTime(timeStr) {
+    List temp = timeStr.split(':').map((t) => int.parse(t)).toList();
+    return <int>[temp[0], temp[1]];
   }
 
   static String todayString() {

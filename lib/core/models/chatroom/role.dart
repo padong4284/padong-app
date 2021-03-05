@@ -1,6 +1,0 @@
-enum ROLE
-{
-  PROFESSOR,
-  TA,
-  STUDENT,
-}

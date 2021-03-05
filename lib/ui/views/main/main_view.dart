@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/top_boards.dart';
@@ -23,6 +24,7 @@ class MainView extends StatelessWidget {
         UnivDoor(),
         SizedBox(height: 35),
         TopBoards(this.univ['deckId']),
+        Text(Wiki.fromMap('', {'createdAt': DateTime.now().toIso8601String()}).type),
       ],
     );
   }

@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:padong/core/models/pip.dart';
+import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 Random rand = Random();
@@ -49,7 +49,7 @@ List<String> get10RecentWikiIdsAPI(String coverId) {
 
 Map<String, List<String>> getArgueIdsAPI(String wikiId) {
   return {
-    'opened': ['argue00901234', 'argue009013'],
+    'open': ['argue00901234', 'argue009013'],
     'closed': ['argue00900235', 'argue009011', 'argue009914', 'argue00912414'],
   };
 }

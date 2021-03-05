@@ -31,16 +31,16 @@ class ArgueView extends StatefulWidget {
 class _ArgueViewState extends State<ArgueView> {
   Map<String, bool> readyReReply = {};
   Map<String, GlobalKey> argueKeys = {};
-  List<String> opened;
+  List<String> open;
   List<String> closed;
   final TextEditingController _argueController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    this.opened = widget.argues['opened'];
+    this.open = widget.argues['open'];
     this.closed = widget.argues['closed'];
-    for (String argueId in this.opened + this.closed) {
+    for (String argueId in this.open + this.closed) {
       this.readyReReply[argueId] = false;
       this.argueKeys[argueId] = new GlobalKey();
     }
@@ -57,8 +57,8 @@ class _ArgueViewState extends State<ArgueView> {
           SizedBox(
             height: 20,
           ),
-          TitleHeader('Opened'),
-          ...argueList(this.opened),
+          TitleHeader('Open'),
+          ...argueList(this.open),
           SizedBox(
             height: 40,
           ),
@@ -101,7 +101,7 @@ class _ArgueViewState extends State<ArgueView> {
   }
 
   void initReplyFocus() {
-    for (String argueId in this.opened + this.closed)
+    for (String argueId in this.open + this.closed)
       this.readyReReply[argueId] = false;
     ArgueFocus.initialize();
   }

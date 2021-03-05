@@ -95,3 +95,13 @@ String roleToString(ROLE role) => {
       ROLE.TA: 'TA',
       ROLE.STUDENT: 'Student',
     }[role];
+
+enum RegistrationReturns {
+  success,
+  failed,
+  weak_password,
+  emailAlreadyInUse,
+  IdAlreadyInUse
+}
+
+enum SignInReturns { success, failed, wrongEmailOrPassword }

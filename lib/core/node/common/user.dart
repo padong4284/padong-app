@@ -1,9 +1,9 @@
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/services/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 
 // parent: University
 class User extends Node {
-  String uid;
   String name;
   String userId;
   bool isVerified;
@@ -13,8 +13,7 @@ class User extends Node {
   List<String> friendIds; // I request be friend
 
   User.fromMap(String id, Map snapshot)
-      : this.uid = snapshot['uid'],
-        this.name = snapshot['name'],
+      : this.name = snapshot['name'],
         this.userId = snapshot['userId'],
         this.isVerified = snapshot['isVerified'],
         this.entranceYear = snapshot['entranceYear'],
@@ -27,7 +26,6 @@ class User extends Node {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'uid': this.uid,
       'name': this.name,
       'userId': this.userId,
       'isVerified': this.isVerified,
@@ -47,5 +45,11 @@ class User extends Node {
     }
     if (send) return RELATION.SEND;
     return null;
+  }
+
+  static Future<User> getByUserId(String userId) async {
+    return (await PadongFB.getNodesByRule(User,
+        rule: (query) => query.where("userId", isEqualTo: userId),
+        limit: 1))[0];
   }
 }

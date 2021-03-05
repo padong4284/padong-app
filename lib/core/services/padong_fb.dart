@@ -36,6 +36,23 @@ class PadongFB {
     return null;
   }
 
+  static Future<Node> setNode(dynamic nodeType, Map data, String id) async {
+    Node node = nodeType.fromMap('', {
+      'id': id,
+      //'ownerId': Session.user.id, TODO: Session user
+      ...data, // position is important! (participant's ownerId)
+      'createdAt': DateTime.now(),
+    });
+    if (node.isValidate())
+      return await _db
+          .collection(node.type)
+          .doc(id)
+          .set(node.toJson())
+          .then((_) => node)
+          .catchError((e) => null);
+    return null;
+  }
+
   static Future<bool> deleteNode(Node node) async {
     return await _db
         .collection(node.type)
@@ -65,7 +82,7 @@ class PadongFB {
     if (limit != null && limit > 0) query = query.limit(limit);
     if (startAt != null) {
       DocumentSnapshot doc =
-      await _db.collection(startAt.type).doc(startAt.id).get();
+          await _db.collection(startAt.type).doc(startAt.id).get();
       if (doc != null && doc.exists) query = query.startAtDocument(doc);
     }
 
@@ -84,5 +101,5 @@ class PadongFB {
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
     return query.snapshots();
-    }
+  }
 }

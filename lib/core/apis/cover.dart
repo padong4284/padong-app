@@ -102,6 +102,7 @@ void create(Map data) {
   print(data);
 }
 
+//Todo: remove diff_match_patch module.(Currently, only use Diff Class.)
 String getCompared(String itemId) {
   String compared = '';
   List<Diff> diffs = padong.diff(PREVIOUS, WIKI_CONTENT);

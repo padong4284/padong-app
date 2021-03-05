@@ -6,6 +6,8 @@ String toLinuxNewLine(String t) {
       .replaceAll('\r', '\n'); // replace MacOs NewLine
 }
 
+//Todo: Have to optimize with https://en.wikipedia.org/wiki/Longest_common_subsequence_problem#Reduce_the_problem_set
+//Todo: Have to study google/diff-match-patch's Algorithm (  Myer's diff algorithm, https://neil.fraser.name/writing/diff/ )
 List<Diff> diff(String prev, String next) {
   List<String> p = toLinuxNewLine(prev).split('\n');
   List<String> n = toLinuxNewLine(next).split('\n');

@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:padong/core/shared/types.dart';
-import 'package:diff_match_patch/diff_match_patch.dart';
 import 'package:padong/core/apis/session.dart' as Session;
-import 'package:padong/ui/utils/compare/diff.dart' as padong;
 
 
 Random rand = Random();
@@ -100,24 +98,6 @@ void create(Map data) {
   data['ownerId'] = Session.user['id'];
   data['createdAt'] = DateTime.now();
   print(data);
-}
-
-//Todo: remove diff_match_patch module.(Currently, only use Diff Class.)
-String getCompared(String itemId) {
-  String compared = '';
-  List<Diff> diffs = padong.diff(PREVIOUS, WIKI_CONTENT);
-  for (Diff diff in diffs) {
-    if (diff.operation == DIFF_EQUAL)
-      compared += diff.text;
-    else {
-      String token = diff.operation == DIFF_DELETE
-          ? '--'
-          : '++'; // diff.operation == DIFF_INSERT
-      compared +=
-          '$token${diff.text}$token${'\n'}';
-    }
-  }
-  return compared;
 }
 
 const String WIKI_CONTENT = """Helping students learn How Work Works.

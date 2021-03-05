@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/utils/compare/diff_line.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
@@ -29,7 +30,7 @@ class _CompareViewState extends State<CompareView> {
         widget.wikiId,
         this.isPrev,
         (selected) => setState(() {
-              this.isPrev = selected == 'prev';
+              this.isPrev = selected == 'compare';
             }));
   }
 }
@@ -39,32 +40,32 @@ class CompareViewBase extends PostTile {
   final String wikiId;
   final Map<String, dynamic> item;
   final Map<String, dynamic> wiki;
-  final bool isPrev;
+  final bool isCompare;
   final Function checkPrev;
   final String compared;
 
-  CompareViewBase(id, wikiId, this.isPrev, this.checkPrev)
+  CompareViewBase(id, wikiId, this.isCompare, this.checkPrev)
       : this.id = id,
         this.wikiId = wikiId,
         this.item = getItemAPI(id),
         this.wiki = getWikiAPI(wikiId),
-        this.compared = getCompared(id),
+        this.compared = getCompared(PREVIOUS, WIKI_CONTENT),
         super(id);
 
   @override
   Widget build(BuildContext context) {
-    return SafePaddingTemplate(appBar: this.rawAndPreivew(), children: [
+    return SafePaddingTemplate(appBar: this.viewAndCompare(), children: [
       Stack(children: [
         Hero(tag: 'node${this.id}owner', child: this.profile()),
         Hero(tag: 'node${this.id}common', child: this.commonArea())
       ]),
       TitleHeader(this.item['title'], link: "/post/id=${this.id}"),
-      this.isPrev
-          ? PadongMarkdown(this.compared)
-          : Text(
-              this.item['description'],
+      this.isCompare
+          ? Text(
+              this.compared,
               style: AppTheme.getFont(),
-            ),
+            )
+          : PadongMarkdown(this.item['description']),
       SizedBox(height: 20),
     ]);
   }
@@ -83,10 +84,10 @@ class CompareViewBase extends PostTile {
         ]));
   }
 
-  Widget rawAndPreivew() {
+  Widget viewAndCompare() {
     return BackAppBar(
       switchButton: SwitchButton(
-        options: ['raw', 'prev'],
+        options: ['view', 'compare'],
         onChange: this.checkPrev,
       ),
       actions: [

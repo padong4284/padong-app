@@ -17,17 +17,4 @@ class Message extends Node {
       'isImage': this.isImage,
     };
   }
-
-  @override
-  Future<bool> create(String parentId, Map data) async {
-    if (await super.create(parentId, data)) {
-      // TODO: FIXME: update is safe?
-      await fireDB
-          .collection(this.type)
-          .doc(parentId) // ChatRoom
-          .update({'lastMessage': message});
-      return true;
-    }
-    return false;
-  }
 }

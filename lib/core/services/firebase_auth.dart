@@ -38,7 +38,8 @@ class PadongAuth {
       return SignInReturns.wrongEmailOrPassword;
     }
     QueryDocumentSnapshot docSnapshot = user.docs.first;
-    userNode.User docUser = userNode.User.fromMap(docSnapshot.id, docSnapshot.data());
+    userNode.User docUser =
+        userNode.User.fromMap(docSnapshot.id, docSnapshot.data());
 
     SignInReturns lastStatus;
     for (String email in docUser.userEmails) {
@@ -146,7 +147,8 @@ class PadongAuth {
       return false;
     }
 
-    userNode.User docUser = userNode.User.fromMap(queryUser.id, queryUser.data());
+    userNode.User docUser =
+        userNode.User.fromMap(queryUser.id, queryUser.data());
 
     try {
       //ToDo: Must Check changeEmail with exist email.
@@ -165,25 +167,4 @@ class PadongAuth {
     await auth.signOut();
     return true;
   }
-}
-
-// TODO: move! FIXME: !!
-getChatRoomList() async {
-  final PadongAuth auth = locator<PadongAuth>();
-
-  ModelUser user = await auth.currentSession;
-  List<ModelChatroom> result;
-  List<String> chatroomIds;
-
-  QuerySnapshot queryResult = await _participantDB.ref.where('ownerId',isEqualTo: user.id).get();
-  for(var i in queryResult.docs){
-    chatroomIds.add(i.data()['parentNodeId']);
-  }
-
-  queryResult = await _chatroomDB.ref.where('id', whereIn: chatroomIds ).get();
-  for(var i in queryResult.docs){
-    result.add(ModelChatroom.fromMap(i.id, i.data()));
-  }
-
-  return result;
 }

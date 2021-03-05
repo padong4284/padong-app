@@ -41,7 +41,7 @@ class Lecture extends Event {
     };
   }
 
-  Evaluation getReview() {
-    return this.getChildren(type: 'Review', howMany: 1)[0];
+  Future<Evaluation> getEvaluation() async {
+    return (await this.getChildren(Evaluation, limit: 1))[0];
   }
 }

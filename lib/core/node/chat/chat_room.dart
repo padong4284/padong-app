@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/chat/message.dart';
 import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/common/user.dart';
-import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/title_node.dart';
+import 'package:padong/core/services/padong_fb.dart';
 import 'package:padong/core/shared/notification.dart';
 
 // parent: Lecture or null
@@ -23,41 +22,24 @@ class ChatRoom extends TitleNode with Notification {
     };
   }
 
-  Future<bool> addParticipant(User user, [String role]) async {
-    return Participant().create(this.id, {
-      'role': role ?? "STUDENT",
+  Future<Participant> addParticipant(User user, [String role]) async {
+    return await PadongFB.createNode(Participant, {
+      'pip': this.pip,
+      'parentId': this.id,
       'ownerId': user.id,
-      'pip': "INTERNAL",
+      'role': role ?? "STUDENT",
     });
   }
 
-  Future<Stream<QuerySnapshot>> getChatStream() async {
-    return fireDB
-        .collection(this.type)
-        .where("parentId", isEqualTo: this.id)
-        .orderBy("createdAt", descending: true)
-        .snapshots();
-  }
-
-  Future<List<Message>> getChatmessages(String chatroomId,
-      [Message startAt, int limit = 500]) async {
-    Query query = _chatmessageDB.ref
-        .where("parentNodeId", isEqualTo: chatroomId)
-        .orderBy("createdAt", descending: true);
-    if (startAt != null) {
-      var doc = await _chatmessageDB.getDocumentById(startAt.id);
-      if (doc.exists) {
-        query = query.startAtDocument(doc);
-      }
-    }
-    if (limit != null) {
-      query = query.limit(limit);
-    }
-    QuerySnapshot queryMessages = await query.get();
-    List<Message> result;
-    for (var i in queryMessages.docs) {
-      result.add(Message.fromMap(i.data(), i.id));
-    }
-    return result;
+  Future<bool> chatMessage(String msg, {bool isImage = false}) async {
+    Message message = await PadongFB.createNode(Message, {
+      'pip': this.pip,
+      'parentId': this.id,
+      'message': msg,
+      'isImage': isImage,
+    });
+    if (message == null) return false;
+    this.lastMessage = message;
+    return true;
   }
 }

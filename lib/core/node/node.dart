@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/services/padong_fb.dart';
 
@@ -8,8 +7,8 @@ class Node {
   String parentId;
   String ownerId; // Node User's id
   DateTime createdAt;
-  DateTime deletedAt;
   DateTime modifiedAt;
+  DateTime deletedAt;
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
@@ -53,12 +52,14 @@ class Node {
     return await PadongFB.getNode(parentType, this.parentId);
   }
 
-  Future<List<Node>> getChildren(Type childType, {int howMany}) async {
-    return await PadongFB.getNodesByRule(
-        childType,
-        (CollectionReference collection) =>
-            collection.where(this.id, isEqualTo: 'parentId'),
-        howMany: howMany);
+  Future<List<Node>> getChildren(Type childType,
+      {int limit, Node startAt}) async {
+    return await PadongFB.getNodesByRule(childType,
+        rule: (query) => query
+            .where(this.id, isEqualTo: 'parentId')
+            .orderBy("createdAt", descending: true),
+        limit: limit,
+        startAt: startAt);
   }
 
   Future<bool> update() async {

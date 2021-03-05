@@ -18,19 +18,22 @@ class PadongFB {
     }).catchError((e) => null);
   }
 
-  static Future<bool> createNode(dynamic nodeType, Map data) async {
+  static Future<Node> createNode(dynamic nodeType, Map data) async {
     Node node = nodeType.fromMap('', {
-      ...data,
       //'ownerId': Session.user.id, TODO: Session user
+      ...data, // position is important! (participant's ownerId)
       'createdAt': DateTime.now(),
     });
     if (node.isValidate())
       return await _db
           .collection(node.type)
           .add(node.toJson())
-          .then((DocumentReference ref) => ref.id != null)
-          .catchError((e) => false);
-    return false;
+          .then((DocumentReference ref) {
+        if (ref.id == null) return null;
+        node.id = ref.id;
+        return node;
+      }).catchError((e) => null);
+    return null;
   }
 
   static Future<bool> deleteNode(Node node) async {
@@ -53,15 +56,20 @@ class PadongFB {
         .catchError((e) => false);
   }
 
-  static Future<List<Node>> getNodesByRule(
-      dynamic nodeType, Function(CollectionReference collection) rule,
-      {int howMany}) async {
+  static Future<List<Node>> getNodesByRule(dynamic nodeType,
+      {Query Function(Query) rule, int limit, Node startAt}) async {
     List<Node> result = [];
-    return await rule(_db.collection(getFBPath(nodeType)))
-        .get()
-        .then((QuerySnapshot queryResult) {
+    Query query = _db.collection(getFBPath(nodeType));
+    if (rule != null) query = rule(query);
+    if (limit != null) query = query.limit(limit);
+    if (startAt != null) {
+      DocumentSnapshot doc =
+      await _db.collection(startAt.type).doc(startAt.id).get();
+      if (doc != null && doc.exists) query = query.startAtDocument(doc);
+    }
+
+    return await query.get().then((QuerySnapshot queryResult) {
       for (DocumentSnapshot doc in queryResult.docs) {
-        if (howMany != null && result.length == howMany) break;
         Node node = nodeType.fromMap(doc.id, doc.data());
         if (node.deletedAt == null) result.add(node);
       }

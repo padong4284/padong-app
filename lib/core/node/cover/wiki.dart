@@ -1,5 +1,6 @@
 import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/title_node.dart';
+import 'package:padong/core/services/padong_fb.dart';
 import 'package:padong/core/shared/statistics.dart';
 
 // parent: Cover
@@ -7,8 +8,8 @@ class Wiki extends TitleNode with Statistics {
   List<String> backLinks; // List of wikiId
   List<String> frontLinks; // List of wikiId
 
-  Wiki.fromMap(String id, Map snapshot) :
-        this.backLinks = snapshot['backLinks'],
+  Wiki.fromMap(String id, Map snapshot)
+      : this.backLinks = snapshot['backLinks'],
         this.frontLinks = snapshot['frontLinks'],
         super.fromMap(id, snapshot);
 
@@ -27,30 +28,28 @@ class Wiki extends TitleNode with Statistics {
     return [];
   }
 
-  void updateBackLinks(String wikiId, {bool isRemove=false}) async {
+  void updateBackLinks(String targetWikiId, {bool isRemove = false}) async {
     // TODO: update firebase
-    Wiki target = await this.getById(wikiId);
-    bool isContain = this.backLinks.contains(wikiId);
+    Wiki target = await PadongFB.getNode(Wiki, targetWikiId);
+    bool isContain = this.backLinks.contains(targetWikiId);
     if (isRemove && isContain) {
-      this.backLinks.remove(wikiId);
-      target.updateFrontLinks(this.id, isRemove : true);
-    }
-    else if (!isContain) {
-      this.backLinks.add(wikiId);
+      this.backLinks.remove(targetWikiId);
+      target.updateFrontLinks(this.id, isRemove: true);
+    } else if (!isContain) {
+      this.backLinks.add(targetWikiId);
       target.updateFrontLinks(this.id);
     }
   }
 
-  void updateFrontLinks(String wikiId, {bool isRemove=false}) async {
+  void updateFrontLinks(String targetWikiId, {bool isRemove = false}) async {
     // TODO: update firebase
-    Wiki target = await this.getById(wikiId);
-    bool isContain = this.backLinks.contains(wikiId);
+    Wiki target = await PadongFB.getNode(Wiki, targetWikiId);
+    bool isContain = this.backLinks.contains(targetWikiId);
     if (isRemove && isContain) {
-      this.frontLinks.remove(wikiId);
-      target.updateBackLinks(this.id, isRemove : true);
-    }
-    else if (!isContain) {
-      this.frontLinks.add(wikiId);
+      this.frontLinks.remove(targetWikiId);
+      target.updateBackLinks(this.id, isRemove: true);
+    } else if (!isContain) {
+      this.frontLinks.add(targetWikiId);
       target.updateBackLinks(this.id);
     }
   }

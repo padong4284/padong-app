@@ -1,8 +1,6 @@
-import 'package:meta/meta.dart';
-import 'package:padong/core/shared/types.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-final FirebaseFirestore fireDB = FirebaseFirestore.instance;
+import 'package:padong/core/shared/types.dart';
+import 'package:padong/core/services/padong_fb.dart';
 
 class Node {
   String id;
@@ -14,8 +12,6 @@ class Node {
   DateTime modifiedAt;
 
   String get type => this.toString().split("'")[1].toLowerCase();
-
-  Node();
 
   Node.fromMap(String id, Map snapshot)
       : this.id = id,
@@ -53,55 +49,26 @@ class Node {
     return true;
   }
 
-  // APIs
-  Future<bool> create(String parentId, Map data) async {
-    // TODO: set this.id, because it's new!
-    /// Usage:
-    /// Post newPost = Post().create({ ... })
-    // if (!this.isValidate()) throw Exception('invalid data Node call create');
-    DocumentReference node = await fireDB.collection(this.type).add({
-      ...data,
-      'parentId': parentId,
-      'type': this.type,
-      //'ownerId': me.id, TODO: get id from Session
-      'createdAt': DateTime.now().toIso8601String(),
-      'modifiedAt': DateTime.now().toIso8601String()});
-    if (node.id != "") return true;
-    return false;
+  Future<Node> getParent(Type parentType) async {
+    return await PadongFB.getNode(parentType, this.parentId);
   }
 
-  Future<Node> getById(String id, {Type nodeType}) async {
-    // TODO: test this method
-    /// Usage:
-    /// - Deck myDeck = Deck().getById('092897');
-    /// - Post myPost = Node().getById('004885', Post);
-    dynamic nodeClass = nodeType ?? this.runtimeType;
-    String path = nodeType != null
-        ? nodeType.toString().split("'")[1].toLowerCase()
-        : this.type;
-    DocumentSnapshot doc = await fireDB.collection(path).doc(id).get();
-    if (doc.exists) return nodeClass.fromMap(id, doc.data());
-    throw Exception("${this.type.toUpperCase()} $id DOES NOT EXISTS");
+  Future<List<Node>> getChildren(Type childType, {int howMany}) async {
+    return await PadongFB.getNodesByRule(
+        childType,
+        (CollectionReference collection) =>
+            collection.where(this.id, isEqualTo: 'parentId'),
+        howMany: howMany);
   }
 
-  Future<Node> getParent() async {
-    return await this.getById(this.parentId);
+  Future<bool> update() async {
+    // assume this node is already modified (updated)
+    // just update Fire Store data
+    return await PadongFB.updateNode(this);
   }
 
-  List getChildren({@required String type, int howMany}) {
-    // TODO: filter with type
-    // List of What ?? snapshot or Node
-    return [];
-  }
-
-  bool update(Map data) {
-    // update Fire Store data
-    return true; // success or not
-  }
-
-  bool delete() {
-    // set deleteAt and call update()
-    this.deletedAt = DateTime.now();
-    return true; // success or not
+  Future<bool> delete() async {
+    // set deletedAt now, PadongFB.getNode never return this anymore;
+    return await PadongFB.deleteNode(this); // success or not
   }
 }

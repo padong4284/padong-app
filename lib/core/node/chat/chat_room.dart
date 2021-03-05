@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/chat/message.dart';
 import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/common/user.dart';
@@ -41,5 +42,15 @@ class ChatRoom extends TitleNode with Notification {
     if (message == null) return false;
     this.lastMessage = message;
     return true;
+  }
+
+  Future<Stream<QuerySnapshot>> getMessageStream() async {
+    return await PadongFB.getNodeStreamByRule(
+      Message,
+      rule: (query) => query
+          .where("parentId", isEqualTo: this.id)
+          .orderBy("createdAt", descending: true),
+      limit: 30,
+    );
   }
 }

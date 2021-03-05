@@ -78,14 +78,11 @@ class PadongFB {
     }).catchError((e) => null);
   }
 
-  static Future<Stream> getNodeStreamByRule(dynamic nodeType,
+  static Future<Stream<QuerySnapshot>> getQueryStreamByRule(dynamic nodeType,
       {Query Function(Query) rule, int limit = 30}) async {
     Query query = _db.collection(getFBPath(nodeType));
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
-    return query
-        .snapshots() // below is middleware
-        .map((queryResult) =>
-        queryResult.docs.map((doc) => nodeType.fromMap(doc.id, doc.data())));
+    return query.snapshots();
     }
 }

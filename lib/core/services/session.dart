@@ -1,7 +1,8 @@
-import 'package:padong/core/node/common/university.dart';
-import 'package:padong/core/services/padong_auth.dart';
+/// Usage: import 'package:padong/core/services/session.dart' as Session;
 import 'package:padong/core/services/padong_fb.dart';
+import 'package:padong/core/services/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/common/university.dart';
 
 Future<User> get currentUser async => await PadongAuth.currentUser;
 

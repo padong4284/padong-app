@@ -2,8 +2,8 @@ import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/services/padong_fb.dart';
-import 'package:padong/core/services/session.dart';
 import 'package:padong/core/shared/types.dart';
+import 'package:padong/core/services/session.dart' as Session;
 
 // parent: University
 class User extends Node {
@@ -51,7 +51,7 @@ class User extends Node {
   }
 
   Future<List<ChatRoom>> getMyChatRooms() async {
-    User me = await currentUser;
+    User me = await Session.currentUser;
     if (this != me) throw Exception("Not me!");
 
     List<String> chatRoomIds;

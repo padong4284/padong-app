@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/services/session.dart' as Session;
 
 String getFBPath(Type nodeType) => nodeType.toString().toLowerCase();
 
@@ -20,7 +21,7 @@ class PadongFB {
 
   static Future<Node> createNode(dynamic nodeType, Map data) async {
     Node node = nodeType.fromMap('', {
-      //'ownerId': Session.user.id, TODO: Session user
+      'ownerId': (await Session.currentUser).id,
       ...data, // position is important! (participant's ownerId)
       'createdAt': DateTime.now(),
     });
@@ -39,7 +40,7 @@ class PadongFB {
   static Future<Node> setNode(dynamic nodeType, Map data, String id) async {
     Node node = nodeType.fromMap('', {
       'id': id,
-      //'ownerId': Session.user.id, TODO: Session user
+      'ownerId': (await Session.currentUser).id,
       ...data, // position is important! (participant's ownerId)
       'createdAt': DateTime.now(),
     });

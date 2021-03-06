@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
+
 Random rand = Random();
 
 Map<String, dynamic> getCoverAPI(String coverId) {
@@ -70,34 +71,7 @@ Map<String, dynamic> getItemAPI(itemId) {
     'isBookmarked': false,
     'createdAt': DateTime(2021, 2, 27 - cnt, 14, 13),
     'title': 'Vision',
-    'description': """Helping students learn How Work Works.
-## OUR MISSION
-To provide career education, resources, 
-and experiential opportunities to Georgia 
-Tech students across all majors so that they 
-are positioned to launch and sustain 
-satisfying and successful careers that make 
-a meaningful contribution to society.
-
-In collaboration with campus and global 
-community partners, we aim to support a 
-broad spectrum of career directions, 
-including: employment in private, public, 
-and non-profit sectors; pursuit of graduate 
-studies, professional school, and prestigious 
-fellowships; entrepreneurship and 
-innovation; research; and service activities.
-
-## OUR VISION
-
-Georgia Tech students who participate in the 
-career center’s educational and experiential 
-offerings will not only graduate with a 
-promising future; they will be equipped with 
-the career management skills and 
-knowledge necessary for navigating that 
-future and making a difference in the world 
-through innovative, purposeful leadership."""
+    'description': WIKI_CONTENT,
   };
 }
 
@@ -125,3 +99,70 @@ void create(Map data) {
   data['createdAt'] = DateTime.now();
   print(data);
 }
+
+const String WIKI_CONTENT = """Helping students learn How Work Works.
+
+## OUR MISSION
+
+To provide career education, resources, 
+and experiential opportunities to Georgia 
+Tech students across all majors so that they 
+are positioned to launch and sustain 
+satisfying and successful careers that make 
+a meaningful contribution to society.
+
+In collaboration with campus and global 
+community partners, we aim to support a 
+broad spectrum of career directions, 
+including: employment in private, public, 
+and non-profit sectors; pursuit of graduate 
+studies, professional school, and prestigious 
+fellowships; entrepreneurship and 
+innovation; research; and service activities.
+
+## OUR VISION
+
+Georgia Tech students who participate in the 
+career center’s educational and experiential 
+offerings will not only graduate with a 
+promising future; they will be equipped with 
+the career management skills and 
+knowledge necessary for navigating that 
+future and making a difference in the world 
+through innovative, purposeful leadership.""";
+
+const String PREVIOUS = """Helping students learn How Work Works.
+
+## Our Mission and Vision
+
+### OUR MISSION
+
+To provide career education, resources, 
+and experiential opportunities to Georgia 
+Tech students across all majors so that they 
+are positioned to launch and sustain 
+amazing and successful careers that make 
+a meaningful contribution to society.
+this line will be deleted.
+
+In collaboration with campus and global 
+community partners, we aim to support a 
+broad spectrum of career directions, 
+including: employment in private, public, 
+and non-profit sectors; pursuit of graduate 
+studies, professional school, and prestigious 
+fellowships; entrepreneurship and 
+innovation; research; and service activities.
+multiple line delete test
+this line is also deleted.
+
+### OUR VISION
+
+Georgia Tech students who participate in the 
+career center’s educational and experiential 
+offerings will not only graduate with a 
+promising future; they will be equipped with 
+the career management skills and 
+knowledge necessary for navigating that 
+future and making a difference in the World 
+through innovative, purposeful and leadership.""";

@@ -39,7 +39,6 @@ class PadongMarkdown extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2.0),
               ),
               horizontalRuleDecoration: MarkdownTheme.horizontalRule),
-          //syntaxHighlighter: ,
           extensionSet: md.ExtensionSet(
             md.ExtensionSet.gitHubFlavored.blockSyntaxes,
             [

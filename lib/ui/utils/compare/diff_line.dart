@@ -1,26 +1,14 @@
 import 'dart:math';
-import 'package:diff_match_patch/diff_match_patch.dart';
 
-String getCompared(String prev, String next) {
-  String compared = '';
-  List<Diff> diffs = diffLine(prev, next);
-  for (Diff diff in diffs) {
-    if (diff.operation == DIFF_EQUAL)
-      compared += diff.text;
-    else {
-      String token = diff.operation == DIFF_DELETE
-          ? '--'
-          : '++'; // diff.operation == DIFF_INSERT
-      compared += '$token${diff.text}$token${'\n'}';
-    }
-  }
-  return compared;
-}
+const DELETE = -1;
+const INSERT = 1;
+const EQUAL = 0;
 
-String toLinuxNewLine(String t) {
-  return t
-      .replaceAll('\r\n', '\n') //replace Windows NewLine
-      .replaceAll('\r', '\n'); // replace MacOs NewLine
+class Diff {
+  final int op;
+  final String text;
+
+  Diff(this.op, this.text);
 }
 
 //Todo: Have to optimize with https://en.wikipedia.org/wiki/Longest_common_subsequence_problem#Reduce_the_problem_set
@@ -46,16 +34,22 @@ List<Diff> diffLine(String prev, String next) {
   backTrackDiff = (int i, int j) {
     if (i >= 0 && j >= 0 && p[i] == n[j]) {
       backTrackDiff(i - 1, j - 1);
-      result.add(Diff(DIFF_EQUAL, p[i]));
+      result.add(Diff(EQUAL, p[i] + '\n'));
     } else if (j > 0 && (i == 0 || lcs[i][j - 1] >= lcs[i - 1][j])) {
       backTrackDiff(i, j - 1);
-      result.add(Diff(DIFF_INSERT, n[j]));
+      result.add(Diff(INSERT, n[j] + '\n'));
     } else if (i > 0 && (j == 0 || lcs[i][j - 1] < lcs[i - 1][j])) {
       backTrackDiff(i - 1, j);
-      result.add(Diff(DIFF_DELETE, p[i]));
+      result.add(Diff(DELETE, p[i] + '\n'));
     } else {}
   };
 
   backTrackDiff(p.length - 1, n.length - 1);
   return result;
+}
+
+String toLinuxNewLine(String source) {
+  return source
+      .replaceAll('\r\n', '\n') //replace Windows NewLine
+      .replaceAll('\r', '\n'); // replace MacOs NewLine
 }

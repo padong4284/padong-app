@@ -14,7 +14,9 @@ class PadongFB {
         .get()
         .then((DocumentSnapshot doc) {
       Node node = nodeType.fromMap(id, doc.data());
-      if (node.deletedAt != null) throw Exception('Request Deleted Node $id');
+      if (node.deletedAt != null)
+        throw Exception('Request Deleted Node $id');
+      else if (!node.isValidate()) throw Exception('Invalidate Node');
       return node;
     }).catchError((e) => null);
   }
@@ -55,23 +57,27 @@ class PadongFB {
   }
 
   static Future<bool> deleteNode(Node node) async {
-    return await _db
-        .collection(node.type)
-        .doc(node.id)
-        .update({'deletedAt': DateTime.now()})
-        .then((_) => true)
-        .catchError((e) => false);
+    if (node.isValidate())
+      return await _db
+          .collection(node.type)
+          .doc(node.id)
+          .update({'deletedAt': DateTime.now()})
+          .then((_) => true)
+          .catchError((e) => false);
+    return false;
   }
 
   static Future<bool> updateNode(Node node) async {
     // assume modified (updated) node is passed
     node.modifiedAt = DateTime.now();
-    return await _db
-        .collection(node.type)
-        .doc(node.id)
-        .update(node.toJson())
-        .then((_) => true)
-        .catchError((e) => false);
+    if (node.isValidate())
+      return await _db
+          .collection(node.type)
+          .doc(node.id)
+          .update(node.toJson())
+          .then((_) => true)
+          .catchError((e) => false);
+    return false;
   }
 
   static Future<List<Node>> getNodesByRule(dynamic nodeType,

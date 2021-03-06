@@ -3,8 +3,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
-import 'package:padong/ui/utils/compare/deleted_syntax.dart';
-import 'package:padong/ui/utils/compare/inserted_syntax.dart';
 
 class PadongMarkdown extends StatelessWidget {
   final String data;
@@ -41,12 +39,6 @@ class PadongMarkdown extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2.0),
               ),
               horizontalRuleDecoration: MarkdownTheme.horizontalRule),
-          builders: {
-            'deletedDiff': DeletedElementBuilder(),
-            'insertedDiff': InsertedElementBuilder(),
-          },
-          blockSyntaxes: [],
-          inlineSyntaxes: [DeletedSyntax(), InsertedSyntax()],
           extensionSet: md.ExtensionSet(
             md.ExtensionSet.gitHubFlavored.blockSyntaxes,
             [

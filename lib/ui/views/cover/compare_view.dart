@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/utils/compare/diff_line.dart';
+import 'package:padong/ui/utils/compare/mark_compared.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/bars/back_app_bar.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
@@ -41,15 +41,13 @@ class CompareViewBase extends PostTile {
   final Map<String, dynamic> item;
   final Map<String, dynamic> wiki;
   final bool isCompare;
-  final Function checkPrev;
-  final String compared;
+  final Function checkCompare;
 
-  CompareViewBase(id, wikiId, this.isCompare, this.checkPrev)
+  CompareViewBase(id, wikiId, this.isCompare, this.checkCompare)
       : this.id = id,
         this.wikiId = wikiId,
         this.item = getItemAPI(id),
         this.wiki = getWikiAPI(wikiId),
-        this.compared = getCompared(PREVIOUS, WIKI_CONTENT),
         super(id);
 
   @override
@@ -61,10 +59,7 @@ class CompareViewBase extends PostTile {
       ]),
       TitleHeader(this.item['title'], link: "/post/id=${this.id}"),
       this.isCompare
-          ? Text(
-              this.compared,
-              style: AppTheme.getFont(),
-            )
+          ? MarkCompared(PREVIOUS, WIKI_CONTENT)
           : PadongMarkdown(this.item['description']),
       SizedBox(height: 20),
     ]);
@@ -88,7 +83,7 @@ class CompareViewBase extends PostTile {
     return BackAppBar(
       switchButton: SwitchButton(
         options: ['view', 'compare'],
-        onChange: this.checkPrev,
+        onChange: this.checkCompare,
       ),
       actions: [
         Button(

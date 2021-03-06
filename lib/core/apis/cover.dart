@@ -165,5 +165,4 @@ promising future; they will be equipped with
 the career management skills and 
 knowledge necessary for navigating that 
 future and making a difference in the World 
-through innovative, purposeful and leadership.
-  """;
+through innovative, purposeful and leadership.""";

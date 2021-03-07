@@ -13,6 +13,10 @@ class PadongFB {
         .doc(id)
         .get()
         .then((DocumentSnapshot doc) {
+      if(!doc.exists){
+          throw Exception("Node doesn't Exists");
+      }
+
       Node node = nodeType.fromMap(id, doc.data());
       if (node.deletedAt != null)
         throw Exception('Request Deleted Node $id');

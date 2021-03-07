@@ -101,7 +101,8 @@ enum RegistrationReturns {
   failed,
   weak_password,
   emailAlreadyInUse,
-  IdAlreadyInUse
+  IdAlreadyInUse,
+  UniversityNotFound,
 }
 
 enum SignInReturns { success, failed, wrongEmailOrPassword }

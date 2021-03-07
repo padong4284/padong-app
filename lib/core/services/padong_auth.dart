@@ -51,7 +51,7 @@ class PadongAuth {
     await _auth.signOut();
   }
 
-  static Future<RegistrationReturns> registerWithEmail(
+  static Future<RegistrationReturns> signUp(
     String id,
     String pw,
     String name,

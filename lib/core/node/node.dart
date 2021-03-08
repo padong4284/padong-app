@@ -1,5 +1,5 @@
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/core/services/padong_fb.dart';
+import 'package:padong/core/service/padong_fb.dart';
 
 class Node {
   String id;

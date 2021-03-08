@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:ui';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/button.dart';
@@ -16,12 +16,10 @@ class SignView extends StatefulWidget {
   final bool isSignIn;
   final String welcomeMsg;
   final Widget forms;
-  final Future<bool> Function() onSignIn;
-  final Future<bool> Function() onSignUp;
+  final Future<bool> Function() onTapEnter;
 
   //final bool func() onSignUp;
-  SignView(this.isSignIn, this.welcomeMsg, this.forms,
-      {this.onSignIn, this.onSignUp});
+  SignView(this.isSignIn, this.welcomeMsg, this.forms, this.onTapEnter);
 
   @override
   _SignViewState createState() => _SignViewState();
@@ -32,7 +30,7 @@ class _SignViewState extends State<SignView>
   AnimationController _controller;
   Animation animation;
   bool startAnimate = true;
-  static bool isButtonDisabled = false;
+  bool isButtonDisabled = false;
 
   @override
   void initState() {
@@ -203,39 +201,39 @@ class _SignViewState extends State<SignView>
             padding: EdgeInsets.only(right: 10.0, bottom: 58.0 + bottomPadding),
             child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               Container(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
-                      style: AppTheme.getFont(
-                          fontSize: AppTheme.fontSizes.large,
-                          color: AppTheme.colors.primary))),
+                padding: const EdgeInsets.only(right: 12),
+                child: Text(widget.isSignIn ? 'Sign In' : 'Sign Up',
+                    style: AppTheme.getFont(
+                        fontSize: AppTheme.fontSizes.large,
+                        color: AppTheme.colors.primary)),
+              ),
               FloatingActionButton(
                 child: Icon(Icons.east, color: AppTheme.colors.base),
                 backgroundColor: AppTheme.colors.primary,
                 onPressed: () async {
-                  log(_SignViewState.isButtonDisabled.toString());
-                  if (_SignViewState.isButtonDisabled == false) {
-                    _SignViewState.isButtonDisabled = true;
-                    //log(widget.onSignIn == null);
-                    if (widget.isSignIn && widget.onSignIn != null) {
-                      log("Login Start.");
-
-                      if (await widget.onSignIn()) {
-                        log("Login success.");
-                        Navigator.pushNamed(context, '/main',
-                            arguments: {'univId': Session.user['univId']});
+                  if (this.isButtonDisabled == false) {
+                    this.isButtonDisabled = true;
+                    if (widget.isSignIn) {
+                      if (await widget.onTapEnter()) {
+                        // TODO: register User and University to Session
+                        Navigator.pushNamed(context, '/main');
                       } else {
+                        // TODO: feedback to user
                         log("Login Failed.");
                       }
-                    } else if (!widget.isSignIn && widget.onSignUp != null) {
-                      if (await widget.onSignUp()) {
-                        log("Register success.");
-                        Navigator.pushNamed(context, '/',
-                            arguments: {'univId': Session.user['univId']});
+                    } else {
+                      if (await widget.onTapEnter()) {
+                        // TODO: register User and University to Session
+                        Navigator.pushNamed(
+                          context,
+                          '/main',
+                        );
                       } else {
+                        // TODO: feedback to user
                         log("Register Failed ");
                       }
                     }
-                    _SignViewState.isButtonDisabled = false;
+                    this.isButtonDisabled = false;
                   }
                 },
               )

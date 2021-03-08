@@ -27,7 +27,7 @@ class EventView extends StatelessWidget {
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
           title: 'Memo',
           onTap: () {
-            PadongRouter.routeURL('memo/id=${this.id}');
+            PadongRouter.routeURL('memo?id=${this.id}');
           },
           isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.event['title'], actions: [
@@ -35,7 +35,7 @@ class EventView extends StatelessWidget {
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
             onPressed: () {
               PadongRouter.routeURL(
-                  '/update/id=${this.event['parentId']}&eventId=${this.id}');
+                  '/update?id=${this.event['parentId']}&eventId=${this.id}');
             }) // TODO: more dialog
       ]),
       children: [

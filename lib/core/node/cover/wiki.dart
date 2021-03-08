@@ -1,6 +1,6 @@
 import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/title_node.dart';
-import 'package:padong/core/services/padong_fb.dart';
+import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/statistics.dart';
 
 // parent: Cover

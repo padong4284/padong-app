@@ -35,7 +35,7 @@ class PhotoCard extends StatelessWidget {
     return InkWell(
         onTap: () {
           PadongRouter.routeURL(
-              '/${this.isWiki ? 'wiki' : 'post'}/id=${this.id}');
+              '/${this.isWiki ? 'wiki' : 'post'}?id=${this.id}');
         },
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),

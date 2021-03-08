@@ -37,7 +37,7 @@ class PostView extends PostTile {
             Hero(tag: 'node${this.id}owner', child: this.profile()),
             Hero(tag: 'node${this.id}common', child: this.commonArea())
           ]),
-          TitleHeader(this.post['title'], link: "/post/id=${this.id}"),
+          TitleHeader(this.post['title'], link: "/post?id=${this.id}"),
           PadongMarkdown(this.post['description']),
           SizedBox(height: 20),
           Hero(tag: 'node${this.id}bottoms', child: this.bottomArea()),

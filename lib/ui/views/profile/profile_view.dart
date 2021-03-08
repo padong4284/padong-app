@@ -55,7 +55,7 @@ class _ProfileViewState extends State<ProfileView> {
           ),
           TitleHeader('Friends',
               moreCallback: () =>
-                  PadongRouter.routeURL('friends/id=${widget.id}')),
+                  PadongRouter.routeURL('friends?id=${widget.id}')),
           HorizontalScroller(height: 130, children: [
             ...widget.user['friends'].map((id) => Padding(
                 padding:

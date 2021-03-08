@@ -24,7 +24,7 @@ class CoverView extends StatelessWidget {
     return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) => PadongFloatingButton(
           onPressAdd: () {
-            PadongRouter.routeURL('edit/id=${this.id}');
+            PadongRouter.routeURL('edit?id=${this.id}');
           },
           isScrollingDown: isScrollingDown),
       title: 'Wiki',

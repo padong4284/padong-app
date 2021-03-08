@@ -57,7 +57,7 @@ class CompareViewBase extends PostTile {
         Hero(tag: 'node${this.id}owner', child: this.profile()),
         Hero(tag: 'node${this.id}common', child: this.commonArea())
       ]),
-      TitleHeader(this.item['title'], link: "/post/id=${this.id}"),
+      TitleHeader(this.item['title'], link: "/post?id=${this.id}"),
       this.isCompare
           ? MarkCompared(PREVIOUS, WIKI_CONTENT)
           : PadongMarkdown(this.item['description']),

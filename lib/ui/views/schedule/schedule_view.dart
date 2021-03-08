@@ -28,7 +28,7 @@ class ScheduleView extends StatelessWidget {
         floatingActionButtonGenerator: (isScrollingDown) =>
             PadongFloatingButton(
                 onPressAdd: () {
-                  PadongRouter.routeURL('update/id=${this.id}');
+                  PadongRouter.routeURL('update?id=${this.id}');
                 },
                 isScrollingDown: isScrollingDown),
         title: 'Schedule',
@@ -59,7 +59,7 @@ class ScheduleView extends StatelessWidget {
               padding: const EdgeInsets.all(0),
               icon: Icon(Icons.format_list_bulleted_rounded,
                   color: AppTheme.colors.support, size: 25),
-              onPressed: () => PadongRouter.routeURL('/rail/id=${this.id}')))
+              onPressed: () => PadongRouter.routeURL('/rail?id=${this.id}')))
     ]);
   }
 

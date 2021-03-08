@@ -16,7 +16,7 @@ class ChatRoomTile extends NodeBaseTile {
         super(chatRoomId);
 
   @override
-  void routePage() => PadongRouter.routeURL('chat_room/id=${this.id}');
+  void routePage() => PadongRouter.routeURL('chat_room?id=${this.id}');
 
   @override
   Widget profile() {

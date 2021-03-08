@@ -1,31 +1,36 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/shared/types.dart';
 
 // parent: Mappa
 class Building extends TitleNode with Statistics {
   LatLng location;
+  int serviceCheckBits; // TODO transaction!
 
   Building.fromMap(String id, Map snapshot)
-      : this.location = LatLng.fromJson(snapshot['loc']),
+      : this.location = LatLng.fromJson(snapshot['location']),
+        this.serviceCheckBits = snapshot['serviceCheckBits'],
         super.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'loc': this.location.toJson(),
+      'location': this.location.toJson(),
+      'serviceCheckBits': this.serviceCheckBits,
     };
   }
 
-  /// TODO: check Library, Restaurant, Parking, Medical, Custom
-  List<bool> checkServiceList() {
-    return [
-      false, // Library
-      false, // Restaurant
-      false, // Parking
-      false, // Medical
-      false, // Custom
-    ];
+  @override
+  List<int> getStatistics() {
+    List<int> statistics = super.getStatistics();
+    statistics[1] = null;
+    return statistics;
+  }
+
+  bool isServiceOn(SERVICE service) {
+    // check bit mask with service's code
+    return (this.serviceCheckBits & service.code) > 0;
   }
 }

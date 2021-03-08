@@ -98,7 +98,7 @@ class NodeBase extends StatelessWidget {
         ));
   }
 
-  void routePage() => PadongRouter.routeURL('/post/id=${this.id}');
+  void routePage() => PadongRouter.routeURL('/post?id=${this.id}');
 
   void moreCallback() {
     // TODO: Click more button " ... "

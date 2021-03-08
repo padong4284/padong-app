@@ -6,9 +6,13 @@ class PadongFloatingButton extends StatelessWidget {
   final Function onPressAdd;
   final bool isScrollingDown;
   final double bottomPadding;
+  final IconData replaceAddIcon;
 
   PadongFloatingButton(
-      {this.onPressAdd, this.isScrollingDown = false, this.bottomPadding = 0});
+      {this.onPressAdd,
+      this.isScrollingDown = false,
+      this.bottomPadding = 0,
+      this.replaceAddIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class PadongFloatingButton extends StatelessWidget {
                       duration: Duration(milliseconds: 300),
                       child: FloatingActionButton(
                         heroTag: null,
-                        child: Icon(Icons.add,
+                        child: Icon(this.replaceAddIcon ?? Icons.add,
                             color: AppTheme.colors.base, size: 30),
                         backgroundColor: AppTheme.colors.support,
                         onPressed: this.onPressAdd,

@@ -10,6 +10,10 @@ import 'package:padong/ui/views/deck/board_view.dart';
 import 'package:padong/ui/views/deck/make_view.dart';
 import 'package:padong/ui/views/deck/post_view.dart';
 import 'package:padong/ui/views/deck/write_view.dart';
+import 'package:padong/ui/views/map/building_view.dart';
+import 'package:padong/ui/views/map/pin_view.dart';
+import 'package:padong/ui/views/map/serve_view.dart';
+import 'package:padong/ui/views/map/service_view.dart';
 import 'package:padong/ui/views/profile/configure_view.dart';
 import 'package:padong/ui/views/profile/friends_view.dart';
 import 'package:padong/ui/views/profile/profile_view.dart';
@@ -42,6 +46,7 @@ class PadongRouter {
         new Map<String, dynamic>.from(settings.arguments ?? {});
     switch (settings.name) {
       case '/main':
+        // TODO: set session current University
         Session.currentUniv = getUnivAPI(args['univId']);
         return MaterialPageRoute(builder: (_) => RouteView());
       case '/p_main':
@@ -99,6 +104,21 @@ class PadongRouter {
       case '/memo':
         return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['id']));
 
+      case '/building':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => BuildingView(args['id']),
+            direction: 1);
+      case '/service':
+        return sizeRouter(pageBuilder: (_, __, ___) => PostView(args['id']));
+      case '/pin':
+        return slideRouter(
+            pageBuilder: (_, __, ___) =>
+                PinView(args['id'], args['lat'], args['lng']));
+      case '/serve':
+        return slideRouter(pageBuilder: (_, __, ___) => ServeView(args['id']));
+      case '/service':
+        return sizeRouter(pageBuilder: (_, __, ___) => ServiceView(args['id']));
+
       case '/chats':
         return slideRouter(
             pageBuilder: (_, __, ___) => ChatsView(), direction: 1);
@@ -116,7 +136,6 @@ class PadongRouter {
         return fadeRouter(pageBuilder: (_, __, ___) => ConfigureView());
       case '/friends':
         return sizeRouter(pageBuilder: (_, __, ___) => FriendsView(args['id']));
-
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
 
@@ -136,7 +155,7 @@ class PadongRouter {
   static void routeURL(String url) {
     Map<String, dynamic> arguments = {};
     if (url.startsWith('/')) url = url.substring(1);
-    List<String> parsed = url.split('/');
+    List<String> parsed = url.split('?');
     if (parsed.length >= 2) {
       for (String parse in parsed[1].split('&')) {
         assert(parse.indexOf('=') > 0);

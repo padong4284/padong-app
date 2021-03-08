@@ -67,7 +67,7 @@ class HorizontalScroller extends StatelessWidget {
                     size: AppTheme.fontSizes.regular),
                 isSuffixICon: true,
                 callback: () =>
-                    PadongRouter.routeURL('/board/id=${this.moreId}'),
+                    PadongRouter.routeURL('/board?id=${this.moreId}'),
               )))
           : SizedBox.shrink()
     ]);

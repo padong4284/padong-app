@@ -54,21 +54,27 @@ String periodicityToString(PERIODICITY periodicity) => {
       PERIODICITY.WEEKLY: 'Private',
     }[periodicity];
 
-enum SERVICE {
-  LIBRARY,
-  RESTAURANT,
-  PARKING,
-  MEDICAL,
-  CUSTOM,
+const SERVICE_CODES = [1, 2, 4, 8, 16];
+const SERVICES = ['Library', 'Restaurant', 'Parking', 'Medical', 'Custom'];
+
+class SERVICE {
+  static int LIBRARY = 1;
+  static int RESTAURANT = 2;
+  static int PARKING = 4;
+  static int MEDICAL = 8;
+  static int CUSTOM = 16;
+  final int code;
+
+  SERVICE(this.code);
 }
 
-SERVICE parseSERVICE(String service) => {
+SERVICE parseSERVICE(String service) => SERVICE({
       'Library': SERVICE.LIBRARY,
       'Restaurant': SERVICE.RESTAURANT,
       'Parking': SERVICE.PARKING,
       'Medical': SERVICE.MEDICAL,
       'Custom': SERVICE.CUSTOM,
-    }[service];
+    }[service]);
 
 String serviceToString(SERVICE service) => {
       SERVICE.LIBRARY: 'Library',
@@ -76,7 +82,7 @@ String serviceToString(SERVICE service) => {
       SERVICE.PARKING: 'Parking',
       SERVICE.MEDICAL: 'Medical',
       SERVICE.CUSTOM: 'Custom',
-    }[service];
+    }[service.code];
 
 enum ROLE {
   PROFESSOR,

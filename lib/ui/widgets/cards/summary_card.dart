@@ -17,7 +17,7 @@ class SummaryCard extends StatelessWidget {
             MediaQuery.of(context).size.width - AppTheme.horizontalPadding * 2,
         height: 160,
         moreCallback: () {
-          PadongRouter.routeURL('/wiki/id=${this.id}');
+          PadongRouter.routeURL('/wiki?id=${this.id}');
         },
         children: <Widget>[
           SizedBox(height: 2),

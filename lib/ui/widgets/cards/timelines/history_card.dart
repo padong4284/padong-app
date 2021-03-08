@@ -74,5 +74,5 @@ class HistoryCard extends NodeBase {
 
   @override
   void routePage() =>
-      PadongRouter.routeURL('/compare/id=${this.id}&wikiId=${this.wikiId}');
+      PadongRouter.routeURL('/compare?id=${this.id}&wikiId=${this.wikiId}');
 }

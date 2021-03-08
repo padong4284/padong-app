@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
@@ -8,9 +9,11 @@ Map<String, dynamic> getUnivAPI(String univId) {
   return {
     'id': 'univ009',
     'title': 'Georgia Tech',
+    'description': 'Progress and Service',
     'deckId': 'deck009',
     'coverId': 'cover009',
-    'description': 'Progress and Service',
+    'mappaId': 'mappa009',
+    'location': LatLng(33.775792835163144, -84.3962589592725),
     'emblem': 'https://en.wikipedia.org/wiki/File:Georgia_Tech_seal.svg',
   };
 }

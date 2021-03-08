@@ -16,7 +16,7 @@ class Button extends StatelessWidget {
 
   Button(
       {this.title,
-      @required this.buttonSize,
+      this.buttonSize = ButtonSize.REGULAR,
       color,
       borderColor,
       type,

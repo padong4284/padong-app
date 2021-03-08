@@ -38,7 +38,7 @@ class FriendsView extends StatelessWidget {
     return Column(
         children: friendIds
             .map((id) => InkWell(
-                onTap: () => PadongRouter.routeURL('/profile/id=$id'),
+                onTap: () => PadongRouter.routeURL('/profile?id=$id'),
                 child: FriendTile(id, chatCallback: this.chatWith,
                     moreCallback: () {
                   // TODO: more dialog
@@ -48,6 +48,6 @@ class FriendsView extends StatelessWidget {
 
   void chatWith(String id) {
     // TODO : check chatRoom exists
-    PadongRouter.routeURL('/chat_room/id=$id');
+    PadongRouter.routeURL('/chat_room?id=$id');
   }
 }

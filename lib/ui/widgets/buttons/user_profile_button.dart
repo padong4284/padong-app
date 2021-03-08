@@ -29,7 +29,7 @@ class UserProfileButton extends StatelessWidget {
     return InkWell(
         onTap: this.isBold
             ? null
-            : () => PadongRouter.routeURL('profile/id=${this.id}'),
+            : () => PadongRouter.routeURL('profile?id=${this.id}'),
         child: Stack(children: [
           Icon(
             Icons.account_circle_rounded,

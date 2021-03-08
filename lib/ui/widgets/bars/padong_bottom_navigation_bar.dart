@@ -27,7 +27,7 @@ class PadongBottomNavigationBar extends StatelessWidget {
             label: 'Home',
             icon: Padding(
                 padding: const EdgeInsets.only(left: padding),
-                child: Icon(Icons.home_filled, size: this.size)),
+                child: Icon(CustomIcons.home_filled_rounded, size: this.size)),
           ),
           BottomNavigationBarItem(
             label: 'Cover',
@@ -37,19 +37,19 @@ class PadongBottomNavigationBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             label: 'Deck',
-            icon: Icon(Icons.wysiwyg, size: this.size),
+            icon: Icon(Icons.wysiwyg_rounded, size: this.size),
           ),
           BottomNavigationBarItem(
             label: 'Schedule',
             icon: Padding(
                 padding: const EdgeInsets.only(right: padding / 2),
-                child: Icon(Icons.event, size: this.size)),
+                child: Icon(Icons.event_rounded, size: this.size)),
           ),
           BottomNavigationBarItem(
             label: 'Map',
             icon: Padding(
                 padding: const EdgeInsets.only(right: padding),
-                child: Icon(Icons.place, size: this.size)),
+                child: Icon(Icons.place_rounded, size: this.size)),
           ),
         ]);
   }

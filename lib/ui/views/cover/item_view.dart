@@ -25,12 +25,12 @@ class ItemView extends StatelessWidget {
             title: 'Edit',
             onTap: () {
               PadongRouter.routeURL(
-                  'edit/id=${this.wiki['parentId']}&wikiId=${this.id}');
+                  'edit?id=${this.wiki['parentId']}&wikiId=${this.id}');
             },
             isScrollingDown: isScrollingDown),
         children: [
           Column(children: [
-            TitleHeader(this.wiki['title'], link: "/wiki/id=${this.id}"),
+            TitleHeader(this.wiki['title'], link: "/wiki?id=${this.id}"),
             PadongMarkdown(this.wiki['description'])
           ]),
         ]);

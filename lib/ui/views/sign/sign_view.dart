@@ -211,6 +211,9 @@ class _SignViewState extends State<SignView>
                 child: Icon(Icons.east, color: AppTheme.colors.base),
                 backgroundColor: AppTheme.colors.primary,
                 onPressed: () async {
+                  // FIXME for testing
+                  Navigator.pushNamed(context, '/main');
+
                   if (this.isButtonDisabled == false) {
                     this.isButtonDisabled = true;
                     if (widget.isSignIn) {
@@ -224,10 +227,7 @@ class _SignViewState extends State<SignView>
                     } else {
                       if (await widget.onTapEnter()) {
                         // TODO: register User and University to Session
-                        Navigator.pushNamed(
-                          context,
-                          '/main',
-                        );
+                        Navigator.pushNamed(context, '/main');
                       } else {
                         // TODO: feedback to user
                         log("Register Failed ");

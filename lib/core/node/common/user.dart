@@ -65,7 +65,7 @@ class User extends Node {
   }
 
   static Future<User> getByUserId(String userId) async {
-    List<User> users = (await PadongFB.getNodesByRule(User,
+    List users = (await PadongFB.getNodesByRule(User,
         rule: (query) => query.where("userId", isEqualTo: userId), limit: 1));
     if (users.isEmpty) return null;
     return users.first;

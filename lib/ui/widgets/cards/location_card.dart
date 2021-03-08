@@ -6,8 +6,9 @@ import 'package:padong/ui/utils/bitmap_icon_loader.dart';
 
 class LocationCard extends StatefulWidget {
   final LatLng loc;
+  final String mark;
 
-  LocationCard(this.loc);
+  LocationCard(this.loc, {this.mark='primary'});
 
   _LocationCardState createState() => _LocationCardState();
 }
@@ -37,7 +38,7 @@ class _LocationCardState extends State<LocationCard> {
     controller
         .setMapStyle(await rootBundle.loadString('assets/map_style.json'));
     BitmapDescriptor markerIcon =
-        await getBitmapIcon('assets/pinIcon/primary.png', 125);
+        await getBitmapIcon('assets/pinIcon/${widget.mark}.png', 125);
     setState(() {
       this.pinMarker.add(Marker(
           markerId: MarkerId('${widget.loc.latitude}-${widget.loc.longitude}'),

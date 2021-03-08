@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/apis/map.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
-import 'package:padong/ui/widgets/title_header.dart';
+import 'package:padong/ui/widgets/cards/location_card.dart';
 
 class PinView extends StatelessWidget {
   final String mappaId;
@@ -17,14 +17,16 @@ class PinView extends StatelessWidget {
     return MarkdownEditorTemplate(
       editTxt: 'pin',
       onSubmit: this.createBoard,
+      titleHint: 'Title of Building',
       children: [
-        TitleHeader('Services'),
+        SizedBox(height: 20),
+        LocationCard(this.location, mark: 'support',)
       ],
     );
   }
 
   void createBoard(Map data) {
     data['parentId'] = this.mappaId;
-    createBoardAPI(data);
+    createBuildingAPI(data);
   }
 }

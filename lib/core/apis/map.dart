@@ -69,18 +69,14 @@ tips. You can create you own also!""",
 }
 
 List<Map<String, dynamic>> getServicesAPI(String buildingId) {
-  return List.generate(
-      5,
-      (i) => {
-            'id': '$buildingId-$i',
-            'title': [
-              'PLibrary',
-              'PRestaurant',
-              'PParking',
-              'PMedical',
-              'PCustom'
-            ][i],
-            'description': """Markdown Description which supports Image
+  return List.generate(5, (i) => getServiceAPI(buildingId, i));
+}
+
+Map<String, dynamic> getServiceAPI(String serviceId, [int i = 0]) {
+  return {
+    'id': '$serviceId-$i',
+    'title': ['PLibrary', 'PRestaurant', 'PParking', 'PMedical', 'PCustom'][i],
+    'description': """Markdown Description which supports Image
 and Video! Please describe this service!
 
 width of this area is 650px fixed.
@@ -89,7 +85,10 @@ margin top 26px and bottom 74px.
 
 Same category of services can serve at one
 Building!""",
-            'serviceCode': SERVICE([1, 2, 4, 8, 16][i]),
-            'rate': 3.5,
-          });
+    'serviceCode': SERVICE([1, 2, 4, 8, 16][i]),
+    'rate': 3.5,
+    'isLiked': false,
+    'isBookmarked': true,
+    'bottoms': [2, 3, 5],
+  };
 }

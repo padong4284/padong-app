@@ -108,15 +108,13 @@ class PadongRouter {
         return fadeRouter(
             pageBuilder: (_, __, ___) => BuildingView(args['id']));
       case '/service':
-        return sizeRouter(pageBuilder: (_, __, ___) => PostView(args['id']));
+        return sizeRouter(pageBuilder: (_, __, ___) => ServiceView(args['id']));
       case '/pin':
         return slideRouter(
             pageBuilder: (_, __, ___) =>
                 PinView(args['id'], args['lat'], args['lng']));
       case '/serve':
         return slideRouter(pageBuilder: (_, __, ___) => ServeView(args['id']));
-      case '/service':
-        return sizeRouter(pageBuilder: (_, __, ___) => ServiceView(args['id']));
 
       case '/chats':
         return slideRouter(

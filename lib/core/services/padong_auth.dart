@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/shared/types.dart';
@@ -27,11 +29,12 @@ class PadongAuth {
       try {
         await _auth.signInWithEmailAndPassword(email: email, password: pw);
       } on FirebaseAuthException catch (e) {
+        log(e.code);
         if (e.code == 'user-not-found' || e.code == 'wrong-password')
           lastStatus = SignInReturns.wrongEmailOrPassword;
         else
           lastStatus = SignInReturns.failed;
-      } on Exception {
+      } on Exception catch (e) {
         lastStatus = SignInReturns.failed;
       }
       if (lastStatus == SignInReturns.success) break;
@@ -61,31 +64,32 @@ class PadongAuth {
     // When registerWithEmail returned AuthError.success,
     // the verification email has sent. so, TODO: View must notify it to user.
     userNode.User user = await userNode.User.getByUserId(id);
-    if (user != null) return RegistrationReturns.IdAlreadyInUse;
+    if (user != null) {
+      log("user already exists");
+      return RegistrationReturns.IdAlreadyInUse;
+    }
     University university;
 
     try {
-      university= await University.getUniversityByTitle(
-        universityName);
-    } catch (e){
-      return RegistrationReturns.UniversityNotFound;
+      university = await University.getUniversityByTitle(
+          universityName);
+    } catch (e) {
+      log("university not found");
+
+      //return RegistrationReturns.UniversityNotFound;
     }
 
-
-
-
-
-      try {
-        await _auth.createUserWithEmailAndPassword(email: email, password: pw);
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password')
-          return RegistrationReturns.weak_password;
-        else if (e.code == 'email-already-in-use')
-          return RegistrationReturns.emailAlreadyInUse;
-        return RegistrationReturns.failed;
-      } catch (e) {
-        return RegistrationReturns.failed;
-      }
+    try {
+      await _auth.createUserWithEmailAndPassword(email: email, password: pw);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password')
+        return RegistrationReturns.weak_password;
+      else if (e.code == 'email-already-in-use')
+        return RegistrationReturns.emailAlreadyInUse;
+      return RegistrationReturns.failed;
+    } catch (e) {
+      return RegistrationReturns.failed;
+    }
 
     User currentUser = _auth.currentUser;
     if (currentUser == null) return RegistrationReturns.failed;

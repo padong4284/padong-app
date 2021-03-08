@@ -97,6 +97,7 @@ class _ListPickerState extends State<ListPicker> {
     this.setText(0, this.selectedIdxs[0]);
     showCupertinoModalPopup(
         context: context,
+        useRootNavigator: true,
         builder: (_) => Stack(children: [
               Container(
                   height: 250.0 + (widget.titles.length > 0 ? 50 : 0),
@@ -139,12 +140,12 @@ class _ListPickerState extends State<ListPicker> {
                   buttonSize: ButtonSize.LARGE,
                   callback: () {
                     widget.controller.text = '';
-                    PadongRouter.goBack();
+                    Navigator.pop(context);
                   }),
               TranspButton(
                   title: 'OK',
                   buttonSize: ButtonSize.LARGE,
-                  callback: () => PadongRouter.goBack())
+                  callback: () => Navigator.pop(context))
             ],
           )),
       widget.titles.length > 0

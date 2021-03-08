@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -15,8 +16,12 @@ class SignView extends StatefulWidget {
   final bool isSignIn;
   final String welcomeMsg;
   final Widget forms;
+  final Future<bool> Function() onSignIn;
+  final Future<bool> Function() onSignUp;
 
-  SignView(this.isSignIn, this.welcomeMsg, this.forms);
+  //final bool func() onSignUp;
+  SignView(this.isSignIn, this.welcomeMsg, this.forms,
+      {this.onSignIn, this.onSignUp});
 
   @override
   _SignViewState createState() => _SignViewState();
@@ -27,6 +32,7 @@ class _SignViewState extends State<SignView>
   AnimationController _controller;
   Animation animation;
   bool startAnimate = true;
+  static bool isButtonDisabled = false;
 
   @override
   void initState() {
@@ -178,13 +184,15 @@ class _SignViewState extends State<SignView>
                             })),
               Padding(
                   padding: const EdgeInsets.only(right: 45, bottom: 40),
-                  child: TranspButton(
-                      title: 'Forgot Password?',
-                      color: AppTheme.colors.semiPrimary,
-                      buttonSize: ButtonSize.REGULAR,
-                      callback: () {
-                        Navigator.pushNamed(context, '/forgot');
-                      })),
+                  child: widget.isSignIn
+                      ? TranspButton(
+                          title: 'Forgot Password?',
+                          color: AppTheme.colors.semiPrimary,
+                          buttonSize: ButtonSize.REGULAR,
+                          callback: () {
+                            Navigator.pushNamed(context, '/forgot');
+                          })
+                      : null),
             ]));
   }
 
@@ -203,15 +211,32 @@ class _SignViewState extends State<SignView>
               FloatingActionButton(
                 child: Icon(Icons.east, color: AppTheme.colors.base),
                 backgroundColor: AppTheme.colors.primary,
-                onPressed: () {
-                  /* TODO: register user to session
-                  Session.user = {
-                    'id': 'u009003',
-                    'username': 'kod',
-                    'univId': 'univ009',
-                  };*/
-                  Navigator.pushNamed(context, '/main',
-                      arguments: {'univId': Session.user['univId']});
+                onPressed: () async {
+                  log(_SignViewState.isButtonDisabled.toString());
+                  if (_SignViewState.isButtonDisabled == false) {
+                    _SignViewState.isButtonDisabled = true;
+                    //log(widget.onSignIn == null);
+                    if (widget.isSignIn && widget.onSignIn != null) {
+                      log("Login Start.");
+
+                      if (await widget.onSignIn()) {
+                        log("Login success.");
+                        Navigator.pushNamed(context, '/main',
+                            arguments: {'univId': Session.user['univId']});
+                      } else {
+                        log("Login Failed.");
+                      }
+                    } else if (!widget.isSignIn && widget.onSignUp != null) {
+                      if (await widget.onSignUp()) {
+                        log("Register success.");
+                        Navigator.pushNamed(context, '/',
+                            arguments: {'univId': Session.user['univId']});
+                      } else {
+                        log("Register Failed ");
+                      }
+                    }
+                    _SignViewState.isButtonDisabled = false;
+                  }
                 },
               )
             ])));

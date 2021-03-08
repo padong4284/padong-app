@@ -20,6 +20,7 @@ class ServiceCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 12, bottom: 15),
               child: StarRateButton(rate: this.service['rate'], disable: true)),
           SizedBox(height: 40, child: Text(this.service['description'])),
+          SizedBox(height: 5)
         ]));
   }
 

@@ -63,7 +63,7 @@ tips. You can create you own also!""",
       gtLat + 0.0001 * rand.nextInt(10 + i) * (rand.nextBool() ? 1 : -1),
       gtLng + 0.0001 * rand.nextInt(10 + i) * (rand.nextBool() ? 1 : -1),
     ).toJson(),
-    'serviceCheckBits': [1, 2, 4, 8, 16][i],
+    'serviceCheckBits': rand.nextInt(32),
     'bottoms': [3, null, 1],
   };
 }

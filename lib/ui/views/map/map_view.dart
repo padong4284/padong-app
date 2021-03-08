@@ -208,7 +208,7 @@ class _MapViewState extends State<MapView> {
     PolylineResult result = await this
         .polylinePoints
         .getRouteBetweenCoordinates(
-            GOOGLE_API_KEY,
+            Session.GOOGLE_API_KEY,
             PointLatLng(this.myLocation.latitude, this.myLocation.longitude),
             PointLatLng(dest.latitude, dest.longitude));
 

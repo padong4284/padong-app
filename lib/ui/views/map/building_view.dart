@@ -10,8 +10,8 @@ import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/cards/location_card.dart';
 import 'package:padong/ui/widgets/cards/service_card.dart';
+import 'package:padong/ui/widgets/inputs/marker_selector.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
-import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
 
 class BuildingView extends StatelessWidget {
   // TODO: PIP / Written, Replied, Liked, Bookmarked
@@ -43,7 +43,9 @@ class BuildingView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
           child: PadongMarkdown(this.building['description']),
         ),
-        LocationCard(LatLng(gtLat, gtLng)),
+        Padding(
+            padding: const EdgeInsets.only(top: 15, bottom: 30),
+            child: LocationCard(LatLng(gtLat, gtLng))),
         ...this.servicesLine(),
         SizedBox(height: 10),
         ...getServicesAPI(this.id).map((service) => ServiceCard(service)),
@@ -53,7 +55,15 @@ class BuildingView extends StatelessWidget {
 
   List<Widget> servicesLine() {
     return [
-      BottomButtons(bottoms: this.building['bottoms']),
+      Stack(children: [
+        Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: BottomButtons(bottoms: this.building['bottoms'])),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          SizedBox.shrink(),
+          MarkerSelector(fixedBitMask: this.building['serviceCheckBits'])
+        ]),
+      ]),
       Container(
           height: 2,
           margin: const EdgeInsets.only(top: 10),

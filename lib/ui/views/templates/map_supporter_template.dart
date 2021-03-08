@@ -13,8 +13,7 @@ import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/containers/tip_container.dart';
 import 'package:padong/core/apis/session.dart' as Session;
-
-const GOOGLE_API_KEY = "AIzaSyDnITIBZZ0zIEq2tEKrmVn27ud9CzNxhQY";
+import 'package:padong/ui/widgets/inputs/marker_selector.dart';
 
 class Pin {
   final String name;
@@ -67,7 +66,7 @@ class _MapSupporterTemplateState extends State<MapSupporterTemplate> {
         SizedBox(height: 10),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           this.myLocationButton(),
-          this.markerSelector(),
+          MarkerSelector(setMarkers: widget.setMarkers),
         ]),
       ],
       floatingBottomBar: this.bottomBuildingCards(),
@@ -90,30 +89,6 @@ class _MapSupporterTemplateState extends State<MapSupporterTemplate> {
           child: Icon(Icons.my_location_rounded,
               color: AppTheme.colors.primary, size: 25),
           onPressed: widget.toMyLocation,
-        ));
-  }
-
-  Widget markerSelector() {
-    double height = 40.0;
-    return Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(height / 2)),
-        elevation: 3.0,
-        child: Container(
-          height: height,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(
-                  SERVICE_ICONS.length,
-                  (idx) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      child: ToggleIconButton(
-                        size: 25,
-                        defaultIcon: SERVICE_ICONS[idx],
-                        toggleColor: AppTheme.colors.primary,
-                        onPressed: () => widget.setMarkers(idx),
-                      )))),
         ));
   }
 

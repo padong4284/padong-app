@@ -9,6 +9,7 @@ class ToggleIconButton extends StatefulWidget {
   final Color toggleColor;
   final Function onPressed;
   final bool isToggled;
+  final bool disabled;
   final Alignment alignment;
 
   ToggleIconButton(
@@ -19,6 +20,7 @@ class ToggleIconButton extends StatefulWidget {
       toggleColor,
       this.onPressed,
       this.isToggled = false,
+      this.disabled = false,
       this.alignment = Alignment.center})
       : this.defaultIcon = defaultIcon,
         this.toggleIcon = toggleIcon ?? defaultIcon,
@@ -48,10 +50,12 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
             padding: const EdgeInsets.all(0),
             alignment: widget.alignment,
             onPressed: () {
-              setState(() {
-                this.toggled = !this.toggled;
-              });
-              if (widget.onPressed != null) widget.onPressed();
+              if (!widget.disabled) {
+                setState(() {
+                  this.toggled = !this.toggled;
+                });
+                if (widget.onPressed != null) widget.onPressed();
+              }
             },
             icon: Icon(this.toggled ? widget.toggleIcon : widget.defaultIcon,
                 color: toggled ? widget.toggleColor : widget.defaultColor,

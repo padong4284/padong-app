@@ -3,6 +3,7 @@ import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 import 'package:padong/ui/widgets/buttons/user_profile_button.dart';
 
 class FriendTile extends StatelessWidget {
@@ -83,17 +84,14 @@ class FriendTile extends StatelessWidget {
     return SizedBox(
         width: 25,
         height: 25,
-        child: IconButton(
-          icon: Icon(
-              this.invited
-                  ? CustomIcons.chat_checked
-                  : Icons.mode_comment_outlined,
-              color: this.invited
-                  ? AppTheme.colors.primary
-                  : AppTheme.colors.support,
-              size: 25),
-          padding: const EdgeInsets.all(0),
+        child: ToggleIconButton(
+          isToggled: this.invited,
+          defaultIcon: Icons.mode_comment_outlined,
+          toggleIcon: CustomIcons.chat_checked,
+          toggleColor: AppTheme.colors.primary,
           onPressed: () => this.chatCallback(this.id),
-        ));
+          initEveryTime: true,
+        )
+    );
   }
 }

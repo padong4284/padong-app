@@ -1,58 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/apis/deck.dart';
-import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/core/apis/map.dart';
+import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/views/templates/markdown_editor_template.dart';
-import 'package:padong/ui/widgets/bars/floating_bottom_bar.dart';
+import 'package:padong/ui/widgets/inputs/marker_selector.dart';
 
 class ServeView extends StatelessWidget {
   final String buildingId;
   final Map<String, dynamic> building;
+  final Map<String, int> marker = {'selected': 0};
 
   ServeView(buildingId)
       : this.buildingId = buildingId,
-        this.building = getBoardAPI(buildingId);
+        this.building = getBuildingAPI(buildingId);
 
   @override
   Widget build(BuildContext context) {
     return MarkdownEditorTemplate(
-      editTxt: 'write',
-      titleHint: 'Title of Post',
-      withAnonym: true,
-      topArea: this.pipLevel(),
+      editTxt: 'serve',
+      titleHint: 'Title of Service',
+      topArea: MarkerSelector(
+        setMarkers: (idx) => this.marker['selected'] = SERVICE_CODES[idx],
+        isOnlyOne: true,
+      ),
       contentHint: this.building['rule'],
-      onSubmit: this.createPost,
+      onSubmit: this.createService,
     );
   }
 
-  Widget pipLevel() {
-    String pip = this.building['pip'].toString().split('.')[1];
-    pip = pip[0] + pip.toLowerCase().substring(1);
-    return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Container(
-          width: 70,
-          height: 30,
-          margin: const EdgeInsets.only(right: 10),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: AppTheme.colors.primary,
-              borderRadius: BorderRadius.circular(15)),
-          child: Text(
-            pip,
-            style: AppTheme.getFont(
-                color: AppTheme.colors.base,
-                fontSize: AppTheme.fontSizes.small),
-          )),
-      Text(
-        this.building['title'],
-        style: AppTheme.getFont(isBold: true),
-      )
-    ]);
-  }
-
-  void createPost(Map data) {
-    data['parentId'] = this.building;
-    data['pip'] = this.building['pip'];
-    data['isAnonym'] = TipInfo.isAnonym;
-    createPostAPI(data);
+  void createService(Map data) {
+    data['parentId'] = this.building['id'];
+    data['serviceCode'] = SERVICE(this.marker['selected']);
+    createSericeAPI(data);
   }
 }

@@ -6,9 +6,11 @@ import 'package:padong/ui/widgets/cards/base_card.dart';
 
 class SummaryCard extends StatelessWidget {
   final String id; // node's id
-  final Map<String, dynamic>  wiki;
+  final Map<String, dynamic> wiki;
 
-  SummaryCard(id) : this.wiki = getWikiAPI(id), this.id = id;
+  SummaryCard(id)
+      : this.wiki = getWikiAPI(id),
+        this.id = id;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class SummaryCard extends StatelessWidget {
         moreCallback: () {
           PadongRouter.routeURL('/wiki?id=${this.id}');
         },
-        children: <Widget>[
+        children: [
           SizedBox(height: 2),
           Text(this.wiki['title'],
               style: AppTheme.getFont(
@@ -31,8 +33,8 @@ class SummaryCard extends StatelessWidget {
               margin: const EdgeInsets.only(top: 6, bottom: 9),
               child: Text(this.wiki['description'],
                   overflow: TextOverflow.ellipsis,
-                  style: AppTheme.getFont(
-                      color: AppTheme.colors.fontPalette[2]))),
+                  style:
+                      AppTheme.getFont(color: AppTheme.colors.fontPalette[2]))),
         ]);
   }
 }

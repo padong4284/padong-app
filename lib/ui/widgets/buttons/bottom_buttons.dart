@@ -2,22 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/toggle_icon_button.dart';
 
-List<IconData> unclickeds = [
-  Icons.favorite_border_rounded,
-  Icons.mode_comment_outlined,
-  Icons.bookmark_border_rounded
-];
-List<IconData> clickeds = [
-  Icons.favorite_rounded,
-  Icons.mode_comment,
-  Icons.bookmark_rounded
-];
-List<Color> clickedClrs = [
-  AppTheme.colors.pointRed,
-  AppTheme.colors.primary,
-  AppTheme.colors.pointYellow
-];
-
 class BottomButtons extends StatefulWidget {
   final double left;
   final double gap;
@@ -77,9 +61,24 @@ class _BottomButtonsState extends State<BottomButtons> {
 
   int getGapIdx(idx) {
     return widget.isTwo
-        ? idx > 0
-            ? 1
-            : 0
+        ? idx > 0 ? 1 : 0
         : idx;
   }
 }
+
+
+List<IconData> unclickeds = [
+  Icons.favorite_border_rounded,
+  Icons.mode_comment_outlined,
+  Icons.bookmark_border_rounded
+];
+List<IconData> clickeds = [
+  Icons.favorite_rounded,
+  Icons.mode_comment,
+  Icons.bookmark_rounded
+];
+List<Color> clickedClrs = [
+  AppTheme.colors.pointRed,
+  AppTheme.colors.primary,
+  AppTheme.colors.pointYellow
+];

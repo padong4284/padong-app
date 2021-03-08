@@ -17,5 +17,6 @@ class Service extends Evaluation {
     };
   }
 
-// TODO: when CRUD Service, transaction building's serviceCheckBit
+// TODO: when CRUD Service, update building's serviceCheckBit
+// One building can serve same type of services, not only one.
 }

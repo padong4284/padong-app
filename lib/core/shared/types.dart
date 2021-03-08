@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 const List<String> PIPs = ['Public', 'Internal', 'Private'];
 
 enum PIP {
@@ -67,6 +69,22 @@ class SERVICE {
 
   SERVICE(this.code);
 }
+
+const List<IconData> SERVICE_ICONS = [
+  Icons.local_library_rounded,
+  Icons.restaurant_rounded,
+  Icons.local_parking_rounded,
+  Icons.medical_services_rounded,
+  Icons.place_rounded,
+];
+
+IconData serviceToIcon(SERVICE service) => {
+      SERVICE.LIBRARY: SERVICE_ICONS[0],
+      SERVICE.RESTAURANT: SERVICE_ICONS[1],
+      SERVICE.PARKING: SERVICE_ICONS[2],
+      SERVICE.MEDICAL: SERVICE_ICONS[3],
+      SERVICE.CUSTOM: SERVICE_ICONS[4],
+    }[service.code];
 
 SERVICE parseSERVICE(String service) => SERVICE({
       'Library': SERVICE.LIBRARY,

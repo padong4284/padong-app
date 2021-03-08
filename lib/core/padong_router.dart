@@ -105,9 +105,8 @@ class PadongRouter {
         return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['id']));
 
       case '/building':
-        return slideRouter(
-            pageBuilder: (_, __, ___) => BuildingView(args['id']),
-            direction: 1);
+        return fadeRouter(
+            pageBuilder: (_, __, ___) => BuildingView(args['id']));
       case '/service':
         return sizeRouter(pageBuilder: (_, __, ___) => PostView(args['id']));
       case '/pin':

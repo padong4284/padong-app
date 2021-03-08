@@ -9,10 +9,9 @@ import 'package:padong/ui/widgets/buttons/floating_bottom_button.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/cards/location_card.dart';
+import 'package:padong/ui/widgets/cards/service_card.dart';
 import 'package:padong/ui/widgets/paddong_markdown.dart';
 import 'package:padong/ui/widgets/tiles/node/post_tile.dart';
-import 'package:padong/ui/widgets/title_header.dart';
-import 'package:padong/core/apis/deck.dart';
 
 class BuildingView extends StatelessWidget {
   // TODO: PIP / Written, Replied, Liked, Bookmarked
@@ -46,7 +45,8 @@ class BuildingView extends StatelessWidget {
         ),
         LocationCard(LatLng(gtLat, gtLng)),
         ...this.servicesLine(),
-        ...getServicesAPI(this.id).map((postId) => PostTile(postId)),
+        SizedBox(height: 10),
+        ...getServicesAPI(this.id).map((service) => ServiceCard(service)),
       ],
     );
   }

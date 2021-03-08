@@ -31,8 +31,7 @@ Mappa getMappaAPI(String id) {
 List<Building> getBuildingsAPI(String mappaId) {
   return List.generate(
       5,
-          (i) =>
-          Building.fromMap('', {
+      (i) => Building.fromMap('', {
             'id': i.toString(),
             'title': serviceToString(SERVICE([1, 2, 4, 8, 16][i])),
             'description': """This Building page is board Level page.
@@ -70,5 +69,27 @@ tips. You can create you own also!""",
 }
 
 List<Map<String, dynamic>> getServicesAPI(String buildingId) {
-  return [];
+  return List.generate(
+      5,
+      (i) => {
+            'id': '$buildingId-$i',
+            'title': [
+              'PLibrary',
+              'PRestaurant',
+              'PParking',
+              'PMedical',
+              'PCustom'
+            ][i],
+            'description': """Markdown Description which supports Image
+and Video! Please describe this service!
+
+width of this area is 650px fixed.
+height of this area is fit-content.
+margin top 26px and bottom 74px.
+
+Same category of services can serve at one
+Building!""",
+            'serviceCode': SERVICE([1, 2, 4, 8, 16][i]),
+            'rate': 3.5,
+          });
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/padong_router.dart';
+import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
@@ -14,13 +15,6 @@ import 'package:padong/ui/widgets/containers/tip_container.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 const GOOGLE_API_KEY = "AIzaSyDnITIBZZ0zIEq2tEKrmVn27ud9CzNxhQY";
-const List<IconData> MARKER_ICONS = [
-  Icons.local_library_rounded,
-  Icons.restaurant_rounded,
-  Icons.local_parking_rounded,
-  Icons.medical_services_rounded,
-  Icons.place_rounded,
-];
 
 class Pin {
   final String name;
@@ -111,12 +105,12 @@ class _MapSupporterTemplateState extends State<MapSupporterTemplate> {
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
-                  MARKER_ICONS.length,
+                  SERVICE_ICONS.length,
                   (idx) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       child: ToggleIconButton(
                         size: 25,
-                        defaultIcon: MARKER_ICONS[idx],
+                        defaultIcon: SERVICE_ICONS[idx],
                         toggleColor: AppTheme.colors.primary,
                         onPressed: () => widget.setMarkers(idx),
                       )))),

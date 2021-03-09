@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/service/padong_auth.dart';
+import 'package:padong/core/service/session.dart';
+import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/views/sign/sign_view.dart';
@@ -81,9 +82,9 @@ class _SignUpViewState extends State<SignUpView> {
     if (entranceYear == 0) return false;
     if (pw != rePw) return false;
 
-    RegistrationReturns ret =
-        await PadongAuth.signUp(id, pw, name, email, univName, entranceYear);
-    if (ret == RegistrationReturns.success) return true;
+    SignUpResult result =
+        await Session.signUpUser(id, pw, name, email, univName, entranceYear);
+    if (result == SignUpResult.success) return true;
     return false;
   }
 }

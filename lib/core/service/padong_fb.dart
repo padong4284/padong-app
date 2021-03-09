@@ -54,7 +54,7 @@ class PadongFB {
   static Future<List<DocumentSnapshot>> getDocsByRule(String type,
       {Query Function(Query) rule, int limit, String startId}) async {
     List<DocumentSnapshot> result = [];
-    Query query = _db.collection(type);
+    Query query = _db.collection(type).where('deletedAt', isEqualTo: null);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
     if (startId != null) {
@@ -62,15 +62,14 @@ class PadongFB {
       if (doc != null && doc.exists) query = query.startAtDocument(doc);
     }
     return await query.get().then((QuerySnapshot queryResult) {
-      for (DocumentSnapshot doc in queryResult.docs)
-        if (doc.data()['deletedAt'] == null) result.add(doc);
+      for (DocumentSnapshot doc in queryResult.docs) result.add(doc);
       return result;
     }).catchError((e) => null);
   }
 
   static Future<Stream<QuerySnapshot>> getQueryStreamByRule(String type,
       {Query Function(Query) rule, int limit = 30}) async {
-    Query query = _db.collection(type);
+    Query query = _db.collection(type).where('deletedAt', isEqualTo: null);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
     return query.snapshots();

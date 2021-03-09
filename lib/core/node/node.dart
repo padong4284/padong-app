@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
 
@@ -33,11 +34,13 @@ class Node {
       "ownerId": this.ownerId,
       "createdAt": this.createdAt.toIso8601String(),
       "modifiedAt": (this.modifiedAt ?? this.createdAt).toIso8601String(),
-      "deletedAt": this.deletedAt == null
+      "deletedAt": this.deletedAt == null // TODO: check FB nullable?
           ? null // It may not deleted
           : this.deletedAt.toIso8601String(),
     };
   }
+
+  Node generateFromMap(String id, Map snapshot) => Node.fromMap(id, snapshot);
 
   bool isValidate() {
     Map<String, dynamic> data = this.toJson();
@@ -48,28 +51,40 @@ class Node {
     return true;
   }
 
-  Future<Node> getParent(Type parentType) async {
-    return await PadongFB.getNode(parentType, this.parentId);
+  Future<Node> getParent(Node parent) async {
+    DocumentSnapshot pdoc = await PadongFB.getDoc(parent.type, this.parentId);
+    parent = parent.generateFromMap(pdoc.id, pdoc.data());
+    if (parent.isValidate()) return parent;
+    return null;
   }
 
-  Future<List<Node>> getChildren(Type childType,
-      {int limit, Node startAt}) async {
-    return await PadongFB.getNodesByRule(childType,
-        rule: (query) => query
-            .where(this.id, isEqualTo: 'parentId')
-            .orderBy("createdAt", descending: true),
-        limit: limit,
-        startAt: startAt);
+  Future<List<Node>> getChildren(Node child, {int limit, Node startAt}) async {
+    return await PadongFB.getDocsByRule(child.type,
+            rule: (query) => query
+                .where(this.id, isEqualTo: 'parentId')
+                .orderBy("createdAt", descending: true),
+            limit: limit,
+            startId: startAt.id)
+        .then((docs) => docs
+            .map((doc) => child.generateFromMap(doc.id, doc.data()))
+            .where((_child) => _child.isValidate())
+            .toList());
   }
 
   Future<bool> update() async {
     // assume this node is already modified (updated)
     // just update Fire Store data
-    return await PadongFB.updateNode(this);
+    this.modifiedAt = DateTime.now();
+    if (this.isValidate())
+      return await PadongFB.updateDoc(this.type, this.id, this.toJson());
+    return false;
   }
 
   Future<bool> delete() async {
-    // set deletedAt now, PadongFB.getNode never return this anymore;
-    return await PadongFB.deleteNode(this); // success or not
+    // set deletedAt now, PadongFB.getDoc never return this node;
+    this.deletedAt = DateTime.now();
+    if (this.isValidate())
+      return await PadongFB.deleteDoc(this.type, this.id); // success or not
+    return false;
   }
 }

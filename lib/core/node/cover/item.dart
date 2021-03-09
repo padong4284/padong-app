@@ -9,11 +9,16 @@ class Item extends Post {
   int inserted; // count inserted line
   String prevDescription;
 
+  Item();
+
   Item.fromMap(String id, Map snapshot)
       : this.deleted = snapshot['deleted'],
         this.inserted = snapshot['inserted'],
         this.prevDescription = snapshot['prevDescription'],
         super.fromMap(id, {...snapshot, 'anonymity': false});
+
+  @override
+  generateFromMap(String id, Map snapshot) => Item.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
@@ -30,11 +35,6 @@ class Item extends Post {
   void revertWikiToThisItem() {
     // TODO: revert Wiki to this Item
     // check current Item & User authority
-  }
-
-  String compareWithOther(Item other) {
-    // TODO #207 diff_match_patch
-    return '';
   }
 
   void calculateDiff() {

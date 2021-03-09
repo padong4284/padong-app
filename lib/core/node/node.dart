@@ -13,6 +13,8 @@ class Node {
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
+  Node();
+
   Node.fromMap(String id, Map snapshot)
       : this.id = id,
         this.pip = parsePIP(snapshot['pip']),
@@ -24,6 +26,8 @@ class Node {
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
             : DateTime.parse(snapshot['deletedAt']);
+
+  Node generateFromMap(String id, Map snapshot) => Node.fromMap(id, snapshot);
 
   Map<String, dynamic> toJson() {
     return {
@@ -39,8 +43,6 @@ class Node {
           : this.deletedAt.toIso8601String(),
     };
   }
-
-  Node generateFromMap(String id, Map snapshot) => Node.fromMap(id, snapshot);
 
   bool isValidate() {
     Map<String, dynamic> data = this.toJson();
@@ -69,6 +71,15 @@ class Node {
             .map((doc) => child.generateFromMap(doc.id, doc.data()))
             .where((_child) => _child.isValidate())
             .toList());
+  }
+
+  Future<Node> create() async {
+    // create document at Fire Base
+    this.createdAt = DateTime.now();
+    DocumentReference ref = await PadongFB.createDoc(this.type, this.toJson());
+    if (ref == null) return null;
+    this.id = ref.id;
+    return this;
   }
 
   Future<bool> update() async {

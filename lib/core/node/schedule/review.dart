@@ -6,9 +6,14 @@ class Review extends Reply {
   bool anonymity = true;
   double rate;
 
+  Review();
+
   Review.fromMap(String id, Map snapshot)
       : this.rate = snapshot['rate'],
         super.fromMap(id, {...snapshot, 'anonymity': true});
+
+  @override
+  generateFromMap(String id, Map snapshot) => Review.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

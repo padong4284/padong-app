@@ -9,11 +9,16 @@ class University extends TitleNode {
   LatLng location;
   String address;
 
+  University();
+
   University.fromMap(String id, Map snapshot)
       : this.emblemImgURL = snapshot['emblemImgURL'],
         this.location = LatLng.fromJson(snapshot['location']),
         this.address = snapshot['address'],
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => University.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
@@ -26,9 +31,10 @@ class University extends TitleNode {
   }
 
   static Future<University> getUniversityByName(String universityName) async {
-    var results = await PadongFB.getNodesByRule(University,
+    List<DocumentSnapshot> results = await PadongFB.getDocsByRule(
+        University().type,
         rule: (Query q) => (q.where("title", isEqualTo: universityName)));
     if (results.isEmpty) throw Exception("There's no University");
-    return results.first;
+    return University.fromMap(results.first.id, results.first.data());
   }
 }

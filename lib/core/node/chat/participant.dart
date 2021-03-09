@@ -5,9 +5,14 @@ import 'package:padong/core/shared/types.dart';
 class Participant extends Node {
   ROLE role;
 
+  Participant();
+
   Participant.fromMap(String id, Map snapshot)
       : this.role = parseROLE(snapshot['role']),
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => Participant.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

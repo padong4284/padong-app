@@ -7,11 +7,23 @@ import 'package:padong/core/shared/statistics.dart';
 class Wiki extends TitleNode with Statistics {
   List<String> backLinks; // List of wikiId
   List<String> frontLinks; // List of wikiId
+  List<Argue> _argues;
+
+  List<Argue> get argues {
+    // TODO: check does it work?
+    if (this._argues == null) this._getArgues();
+    return this._argues;
+  }
+
+  Wiki();
 
   Wiki.fromMap(String id, Map snapshot)
       : this.backLinks = snapshot['backLinks'],
         this.frontLinks = snapshot['frontLinks'],
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => Wiki.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
@@ -22,35 +34,18 @@ class Wiki extends TitleNode with Statistics {
     };
   }
 
-  List<Argue> getArgues() {
-    // TODO: without getChildren
-    // using wikiId
-    return [];
+  void _getArgues() async {
+    this._argues = await PadongFB.getDocsByRule(Argue().type,
+            rule: (query) => query.where('wikiId', isEqualTo: this.id))
+        .then((docs) =>
+            docs.map((doc) => Argue.fromMap(doc.id, doc.data())).toList());
   }
 
   void updateBackLinks(String targetWikiId, {bool isRemove = false}) async {
-    // TODO: update firebase
-    Wiki target = await PadongFB.getNode(Wiki, targetWikiId);
-    bool isContain = this.backLinks.contains(targetWikiId);
-    if (isRemove && isContain) {
-      this.backLinks.remove(targetWikiId);
-      target.updateFrontLinks(this.id, isRemove: true);
-    } else if (!isContain) {
-      this.backLinks.add(targetWikiId);
-      target.updateFrontLinks(this.id);
-    }
+    // TODO: update firebase with Transaction, Target Wiki's frontLinks update
   }
 
   void updateFrontLinks(String targetWikiId, {bool isRemove = false}) async {
-    // TODO: update firebase
-    Wiki target = await PadongFB.getNode(Wiki, targetWikiId);
-    bool isContain = this.backLinks.contains(targetWikiId);
-    if (isRemove && isContain) {
-      this.frontLinks.remove(targetWikiId);
-      target.updateBackLinks(this.id, isRemove: true);
-    } else if (!isContain) {
-      this.frontLinks.add(targetWikiId);
-      target.updateBackLinks(this.id);
-    }
+    // TODO: update firebase with Transaction, Target Wiki's backLinks update
   }
 }

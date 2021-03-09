@@ -54,8 +54,8 @@ class Node {
   }
 
   Future<Node> getParent(Node parent) async {
-    DocumentSnapshot pdoc = await PadongFB.getDoc(parent.type, this.parentId);
-    parent = parent.generateFromMap(pdoc.id, pdoc.data());
+    DocumentSnapshot pDoc = await PadongFB.getDoc(parent.type, this.parentId);
+    parent = parent.generateFromMap(pDoc.id, pDoc.data());
     if (parent.isValidate()) return parent;
     return null;
   }
@@ -80,6 +80,14 @@ class Node {
     if (ref == null) return null;
     this.id = ref.id;
     return this;
+  }
+
+  Future<Node> set(String id) async {
+    // set document at Fire Base with id
+    this.id = id;
+    this.createdAt = DateTime.now();
+    if (await PadongFB.setDoc(this.type, id, this.toJson())) return this;
+    return null;
   }
 
   Future<bool> update() async {

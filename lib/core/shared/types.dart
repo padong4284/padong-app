@@ -60,11 +60,11 @@ const SERVICE_CODES = [1, 2, 4, 8, 16];
 const SERVICES = ['Library', 'Restaurant', 'Parking', 'Medical', 'Custom'];
 
 class SERVICE {
-  static int LIBRARY = 1;
-  static int RESTAURANT = 2;
-  static int PARKING = 4;
-  static int MEDICAL = 8;
-  static int CUSTOM = 16;
+  static const int LIBRARY = 1;
+  static const int RESTAURANT = 2;
+  static const int PARKING = 4;
+  static const int MEDICAL = 8;
+  static const int CUSTOM = 16;
   final int code;
 
   SERVICE(this.code);
@@ -120,7 +120,7 @@ String roleToString(ROLE role) => {
       ROLE.STUDENT: 'Student',
     }[role];
 
-enum RegistrationReturns {
+enum SignUpResult {
   success,
   failed,
   weak_password,
@@ -129,4 +129,9 @@ enum RegistrationReturns {
   UniversityNotFound,
 }
 
-enum SignInReturns { success, failed, wrongEmailOrPassword }
+enum SignInResult {
+  success,
+  failed,
+  wrongUserId,
+  wrongEmailOrPassword,
+}

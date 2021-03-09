@@ -45,13 +45,6 @@ class PadongRouter {
     final Map<String, dynamic> args =
         new Map<String, dynamic>.from(settings.arguments ?? {});
     switch (settings.name) {
-      case '/main':
-        // TODO: set session current University
-        Session.currentUniv = getUnivAPI(args['univId']);
-        return MaterialPageRoute(builder: (_) => RouteView());
-      case '/p_main':
-        Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
-        return MaterialPageRoute(builder: (_) => RouteView());
       case '/':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SignInView());
       case '/sign_up':
@@ -60,6 +53,14 @@ class PadongRouter {
         );
       case '/forgot':
         return MaterialPageRoute(builder: (_) => ForgotView());
+
+      case '/main':
+        // TODO: set session current University
+        Session.currentUniv = getUnivAPI(args['univId']);
+        return MaterialPageRoute(builder: (_) => RouteView());
+      case '/p_main': // FIXME: remove this
+        Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
+        return MaterialPageRoute(builder: (_) => RouteView());
 
       case '/board':
         return slideRouter(
@@ -171,12 +172,8 @@ class PadongRouter {
       int direction = 0}) {
     return PageRouteBuilder(
         pageBuilder: pageBuilder,
-        transitionsBuilder: (
-          BuildContext _,
-          Animation<double> animation,
-          Animation<double> __,
-          Widget child,
-        ) =>
+        transitionsBuilder: (BuildContext _, Animation<double> animation,
+                Animation<double> __, Widget child) =>
             SlideTransition(
               position: animation.drive(
                   Tween(begin: SLIDE[direction], end: Offset.zero)
@@ -190,12 +187,8 @@ class PadongRouter {
   }) {
     return PageRouteBuilder(
         pageBuilder: pageBuilder,
-        transitionsBuilder: (
-          BuildContext _,
-          Animation<double> animation,
-          Animation<double> __,
-          Widget child,
-        ) =>
+        transitionsBuilder: (BuildContext _, Animation<double> animation,
+                Animation<double> __, Widget child) =>
             Align(
               child: SizeTransition(sizeFactor: animation, child: child),
             ));
@@ -206,12 +199,8 @@ class PadongRouter {
   }) {
     return PageRouteBuilder(
         pageBuilder: pageBuilder,
-        transitionsBuilder: (
-          BuildContext _,
-          Animation<double> animation,
-          Animation<double> __,
-          Widget child,
-        ) =>
+        transitionsBuilder: (BuildContext _, Animation<double> animation,
+                Animation<double> __, Widget child) =>
             FadeTransition(
               opacity: animation,
               child: child,

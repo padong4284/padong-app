@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/service/padong_auth.dart';
-import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
 import 'package:padong/ui/views/sign/sign_view.dart';

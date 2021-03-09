@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/node.dart';
-import 'package:padong/core/services/session.dart' as Session;
+import 'package:padong/core/service/session.dart' as Session;
 
 String getFBPath(Type nodeType) => nodeType.toString().toLowerCase();
 
@@ -15,10 +13,7 @@ class PadongFB {
         .doc(id)
         .get()
         .then((DocumentSnapshot doc) {
-      if(!doc.exists){
-          throw Exception("Node doesn't Exists");
-      }
-
+      if (!doc.exists) throw Exception("Node doesn't Exists");
       Node node = nodeType.fromMap(id, doc.data());
       if (node.deletedAt != null)
         throw Exception('Request Deleted Node $id');
@@ -89,9 +84,7 @@ class PadongFB {
   static Future<List<Node>> getNodesByRule(dynamic nodeType,
       {Query Function(Query) rule, int limit, Node startAt}) async {
     List<Node> result = [];
-    log(getFBPath(nodeType));
     Query query = _db.collection(getFBPath(nodeType));
-    //log((await query.get()).docs.);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
     if (startAt != null) {

@@ -1,9 +1,9 @@
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/node.dart';
-import 'package:padong/core/services/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/core/services/session.dart' as Session;
+import 'package:padong/core/service/padong_fb.dart';
+import 'package:padong/core/service/session.dart' as Session;
 
 // parent: University
 class User extends Node {
@@ -65,14 +65,9 @@ class User extends Node {
   }
 
   static Future<User> getByUserId(String userId) async {
-    List<Node> users =  (await PadongFB.getNodesByRule(User,
-        rule: (query) => query.where("userId", isEqualTo: userId),
-        limit: 1));
-    if( users.isEmpty){
-      return null;
-    } else {
-      return users.first as User;
-    }
-
+    List users = (await PadongFB.getNodesByRule(User,
+        rule: (query) => query.where("userId", isEqualTo: userId), limit: 1));
+    if (users.isEmpty) return null;
+    return users.first;
   }
 }

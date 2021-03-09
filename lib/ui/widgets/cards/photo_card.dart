@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/apis/map.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
@@ -9,11 +10,16 @@ class PhotoCard extends StatelessWidget {
   final String id; // node's id
   final Map<String, dynamic> node;
   final bool isWiki;
+  final bool isBuilding;
 
-  PhotoCard(id, {isWiki = false})
-      : this.id = id, // TODO: getNode(id, type)
-        this.node = isWiki? getWikiAPI(id) : getPostAPI(id),
-        this.isWiki = isWiki;
+  PhotoCard(id, {isWiki = false, isBuilding = false})
+      : this.id = id,
+        // TODO: getNode(id, type)
+        this.node = isWiki
+            ? getWikiAPI(id)
+            : (isBuilding ? getBuildingAPI(id) : getPostAPI(id)),
+        this.isWiki = isWiki,
+        this.isBuilding = isBuilding;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +41,7 @@ class PhotoCard extends StatelessWidget {
     return InkWell(
         onTap: () {
           PadongRouter.routeURL(
-              '/${this.isWiki ? 'wiki' : 'post'}/id=${this.id}');
+              '/${this.isWiki ? 'wiki' : (this.isBuilding ? 'building' : 'post')}?id=${this.id}');
         },
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),

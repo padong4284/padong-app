@@ -13,8 +13,7 @@ import 'package:padong/core/apis/deck.dart';
 
 class BoardView extends StatelessWidget {
   final String id;
-  final bool readOnly =
-      false; // TODO: PIP / Written, Replied, Liked, Bookmarked
+  final bool readOnly = false; // TODO: check by User and PIP
   final Map<String, dynamic> board;
 
   BoardView(id)
@@ -30,7 +29,7 @@ class BoardView extends StatelessWidget {
           ? (isScrollingDown) => FloatingBottomButton(
               title: 'Write',
               onTap: () {
-                PadongRouter.routeURL('write/id=${this.id}');
+                PadongRouter.routeURL('write?id=${this.id}');
               },
               isScrollingDown: isScrollingDown)
           : null,

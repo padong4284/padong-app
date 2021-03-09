@@ -14,7 +14,7 @@ class LectureCard extends EventCard {
     return BaseCard(
         moreText: this.isToReview ? 'Reviews' : null,
         moreCallback: this.isToReview
-            ? () => PadongRouter.routeURL('/review/id=${this.id}')
+            ? () => PadongRouter.routeURL('/review?id=${this.id}')
             : null,
         children: [
           this.timeRange(),

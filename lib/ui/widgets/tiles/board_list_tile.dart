@@ -52,7 +52,7 @@ class _BoardListTileState extends State<BoardListTile> {
         return InkWell(
             onTap: () {
               PadongRouter.routeURL(
-                  '/${widget.isLecture ? 'lecture' : 'board'}/id=${node['id']}');
+                  '/${widget.isLecture ? 'lecture' : 'board'}?id=${node['id']}');
             },
             child: Container(
                 alignment: Alignment.centerLeft,

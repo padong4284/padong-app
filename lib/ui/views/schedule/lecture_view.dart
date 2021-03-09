@@ -28,7 +28,7 @@ class LectureView extends StatelessWidget {
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
           title: 'Ask',
           onTap: () {
-            PadongRouter.routeURL('ask/id=${this.id}');
+            PadongRouter.routeURL('ask?id=${this.id}');
           },
           isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: this.lecture['title'], actions: [
@@ -40,7 +40,7 @@ class LectureView extends StatelessWidget {
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
             onPressed: () {
               PadongRouter.routeURL(
-                  '/update/id=${this.lecture['parentId']}&lectureId=${this.id}');
+                  '/update?id=${this.lecture['parentId']}&lectureId=${this.id}');
             }) // TODO: more dialog
       ]),
       children: [

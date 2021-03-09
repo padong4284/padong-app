@@ -26,5 +26,5 @@ class WikiItemTile extends NodeBaseTile {
   }
 
   @override
-  void routePage() => PadongRouter.routeURL('/wiki/id=${this.id}');
+  void routePage() => PadongRouter.routeURL('/wiki?id=${this.id}');
 }

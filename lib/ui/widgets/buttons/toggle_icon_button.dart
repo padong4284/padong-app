@@ -9,6 +9,8 @@ class ToggleIconButton extends StatefulWidget {
   final Color toggleColor;
   final Function onPressed;
   final bool isToggled;
+  final bool disabled;
+  final bool initEveryTime;
   final Alignment alignment;
 
   ToggleIconButton(
@@ -19,6 +21,8 @@ class ToggleIconButton extends StatefulWidget {
       toggleColor,
       this.onPressed,
       this.isToggled = false,
+      this.disabled = false,
+      this.initEveryTime = false,
       this.alignment = Alignment.center})
       : this.defaultIcon = defaultIcon,
         this.toggleIcon = toggleIcon ?? defaultIcon,
@@ -40,6 +44,10 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.initEveryTime)
+      setState(() {
+        this.toggled = widget.isToggled;
+      });
     return Container(
         width: widget.size,
         height: widget.size,
@@ -48,10 +56,12 @@ class _ToggleIconButtonState extends State<ToggleIconButton> {
             padding: const EdgeInsets.all(0),
             alignment: widget.alignment,
             onPressed: () {
-              setState(() {
-                this.toggled = !this.toggled;
-              });
-              if (widget.onPressed != null) widget.onPressed();
+              if (!widget.disabled) {
+                setState(() {
+                  this.toggled = !this.toggled;
+                });
+                if (widget.onPressed != null) widget.onPressed();
+              }
             },
             icon: Icon(this.toggled ? widget.toggleIcon : widget.defaultIcon,
                 color: toggled ? widget.toggleColor : widget.defaultColor,

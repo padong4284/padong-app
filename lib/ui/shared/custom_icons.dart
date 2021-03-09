@@ -20,6 +20,7 @@ class CustomIcons {
 
   static const _kFontFam = 'CustomIcons';
 
-  static const IconData wiki = IconData(0xe804, fontFamily: _kFontFam);
-  static const IconData chat_checked = IconData(0xe805, fontFamily: _kFontFam);
+  static const IconData home_filled_rounded = IconData(0xe800, fontFamily: _kFontFam);
+  static const IconData wiki = IconData(0xe801, fontFamily: _kFontFam);
+  static const IconData chat_checked = IconData(0xe802, fontFamily: _kFontFam);
 }

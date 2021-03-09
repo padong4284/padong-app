@@ -3,17 +3,20 @@ import 'package:padong/core/shared/types.dart';
 
 // parent: Building
 class Service extends Evaluation {
-  SERVICE category;
+  SERVICE serviceCode;
 
   Service.fromMap(String id, Map snapshot)
-      : this.category = parseSERVICE(snapshot['category']),
+      : this.serviceCode = parseSERVICE(snapshot['serviceCode']),
         super.fromMap(id, {...snapshot, 'anonymity': false});
 
   @override
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'category': serviceToString(this.category),
+      'serviceCode': serviceToString(this.serviceCode),
     };
   }
+
+// TODO: when CRUD Service, update building's serviceCheckBit
+// One building can serve same type of services, not only one.
 }

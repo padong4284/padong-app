@@ -53,7 +53,7 @@ class _MarkerSelectorState extends State<MarkerSelector> {
                         disabled: widget.fixedBitMask != null,
                         defaultColor: AppTheme.colors.semiSupport,
                         toggleColor: AppTheme.colors.primary,
-                        initEveryTime: true,
+                        initEveryTime: widget.isOnlyOne,
                         onPressed: () {
                           if (widget.isOnlyOne)
                             setState(() {

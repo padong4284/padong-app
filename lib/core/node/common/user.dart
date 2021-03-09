@@ -23,9 +23,9 @@ class User extends Node {
         this.userId = snapshot['userId'],
         this.isVerified = snapshot['isVerified'],
         this.entranceYear = snapshot['entranceYear'],
-        this.userEmails = snapshot['userEmails'],
+        this.userEmails = <String>[...snapshot['userEmails']],
         this.profileImageURL = snapshot['profileImageURL'],
-        this.friendIds = snapshot['friendIds'],
+        this.friendIds = <String>[...snapshot['friendIds']],
         super.fromMap(id, snapshot);
 
   @override

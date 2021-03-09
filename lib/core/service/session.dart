@@ -58,12 +58,12 @@ class Session {
         'entranceYear': entranceYear,
         'userEmails': [email],
         'profileImageURL': "",
-        'friendIds': [],
-        'pip': PIP.PUBLIC,
+        'friendIds': <String>[],
+        'pip': pipToString(PIP.PUBLIC),
         'parentId': univ.id,
         'ownerId': uid,
       }).set(uid);
-      _registerUser(user, univ);
+      await _registerUser(user, univ);
     }
     return result;
   }

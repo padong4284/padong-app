@@ -55,6 +55,7 @@ class PadongAuth {
       return SignUpResult.failed;
     }
 
+    print('here');
     User currentUser = _auth.currentUser;
     if (currentUser == null) return SignUpResult.failed;
     if (!currentUser.emailVerified) // TODO: notify email send

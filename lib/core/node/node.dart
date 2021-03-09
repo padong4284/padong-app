@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
@@ -20,9 +21,11 @@ class Node {
         this.pip = parsePIP(snapshot['pip']),
         this.parentId = snapshot['parentId'],
         this.ownerId = snapshot['ownerId'],
-        this.createdAt = DateTime.parse(snapshot['createdAt']),
-        this.modifiedAt = // not modified yet
-            DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
+        this.createdAt = DateTime.now(),
+        // DateTime.parse(snapshot['createdAt']),
+        this.modifiedAt = DateTime.now(),
+        // not modified yet
+        //DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
             : DateTime.parse(snapshot['deletedAt']);
@@ -48,7 +51,10 @@ class Node {
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
       if (key == 'deletedAt') continue;
-      if (data[key] == null) return false;
+      if (data[key] == null) {
+        log('Node(${this.type}) Validation Check Failed.\n$data');
+        return false;
+      }
     } // check all fields are not null except deletedAt
     return true;
   }
@@ -57,7 +63,7 @@ class Node {
     DocumentSnapshot pDoc = await PadongFB.getDoc(parent.type, this.parentId);
     parent = parent.generateFromMap(pDoc.id, pDoc.data());
     if (parent.isValidate()) return parent;
-    return null;
+    throw Exception('Get Parent Failed');
   }
 
   Future<List<Node>> getChildren(Node child, {int limit, Node startAt}) async {
@@ -70,7 +76,8 @@ class Node {
         .then((docs) => docs
             .map((doc) => child.generateFromMap(doc.id, doc.data()))
             .where((_child) => _child.isValidate())
-            .toList());
+            .toList())
+        .catchError((_) => null);
   }
 
   Future<Node> create() async {

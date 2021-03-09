@@ -18,8 +18,8 @@ class Wiki extends TitleNode with Statistics {
   Wiki();
 
   Wiki.fromMap(String id, Map snapshot)
-      : this.backLinks = snapshot['backLinks'],
-        this.frontLinks = snapshot['frontLinks'],
+      : this.backLinks = <String>[...snapshot['backLinks']],
+        this.frontLinks = <String>[...snapshot['frontLinks']],
         super.fromMap(id, snapshot);
 
   @override

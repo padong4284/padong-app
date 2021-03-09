@@ -41,6 +41,8 @@ class _SignInViewState extends State<SignInView> {
   Future<bool> onSignIn() async {
     String id = _idController.text;
     String pw = _pwController.text;
+
+    // TODO: validate check
     SignInResult result = await Session.signInUser(id, pw);
     if (result == SignInResult.success) return true;
     return false;

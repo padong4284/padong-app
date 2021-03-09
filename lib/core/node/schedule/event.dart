@@ -15,10 +15,10 @@ class Event extends Board {
 
   Event.fromMap(String id, Map snapshot)
       : this.periodicity = parsePERIODICITY(snapshot['periodicity']),
-        this.times = snapshot['times']
-            .map((time) => TimeManager.fromString(time))
-            .toList(),
-        this.alerts = snapshot['alerts'],
+        this.times = <TimeManager>[
+          ...snapshot['times'].map((time) => TimeManager.fromString(time))
+        ],
+        this.alerts = <String>[...snapshot['alerts']],
         super.fromMap(id, {...snapshot, 'rule': MEMO_RULE});
 
   @override
@@ -30,7 +30,7 @@ class Event extends Board {
       ...super.toJson(),
       'rule': MEMO_RULE,
       'periodicity': periodicityToString(this.periodicity),
-      'times': this.times.map((time) => time.toString()).toList().toString(),
+      'times': this.times.map((tManager) => tManager.toString()).toList().toString(),
       'alerts': this.alerts,
     };
   }

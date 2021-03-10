@@ -1,11 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
 class SwipeDeck extends StatefulWidget {
   final List cards;
   final int numCards;
+  final double height;
 
-  SwipeDeck({@required children})
+  SwipeDeck({@required children, this.height=205})
       : this.cards = children.reversed.toList(),
         numCards = children.length;
 
@@ -26,11 +29,12 @@ class _SwipeDeckState extends State<SwipeDeck> {
 
   @override
   Widget build(BuildContext context) {
+    int numLeftCard = min(3, cardList.length);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
         Container(
-            height: 205,
+            height: widget.height,
             alignment: Alignment.bottomCenter,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               ...List.generate(
@@ -45,12 +49,12 @@ class _SwipeDeckState extends State<SwipeDeck> {
                           size: 9)))
             ])),
         ...List.generate(
-            cardList.length,
+            numLeftCard,
             (idx) => Container(
                 margin: EdgeInsets.only(
-                    top: 16.0 * (cardList.length - 1) - idx * 16.0),
+                    top: 16.0 * (numLeftCard - 1) - idx * 16.0),
                 child: Transform.scale(
-                    scale: 1 / (1 + 0.1 * (cardList.length - 1 - idx)),
+                    scale: 1 / (1 + 0.1 * (numLeftCard - 1 - idx)),
                     child: cardList[idx])))
       ],
     );
@@ -58,7 +62,7 @@ class _SwipeDeckState extends State<SwipeDeck> {
 
   List<Widget> _getCards() {
     List<Widget> cardList = new List();
-    for (int idx = 0; idx < 3; idx++) {
+    for (int idx = 0; idx < widget.numCards; idx++) {
       cardList.add(
         Draggable(
             onDragEnd: (drag) {

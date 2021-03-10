@@ -4,8 +4,10 @@ import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
+import 'package:padong/ui/widgets/cards/question_card.dart';
 import 'package:padong/ui/widgets/cards/timelines/timeline_card.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
+import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/containers/vertical_timeline.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
 import 'package:padong/ui/widgets/top_boards.dart';
@@ -78,6 +80,9 @@ class MainView extends StatelessWidget {
   List<Widget> questionArea() {
     return [
       this._title('Questions'),
+      SizedBox(height: 10),
+      SwipeDeck(children: List.generate(5, (i) => QuestionCard('$i')))
+      // TODO: more button
     ];
   }
 

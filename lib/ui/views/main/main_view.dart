@@ -7,11 +7,11 @@ import 'package:padong/ui/widgets/buttons/more_button.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
 import 'package:padong/ui/widgets/cards/question_card.dart';
 import 'package:padong/ui/widgets/cards/timelines/timeline_card.dart';
+import 'package:padong/ui/widgets/cards/image_card.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/containers/vertical_timeline.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
-import 'package:padong/ui/widgets/tiles/node/wiki_item_tile.dart';
 import 'package:padong/ui/widgets/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
@@ -34,7 +34,7 @@ class MainView extends StatelessWidget {
         UnivDoor(),
         SizedBox(height: 35),
         TopBoards(this.univ['deckId']),
-        ...this.encyclopedia(),
+        ...this.aboutArea(),
         ...this.questionArea(),
         ...this.eventsArea(),
         ...this.placesArea(),
@@ -43,7 +43,7 @@ class MainView extends StatelessWidget {
     );
   }
 
-  List<Widget> encyclopedia() {
+  List<Widget> aboutArea() {
     return [
       this._title('About Georgia Tech'), // TODO: from currentUniv
       SizedBox(height: 10),
@@ -52,7 +52,7 @@ class MainView extends StatelessWidget {
         'Vision': 'w009000',
         'Mission': 'w009001',
         'History': 'w009002',
-      }.values.map((wikiId) => WikiItemTile(wikiId)) // TODO: change wiki tile
+      }.values.map((wikiId) => ImageCard(wikiId)) // TODO: change wiki tile
     ];
   }
 

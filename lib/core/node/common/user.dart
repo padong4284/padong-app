@@ -4,7 +4,6 @@ import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
-import 'package:padong/core/service/session.dart';
 
 // parent: University
 class User extends Node {
@@ -45,6 +44,13 @@ class User extends Node {
     };
   }
 
+  static Future<User> getByUserId(String userId) async {
+    List<DocumentSnapshot> users = (await PadongFB.getDocsByRule(User().type,
+        rule: (query) => query.where("userId", isEqualTo: userId), limit: 1));
+    if (users.isEmpty) return null;
+    return User.fromMap(users.first.id, users.first.data());
+  }
+
   RELATION getRelationWith(User other) {
     bool received = this.friendIds.contains(other.id);
     bool send = other.friendIds.contains(this.id);
@@ -56,25 +62,18 @@ class User extends Node {
     return null;
   }
 
-  Future<List<ChatRoom>> getMyChatRooms() async {
-    if (this != Session.user) throw Exception("Not me!");
+  Future<List<ChatRoom>> getMyChatRooms(User me) async {
+    if (this != me) throw Exception("Not me!");
 
     List<String> chatRoomIds;
     List<DocumentSnapshot> myParticipants = await PadongFB.getDocsByRule(
         Participant().type,
-        rule: (query) => query.where('ownerId', isEqualTo: Session.user.id));
+        rule: (query) => query.where('ownerId', isEqualTo: me.id));
     for (DocumentSnapshot p in myParticipants) chatRoomIds.add(p['parentId']);
 
     return await PadongFB.getDocsByRule(ChatRoom().type,
             rule: (query) => query.where('id', whereIn: chatRoomIds))
         .then((docs) =>
             docs.map((doc) => ChatRoom.fromMap(doc.id, doc.data())).toList());
-  }
-
-  static Future<User> getByUserId(String userId) async {
-    List<DocumentSnapshot> users = (await PadongFB.getDocsByRule(User().type,
-        rule: (query) => query.where("userId", isEqualTo: userId), limit: 1));
-    if (users.isEmpty) return null;
-    return User.fromMap(users.first.id, users.first.data());
   }
 }

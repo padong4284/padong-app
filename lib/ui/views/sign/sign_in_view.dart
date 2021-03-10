@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/service/padong_auth.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/inputs/input.dart';
@@ -41,8 +41,10 @@ class _SignInViewState extends State<SignInView> {
   Future<bool> onSignIn() async {
     String id = _idController.text;
     String pw = _pwController.text;
-    SignInReturns ret = await PadongAuth.signIn(id, pw);
-    if (ret == SignInReturns.success) return true;
+
+    // TODO: validate check
+    SignInResult result = await Session.signInUser(id, pw);
+    if (result == SignInResult.success) return true;
     return false;
   }
 }

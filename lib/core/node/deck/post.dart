@@ -6,10 +6,15 @@ class Post extends TitleNode with Statistics {
   bool anonymity; // hide profile
   bool isNotice;
 
+  Post();
+
   Post.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
         this.isNotice = snapshot['isNotice'],
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => Post.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

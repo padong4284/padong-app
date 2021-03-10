@@ -8,10 +8,15 @@ class Building extends TitleNode with Statistics {
   LatLng location;
   int serviceCheckBits; // TODO transaction!
 
+  Building();
+
   Building.fromMap(String id, Map snapshot)
       : this.location = LatLng.fromJson(snapshot['location']),
         this.serviceCheckBits = snapshot['serviceCheckBits'],
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => Building.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

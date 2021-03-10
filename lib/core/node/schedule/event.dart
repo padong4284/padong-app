@@ -11,13 +11,18 @@ class Event extends Board {
   List<TimeManager> times;
   List<String> alerts;
 
+  Event();
+
   Event.fromMap(String id, Map snapshot)
       : this.periodicity = parsePERIODICITY(snapshot['periodicity']),
-        this.times = snapshot['times']
-            .map((time) => TimeManager.fromString(time))
-            .toList(),
-        this.alerts = snapshot['alerts'],
+        this.times = <TimeManager>[
+          ...snapshot['times'].map((time) => TimeManager.fromString(time))
+        ],
+        this.alerts = <String>[...snapshot['alerts']],
         super.fromMap(id, {...snapshot, 'rule': MEMO_RULE});
+
+  @override
+  generateFromMap(String id, Map snapshot) => Event.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
@@ -25,7 +30,7 @@ class Event extends Board {
       ...super.toJson(),
       'rule': MEMO_RULE,
       'periodicity': periodicityToString(this.periodicity),
-      'times': this.times.map((time) => time.toString()).toList().toString(),
+      'times': this.times.map((tManager) => tManager.toString()).toList().toString(),
       'alerts': this.alerts,
     };
   }

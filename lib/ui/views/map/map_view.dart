@@ -16,9 +16,8 @@ import 'package:padong/ui/views/templates/map_supporter_template.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 class MapView extends StatefulWidget {
-  final Mappa mappa;
 
-  MapView() : this.mappa = getMappaAPI(Session.currentUniv['mappaId']);
+  MapView();
 
   @override
   _MapViewState createState() => _MapViewState();

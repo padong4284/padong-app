@@ -7,10 +7,15 @@ class Argue extends Reply {
   bool isClosed;
   String wikiId;
 
+  Argue();
+
   Argue.fromMap(String id, Map snapshot)
       : this.isClosed = snapshot['isClosed'],
         this.wikiId = snapshot['wikiId'],
         super.fromMap(id, {...snapshot, 'anonymity': false});
+
+  @override
+  generateFromMap(String id, Map snapshot) => Argue.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

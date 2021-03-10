@@ -7,7 +7,6 @@ import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/utils/wave/wave_clipper.dart';
 import 'package:padong/ui/utils/wave/wave.dart';
 import 'package:padong/ui/shared/types.dart';
-import 'package:padong/core/apis/session.dart' as Session;
 
 Wave primaryWave = new Wave(50, -5, 280, 4);
 Wave secondaryWave = new Wave(-75, 25, 500, 4);
@@ -208,35 +207,20 @@ class _SignViewState extends State<SignView>
                         color: AppTheme.colors.primary)),
               ),
               FloatingActionButton(
-                child: Icon(Icons.east, color: AppTheme.colors.base),
-                backgroundColor: AppTheme.colors.primary,
-                onPressed: () async {
-                  // FIXME for testing
-                  Navigator.pushNamed(context, '/main');
-
-                  if (this.isButtonDisabled == false) {
-                    this.isButtonDisabled = true;
-                    if (widget.isSignIn) {
-                      if (await widget.onTapEnter()) {
-                        // TODO: register User and University to Session
+                  child: Icon(Icons.east, color: AppTheme.colors.base),
+                  backgroundColor: AppTheme.colors.primary,
+                  onPressed: () async {
+                    if (this.isButtonDisabled == false) {
+                      this.isButtonDisabled = true;
+                      if (await widget.onTapEnter())
+                        // Session is Already Updated
                         Navigator.pushNamed(context, '/main');
-                      } else {
+                      else
                         // TODO: feedback to user
-                        log("Login Failed.");
-                      }
-                    } else {
-                      if (await widget.onTapEnter()) {
-                        // TODO: register User and University to Session
-                        Navigator.pushNamed(context, '/main');
-                      } else {
-                        // TODO: feedback to user
-                        log("Register Failed ");
-                      }
+                        log("${widget.isSignIn ? 'SignIn' : 'SignUp'} Failed");
+                      this.isButtonDisabled = false;
                     }
-                    this.isButtonDisabled = false;
-                  }
-                },
-              )
+                  })
             ])));
   }
 }

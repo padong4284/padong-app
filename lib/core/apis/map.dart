@@ -15,8 +15,12 @@ Building getCenterAPI(String univId) {
     'id': 'building009',
     'title': 'Georgia Tech',
     'description': 'progress and service with super power',
+    'pip': pipToString(PIP.PUBLIC),
+    'ownerId': 'test',
+    'parentId': 'test',
+    'createdAt': DateTime.now().toIso8601String(),
     'location': univLocation.toJson(),
-    'createdAt': DateTime.now().toIso8601String()
+    'serviceCheckBits': 0,
   });
   return georgiaTech;
 }
@@ -38,6 +42,8 @@ List<Building> getBuildingsAPI(String mappaId) {
 You can check the services and leave the
 tips. You can create you own also!""",
             'pip': pipToString(PIP.PUBLIC),
+            'ownerId': 'test',
+            'parentId': 'test',
             'createdAt': DateTime.now().toIso8601String(),
             'location': LatLng(
               gtLat +

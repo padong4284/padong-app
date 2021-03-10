@@ -5,9 +5,14 @@ import 'package:padong/core/shared/notification.dart';
 class Board extends TitleNode with Notification {
   String rule; // rule of this board, showing at Write page
 
+  Board();
+
   Board.fromMap(String id, Map snapshot)
       : this.rule = snapshot['rule'],
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => Board.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

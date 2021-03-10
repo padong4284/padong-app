@@ -5,9 +5,14 @@ import 'package:padong/core/shared/types.dart';
 class Service extends Evaluation {
   SERVICE serviceCode;
 
+  Service();
+
   Service.fromMap(String id, Map snapshot)
       : this.serviceCode = parseSERVICE(snapshot['serviceCode']),
         super.fromMap(id, {...snapshot, 'anonymity': false});
+
+  @override
+  generateFromMap(String id, Map snapshot) => Service.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {

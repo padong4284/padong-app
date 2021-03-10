@@ -16,6 +16,8 @@ class Lecture extends Event {
   String attendance;
   String book;
 
+  Lecture();
+
   Lecture.fromMap(String id, Map snapshot)
       : this.professor = snapshot['professor'],
         this.room = snapshot['room'],
@@ -25,6 +27,9 @@ class Lecture extends Event {
         this.book = snapshot['book'],
         super.fromMap(id,
             {...snapshot, 'rule': ASK_RULE, 'periodicity': PERIODICITY.WEEKLY});
+
+  @override
+  generateFromMap(String id, Map snapshot) => Lecture.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
@@ -42,6 +47,6 @@ class Lecture extends Event {
   }
 
   Future<Evaluation> getEvaluation() async {
-    return (await this.getChildren(Evaluation, limit: 1))[0];
+    return (await this.getChildren(Evaluation(), limit: 1))[0];
   }
 }

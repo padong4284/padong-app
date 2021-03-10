@@ -1,9 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
-import 'package:padong/core/service/session.dart' as Session;
 
 // parent: University
 class User extends Node {
@@ -13,17 +13,22 @@ class User extends Node {
   int entranceYear;
   List<String> userEmails;
   String profileImageURL;
-  List<String> friendIds; // I request be friend
+  List<String> friendIds; // I send
+
+  User();
 
   User.fromMap(String id, Map snapshot)
       : this.name = snapshot['name'],
         this.userId = snapshot['userId'],
         this.isVerified = snapshot['isVerified'],
         this.entranceYear = snapshot['entranceYear'],
-        this.userEmails = snapshot['userEmails'],
+        this.userEmails = <String>[...snapshot['userEmails']],
         this.profileImageURL = snapshot['profileImageURL'],
-        this.friendIds = snapshot['friendIds'],
+        this.friendIds = <String>[...snapshot['friendIds']],
         super.fromMap(id, snapshot);
+
+  @override
+  generateFromMap(String id, Map snapshot) => User.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
@@ -39,6 +44,13 @@ class User extends Node {
     };
   }
 
+  static Future<User> getByUserId(String userId) async {
+    List<DocumentSnapshot> users = (await PadongFB.getDocsByRule(User().type,
+        rule: (query) => query.where("userId", isEqualTo: userId), limit: 1));
+    if (users.isEmpty) return null;
+    return User.fromMap(users.first.id, users.first.data());
+  }
+
   RELATION getRelationWith(User other) {
     bool received = this.friendIds.contains(other.id);
     bool send = other.friendIds.contains(this.id);
@@ -50,24 +62,18 @@ class User extends Node {
     return null;
   }
 
-  Future<List<ChatRoom>> getMyChatRooms() async {
-    User me = await Session.currentUser;
+  Future<List<ChatRoom>> getMyChatRooms(User me) async {
     if (this != me) throw Exception("Not me!");
 
     List<String> chatRoomIds;
-    List<Participant> myParticipants = await PadongFB.getNodesByRule(
-        Participant,
+    List<DocumentSnapshot> myParticipants = await PadongFB.getDocsByRule(
+        Participant().type,
         rule: (query) => query.where('ownerId', isEqualTo: me.id));
-    for (Participant p in myParticipants) chatRoomIds.add(p.parentId);
+    for (DocumentSnapshot p in myParticipants) chatRoomIds.add(p['parentId']);
 
-    return await PadongFB.getNodesByRule(ChatRoom,
-        rule: (query) => query.where('id', whereIn: chatRoomIds));
-  }
-
-  static Future<User> getByUserId(String userId) async {
-    List users = (await PadongFB.getNodesByRule(User,
-        rule: (query) => query.where("userId", isEqualTo: userId), limit: 1));
-    if (users.isEmpty) return null;
-    return users.first;
+    return await PadongFB.getDocsByRule(ChatRoom().type,
+            rule: (query) => query.where('id', whereIn: chatRoomIds))
+        .then((docs) =>
+            docs.map((doc) => ChatRoom.fromMap(doc.id, doc.data())).toList());
   }
 }

@@ -26,7 +26,10 @@ class Node {
             DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
-            : DateTime.parse(snapshot['deletedAt']);
+            : DateTime.parse(snapshot['deletedAt']) {
+    if (!this.isValidate())
+      throw Exception('Invalid data try to construct ${this.type}');
+  }
 
   Node generateFromMap(String id, Map snapshot) => Node.fromMap(id, snapshot);
 

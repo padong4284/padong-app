@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/schedule.dart';
-import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/utils/time_manager.dart';
+import 'package:padong/ui/widgets/bars/top_app_bar.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
 import 'package:padong/ui/widgets/cards/question_card.dart';
 import 'package:padong/ui/widgets/cards/timelines/timeline_card.dart';
@@ -25,7 +25,7 @@ class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
-      appBar: this.topBar(),
+      appBar: TopAppBar('PADONG'),
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongFloatingButton(isScrollingDown: isScrollingDown),
       children: [
@@ -36,43 +36,6 @@ class MainView extends StatelessWidget {
         ...this.eventsArea(),
         ...this.placesArea(),
         ...this.padongArea(),
-      ],
-    );
-  }
-
-  AppBar topBar() {
-    return AppBar(
-      // when dark mode, using dark
-      brightness: Brightness.light,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: InkWell(
-          onTap: () {
-            // TODO: routing to Padong Main and change current univ
-          },
-          child: Container(
-              padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
-              alignment: Alignment.center,
-              child: Text('PADONG',
-                  style: AppTheme.getFont(
-                      fontSize: AppTheme.fontSizes.large,
-                      color: AppTheme.colors.semiPrimary)))),
-      leadingWidth: 110.0,
-      actions: [
-        SizedBox(
-            width: 32.0,
-            child: IconButton(
-                onPressed: () => PadongRouter.routeURL('/chats'),
-                icon:
-                    Icon(Icons.mode_comment, color: AppTheme.colors.support))),
-        SizedBox(
-            width: 32.0,
-            child: IconButton(
-                onPressed: () =>
-                    PadongRouter.routeURL('/profile?id=${Session.user['id']}'),
-                icon: Icon(Icons.account_circle,
-                    color: AppTheme.colors.support))),
-        SizedBox(width: AppTheme.horizontalPadding)
       ],
     );
   }

@@ -11,6 +11,7 @@ import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/containers/vertical_timeline.dart';
 import 'package:padong/ui/widgets/tiles/board_list_tile.dart';
+import 'package:padong/ui/widgets/tiles/node/wiki_item_tile.dart';
 import 'package:padong/ui/widgets/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
@@ -33,12 +34,26 @@ class MainView extends StatelessWidget {
         UnivDoor(),
         SizedBox(height: 35),
         TopBoards(this.univ['deckId']),
+        ...this.encyclopedia(),
         ...this.questionArea(),
         ...this.eventsArea(),
         ...this.placesArea(),
         ...this.padongArea(),
       ],
     );
+  }
+
+  List<Widget> encyclopedia() {
+    return [
+      this._title('About Georgia Tech'), // TODO: from currentUniv
+      SizedBox(height: 10),
+      ...{
+        // TODO: from university
+        'Vision': 'w009000',
+        'Mission': 'w009001',
+        'History': 'w009002',
+      }.values.map((wikiId) => WikiItemTile(wikiId)) // TODO: change wiki tile
+    ];
   }
 
   List<Widget> questionArea() {

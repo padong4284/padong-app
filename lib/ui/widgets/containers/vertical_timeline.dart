@@ -74,7 +74,7 @@ class VerticalTimeline extends StatelessWidget {
                   width: 12, height: 12, color: AppTheme.colors.primary),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10, bottom: 2),
               child: Text(dotTime,
                   style: AppTheme.getFont(color: AppTheme.colors.semiSupport)),
             )

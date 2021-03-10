@@ -16,8 +16,7 @@ class PadongAuth {
     return _auth.currentUser.uid;
   }
 
-  static Future<SignInResult> signIn(
-      String uid, List<String> emails, String pw) async {
+  static Future<SignInResult> signIn(List<String> emails, String pw) async {
     // signIn with user's userEmail
     SignInResult lastStatus = SignInResult.success;
     for (String email in emails) {
@@ -55,12 +54,10 @@ class PadongAuth {
       return SignUpResult.failed;
     }
 
-    print('here');
     User currentUser = _auth.currentUser;
     if (currentUser == null) return SignUpResult.failed;
     if (!currentUser.emailVerified) // TODO: notify email send
       await currentUser.sendEmailVerification();
-
     return SignUpResult.success;
   }
 

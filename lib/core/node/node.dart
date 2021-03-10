@@ -21,11 +21,9 @@ class Node {
         this.pip = parsePIP(snapshot['pip']),
         this.parentId = snapshot['parentId'],
         this.ownerId = snapshot['ownerId'],
-        this.createdAt = DateTime.now(),
-        // DateTime.parse(snapshot['createdAt']),
-        this.modifiedAt = DateTime.now(),
-        // not modified yet
-        //DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
+        this.createdAt = DateTime.parse(snapshot['createdAt']),
+        this.modifiedAt = // not modified yet
+            DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
             : DateTime.parse(snapshot['deletedAt']);
@@ -41,7 +39,7 @@ class Node {
       "ownerId": this.ownerId,
       "createdAt": this.createdAt.toIso8601String(),
       "modifiedAt": (this.modifiedAt ?? this.createdAt).toIso8601String(),
-      "deletedAt": this.deletedAt == null // TODO: check FB nullable?
+      "deletedAt": this.deletedAt == null
           ? null // It may not deleted
           : this.deletedAt.toIso8601String(),
     };
@@ -63,7 +61,7 @@ class Node {
     DocumentSnapshot pDoc = await PadongFB.getDoc(parent.type, this.parentId);
     parent = parent.generateFromMap(pDoc.id, pDoc.data());
     if (parent.isValidate()) return parent;
-    throw Exception('Get Parent Failed');
+    return null;
   }
 
   Future<List<Node>> getChildren(Node child, {int limit, Node startAt}) async {

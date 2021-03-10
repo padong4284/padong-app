@@ -32,21 +32,21 @@ class PadongFB {
     }).catchError((e) => null);
   }
 
-  static Future<bool> deleteDoc(String type, String id) async {
-    return await _db
-        .collection(type)
-        .doc(id)
-        .update({'deletedAt': DateTime.now().toIso8601String()})
-        .then((_) => true)
-        .catchError((e) => false);
-  }
-
   static Future<bool> updateDoc(String type, String id, Map data) async {
     // assume modified (updated) data is passed
     return await _db
         .collection(type)
         .doc(id)
         .update({...data, 'modifiedAt': DateTime.now().toIso8601String()})
+        .then((_) => true)
+        .catchError((e) => false);
+  }
+
+  static Future<bool> deleteDoc(String type, String id) async {
+    return await _db
+        .collection(type)
+        .doc(id)
+        .update({'deletedAt': DateTime.now().toIso8601String()})
         .then((_) => true)
         .catchError((e) => false);
   }

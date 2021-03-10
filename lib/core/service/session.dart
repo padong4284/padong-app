@@ -27,7 +27,7 @@ class Session {
     User user = await User.getByUserId(userId);
     if (user == null) return SignInResult.wrongUserId;
 
-    SignInResult result = await PadongAuth.signIn(user.id, user.userEmails, pw);
+    SignInResult result = await PadongAuth.signIn(user.userEmails, pw);
     if (result == SignInResult.success) {
       // because, user email verify completed or changed Email
       bool emailVerified = await PadongAuth.isEmailVerified();
@@ -81,6 +81,7 @@ class Session {
     if (user == null || user.id != uid)
       throw Exception('Invalid User try to Change Email');
 
+    // TODO: user's parentId
     String currEmail = await PadongAuth.changeEmail(email);
     user.userEmails = [currEmail, email];
     await user.update();

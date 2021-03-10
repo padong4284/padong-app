@@ -3,6 +3,7 @@ import 'package:padong/core/apis/schedule.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/bars/top_app_bar.dart';
+import 'package:padong/ui/widgets/buttons/more_button.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
 import 'package:padong/ui/widgets/cards/question_card.dart';
 import 'package:padong/ui/widgets/cards/timelines/timeline_card.dart';
@@ -44,8 +45,8 @@ class MainView extends StatelessWidget {
     return [
       this._title('Questions'),
       SizedBox(height: 10),
-      SwipeDeck(children: List.generate(5, (i) => QuestionCard('$i')))
-      // TODO: more button
+      SwipeDeck(children: List.generate(5, (i) => QuestionCard('$i'))),
+      MoreButton('/board?id=${'questionsBoardId'}')
     ];
   }
 

@@ -61,4 +61,13 @@ class Wiki extends TitleNode with Statistics {
   void updateFrontLinks(String targetWikiId, {bool isRemove = false}) async {
     // TODO: update firebase with Transaction, Target Wiki's backLinks update
   }
+
+  @override
+  Future<List<int>> getStatistics() async {
+    return [
+      this.likes?.length,
+      null, // no count Reply, ReReply
+      this.bookmarks?.length
+    ];
+  }
 }

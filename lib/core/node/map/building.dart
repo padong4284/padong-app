@@ -40,15 +40,17 @@ class Building extends TitleNode with Statistics {
     };
   }
 
-  @override
-  Future<List<int>> getStatistics() async {
-    List<int> statistics = await super.getStatistics();
-    statistics[1] = null;
-    return statistics;
-  }
-
   bool isServiceOn(SERVICE service) {
     // check bit mask with service's code
     return (this.serviceCheckBits & service.code) > 0;
+  }
+
+  @override
+  Future<List<int>> getStatistics() async {
+    return [
+      this.likes?.length,
+      null, // no count Reply, ReReply
+      this.bookmarks?.length
+    ];
   }
 }

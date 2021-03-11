@@ -23,7 +23,7 @@ class Reply extends Node with Statistics {
         this.description = snapshot['description'],
         super.fromMap(id, snapshot) {
     this.likes = <String>[...snapshot['likes']];
-    this.bookmarks = <String>[...snapshot['bookmarks']];
+    this.bookmarks = null; // reply can not bookmark
   }
 
   @override

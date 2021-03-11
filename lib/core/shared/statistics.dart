@@ -79,22 +79,23 @@ mixin Statistics on Node {
 
   Future<void> updateLiked(User me) async {
     // TODO: update view
-    await this._update(me, 0);
+    if (this.likes != null) await this._update(me, 0);
   }
 
   Future<void> updateBookmarked(User me) async {
-    await this._update(me, 1);
+    if (this.bookmarks != null) await this._update(me, 1);
   }
 
   Future<List<int>> getStatistics() async {
-    var replyResult = await this.getChildren(Reply());
-    var reReplyResult = (await PadongFB.getDocsByRule("rereply",
-        rule: (q) => q.where("grandParentId", isEqualTo: this.id)));
+    List<Reply> replyResult = await this.getChildren(Reply());
+    List<DocumentSnapshot> reReplyResult = await PadongFB.getDocsByRule(
+        "rereply",
+        rule: (q) => q.where("grandParentId", isEqualTo: this.id));
 
     return [
-      this.likes.length,
+      this.likes?.length,
       replyResult.length + reReplyResult.length,
-      this.bookmarks.length
+      this.bookmarks?.length
     ];
   }
 }

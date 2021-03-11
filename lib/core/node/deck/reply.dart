@@ -26,8 +26,8 @@ class Reply extends Node with Statistics {
   }
 
   @override
-  List<int> getStatistics() {
-    List<int> statistics = super.getStatistics();
+  Future<List<int>> getStatistics() async {
+    List<int> statistics = await super.getStatistics();
     statistics[2] = null;
     return statistics;
   }

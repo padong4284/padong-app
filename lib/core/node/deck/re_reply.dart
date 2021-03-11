@@ -10,8 +10,8 @@ class ReReply extends Reply {
   generateFromMap(String id, Map snapshot) => ReReply.fromMap(id, snapshot);
 
   @override
-  List<int> getStatistics() {
-    List<int> statistics = super.getStatistics();
+  Future<List<int>> getStatistics() async {
+    List<int> statistics = await super.getStatistics();
     statistics[1] = null;
     return statistics;
   }

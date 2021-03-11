@@ -95,10 +95,13 @@ class MainView extends StatelessWidget {
       BoardListTile(
           boardIds: ['freeTalk', 'questionAnswer', 'inform'],
           isAlertTile: true),
-      Text('Contact Us'),
       Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.only(top: 30),
+          child: Text('Contact Us')),
+      Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.only(bottom: 20),
           child: Text('Copyright 2021. PADONG. All rights reserved.',
               style: AppTheme.getFont(
                   color: AppTheme.colors.semiSupport,

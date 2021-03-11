@@ -28,11 +28,11 @@ import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
-class MainView extends StatelessWidget {
+class HomeView extends StatelessWidget {
   final bool isPMain;
   final Map<String, dynamic> univ;
 
-  MainView({this.isPMain = false}) : this.univ = Session.currentUniv;
+  HomeView({this.isPMain = false}) : this.univ = Session.currentUniv;
 
   @override
   Widget build(BuildContext context) {

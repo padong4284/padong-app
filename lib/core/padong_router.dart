@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/views/chat/chat_view.dart';
 import 'package:padong/ui/views/chat/chat_room_view.dart';
 import 'package:padong/ui/views/chat/chats_view.dart';
@@ -38,7 +37,8 @@ import 'package:padong/ui/views/search/search_view.dart';
 import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
 import 'package:padong/ui/views/sign/forgot_view.dart';
-import 'package:padong/ui/views/route_view.dart';
+import 'package:padong/ui/views/main_view.dart';
+import 'package:padong/core/apis/deck.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 const List<Offset> SLIDE = [
@@ -65,12 +65,8 @@ class PadongRouter {
         return MaterialPageRoute(builder: (_) => ForgotView());
 
       case '/main':
-        // TODO: set session current University
         Session.currentUniv = getUnivAPI(args['univId']);
-        return MaterialPageRoute(builder: (_) => RouteView());
-      case '/p_main': // FIXME: remove this
-        Session.currentUniv = getUnivAPI('uPADONG'); // PADONG Univ Id
-        return MaterialPageRoute(builder: (_) => RouteView());
+        return MaterialPageRoute(builder: (_) => MainView());
 
       case '/board':
         return slideRouter(

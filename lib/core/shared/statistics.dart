@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
@@ -99,9 +100,7 @@ mixin Statistics on Node {
 
   Future<List<int>> getStatistics() async {
     // TODO: [Like, Reply & ReReply, Bookmark]
-    var replyResult = (await PadongFB.getDocsByRule("reply",
-    rule: (q) => q
-        .where("parentId", isEqualTo: this.id)));
+    var replyResult = await this.getChildren(new Reply());
     var reReplyResult = (await PadongFB.getDocsByRule("rereply",
         rule: (q) => q
             .where("grandParentId", isEqualTo: this.id)));

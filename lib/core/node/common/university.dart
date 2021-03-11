@@ -35,7 +35,7 @@ class University extends TitleNode {
     return {
       ...super.toJson(),
       'emblemImgURL': this.emblemImgURL,
-      'location': LatLng(33.775792835163144, -84.3962589592725).toJson(),// this.location.toJson(),
+      'location': this.location.toJson(),
       'address': this.address,
     };
   }

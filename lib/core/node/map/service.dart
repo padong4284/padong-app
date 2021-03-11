@@ -19,7 +19,7 @@ class Service extends Evaluation {
 
   Service.fromMap(String id, Map snapshot)
       : this.serviceCode = parseSERVICE(snapshot['serviceCode']),
-        super.fromMap(id, {...snapshot, 'anonymity': false});
+        super.fromMap(id, snapshot);
 
   @override
   generateFromMap(String id, Map snapshot) => Service.fromMap(id, snapshot);

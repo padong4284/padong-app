@@ -37,8 +37,9 @@ class Node {
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
             : DateTime.parse(snapshot['deletedAt']) {
-    if (!this.isValidate())
-      throw Exception('Invalid data try to construct ${this.type}');
+    if (!this.isValidate(passStatistics: true))
+      throw Exception(
+          'Invalid data try to construct ${this.type}\n${this.toJson()}');
   }
 
   Node generateFromMap(String id, Map snapshot) => Node.fromMap(id, snapshot);
@@ -58,10 +59,11 @@ class Node {
     };
   }
 
-  bool isValidate() {
+  bool isValidate({bool passStatistics = false}) {
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
       if (key == 'deletedAt') continue;
+      if (passStatistics && (key == 'likes' || key == 'bookmarks')) continue;
       if (data[key] == null) {
         log('Node(${this.type}) Validation Check Failed.\n$data');
         return false;

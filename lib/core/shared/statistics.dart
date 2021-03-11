@@ -104,7 +104,7 @@ mixin Statistics on Node {
         .where("parentId", isEqualTo: this.id)));
     var reReplyResult = (await PadongFB.getDocsByRule("rereply",
         rule: (q) => q
-            .where("parentId", isEqualTo: this.id)));
+            .where("grandParentId", isEqualTo: this.id)));
 
     return [this.likes.length, replyResult.length + reReplyResult.length, this.bookmarks.length];
   }

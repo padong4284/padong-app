@@ -11,7 +11,10 @@ class Post extends TitleNode with Statistics {
   Post.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
         this.isNotice = snapshot['isNotice'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.likes = snapshot['likes'];
+    this.bookmarks = snapshot['bookmarks'];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => Post.fromMap(id, snapshot);
@@ -22,6 +25,8 @@ class Post extends TitleNode with Statistics {
       ...super.toJson(),
       'anonymity': this.anonymity,
       'isNotice': this.isNotice,
+      'likes': this.likes,
+      'bookmarks': this.bookmarks,
     };
   }
 }

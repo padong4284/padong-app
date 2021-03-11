@@ -13,7 +13,10 @@ class Building extends TitleNode with Statistics {
   Building.fromMap(String id, Map snapshot)
       : this.location = LatLng.fromJson(snapshot['location']),
         this.serviceCheckBits = snapshot['serviceCheckBits'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.likes = snapshot['likes'];
+    this.bookmarks = snapshot['bookmarks'];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => Building.fromMap(id, snapshot);
@@ -24,6 +27,8 @@ class Building extends TitleNode with Statistics {
       ...super.toJson(),
       'location': this.location.toJson(),
       'serviceCheckBits': this.serviceCheckBits,
+      'likes': this.likes,
+      'bookmarks': this.bookmarks,
     };
   }
 

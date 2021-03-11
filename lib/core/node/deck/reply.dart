@@ -5,7 +5,6 @@ import 'package:padong/core/shared/statistics.dart';
 class Reply extends Node with Statistics {
   bool anonymity; // hide profile
   String description;
-  String grandParentId;
 
   Reply();
 
@@ -26,7 +25,6 @@ class Reply extends Node with Statistics {
       ...super.toJson(),
       'anonymity': this.anonymity,
       'description': this.description,
-      'grandParentId': this.grandParentId,
       'likes': this.likes,
       'bookmarks': this.bookmarks,
     };

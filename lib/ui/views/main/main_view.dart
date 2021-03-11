@@ -70,6 +70,7 @@ class MainView extends StatelessWidget {
     return [
       this._title('Events in ${TimeManager.thisMonth()}'),
       VerticalTimeline(
+          expandable: true,
           dots: List.generate(5, (i) => '3/2$i'),
           cards: List.generate(5, (_) => [TimelineCard(getEventAPI('123'))]),
           hideTopDate: true)

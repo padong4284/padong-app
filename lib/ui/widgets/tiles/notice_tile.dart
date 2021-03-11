@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widgets/buttons/more_button.dart';
 import 'package:padong/ui/widgets/tiles/base_tile.dart';
-import 'package:padong/ui/shared/types.dart';
-import 'package:padong/ui/widgets/buttons/transp_button.dart';
 import 'package:padong/ui/widgets/tiles/node/node_base_tile.dart';
 
 class NoticeTile extends StatefulWidget {
@@ -19,13 +18,7 @@ class NoticeTile extends StatefulWidget {
 }
 
 class _NoticeTileState extends State<NoticeTile> {
-  bool isFolded = true;
-
-  @override
-  void initState() {
-    super.initState();
-    this.isFolded = true;
-  }
+  bool expanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,27 +42,20 @@ class _NoticeTileState extends State<NoticeTile> {
                 ],
               ),
               widget.notices.length > 2
-                  ? TranspButton(
-                      title: 'More',
-                      isSuffixICon: true,
-                      icon: Icon(
-                          this.isFolded ? Icons.expand_more : Icons.expand_less,
-                          color: AppTheme.colors.primary,
-                          size: 20),
-                      buttonSize: ButtonSize.REGULAR,
-                      callback: () {
-                        setState(() {
-                          this.isFolded = !this.isFolded;
-                        });
-                      })
+                  ? MoreButton('', expanded: this.expanded,
+                      expandFunction: () {
+                      setState(() {
+                        this.expanded = !this.expanded;
+                      });
+                    })
                   : SizedBox.shrink()
             ],
           )),
       Container(height: 2, color: AppTheme.colors.support),
       ...List.generate(
-        this.isFolded ? 2 : widget.notices.length,
+        this.expanded ? widget.notices.length : 2,
         (idx) => _NoticeTile(widget.notices[idx],
-            (this.isFolded ? 2 : widget.notices.length) == idx + 1),
+            (this.expanded ?  widget.notices.length : 2) == idx + 1),
       )
     ]);
   }

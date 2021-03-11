@@ -11,14 +11,23 @@ class TimeManager {
   List<int> startT;
 
   int dMin;
+
   int get year => this.startTime.year;
+
   int get month => this.startTime.month;
+
   int get day => this.startTime.day;
+
   int get hour => this.startTime.hour;
+
   int get minute => this.startTime.minute;
+
   int get weekday => this.startTime.weekday;
+
   String get date => formatDate(this.startTime);
+
   String get time => '${formatHM(this.hour)}:${formatHM(this.minute)}';
+
   String get range => this.dr[1];
 
   static TimeManager fromString(String time) {
@@ -137,5 +146,25 @@ class TimeManager {
         (one.day == another.day) &&
         (one.month == another.month) &&
         (one.year == another.year);
+  }
+
+  static String thisMonth() => monthString(DateTime.now().month);
+
+  static String monthString(int m) {
+    return [
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ][m];
   }
 }

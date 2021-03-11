@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:padong/core/padong_router.dart';
-import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widgets/buttons/transp_button.dart';
+import 'package:padong/ui/widgets/buttons/more_button.dart';
 
 class HorizontalScroller extends StatelessWidget {
   final List<Widget> children;
@@ -57,18 +55,7 @@ class HorizontalScroller extends StatelessWidget {
                         .toList())),
           )),
       this.moreId != null
-          ? Padding(padding: const EdgeInsets.only(top: 8), child:Align(
-              alignment: Alignment.bottomRight,
-              child: TranspButton(
-                title: 'More',
-                buttonSize: ButtonSize.REGULAR,
-                icon: Icon(Icons.arrow_forward_ios,
-                    color: AppTheme.colors.primary,
-                    size: AppTheme.fontSizes.regular),
-                isSuffixICon: true,
-                callback: () =>
-                    PadongRouter.routeURL('/board?id=${this.moreId}'),
-              )))
+          ? MoreButton('/board?id=${this.moreId}')
           : SizedBox.shrink()
     ]);
   }

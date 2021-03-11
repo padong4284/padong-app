@@ -8,7 +8,6 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:padong/core/apis/map.dart';
 import 'package:padong/core/node/map/building.dart';
-import 'package:padong/core/node/map/mappa.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/utils/bitmap_icon_loader.dart';

@@ -33,7 +33,7 @@ class CoverView extends StatelessWidget {
         this.emblemArea(),
         SizedBox(height: 30),
         SwipeDeck(
-            children: this
+            children: this // TODO: from university
                 .cover['fixedWikis']
                 .values
                 .map((wikiId) => SummaryCard(wikiId))

@@ -150,7 +150,7 @@ class PadongRouter {
     PadongRouter.context = context;
   }
 
-  static void routeURL(String url) {
+  static void routeURL(String url) async {
     Map<String, dynamic> arguments = {};
     if (url.startsWith('/')) url = url.substring(1);
     List<String> parsed = url.split('?');

@@ -28,7 +28,7 @@ class Memo extends Post {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'pip': PIP.INTERNAL,
+      'pip': pipToString(PIP.INTERNAL),
     };
   }
 }

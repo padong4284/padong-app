@@ -72,9 +72,7 @@ class Node {
 
   Future<Node> getParent(Node parent) async {
     DocumentSnapshot pDoc = await PadongFB.getDoc(parent.type, this.parentId);
-    parent = parent.generateFromMap(pDoc.id, pDoc.data());
-    if (parent.isValidate()) return parent;
-    return null;
+    return parent.generateFromMap(pDoc.id, pDoc.data());
   }
 
   Future<List<Node>> getChildren(Node child, {int limit, Node startAt}) async {
@@ -86,7 +84,6 @@ class Node {
             startId: startAt.id)
         .then((docs) => docs
             .map((doc) => child.generateFromMap(doc.id, doc.data()))
-            .where((_child) => _child.isValidate())
             .toList())
         .catchError((_) => null);
   }

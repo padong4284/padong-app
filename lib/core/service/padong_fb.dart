@@ -13,6 +13,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class PadongFB {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  static WriteBatch getBatch() => _db.batch();
+
   static Future<DocumentReference> createDoc(String type, Map data) async {
     return await _db.collection(type).add(data).then((DocumentReference ref) {
       if (ref.id == null) return null;

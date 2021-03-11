@@ -40,7 +40,7 @@ class Event extends Board {
       ...super.toJson(),
       'rule': MEMO_RULE,
       'periodicity': periodicityToString(this.periodicity),
-      'times': this.times.map((tManager) => tManager.toString()).toList().toString(),
+      'times': this.times.map((tManager) => tManager.toString()).toList(),
       'alerts': this.alerts,
     };
   }

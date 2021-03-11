@@ -87,7 +87,7 @@ mixin Statistics on Node {
   }
 
   Future<List<int>> getStatistics() async {
-    var replyResult = await this.getChildren(new Reply());
+    var replyResult = await this.getChildren(Reply());
     var reReplyResult = (await PadongFB.getDocsByRule("rereply",
         rule: (q) => q.where("grandParentId", isEqualTo: this.id)));
 

@@ -92,6 +92,7 @@ class Node {
 
   Future<Node> create() async {
     // create document at Fire Base
+    this.id = null; // if want set a id, use node.set(id)
     this.createdAt = DateTime.now();
     if (this.isValidate()) {
       DocumentReference ref =

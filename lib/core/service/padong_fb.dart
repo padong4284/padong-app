@@ -31,10 +31,9 @@ class PadongFB {
       return doc;
     }).catchError((e) => null);
   }
-  static DocumentReference getDocRef(String type, [String id]){
-    return _db
-        .collection(type)
-        .doc(id);
+
+  static DocumentReference getDocRef(String type, [String id]) {
+    return _db.collection(type).doc(id);
   }
 
   static Future<bool> updateDoc(String type, String id, Map data) async {

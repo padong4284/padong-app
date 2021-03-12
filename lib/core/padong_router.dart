@@ -9,6 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/node.dart';
+import 'package:padong/core/node/nodes.dart';
 import 'package:padong/ui/views/chat/chat_view.dart';
 import 'package:padong/ui/views/chat/chat_room_view.dart';
 import 'package:padong/ui/views/chat/chats_view.dart';
@@ -156,18 +158,25 @@ class PadongRouter {
     PadongRouter.context = context;
   }
 
-  static void routeURL(String url) async {
-    Map<String, dynamic> arguments = {};
+  static void routeURL(String url, [Node node]) async {
+    /// '/${path (maybe type)}?id=${node's id}[&type=${optional node type}]'
     if (url.startsWith('/')) url = url.substring(1);
     List<String> parsed = url.split('?');
-    if (parsed.length >= 2) {
+    String type = node != null ? node.type : parsed[0];
+
+    Map<String, dynamic> arguments = {};
+    if (parsed.length > 1) // arguments
       for (String parse in parsed[1].split('&')) {
         assert(parse.indexOf('=') > 0);
         List<String> keyVal = parse.split('=');
+        if (keyVal[0] == 'type') type = keyVal[1];
         arguments[keyVal[0]] = keyVal[1];
       }
-    }
-    Navigator.pushNamed(PadongRouter.context, '/' + parsed[0],
+
+    /// arguments: {'id': String, 'node': Node, ...etc}
+    arguments['node'] =
+        node ?? (await Nodes.getNodeById(type, arguments['id']));
+    Navigator.pushNamed(PadongRouter.context, '/${parsed[0]}',
         arguments: arguments);
   }
 

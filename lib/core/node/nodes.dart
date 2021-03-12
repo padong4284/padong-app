@@ -51,12 +51,11 @@ final List<Node> _nodes = [
 ];
 
 class Nodes {
-  Nodes();
-
   static final Map<String, Node> _nodeMap =
       Map.fromIterable(_nodes, key: (node) => node.type, value: (node) => node);
 
-  Future<Node> getNodeById(String type, String id) async {
+  static Future<Node> getNodeById(String type, String id) async {
+    assert(type != null && id != null);
     DocumentSnapshot doc = await PadongFB.getDoc(type, id);
     return _nodeMap[type].generateFromMap(doc.id, doc.data());
   }

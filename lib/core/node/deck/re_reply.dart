@@ -10,7 +10,7 @@
 ///*********************************************************************
 import 'package:padong/core/node/deck/reply.dart';
 
-// parent: Reply
+// parent: Reply, Argue, Review
 class ReReply extends Reply {
   String grandParentId;
 

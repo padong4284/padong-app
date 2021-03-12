@@ -9,9 +9,11 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/schedule/event.dart';
+import 'package:padong/core/node/schedule/lecture.dart';
 
-// parent: User
+// parent: University
 class Schedule extends Node {
   Schedule();
 
@@ -20,8 +22,13 @@ class Schedule extends Node {
   @override
   generateFromMap(String id, Map snapshot) => Schedule.fromMap(id, snapshot);
 
-  List<Event> getTodaySchedule() {
-    // TODO: get today's events & lectures!
-    return [];
+  Future<List<Lecture>> getMyLectures(User me) async {
+    return (await this.getChildren(Lecture()))
+        .where((lecture) => me.lectureIds.contains(lecture.id));
+  }
+
+  Future<List<Event>> getMyEvents(User me) async {
+    // TODO: get Public, Internal Events from Schedule also
+    return await me.getChildren(Event());
   }
 }

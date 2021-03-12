@@ -10,7 +10,7 @@
 ///*********************************************************************
 import 'package:padong/core/node/deck/reply.dart';
 
-// parent: Evaluation
+// parent: Evaluation, Service
 class Review extends Reply {
   @override // always anonymous!
   bool anonymity = true;

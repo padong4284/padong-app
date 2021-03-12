@@ -63,6 +63,9 @@ class Session {
     if (result == SignUpResult.success) {
       String uid = await PadongAuth.getUid();
       user = await User.fromMap(uid, {
+        'pip': pipToString(PIP.PUBLIC),
+        'parentId': univ.id,
+        'ownerId': uid,
         'name': name,
         'userId': userId,
         'isVerified': false,
@@ -70,9 +73,7 @@ class Session {
         'userEmails': [email],
         'profileImageURL': "",
         'friendIds': <String>[],
-        'pip': pipToString(PIP.PUBLIC),
-        'parentId': univ.id,
-        'ownerId': uid,
+        'lectureIds': <String>[],
       }).set(uid);
       await _registerUser(user, univ);
     } else if(result == SignUpResult.emailAlreadyInUse){

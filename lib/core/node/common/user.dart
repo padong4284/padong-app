@@ -24,6 +24,7 @@ class User extends Node {
   List<String> userEmails;
   String profileImageURL;
   List<String> friendIds; // I send
+  List<String> lectureIds;
 
   User();
 
@@ -35,6 +36,7 @@ class User extends Node {
         this.userEmails = <String>[...snapshot['userEmails']],
         this.profileImageURL = snapshot['profileImageURL'],
         this.friendIds = <String>[...snapshot['friendIds']],
+        this.lectureIds = <String>[...snapshot['lectureIds']],
         super.fromMap(id, snapshot);
 
   @override
@@ -51,6 +53,7 @@ class User extends Node {
       'userEmails': this.userEmails,
       'profileImageURL': this.profileImageURL,
       'friendIds': this.friendIds,
+      'lectureIds': this.lectureIds,
     };
   }
 

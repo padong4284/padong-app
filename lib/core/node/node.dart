@@ -21,7 +21,7 @@ class Node {
   DateTime createdAt;
   DateTime modifiedAt;
   DateTime deletedAt;
-  Map<String, List<Node>> _childrens;
+  Map<String, List<Node>> _children;
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
@@ -38,7 +38,7 @@ class Node {
         this.deletedAt = snapshot['deletedAt'] == null
             ? null // It may not deleted
             : DateTime.parse(snapshot['deletedAt']) {
-    if (!this.isValidate(passStatistics: true))
+    if (!this.isValidate())
       throw Exception(
           'Invalid data try to construct ${this.type}\n${this.toJson()}');
   }
@@ -60,11 +60,11 @@ class Node {
     };
   }
 
-  bool isValidate({bool passStatistics = false}) {
+  bool isValidate() {
+    List<String> pass = ['deletedAt', 'likes', 'bookmarks'];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
-      if (key == 'deletedAt') continue;
-      if (passStatistics && (key == 'likes' || key == 'bookmarks')) continue;
+      if (pass.contains(key)) continue;
       if (data[key] == null) {
         log('Node(${this.type}) Validation Check Failed.\n$data');
         return false;
@@ -80,8 +80,8 @@ class Node {
 
   Future<List<Node>> getChildren(Node child,
       {int limit, Node startAt, bool upToDate}) async {
-    if (upToDate || (this._childrens[child.type] == null))
-      this._childrens[child.type] = await PadongFB.getDocsByRule(child.type,
+    if (upToDate || (this._children[child.type] == null))
+      this._children[child.type] = await PadongFB.getDocsByRule(child.type,
               rule: (query) => query
                   .where(this.id, isEqualTo: 'parentId')
                   .orderBy("createdAt", descending: true),
@@ -91,17 +91,16 @@ class Node {
               .map((doc) => child.generateFromMap(doc.id, doc.data()))
               .toList())
           .catchError((_) => null);
-    return this._childrens[child.type];
+    return this._children[child.type];
   }
 
   Future<Node> create() async {
     // create document at Fire Base
-    this.id = null; // if want set a id, use node.set(id)
     this.createdAt = DateTime.now();
     if (this.isValidate()) {
       DocumentReference ref =
           await PadongFB.createDoc(this.type, this.toJson());
-      if (ref == null) return null;
+      if (ref == null) throw Exception('Create Document Failed ${this.type}');
       this.id = ref.id;
       return this;
     }

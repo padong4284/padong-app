@@ -16,6 +16,7 @@ class PadongFB {
   static WriteBatch getBatch() => _db.batch();
 
   static Future<DocumentReference> createDoc(String type, Map data) async {
+    data.remove('id');
     return await _db.collection(type).add(data).then((DocumentReference ref) {
       if (ref.id == null) return null;
       return ref;
@@ -23,6 +24,7 @@ class PadongFB {
   }
 
   static Future<bool> setDoc(String type, String id, Map data) async {
+    data.remove('id');
     return await _db
         .collection(type)
         .doc(id)

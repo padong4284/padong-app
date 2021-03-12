@@ -8,9 +8,36 @@
 ///
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-import 'package:padong/core/shared/types.dart';
-import 'package:padong/core/shared/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:padong/core/shared/constants.dart';
+import 'package:padong/core/shared/types.dart';
+import 'package:padong/core/service/session.dart';
+
+import 'package:padong/core/node/chat/chat_room.dart';
+import 'package:padong/core/node/common/university.dart';
+import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/cover/argue.dart';
+import 'package:padong/core/node/cover/cover.dart';
+import 'package:padong/core/node/cover/item.dart';
+import 'package:padong/core/node/cover/wiki.dart';
+import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/deck/deck.dart';
+import 'package:padong/core/node/deck/post.dart';
+import 'package:padong/core/node/deck/re_reply.dart';
+import 'package:padong/core/node/deck/reply.dart';
+import 'package:padong/core/node/map/building.dart';
+import 'package:padong/core/node/map/mappa.dart';
+import 'package:padong/core/node/map/service.dart';
+import 'package:padong/core/node/schedule/evaluation.dart';
+import 'package:padong/core/node/schedule/event.dart';
+import 'package:padong/core/node/schedule/lecture.dart';
+import 'package:padong/core/node/schedule/memo.dart';
+import 'package:padong/core/node/schedule/question.dart';
+import 'package:padong/core/node/schedule/review.dart';
+import 'package:padong/core/node/schedule/schedule.dart';
+
+University univ = Session.currUniversity;
+User user = Session.user;
 
 final String _now = DateTime.now().toIso8601String();
 
@@ -21,10 +48,10 @@ final Map<String, dynamic> _statistics = {
 
 /// Node
 final Map<String, dynamic> _node = {
-  "id": 'ID_OF_NODE_0000',
+  //"id": AUTOMATICALLY SET,
   "pip": pipToString(PIP.PUBLIC),
-  "parentId": 'ID_OF_PARENT_0000',
-  "ownerId": 'ID_OF_USER_0001',
+  //"parentId": SET INDIVIDUALLY,
+  "ownerId": user.id,
   "createdAt": _now,
   "modifiedAt": _now,
   "deletedAt": null,
@@ -63,7 +90,6 @@ final Map<String, dynamic> _reply = {
 final Map<String, dynamic> _reReply = {
   ..._reply,
   'bookmarks': null,
-  'grandParentId': 'ID_OF_GRANDPARENT_0000',
 };
 
 /// Cover
@@ -90,7 +116,6 @@ final Map<String, dynamic> _argue = {
   ..._reply,
   'anonymity': false, // fixed
   'isClosed': false,
-  'wikiId': 'ID_OF_WIKI_0000',
 };
 
 /// Schedule
@@ -104,6 +129,11 @@ final Map<String, dynamic> _event = {
   'periodicity': periodicityToString(PERIODICITY.ANNUALLY),
   'times': <String>['2021-03-12 | 00:30 ~ 23:30'],
   'alerts': <String>['08:30'],
+};
+
+final Map<String, dynamic> _memo = {
+  ..._post,
+  'pip': pipToString(PIP.INTERNAL),
 };
 
 final Map<String, dynamic> _lecture = {
@@ -159,7 +189,7 @@ final Map<String, dynamic> _message = {
 
 final Map<String, dynamic> _chatRoom = {
   ..._titleNode,
-  'lastMessage': _message,
+  'lastMessage': null,
 };
 
 final Map<String, dynamic> _participant = {
@@ -184,7 +214,8 @@ final Map<String, dynamic> _university = {
   ..._titleNode,
   'title': 'Georgia Tech',
   'description': 'Progress and Service',
-  'emblemImgURL': 'https://en.wikipedia.org/wiki/File:Georgia_Tech_seal.svg',
+  'emblemImgURL':
+      'https://en.wikipedia.org/wiki/File:Georgia_Tech_seal.svg',
   'location': LatLng(33.775792835163144, -84.3962589592725).toJson(),
   'address': 'North Ave NW,\nAtlanta, GA 30332',
 };
@@ -201,3 +232,113 @@ final Map<String, dynamic> _bookmark = {
 final Map<String, dynamic> _subscribe = {
   ..._like,
 };
+
+
+Future<void> deckTesting() async {
+  // Deck
+  Deck deck = await Deck.fromMap('', {..._deck, 'parentId': univ.id}).create();
+  Board board =
+  await Board.fromMap('', {..._board, 'parentId': deck.id}).create();
+  Post post =
+  await Post.fromMap('', {..._post, 'parentId': board.id}).create();
+  Reply reply =
+  await Reply.fromMap('', {..._reply, 'parentId': post.id}).create();
+  ReReply reReply = await ReReply.fromMap('', {
+    ..._reReply,
+    'parentId': reply.id,
+    'grandParentId': reply.parentId
+  }).create();
+}
+
+Future<void> coverTesting() async {
+  // Cover
+  Cover cover =
+  await Cover.fromMap('', {..._cover, 'parentId': univ.id}).create();
+  Wiki wiki =
+  await Wiki.fromMap('', {..._wiki, 'parentId': cover.id}).create();
+  Item item = await Item.fromMap('', {..._item, 'parentId': wiki.id}).create();
+  Argue argue = await Argue.fromMap(
+      '', {..._argue, 'parentId': item.id, 'wikiId': wiki.id}).create();
+  ReReply reReply = await ReReply.fromMap('', {
+    ..._reReply,
+    'parentId': argue.id,
+    'grandParentId': argue.parentId
+  }).create();
+}
+
+Future<void> mappaTest() async {
+  // Mappa
+  Mappa mappa =
+  await Mappa.fromMap('', {..._mappa, 'parentId': univ.id}).create();
+  Building building =
+  await Building.fromMap('', {..._building, 'parentId': mappa.id})
+      .create();
+  Service service =
+  await Service.fromMap('', {..._service, 'parentId': building.id})
+      .create();
+  Review review =
+  await Review.fromMap('', {..._review, 'parentId': service.id}).create();
+  ReReply reReply = await ReReply.fromMap('', {
+    ..._reReply,
+    'parentId': review.id,
+    'grandParentId': review.parentId
+  }).create();
+}
+
+Future<void> scheduleTest() async {
+  // Schedule
+  Schedule schedule =
+  await Schedule.fromMap('', {..._schedule, 'parentId': univ.id}).create();
+  Lecture lecture =
+  await Lecture.fromMap('', {..._lecture, 'parentId': schedule.id})
+      .create();
+  Question question =
+  await Question.fromMap('', {..._question, 'parentId': lecture.id})
+      .create();
+  Reply reply =
+  await Reply.fromMap('', {..._reply, 'parentId': question.id}).create();
+  ReReply reReply = await ReReply.fromMap('', {
+    ..._reReply,
+    'parentId': reply.id,
+    'grandParentId': reply.parentId
+  }).create();
+  Evaluation evaluation =
+  await Evaluation.fromMap('', {..._evaluation, 'parentId': lecture.id})
+      .create();
+  Review review =
+  await Review.fromMap('', {..._review, 'parentId': evaluation.id})
+      .create();
+  ReReply reReply1 = await ReReply.fromMap('', {
+    ..._reReply,
+    'parentId': review.id,
+    'grandParentId': review.parentId
+  }).create();
+  Event eventU =
+  await Event.fromMap('', {..._event, 'parentId': user.id}).create();
+  Event event =
+  await Event.fromMap('', {..._event, 'parentId': schedule.id}).create();
+  Memo memo =
+  await Memo.fromMap('', {..._memo, 'parentId': event.id}).create();
+  Reply reply1 =
+  await Reply.fromMap('', {..._reply, 'parentId': memo.id}).create();
+  ReReply reReply2 = await ReReply.fromMap('', {
+    ..._reReply,
+    'parentId': reply1.id,
+    'grandParentId': reply1.parentId
+  }).create();
+}
+
+Future<void> chatTesting() async {
+  ChatRoom chatRoom =
+  await ChatRoom.fromMap('', {..._chatRoom, 'parentId': ''}).create();
+  chatRoom.addParticipant(user);
+  chatRoom.chatMessage(user, 'this is the chatting message');
+}
+
+Future<void> dummyTesting() async {
+  await deckTesting();
+  await coverTesting();
+  await mappaTest();
+  await scheduleTest();
+  await chatTesting();
+}

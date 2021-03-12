@@ -15,6 +15,7 @@ import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/shared/notification.dart';
 import 'package:padong/core/service/padong_fb.dart';
+import 'package:padong/core/shared/types.dart';
 
 // parent: Lecture or null
 class ChatRoom extends TitleNode with Notification {
@@ -23,8 +24,10 @@ class ChatRoom extends TitleNode with Notification {
   ChatRoom();
 
   ChatRoom.fromMap(String id, Map snapshot)
-      : this.lastMessage = Message.fromMap(
-            snapshot['lastMessage']['id'], snapshot['lastMessage']),
+      : this.lastMessage = snapshot['lastMessage'] != null
+            ? Message.fromMap(
+                snapshot['lastMessage']['id'], snapshot['lastMessage'])
+            : null,
         super.fromMap(id, snapshot);
 
   @override
@@ -34,25 +37,26 @@ class ChatRoom extends TitleNode with Notification {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'lastMessage': this.lastMessage.toJson(),
+      'lastMessage': this.lastMessage,
     };
   }
 
   Future<Participant> addParticipant(User user, [String role]) async {
     return await Participant.fromMap('', {
-      'pip': this.pip,
+      'pip': pipToString(this.pip),
       'parentId': this.id,
       'ownerId': user.id,
-      'role': role ?? "STUDENT",
+      'role': role ?? "Student",
     }).create();
   }
 
-  Future<bool> chatMessage(String msg, {bool isImage = false}) async {
+  Future<bool> chatMessage(User me, String msg, {bool isImage = false}) async {
     Message message = await Message.fromMap('', {
-      'pip': this.pip,
+      'pip': pipToString(this.pip),
       'parentId': this.id,
+      'ownerId': me.id,
       'message': msg,
-      'isImage': isImage,
+      'isImage': isImage
     }).create();
     if (message == null) return false;
     this.lastMessage = message;

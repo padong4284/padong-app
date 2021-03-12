@@ -27,17 +27,19 @@ class Node {
 
   Node();
 
-  Node.fromMap(String id, Map snapshot)
-      : this.id = id,
-        this.pip = parsePIP(snapshot['pip']),
-        this.parentId = snapshot['parentId'],
-        this.ownerId = snapshot['ownerId'],
-        this.createdAt = DateTime.parse(snapshot['createdAt']),
-        this.modifiedAt = // not modified yet
-            DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
-        this.deletedAt = snapshot['deletedAt'] == null
-            ? null // It may not deleted
-            : DateTime.parse(snapshot['deletedAt']) {
+  Node.fromMap(String id, Map snapshot) {
+    this.id = id;
+    this.pip = parsePIP(snapshot['pip']);
+    this.parentId = snapshot['parentId'];
+    this.ownerId = snapshot['ownerId'];
+    snapshot['createdAt'] = // auto initialize
+        snapshot['createdAt'] ?? DateTime.now().toIso8601String();
+    this.createdAt = DateTime.parse(snapshot['createdAt']);
+    this.modifiedAt = // not modified yet
+        DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']);
+    this.deletedAt = snapshot['deletedAt'] == null
+        ? null // It may not deleted
+        : DateTime.parse(snapshot['deletedAt']);
     if (!this.isValidate())
       throw Exception(
           'Invalid data try to construct ${this.type}\n${this.toJson()}');
@@ -61,7 +63,7 @@ class Node {
   }
 
   bool isValidate() {
-    List<String> pass = ['deletedAt', 'likes', 'bookmarks'];
+    List<String> pass = ['deletedAt', 'likes', 'bookmarks', 'lastMessage'];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
       if (pass.contains(key)) continue;

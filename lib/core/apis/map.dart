@@ -31,6 +31,8 @@ Building getCenterAPI(String univId) {
     'createdAt': DateTime.now().toIso8601String(),
     'location': univLocation.toJson(),
     'serviceCheckBits': 0,
+    'likes': <String>['test'],
+    'bookmarks': <String>['test'],
   });
   return georgiaTech;
 }
@@ -46,7 +48,7 @@ List<Building> getBuildingsAPI(String mappaId) {
   return List.generate(
       5,
       (i) => Building.fromMap('', {
-            'id': i.toString(),
+            'id': '$i',
             'title': serviceToString(SERVICE([1, 2, 4, 8, 16][i])),
             'description': """This Building page is board Level page.
 You can check the services and leave the
@@ -62,6 +64,8 @@ tips. You can create you own also!""",
                   0.0001 * rand.nextInt(10 + i) * (rand.nextBool() ? 1 : -1),
             ).toJson(),
             'serviceCheckBits': [1, 2, 4, 8, 16][i],
+            'likes': <String>['test'],
+            'bookmarks': <String>['test'],
           }));
 }
 

@@ -23,7 +23,10 @@ class Building extends TitleNode with Statistics {
   Building.fromMap(String id, Map snapshot)
       : this.location = LatLng.fromJson(snapshot['location']),
         this.serviceCheckBits = snapshot['serviceCheckBits'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.likes = <String>[...snapshot['likes']];
+    this.bookmarks = <String>[...snapshot['bookmarks']];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => Building.fromMap(id, snapshot);
@@ -37,15 +40,17 @@ class Building extends TitleNode with Statistics {
     };
   }
 
-  @override
-  Future<List<int>> getStatistics() async {
-    List<int> statistics = await super.getStatistics();
-    statistics[1] = null;
-    return statistics;
-  }
-
   bool isServiceOn(SERVICE service) {
     // check bit mask with service's code
     return (this.serviceCheckBits & service.code) > 0;
+  }
+
+  @override
+  Future<List<int>> getStatistics() async {
+    return [
+      this.likes?.length,
+      null, // no count Reply, ReReply
+      this.bookmarks?.length
+    ];
   }
 }

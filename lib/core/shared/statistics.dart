@@ -29,31 +29,26 @@ mixin Statistics on Node {
   }
 
   bool isLiked(User me) {
-    if (this.likes.contains(me.id)) {
-      return true;
-    }
+    if (this.likes.contains(me.id)) return true;
     return false;
   }
 
   bool isBookmarked(User me) {
-    if (this.bookmarks.contains(me.id)) {
-      return true;
-    }
+    if (this.bookmarks.contains(me.id)) return true;
     return false;
   }
 
-  Future<void> updateLiked(User me, bool isLiked) async {
-    var thisData = this.toJson();
-    Map<String, dynamic> likeData = new Map<String, dynamic>();
-    WriteBatch batch = FirebaseFirestore.instance.batch();
-    var result = (await PadongFB.getDocsByRule("like",
-        rule: (q) => q
-            .where("parentType", isEqualTo: this.type)
-            .where("ownerId", isEqualTo: me.id)));
+  Future<void> _update(User me, int _likeOrBookmark) async {
+    String _targetType = _likeOrBookmark == 0 ? 'like' : 'bookmark';
+    bool isChecked = [this.isLiked, this.isBookmarked][_likeOrBookmark](me);
 
-    if (isLiked) {
-      //Add Like
-      likeData = {
+    Map<String, dynamic> thisData = this.toJson();
+    Map<String, dynamic> data = new Map<String, dynamic>();
+    WriteBatch batch = PadongFB.getBatch();
+
+    if (isChecked) {
+      //Add
+      data = {
         'parentType': this.type,
         'pip': PIP.INTERNAL,
         'parentId': this.id,
@@ -61,60 +56,46 @@ mixin Statistics on Node {
         'createdAt': DateTime.now().toIso8601String(),
         'modifiedAt': DateTime.now().toIso8601String(),
       };
-      thisData['likes'] = FieldValue.arrayUnion([me.id]);
+      thisData['${_targetType}s'] = FieldValue.arrayUnion([me.id]);
 
-      batch.set(PadongFB.getDocRef("like"), likeData);
+      batch.set(PadongFB.getDocRef(_targetType), data);
       batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
     } else {
-      //Remove Like
-      if (result.isNotEmpty) {
-        batch.delete(PadongFB.getDocRef("like", result.first.id));
-      }
-      thisData['likes'] = FieldValue.arrayRemove([me.id]);
+      //Remove
+      List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
+          rule: (q) => q
+              .where("parentType", isEqualTo: this.type)
+              .where("ownerId", isEqualTo: me.id));
+      if (target.isNotEmpty)
+        batch.delete(PadongFB.getDocRef(_targetType, target.first.id));
+      thisData['${_targetType}s'] = FieldValue.arrayRemove([me.id]);
     }
     await batch.commit();
+
+    // update instance
+    this.likes = thisData['likes'];
+    this.bookmarks = thisData['bookmarks'];
   }
 
-  Future<void> updateBookmarked(User me, bool isBookmarked) async {
-    var thisData = this.toJson();
-    Map<String, dynamic> bookmarkData = new Map<String, dynamic>();
-    WriteBatch batch = FirebaseFirestore.instance.batch();
-    var result = (await PadongFB.getDocsByRule("bookmark",
-        rule: (q) => q
-            .where("parentType", isEqualTo: this.type)
-            .where("ownerId", isEqualTo: me.id)));
+  Future<void> updateLiked(User me) async {
+    // TODO: update view
+    if (this.likes != null) await this._update(me, 0);
+  }
 
-    if (isBookmarked) {
-      //Add Like
-      bookmarkData = {
-        'parentType': this.type,
-        'pip': PIP.INTERNAL,
-        'parentId': this.id,
-        'ownerId': me.id,
-        'createdAt': DateTime.now().toIso8601String(),
-        'modifiedAt': DateTime.now().toIso8601String(),
-      };
-      thisData['bookmarks'] = FieldValue.arrayUnion([me.id]);
-
-      batch.set(PadongFB.getDocRef("bookmark"), bookmarkData);
-      batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
-    } else {
-      //Remove Like
-      if (result.isNotEmpty) {
-        batch.delete(PadongFB.getDocRef("bookmark", result.first.id));
-      }
-      thisData['bookmarks'] = FieldValue.arrayRemove([me.id]);
-    }
-    await batch.commit();
+  Future<void> updateBookmarked(User me) async {
+    if (this.bookmarks != null) await this._update(me, 1);
   }
 
   Future<List<int>> getStatistics() async {
-    // TODO: [Like, Reply & ReReply, Bookmark]
-    var replyResult = await this.getChildren(new Reply());
-    var reReplyResult = (await PadongFB.getDocsByRule("rereply",
-        rule: (q) => q
-            .where("grandParentId", isEqualTo: this.id)));
+    List<Reply> replyResult = await this.getChildren(Reply());
+    List<DocumentSnapshot> reReplyResult = await PadongFB.getDocsByRule(
+        "rereply",
+        rule: (q) => q.where("grandParentId", isEqualTo: this.id));
 
-    return [this.likes.length, replyResult.length + reReplyResult.length, this.bookmarks.length];
+    return [
+      this.likes?.length,
+      replyResult.length + reReplyResult.length,
+      this.bookmarks?.length
+    ];
   }
 }

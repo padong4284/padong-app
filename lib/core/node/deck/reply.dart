@@ -21,7 +21,10 @@ class Reply extends Node with Statistics {
   Reply.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
         this.description = snapshot['description'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.likes = <String>[...snapshot['likes']];
+    this.bookmarks = null; // reply can not bookmark
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => Reply.fromMap(id, snapshot);

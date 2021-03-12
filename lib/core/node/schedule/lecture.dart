@@ -35,8 +35,11 @@ class Lecture extends Event {
         this.exam = snapshot['exam'],
         this.attendance = snapshot['attendance'],
         this.book = snapshot['book'],
-        super.fromMap(id,
-            {...snapshot, 'rule': ASK_RULE, 'periodicity': PERIODICITY.WEEKLY});
+        super.fromMap(id, {
+          ...snapshot,
+          'rule': ASK_RULE,
+          'periodicity': periodicityToString(PERIODICITY.WEEKLY)
+        });
 
   @override
   generateFromMap(String id, Map snapshot) => Lecture.fromMap(id, snapshot);

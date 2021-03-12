@@ -18,7 +18,7 @@ class Evaluation extends Post {
 
   Evaluation.fromMap(String id, Map snapshot)
       : this.rate = snapshot['rate'],
-        super.fromMap(id, {...snapshot});
+        super.fromMap(id, snapshot);
 
   @override
   generateFromMap(String id, Map snapshot) => Evaluation.fromMap(id, snapshot);

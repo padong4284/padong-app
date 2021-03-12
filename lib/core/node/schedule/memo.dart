@@ -19,7 +19,7 @@ class Memo extends Post {
   Memo();
 
   Memo.fromMap(String id, Map snapshot)
-      : super.fromMap(id, {...snapshot, 'pip': PIP.INTERNAL});
+      : super.fromMap(id, {...snapshot, 'pip': pipToString(PIP.INTERNAL)});
 
   @override
   generateFromMap(String id, Map snapshot) => Memo.fromMap(id, snapshot);
@@ -28,7 +28,7 @@ class Memo extends Post {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'pip': PIP.INTERNAL,
+      'pip': pipToString(PIP.INTERNAL),
     };
   }
 }

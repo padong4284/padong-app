@@ -25,7 +25,6 @@ import 'package:padong/ui/views/templates/map_supporter_template.dart';
 import 'package:padong/core/apis/session.dart' as Session;
 
 class MapView extends StatefulWidget {
-
   MapView();
 
   @override
@@ -123,15 +122,17 @@ class _MapViewState extends State<MapView> {
             icon: this.pinIcons['primary'],
             onTap: this.popInfoWindow(center))
       };
-      for (Building building in this.buildings)
-        for (int code in SERVICE_CODES) {
-          if (building.isServiceOn(SERVICE(code)))
+      for (Building building in this.buildings) {
+        for (int code in SERVICE_CODES) // no service -> custom Marker
+          if (building.isServiceOn(SERVICE(code)) || code == 16) {
             this._markers[serviceToString(SERVICE(code))].add(Marker(
                 markerId: MarkerId(code.toString() + building.id),
                 position: building.location,
                 icon: this.markerIcons[code.bitLength - 1],
                 onTap: this.popInfoWindow(building)));
-        }
+            break;
+          }
+      }
     });
     this._controller.complete(controller);
   }

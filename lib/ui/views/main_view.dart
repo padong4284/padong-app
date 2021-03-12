@@ -15,22 +15,22 @@ import 'package:padong/ui/views/cover/cover_view.dart';
 import 'package:padong/ui/views/deck/deck_view.dart';
 import 'package:padong/ui/views/map/map_view.dart';
 import 'package:padong/ui/views/schedule/schedule_view.dart';
-import 'package:padong/ui/views/main/main_view.dart';
+import 'package:padong/ui/views/home/home_view.dart';
 
 final List<Widget> pages = [
-  MainView(),
+  HomeView(),
   CoverView(),
   DeckView(),
   ScheduleView(),
   MapView(),
 ];
 
-class RouteView extends StatefulWidget {
+class MainView extends StatefulWidget {
   @override
-  _RouteViewState createState() => _RouteViewState();
+  _MainViewState createState() => _MainViewState();
 }
 
-class _RouteViewState extends State<RouteView> {
+class _MainViewState extends State<MainView> {
   int _selectedIdx = 0;
 
   @override

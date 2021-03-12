@@ -21,24 +21,28 @@ class Node {
   DateTime createdAt;
   DateTime modifiedAt;
   DateTime deletedAt;
+  Map<String, List<Node>> _children;
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
   Node();
 
-  Node.fromMap(String id, Map snapshot)
-      : this.id = id,
-        this.pip = parsePIP(snapshot['pip']),
-        this.parentId = snapshot['parentId'],
-        this.ownerId = snapshot['ownerId'],
-        this.createdAt = DateTime.parse(snapshot['createdAt']),
-        this.modifiedAt = // not modified yet
-            DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']),
-        this.deletedAt = snapshot['deletedAt'] == null
-            ? null // It may not deleted
-            : DateTime.parse(snapshot['deletedAt']) {
+  Node.fromMap(String id, Map snapshot) {
+    this.id = id;
+    this.pip = parsePIP(snapshot['pip']);
+    this.parentId = snapshot['parentId'];
+    this.ownerId = snapshot['ownerId'];
+    snapshot['createdAt'] = // auto initialize
+        snapshot['createdAt'] ?? DateTime.now().toIso8601String();
+    this.createdAt = DateTime.parse(snapshot['createdAt']);
+    this.modifiedAt = // not modified yet
+        DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']);
+    this.deletedAt = snapshot['deletedAt'] == null
+        ? null // It may not deleted
+        : DateTime.parse(snapshot['deletedAt']);
     if (!this.isValidate())
-      throw Exception('Invalid data try to construct ${this.type}');
+      throw Exception(
+          'Invalid data try to construct ${this.type}\n${this.toJson()}');
   }
 
   Node generateFromMap(String id, Map snapshot) => Node.fromMap(id, snapshot);
@@ -59,9 +63,10 @@ class Node {
   }
 
   bool isValidate() {
+    List<String> pass = ['deletedAt', 'likes', 'bookmarks', 'lastMessage'];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
-      if (key == 'deletedAt') continue;
+      if (pass.contains(key)) continue;
       if (data[key] == null) {
         log('Node(${this.type}) Validation Check Failed.\n$data');
         return false;
@@ -72,23 +77,23 @@ class Node {
 
   Future<Node> getParent(Node parent) async {
     DocumentSnapshot pDoc = await PadongFB.getDoc(parent.type, this.parentId);
-    parent = parent.generateFromMap(pDoc.id, pDoc.data());
-    if (parent.isValidate()) return parent;
-    return null;
+    return parent.generateFromMap(pDoc.id, pDoc.data());
   }
 
-  Future<List<Node>> getChildren(Node child, {int limit, Node startAt}) async {
-    return await PadongFB.getDocsByRule(child.type,
-            rule: (query) => query
-                .where(this.id, isEqualTo: 'parentId')
-                .orderBy("createdAt", descending: true),
-            limit: limit,
-            startId: startAt.id)
-        .then((docs) => docs
-            .map((doc) => child.generateFromMap(doc.id, doc.data()))
-            .where((_child) => _child.isValidate())
-            .toList())
-        .catchError((_) => null);
+  Future<List<Node>> getChildren(Node child,
+      {int limit, Node startAt, bool upToDate}) async {
+    if (upToDate || (this._children[child.type] == null))
+      this._children[child.type] = await PadongFB.getDocsByRule(child.type,
+              rule: (query) => query
+                  .where(this.id, isEqualTo: 'parentId')
+                  .orderBy("createdAt", descending: true),
+              limit: limit,
+              startId: startAt.id)
+          .then((docs) => docs
+              .map((doc) => child.generateFromMap(doc.id, doc.data()))
+              .toList())
+          .catchError((_) => null);
+    return this._children[child.type];
   }
 
   Future<Node> create() async {
@@ -97,7 +102,7 @@ class Node {
     if (this.isValidate()) {
       DocumentReference ref =
           await PadongFB.createDoc(this.type, this.toJson());
-      if (ref == null) return null;
+      if (ref == null) throw Exception('Create Document Failed ${this.type}');
       this.id = ref.id;
       return this;
     }

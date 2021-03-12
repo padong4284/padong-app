@@ -43,9 +43,9 @@ RELATION parseRELATION(String relation) => {
     }[relation];
 
 String relationToString(RELATION relation) => {
-      RELATION.FRIEND: 'Public',
-      RELATION.RECEIVED: 'Internal',
-      RELATION.SEND: 'Private'
+      RELATION.FRIEND: 'Friend',
+      RELATION.RECEIVED: 'Received',
+      RELATION.SEND: 'Send'
     }[relation];
 
 enum PERIODICITY {
@@ -55,15 +55,15 @@ enum PERIODICITY {
 }
 
 PERIODICITY parsePERIODICITY(String periodicity) => {
-      'Friend': PERIODICITY.ANNUALLY,
-      'Received': PERIODICITY.MONTHLY,
-      'Send': PERIODICITY.WEEKLY,
+      'Annual': PERIODICITY.ANNUALLY,
+      'Monthly': PERIODICITY.MONTHLY,
+      'Weekly': PERIODICITY.WEEKLY,
     }[periodicity];
 
 String periodicityToString(PERIODICITY periodicity) => {
-      PERIODICITY.ANNUALLY: 'Public',
-      PERIODICITY.MONTHLY: 'Internal',
-      PERIODICITY.WEEKLY: 'Private',
+      PERIODICITY.ANNUALLY: 'Annual',
+      PERIODICITY.MONTHLY: 'Monthly',
+      PERIODICITY.WEEKLY: 'Weekly',
     }[periodicity];
 
 const SERVICE_CODES = [1, 2, 4, 8, 16];

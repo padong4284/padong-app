@@ -69,7 +69,8 @@ class TimeManager {
     /// MM/DD/YYYY | HH:MM ~ HH:MM
     try {
       this.init(dateTimeRange);
-      List<int> date = this.dr[0].split('/').map((d) => int.parse(d)).toList();
+      String source = this.dr[0].replaceAll('-', '/');
+      List<int> date = source.split('/').map((d) => int.parse(d)).toList();
       this.startTime =
           DateTime(date[2], date[0], date[1], this.startT[0], this.startT[1]);
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);

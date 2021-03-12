@@ -9,22 +9,29 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/shared/types.dart';
 
 // parent: Post, Reply, ReReply
 class Like extends Node {
+  @override // always public!
+  PIP pip = PIP.PUBLIC;
   String parentType;
 
   Like();
 
   Like.fromMap(String id, Map snapshot)
       : this.parentType = snapshot['parentType'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, {...snapshot, 'pip': pipToString(PIP.PUBLIC)});
 
   @override
   generateFromMap(String id, Map snapshot) => Like.fromMap(id, snapshot);
 
   @override
   Map<String, dynamic> toJson() {
-    return {'parentType': this.parentType, ...super.toJson()};
+    return {
+      ...super.toJson(),
+      'pip': pipToString(PIP.PUBLIC),
+      'parentType': this.parentType,
+    };
   }
 }

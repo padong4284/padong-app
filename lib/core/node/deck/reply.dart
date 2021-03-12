@@ -11,7 +11,7 @@
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/shared/statistics.dart';
 
-// parent: Post
+// parent: Post, Memo, Question
 class Reply extends Node with Statistics {
   bool anonymity; // hide profile
   String description;

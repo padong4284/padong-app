@@ -21,6 +21,9 @@ import 'package:padong/core/shared/types.dart';
 class ChatRoom extends TitleNode with Notification {
   Message lastMessage;
 
+  Future<List<Participant>> get participants async =>
+      this.getChildren(Participant());
+
   ChatRoom();
 
   ChatRoom.fromMap(String id, Map snapshot)
@@ -37,11 +40,11 @@ class ChatRoom extends TitleNode with Notification {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'lastMessage': this.lastMessage,
+      'lastMessage': this.lastMessage.toJson(),
     };
   }
 
-  Future<Participant> addParticipant(User user, [String role]) async {
+  Future<Participant> invite(User user, [String role]) async {
     return await Participant.fromMap('', {
       'pip': pipToString(this.pip),
       'parentId': this.id,
@@ -71,5 +74,10 @@ class ChatRoom extends TitleNode with Notification {
           .orderBy("createdAt", descending: true),
       limit: 30,
     );
+  }
+
+  Future<int> countUnread(User me) async {
+    // TODO: based on Participant's modifiedAt, message's createdAt
+    return 0;
   }
 }

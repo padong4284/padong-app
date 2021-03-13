@@ -11,7 +11,7 @@
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/ui/utils/time_manager.dart';
+import 'package:padong/util/time_manager.dart';
 
 // parent: Schedule, User
 class Event extends Board {

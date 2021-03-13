@@ -28,7 +28,7 @@ import 'package:padong/core/node/schedule/memo.dart';
 import 'package:padong/core/node/schedule/question.dart';
 import 'package:padong/core/node/schedule/review.dart';
 import 'package:padong/core/node/schedule/schedule.dart';
-import 'package:padong/core/apis/dummy.dart';
+import 'package:padong/core/test/dummy.dart';
 
 Future<void> deckTesting() async {
   // Deck

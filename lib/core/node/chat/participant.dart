@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padong/core/node/common/user.dart';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -15,6 +17,18 @@ import 'package:padong/core/shared/types.dart';
 class Participant extends Node {
   ROLE role;
 
+  User _user;
+
+  Future<User> get owner async {
+    // Node does not get owner directly,
+    // because Node never depends on User (Node is super class)
+    if (this._user == null) {
+      DocumentSnapshot userDoc = await this.ownerDoc;
+      this._user = User.fromMap(userDoc.id, userDoc.data());
+    }
+    return this._user;
+  }
+
   Participant();
 
   Participant.fromMap(String id, Map snapshot)
@@ -30,10 +44,5 @@ class Participant extends Node {
       ...super.toJson(),
       'role': roleToString(this.role),
     };
-  }
-
-  int countUnread() {
-    // TODO: based on Participant's modifiedAt, message's createdAt
-    return 0;
   }
 }

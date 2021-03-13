@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/ui/view/main_view.dart';
 import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
@@ -27,7 +28,11 @@ class PadongRouter {
       case '/sign_up':
         return fadeRouter(pageBuilder: (_, __, ___) => SignUpView());
       case '/forgot':
-        return slideRouter(pageBuilder: (_, __, ___) => ForgotView(), direction: 1);
+        return slideRouter(
+            pageBuilder: (_, __, ___) => ForgotView(), direction: 1);
+
+      case '/main':
+        return MaterialPageRoute(builder: (_) => MainView());
 
       default:
         return PageRouteBuilder(

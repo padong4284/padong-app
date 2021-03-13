@@ -22,7 +22,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    PadongRouter.registerContext(context);
     return MaterialApp(
       title: 'PADONG',
       theme: AppTheme.define(),

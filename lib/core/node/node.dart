@@ -22,7 +22,7 @@ class Node {
   DateTime createdAt;
   DateTime modifiedAt;
   DateTime deletedAt;
-  Map<String, List<Node>> _children;
+  Map<String, List<Node>> _children = {};
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
@@ -85,23 +85,25 @@ class Node {
     return parent.generateFromMap(pDoc.id, pDoc.data());
   }
 
-  Future<Node> getChild(Node child) async =>
-      (await this.getChildren(child))[0];
+  Future<Node> getChild(Node child) async {
+    List<Node> _children = await this.getChildren(child);
+    return (_children == null || _children.length == 0) ? null : _children[0];
+  }
 
   Future<List<Node>> getChildren(Node child,
-      {int limit, Node startAt, bool upToDate}) async {
+      {int limit, Node startAt, bool upToDate = true}) async {
     if (upToDate || (this._children[child.type] == null))
       this._children[child.type] = await PadongFB.getDocsByRule(child.type,
               rule: (query) => query
-                  .where(this.id, isEqualTo: 'parentId')
+                  .where('parentId', isEqualTo: this.id)
                   .orderBy("createdAt", descending: true),
               limit: limit,
-              startId: startAt.id)
+              startId: startAt != null ? startAt.id : null)
           .then((docs) => docs
               .map((doc) => child.generateFromMap(doc.id, doc.data()))
               .toList())
           .catchError((_) => null);
-    return this._children[child.type];
+    return this._children[child.type] ?? [];
   }
 
   Future<Node> create() async {

@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/nodes.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/views/chat/chat_view.dart';
 import 'package:padong/ui/views/chat/chat_room_view.dart';
 import 'package:padong/ui/views/chat/chats_view.dart';
@@ -40,8 +41,6 @@ import 'package:padong/ui/views/sign/sign_in_view.dart';
 import 'package:padong/ui/views/sign/sign_up_view.dart';
 import 'package:padong/ui/views/sign/forgot_view.dart';
 import 'package:padong/ui/views/main_view.dart';
-import 'package:padong/core/apis/deck.dart';
-import 'package:padong/core/apis/session.dart' as Session;
 
 const List<Offset> SLIDE = [
   Offset(0, 1), // to TOP
@@ -67,9 +66,9 @@ class PadongRouter {
         return MaterialPageRoute(builder: (_) => ForgotView());
 
       case '/main':
-        Session.currentUniv = getUnivAPI(args['univId']);
-        return MaterialPageRoute(builder: (_) => MainView());
-
+        return MaterialPageRoute(
+            builder: (_) => MainView(Session.currUniversity));
+/*
       case '/board':
         return slideRouter(
             pageBuilder: (_, __, ___) => BoardView(args['id']), direction: 1);
@@ -144,7 +143,7 @@ class PadongRouter {
         return sizeRouter(pageBuilder: (_, __, ___) => FriendsView(args['id']));
       case '/search':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
-
+*/
       default:
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => Scaffold(

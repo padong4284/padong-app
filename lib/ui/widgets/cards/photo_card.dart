@@ -9,49 +9,44 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/apis/cover.dart';
-import 'package:padong/core/apis/deck.dart';
-import 'package:padong/core/apis/map.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/padong_router.dart';
+import 'package:padong/core/shared/statistics.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
+import 'package:padong/ui/widgets/padong_future_builder.dart';
 
 class PhotoCard extends StatelessWidget {
-  final String id; // node's id
-  final Map<String, dynamic> node;
-  final bool isWiki;
-  final bool isBuilding;
+  // TODO: is MixIn okay?
+  final Statistics node; // Post, Wiki, Building
 
-  PhotoCard(id, {isWiki = false, isBuilding = false})
-      : this.id = id,
-        // TODO: getNode(id, type)
-        this.node = isWiki
-            ? getWikiAPI(id)
-            : (isBuilding ? getBuildingAPI(id) : getPostAPI(id)),
-        this.isWiki = isWiki,
-        this.isBuilding = isBuilding;
+  PhotoCard(this.node);
 
   @override
   Widget build(BuildContext context) {
-    List bottoms = this.node['bottoms'];
-    bottoms[1] = null;
-    return this.baseCard(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        this.pictureArea(),
-        Container(
-            padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
-            child: this.titleArea()),
-        BottomButtons(left: 8, bottoms: bottoms),
-      ]),
-    );
+    return PadongFutureBuilder(
+        future: this.node.getStatistics(),
+        builder: (_bottoms) {
+          List<int> bottoms = _bottoms;
+          bottoms[1] = null;
+          return this.baseCard(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              this.pictureArea(),
+              Container(
+                  padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+                  child: this.titleArea()),
+              BottomButtons(left: 8, bottoms: bottoms),
+            ]),
+          );
+        });
   }
 
   Widget baseCard(
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          PadongRouter.routeURL(
-              '/${this.isWiki ? 'wiki' : (this.isBuilding ? 'building' : 'post')}?id=${this.id}');
+          PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}');
         },
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),
@@ -66,11 +61,11 @@ class PhotoCard extends StatelessWidget {
 
   Widget titleArea() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(this.node['title'],
+      Text(this.node.title,
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(
               color: AppTheme.colors.fontPalette[2], isBold: true)),
-      Text(this.node['description'],
+      Text(this.node.description,
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3]))
     ]);

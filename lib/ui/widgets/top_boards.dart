@@ -1,3 +1,5 @@
+import 'dart:math';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -9,29 +11,44 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/apis/deck.dart';
+import 'package:padong/core/node/common/university.dart';
+import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/ui/widgets/containers/tab_container.dart';
 import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/cards/photo_card.dart';
+import 'package:padong/ui/widgets/padong_future_builder.dart';
 
 class TopBoards extends StatelessWidget {
-  final Map<String, dynamic> deck;
-  final List<String> topBoards = ['Popular', 'Favorite', 'Inform'];
+  /// University's boards: Popular Favorite, Informs
+  final University univ;
 
-   TopBoards(deckId): this.deck = getDeckAPI(deckId);
+  TopBoards(this.univ);
 
   @override
   Widget build(BuildContext context) {
-    return TabContainer(
-            tabWidth: 80.0,
-            tabs: this.topBoards,
-            children: this.topBoards.map((boardName) {
-              List<String> recent =
-                  get10RecentPostIdsAPI(this.deck['fixedBoards'][boardName]);
-              return HorizontalScroller(
-                  moreId: this.deck['fixedBoards'][boardName],
-                  padding: 3.0,
-                  children: recent.map((postId) => PhotoCard(postId)).toList());
-            }).toList());
+    return PadongFutureBuilder(
+        future: this.univ.getChildren(Board()),
+        builder: (_boards) {
+          Map<String, Board> tabs = {};
+          for (String tab in ['Popular', 'Favorite', 'Informs']) {
+            tabs[tab] = _boards.where((board) => board.title == tab).first;
+          }
+          return TabContainer(
+              tabWidth: 80.0,
+              tabs: tabs.keys.toList(),
+              children: tabs.values
+                  .map((board) => PadongFutureBuilder(
+                      future: board.getChildren(Post(), upToDate: true),
+                      builder: (_posts) => HorizontalScroller(
+                              moreLink: '/board?id=${board.id}',
+                              padding: 3.0,
+                              children: <Widget>[
+                                ..._posts
+                                    .sublist(0, min(10, _posts.length as int))
+                                    .map((post) => PhotoCard(post))
+                              ])))
+                  .toList());
+        });
   }
 }

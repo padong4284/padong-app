@@ -11,6 +11,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/shared/validator.dart' as Validator;
 import 'package:padong/ui/theme/app_theme.dart';
@@ -61,7 +62,7 @@ class CoverView extends StatelessWidget {
         HorizontalScroller(
             padding: 3.0,
             children: get10RecentWikiIdsAPI(this.id)
-                .map((wikiId) => PhotoCard(wikiId, isWiki: true))
+                .map((wikiId) => PhotoCard(Post())) // FIXME
                 .toList()),
         SizedBox(height: 40),
       ],

@@ -116,7 +116,7 @@ class _MapSupporterTemplateState extends State<MapSupporterTemplate> {
             height: 150,
             child: HorizontalScroller(height: 150, children: [
               // TODO: get building cards from API
-              ...List.generate(10, (idx) => BuildingCard(idx.toString())),
+              ...List.generate(10, (idx) => BuildingCard(Building())), //FIXME
               SizedBox(width: 60)
             ])));
   }

@@ -9,12 +9,13 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/shared/statistics.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widgets/buttons/bottom_buttons.dart';
 import 'package:padong/ui/widgets/cards/photo_card.dart';
 
 class BuildingCard extends PhotoCard {
-  BuildingCard(id) : super(id, isBuilding: true);
+  BuildingCard(Statistics node) : super(node);
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +44,14 @@ class BuildingCard extends PhotoCard {
   @override
   Widget titleArea() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(this.node['title'],
+      Text(this.node.title,
           overflow: TextOverflow.ellipsis,
           style: AppTheme.getFont(
               color: AppTheme.colors.fontPalette[2], isBold: true)),
       SizedBox(height: 5),
       Container(
           height: 55,
-          child: Text(this.node['description'],
+          child: Text(this.node.description,
               style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3])))
     ]);
   }

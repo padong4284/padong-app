@@ -9,10 +9,14 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/apis/init.dart';
 import 'package:padong/core/apis/schedule.dart';
+import 'package:padong/core/node/common/university.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/utils/time_manager.dart';
 import 'package:padong/ui/widgets/bars/top_app_bar.dart';
+import 'package:padong/ui/widgets/buttons/button.dart';
 import 'package:padong/ui/widgets/buttons/more_button.dart';
 import 'package:padong/ui/widgets/cards/building_card.dart';
 import 'package:padong/ui/widgets/cards/question_card.dart';
@@ -26,13 +30,11 @@ import 'package:padong/ui/widgets/top_boards.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
-import 'package:padong/core/apis/session.dart' as Session;
 
 class HomeView extends StatelessWidget {
-  final bool isPMain;
-  final Map<String, dynamic> univ;
+  final University univ;
 
-  HomeView({this.isPMain = false}) : this.univ = Session.currentUniv;
+  HomeView(this.univ);
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +43,14 @@ class HomeView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongFloatingButton(isScrollingDown: isScrollingDown),
       children: [
+        //Button(title: 'INIT', callback: () async => await initUniversity()),
         UnivDoor(),
         SizedBox(height: 35),
-        TopBoards(this.univ['deckId']),
-        ...this.aboutArea(),
-        ...this.questionArea(),
-        ...this.eventsArea(),
-        ...this.placesArea(),
+        TopBoards(this.univ),
+        //...this.aboutArea(),
+        //...this.questionArea(),
+        //...this.eventsArea(),
+        // ...this.placesArea(),
         ...this.padongArea(),
       ],
     );
@@ -93,9 +96,9 @@ class HomeView extends StatelessWidget {
       HorizontalScroller(
           height: 150,
           children: [
-            ...List.generate(10, (idx) => BuildingCard(idx.toString()))
+            ...List.generate(10, (idx) => BuildingCard(Post())) //FIXME
           ],
-          moreId: '123')
+          moreLink: '123')
     ];
   }
 

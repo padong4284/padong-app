@@ -8,17 +8,26 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/cover/wiki.dart';
+import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/schedule/question.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
+import 'package:padong/ui/widget/button/more_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/card/image_card.dart';
+import 'package:padong/ui/widget/card/question_card.dart';
 import 'package:padong/ui/widget/component/top_boards.dart';
 import 'package:padong/ui/widget/component/univ_door.dart';
+import 'package:padong/ui/widget/container/swipe_deck.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
+
+import 'package:padong/core/test/init.dart';
+import 'package:padong/ui/widget/button/button.dart';
 
 class HomeView extends StatelessWidget {
   final University university;
@@ -32,11 +41,12 @@ class HomeView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongButton(isScrollingDown: isScrollingDown),
       children: [
-        //Button(title: 'INIT', callback: () async => await initUniversity()),
+        //Button('INIT', onTap: () async => await initUniv()),
         UnivDoor(this.university),
         SizedBox(height: 35),
         TopBoards(this.university),
         ...this.aboutArea(),
+        ...this.questionArea(),
       ],
     );
   }
@@ -50,6 +60,31 @@ class HomeView extends StatelessWidget {
           builder: (wikis) => Column(
                 children: <Widget>[...wikis.map((wiki) => ImageCard(wiki))],
               ))
+    ];
+  }
+
+  List<Widget> questionArea() {
+    return [
+      this._title('Questions'),
+      SizedBox(height: 10),
+      PadongFutureBuilder(
+          future: this.university.getChildren(Board()),
+          builder: (boards) {
+            Board qBoard =
+                boards.where((board) => board.title == 'Question').first;
+            return Column(children: [
+              PadongFutureBuilder(
+                future: qBoard.getChildren(Question()),
+                builder: (_questions) {
+                  return SwipeDeck(
+                      emptyMessage: 'Ask Free!',
+                      children: List.generate(min(5, _questions.length as int),
+                          (idx) => QuestionCard(_questions[idx])));
+                },
+              ),
+              MoreButton('/board?id=${qBoard.id}')
+            ]);
+          })
     ];
   }
 

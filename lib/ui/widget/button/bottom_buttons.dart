@@ -98,7 +98,7 @@ class _BottomButtonsState extends State<BottomButtons> {
   }
 
   int getGapIdx(idx) {
-    return widget.hides != null ? idx >> 1 : idx;
+    return widget.hides != null ? (idx + 1) >> 1 : idx;
   }
 }
 

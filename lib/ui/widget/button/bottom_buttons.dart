@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/statistics.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
@@ -29,12 +30,24 @@ class BottomButtons extends StatefulWidget {
 }
 
 class _BottomButtonsState extends State<BottomButtons> {
-  List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
+  List<bool> isClickeds; // likes, replies, bookmarks
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      this.isClickeds = [
+        widget.node.isLiked(Session.user),
+        false,
+        widget.node.isBookmarked(Session.user)
+      ];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return PadongFutureBuilder(
-        future: widget.node.getStatistics(),
+        future: widget.node.getStatisticsWithoutMe(Session.user),
         builder: (bottoms) {
           if (widget.hides != null)
             for (int idx in widget.hides) bottoms[idx] = null;
@@ -54,8 +67,14 @@ class _BottomButtonsState extends State<BottomButtons> {
                           toggleColor: clickedClrs[idx],
                           isToggled: this.isClickeds[idx],
                           alignment: Alignment.bottomCenter,
-                          onPressed: (){
-                            // TODO: make like, bookmark
+                          onPressed: () {
+                            if (idx == 0)
+                              widget.node.updateLiked(Session.user);
+                            else if (idx == 2)
+                              widget.node.updateBookmarked(Session.user);
+                            setState(() {
+                              this.isClickeds[idx] = !this.isClickeds[idx];
+                            });
                           },
                         )))
                 .where((element) => element != null),
@@ -73,10 +92,9 @@ class _BottomButtonsState extends State<BottomButtons> {
   }
 
   Text getNumText(idx, bottoms) {
-    return Text(bottoms[idx].toString(),
+    return Text((bottoms[idx] + (this.isClickeds[idx] ? 1 : 0)).toString(),
         style: TextStyle(
-            color: this.isClickeds[idx] ? clickedClrs[idx] : widget.color,
-            fontSize: AppTheme.fontSizes.regular));
+            color: widget.color, fontSize: AppTheme.fontSizes.regular));
   }
 
   int getGapIdx(idx) {

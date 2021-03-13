@@ -48,10 +48,9 @@ mixin Statistics on TitleNode {
     WriteBatch batch = PadongFB.getBatch();
 
     if (isChecked) {
-      //Add
       data = {
         'parentType': this.type,
-        'pip': PIP.INTERNAL,
+        'pip': pipToString(PIP.PUBLIC),
         'parentId': this.id,
         'ownerId': me.id,
         'createdAt': DateTime.now().toIso8601String(),
@@ -61,8 +60,8 @@ mixin Statistics on TitleNode {
 
       batch.set(PadongFB.getDocRef(_targetType), data);
       batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
+      [this.likes, this.bookmarks][_likeOrBookmark].remove(me.id);
     } else {
-      //Remove
       List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
           rule: (q) => q
               .where("parentType", isEqualTo: this.type)
@@ -70,12 +69,9 @@ mixin Statistics on TitleNode {
       if (target.isNotEmpty)
         batch.delete(PadongFB.getDocRef(_targetType, target.first.id));
       thisData['${_targetType}s'] = FieldValue.arrayRemove([me.id]);
+      [this.likes, this.bookmarks][_likeOrBookmark].add(me.id);
     }
     await batch.commit();
-
-    // update instance
-    this.likes = thisData['likes'];
-    this.bookmarks = thisData['bookmarks'];
   }
 
   Future<void> updateLiked(User me) async {
@@ -87,16 +83,17 @@ mixin Statistics on TitleNode {
     if (this.bookmarks != null) await this._update(me, 1);
   }
 
-  Future<List<int>> getStatistics() async {
+  Future<List<int>> getStatisticsWithoutMe(User me) async {
     List<Node> replyResult = await this.getChildren(Reply());
     List<DocumentSnapshot> reReplyResult = await PadongFB.getDocsByRule(
         "rereply",
         rule: (q) => q.where("grandParentId", isEqualTo: this.id));
 
     return [
-      this.likes?.length,
+      // no count me
+      (this.likes ?? []).where((id) => id != me.id).length,
       replyResult.length + reReplyResult.length,
-      this.bookmarks?.length
+      (this.bookmarks ?? []).where((id) => id != me.id).length,
     ];
   }
 }

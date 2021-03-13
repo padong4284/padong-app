@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/title_node.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/statistics.dart';
 
 // parent: Post, Memo, Question
@@ -40,7 +41,7 @@ class Reply extends TitleNode with Statistics {
 
   @override
   Future<List<int>> getStatistics() async {
-    List<int> statistics = await super.getStatistics();
+    List<int> statistics = await super.getStatisticsWithoutMe(Session.user);
     statistics[2] = null;
     return statistics;
   }

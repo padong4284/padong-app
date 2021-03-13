@@ -10,8 +10,8 @@
 ///*********************************************************************
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'core/padong_router.dart';
-import './ui/theme/app_theme.dart';
+import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/core/padong_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +22,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    PadongRouter.registerContext(context);
     return MaterialApp(
       title: 'PADONG',
       theme: AppTheme.define(),

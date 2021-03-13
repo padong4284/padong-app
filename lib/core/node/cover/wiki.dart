@@ -1,3 +1,5 @@
+import 'package:padong/core/node/common/user.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -63,11 +65,12 @@ class Wiki extends TitleNode with Statistics {
   }
 
   @override
-  Future<List<int>> getStatistics() async {
+  Future<List<int>> getStatisticsWithoutMe(User me) async {
     return [
-      this.likes?.length,
-      null, // no count Reply, ReReply
-      this.bookmarks?.length
+      // no count me
+      (this.likes ?? []).where((id) => id != me.id).length,
+      null,
+      (this.bookmarks ?? []).where((id) => id != me.id).length,
     ];
   }
 }

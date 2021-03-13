@@ -75,12 +75,18 @@ class Node {
   }
 
   bool isValidate() {
-    List<String> pass = ['deletedAt', 'likes', 'bookmarks', 'lastMessage'];
+    List<String> pass = [
+      'deletedAt',
+      'likes',
+      'bookmarks',
+      'subscribes',
+      'lastMessage'
+    ];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
       if (pass.contains(key)) continue;
       if (data[key] == null) {
-        log('Node(${this.type}) Validation Check Failed.\n$data');
+        log('Node(${this.type}) Validation Check Failed. [$key]\n$data');
         return false;
       }
     } // check all fields are not null except deletedAt

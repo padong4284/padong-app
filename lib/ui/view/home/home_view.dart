@@ -34,6 +34,7 @@ import 'package:padong/ui/widget/padong_future_builder.dart';
 
 import 'package:padong/core/test/init.dart';
 import 'package:padong/ui/widget/button/button.dart';
+import 'package:padong/ui/widget/tile/board_list.dart';
 import 'package:padong/util/time_manager.dart';
 
 class HomeView extends StatelessWidget {
@@ -56,6 +57,7 @@ class HomeView extends StatelessWidget {
         ...this.questionArea(),
         ...this.eventsArea(),
         ...this.placesArea(),
+        ...this.padongArea(),
       ],
     );
   }
@@ -98,7 +100,6 @@ class HomeView extends StatelessWidget {
   }
 
   List<Widget> eventsArea() {
-    // TODO: more button
     return [
       this._title('Events in ${TimeManager.thisMonth()}'),
       PadongFutureBuilder(
@@ -128,6 +129,28 @@ class HomeView extends StatelessWidget {
                     (idx) => BuildingCard(buildings[idx]))
               ],
               moreLink: '123'))
+    ];
+  }
+
+  List<Widget> padongArea() {
+    return [
+      this._title('PADONG'),
+      // TODO: create PADONG univ, create boards
+      // BoardList(boards: ['freeTalk', 'questionAnswer', 'inform']),
+      PadongFutureBuilder(
+          future: this.university.getChildren(Board()),
+          builder: (boards) => BoardList(<Board>[...boards])),
+      Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.only(top: 30),
+          child: Text('Contact Us')),
+      Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Text('Copyright 2021. PADONG. All rights reserved.',
+              style: AppTheme.getFont(
+                  color: AppTheme.colors.semiSupport,
+                  fontSize: AppTheme.fontSizes.small))),
     ];
   }
 

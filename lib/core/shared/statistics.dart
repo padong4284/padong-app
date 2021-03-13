@@ -47,20 +47,19 @@ mixin Statistics on TitleNode {
     Map<String, dynamic> data = new Map<String, dynamic>();
     WriteBatch batch = PadongFB.getBatch();
 
-    if (isChecked) {
+    if (!isChecked) {
       data = {
         'parentType': this.type,
         'pip': pipToString(PIP.PUBLIC),
         'parentId': this.id,
         'ownerId': me.id,
         'createdAt': DateTime.now().toIso8601String(),
-        'modifiedAt': DateTime.now().toIso8601String(),
       };
       thisData['${_targetType}s'] = FieldValue.arrayUnion([me.id]);
 
       batch.set(PadongFB.getDocRef(_targetType), data);
       batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
-      [this.likes, this.bookmarks][_likeOrBookmark].remove(me.id);
+      [this.likes, this.bookmarks][_likeOrBookmark].add(me.id);
     } else {
       List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
           rule: (q) => q
@@ -69,7 +68,7 @@ mixin Statistics on TitleNode {
       if (target.isNotEmpty)
         batch.delete(PadongFB.getDocRef(_targetType, target.first.id));
       thisData['${_targetType}s'] = FieldValue.arrayRemove([me.id]);
-      [this.likes, this.bookmarks][_likeOrBookmark].add(me.id);
+      [this.likes, this.bookmarks][_likeOrBookmark].remove(me.id);
     }
     await batch.commit();
   }

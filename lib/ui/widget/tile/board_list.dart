@@ -23,10 +23,8 @@ class BoardList extends StatefulWidget {
   final bool isAlerts;
   final bool isLecture;
 
-  BoardList(
-      {@required List<Board> boards, List<IconData> icons, isLecture = false})
-      : this.boards = boards,
-        this.icons = icons,
+  BoardList(this.boards, {List<IconData> icons, isLecture = false})
+      : this.icons = icons,
         this.isAlerts = isLecture || (icons == null),
         this.isLecture = isLecture;
 
@@ -41,12 +39,8 @@ class _BoardListState extends State<BoardList> {
   void initState() {
     super.initState();
     this.subscribes = List.generate(widget.boards.length, (_) => false);
-    Session.user.getChildren(Subscribe()).then((subscribes) {
-      setState(() {
-        for (int idx = 0; idx < widget.boards.length; idx++)
-          this.subscribes[idx] = subscribes.contains(widget.boards[idx]);
-      });
-    });
+    for (int idx = 0; idx < widget.boards.length; idx++)
+      this.subscribes[idx] = widget.boards[idx].isSubscribed(Session.user);
   }
 
   @override
@@ -65,13 +59,13 @@ class _BoardListState extends State<BoardList> {
                   Padding(
                       padding: const EdgeInsets.only(right: 15.0),
                       child: widget.isAlerts
-                          ? ToggleIconButton(Icons.notifications,
-                              toggleIcon: Icons.notifications_off,
-                              isToggled: !board.isSubscribed(Session.user),
-                              defaultColor: AppTheme.colors.pointYellow,
-                              toggleColor: AppTheme.colors.support,
+                          ? ToggleIconButton(Icons.notifications_off,
+                              toggleIcon: Icons.notifications,
+                              isToggled: board.isSubscribed(Session.user),
+                              defaultColor: AppTheme.colors.support,
+                              toggleColor: AppTheme.colors.pointYellow,
                               size: 25, onPressed: () {
-                              board.updateSubscribe(Session.user, false);
+                              board.updateSubscribe(Session.user);
                             })
                           : Icon(widget.icons[idx],
                               size: 25, color: AppTheme.colors.support)),

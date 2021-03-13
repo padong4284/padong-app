@@ -35,13 +35,11 @@ class _BottomButtonsState extends State<BottomButtons> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      this.isClickeds = [
-        widget.node.isLiked(Session.user),
-        false,
-        widget.node.isBookmarked(Session.user)
-      ];
-    });
+    this.isClickeds = [
+      widget.node.isLiked(Session.user),
+      false,
+      widget.node.isBookmarked(Session.user)
+    ];
   }
 
   @override

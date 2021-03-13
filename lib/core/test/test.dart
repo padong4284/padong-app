@@ -122,7 +122,7 @@ Future<void> scheduleTest() async {
 Future<void> chatTesting() async {
   ChatRoom _chatRoom =
       await ChatRoom.fromMap('', {...chatRoom, 'parentId': ''}).create();
-  _chatRoom.addParticipant(user);
+  _chatRoom.invite(user);
   _chatRoom.chatMessage(user, 'this is the chatting message');
 }
 

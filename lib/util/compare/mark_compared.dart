@@ -10,7 +10,7 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/utils/compare/diff_line.dart';
+import 'package:padong/util/compare/diff_line.dart';
 
 class MarkCompared extends StatelessWidget {
   final String prev;

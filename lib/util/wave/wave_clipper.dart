@@ -9,7 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/ui/utils/wave/wave.dart';
+import 'package:padong/util/wave/wave.dart';
 
 class WaveClipper extends CustomClipper<Path> {
   Wave wave;

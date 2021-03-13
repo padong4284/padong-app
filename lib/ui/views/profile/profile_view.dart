@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/deck.dart';
 import 'package:padong/core/apis/profile.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -80,8 +81,8 @@ class _ProfileViewState extends State<ProfileView> {
                       color: AppTheme.colors.fontPalette[2],
                       fontSize: AppTheme.fontSizes.mlarge,
                       isBold: true))),
-          HorizontalScroller(moreId: 'bu00900', padding: 3.0, children: [
-            ...widget.user['writtenIds'].map((id) => PhotoCard(widget.id))
+          HorizontalScroller(moreLink: 'bu00900', padding: 3.0, children: [
+            ...widget.user['writtenIds'].map((id) => PhotoCard(Post())) // FIXME
           ]),
           SizedBox(height: 10),
           widget.isMine

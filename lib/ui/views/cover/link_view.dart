@@ -10,6 +10,7 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/cards/photo_card.dart';
@@ -33,7 +34,7 @@ class LinkView extends StatelessWidget {
         HorizontalScroller(
             padding: 3.0,
             children: getBackLinksAPI(this.id)
-                .map((wikiId) => PhotoCard(wikiId, isWiki: true))
+                .map((wikiId) => PhotoCard(Post())) //FIXME
                 .toList()),
         Padding(
             padding: const EdgeInsets.only(top: 25, bottom: 5),

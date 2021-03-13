@@ -23,10 +23,10 @@ class University extends TitleNode {
   LatLng location; // TODO: get Building
   String address;
 
-  Future<Deck> get cover async => this.getChild(Cover());
-  Future<Deck> get deck async => this.getChild(Deck());
-  Future<Deck> get schedule async => this.getChild(Schedule());
-  Future<Deck> get mappa async => this.getChild(Mappa());
+  Cover cover;
+  Deck deck;
+  Schedule schedule;
+  Mappa mappa;
 
   University();
 
@@ -55,5 +55,12 @@ class University extends TitleNode {
         rule: (Query q) => (q.where("title", isEqualTo: universityName)));
     if (results.isEmpty) throw Exception("There's no University");
     return University.fromMap(results.first.id, results.first.data());
+  }
+
+  void initUniversity() async {
+    this.cover = await this.getChild(Cover());
+    this.deck = await this.getChild(Deck());
+    this.schedule = await this.getChild(Schedule());
+    this.mappa = await this.getChild(Mappa());
   }
 }

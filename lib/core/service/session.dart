@@ -31,6 +31,7 @@ class Session {
     university = university ?? (await user.getParent(University()));
     Session.userUniversity = university;
     Session.currUniversity = university;
+    Session.currUniversity.initUniversity();
   }
 
   static Future<SignInResult> signInUser(String userId, String pw) async {
@@ -106,6 +107,7 @@ class Session {
       University university, BuildContext context) async {
     // TODO: use Provider, alert all view
     currUniversity = university;
+    university.initUniversity();
     Navigator.pushNamed(context, '/main');
     return true; // TODO: check success
   }

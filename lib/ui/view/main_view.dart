@@ -11,17 +11,13 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/ui/view/deck/deck_view.dart';
 import 'package:padong/ui/widget/bar/padong_navigation_bar.dart';
 import 'package:padong/ui/view/home/home_view.dart';
-/*
-import 'package:padong/ui/view/cover/cover_view.dart';
-import 'package:padong/ui/view/deck/deck_view.dart';
-import 'package:padong/ui/view/map/map_view.dart';
-import 'package:padong/ui/view/schedule/schedule_view.dart';
-*/
 
 final List<Widget> pages = [
   HomeView(Session.currUniversity),
+  DeckView(Session.currUniversity.deck),
 ];
 
 class MainView extends StatefulWidget {
@@ -41,7 +37,7 @@ class _MainViewState extends State<MainView> {
         bottomNavigationBar: PadongNavigationBar(
             selectedIdx: _selectedIdx,
             setSelectedIdx: (int idx) => setState(() {
-              this._selectedIdx = 0; //idx; FIXME
+              this._selectedIdx = idx;
             })),
         body: pages[this._selectedIdx]);
   }

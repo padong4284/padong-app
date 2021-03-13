@@ -145,3 +145,9 @@ enum SignInResult {
   wrongUserId,
   wrongEmailOrPassword,
 }
+
+enum ACCESS {
+  DENIED,
+  READONLY,
+  READWRITE,
+}

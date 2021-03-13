@@ -15,7 +15,7 @@ class PadongFutureBuilder extends StatelessWidget {
     return FutureBuilder(
         future: this.future,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData == false) {
+          if (snapshot.connectionState != ConnectionState.done) {
             return Center(
                 child: SizedBox(
                     width: this.size,

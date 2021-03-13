@@ -31,9 +31,6 @@ import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/container/swipe_deck.dart';
 import 'package:padong/ui/widget/container/timeline.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
-
-import 'package:padong/core/test/init.dart';
-import 'package:padong/ui/widget/button/button.dart';
 import 'package:padong/ui/widget/tile/board_list.dart';
 import 'package:padong/util/time_manager.dart';
 
@@ -49,7 +46,6 @@ class HomeView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) =>
           PadongButton(isScrollingDown: isScrollingDown),
       children: [
-        //Button('INIT', onTap: () async => await initUniv()),
         UnivDoor(this.university),
         SizedBox(height: 35),
         TopBoards(this.university),

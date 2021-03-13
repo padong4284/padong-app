@@ -13,6 +13,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/more_button.dart';
+import 'package:padong/ui/widget/component/no_data_message.dart';
 
 class HorizontalScroller extends StatelessWidget {
   final List<Widget> children;
@@ -45,7 +46,8 @@ class HorizontalScroller extends StatelessWidget {
                   Matrix4.translationValues(this.parentRightPadding, 0.0, 0.0),
               child: this.children.length > 0
                   ? this.horizontalList(width, len)
-                  : this.noData())),
+                  : NoDataMessage(
+                      "You've got a Chance\nto be the first writer!"))),
       this.moreLink != null ? MoreButton(this.moreLink) : SizedBox.shrink()
     ]);
   }
@@ -72,16 +74,5 @@ class HorizontalScroller extends StatelessWidget {
                   child: elm))
               .toList(),
         ));
-  }
-
-  Widget noData() {
-    return Center(
-        child: Text(
-      "You've got a Chance\nto be the first writer!",
-      style: AppTheme.getFont(
-          color: AppTheme.colors.primary,
-          fontSize: AppTheme.fontSizes.mlarge,
-          isBold: true),
-    ));
   }
 }

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -21,13 +22,16 @@ import 'package:padong/ui/widget/button/more_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/card/image_card.dart';
 import 'package:padong/ui/widget/card/question_card.dart';
+import 'package:padong/ui/widget/card/timeline_card.dart';
 import 'package:padong/ui/widget/component/top_boards.dart';
 import 'package:padong/ui/widget/component/univ_door.dart';
 import 'package:padong/ui/widget/container/swipe_deck.dart';
+import 'package:padong/ui/widget/container/timeline.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 
 import 'package:padong/core/test/init.dart';
 import 'package:padong/ui/widget/button/button.dart';
+import 'package:padong/util/time_manager.dart';
 
 class HomeView extends StatelessWidget {
   final University university;
@@ -47,6 +51,7 @@ class HomeView extends StatelessWidget {
         TopBoards(this.university),
         ...this.aboutArea(),
         ...this.questionArea(),
+        ...this.eventsArea(),
       ],
     );
   }
@@ -84,6 +89,23 @@ class HomeView extends StatelessWidget {
               ),
               MoreButton('/board?id=${qBoard.id}')
             ]);
+          })
+    ];
+  }
+
+  List<Widget> eventsArea() {
+    // TODO: more button
+    return [
+      this._title('Events in ${TimeManager.thisMonth()}'),
+      PadongFutureBuilder(
+          future: this.university.getChildren(Event()),
+          builder: (events) {
+            return Timeline(
+                expandable: true,
+                timeline: TimeManager.cutDayByDay(<Event>[...events]).map(
+                    (date, events) => MapEntry(date,
+                        events.map((event) => TimelineCard(event)).toList())),
+                hideTopDate: true);
           })
     ];
   }

@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/shared/statistics.dart';
 import 'package:padong/core/shared/types.dart';
@@ -46,11 +47,12 @@ class Building extends TitleNode with Statistics {
   }
 
   @override
-  Future<List<int>> getStatistics() async {
+  Future<List<int>> getStatisticsWithoutMe(User me) async {
     return [
-      this.likes?.length,
-      null, // no count Reply, ReReply
-      this.bookmarks?.length
+      // no count me
+      (this.likes ?? []).where((id) => id != me.id).length,
+      null,
+      (this.bookmarks ?? []).where((id) => id != me.id).length,
     ];
   }
 }

@@ -1,3 +1,4 @@
+import 'package:padong/core/node/common/user.dart';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -40,7 +41,7 @@ class Reply extends TitleNode with Statistics {
   }
 
   @override
-  Future<List<int>> getStatistics() async {
+  Future<List<int>> getStatisticsWithoutMe(User me) async {
     List<int> statistics = await super.getStatisticsWithoutMe(Session.user);
     statistics[2] = null;
     return statistics;

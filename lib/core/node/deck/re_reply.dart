@@ -1,3 +1,4 @@
+import 'package:padong/core/node/common/user.dart';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -25,8 +26,8 @@ class ReReply extends Reply {
   generateFromMap(String id, Map snapshot) => ReReply.fromMap(id, snapshot);
 
   @override
-  Future<List<int>> getStatistics() async {
-    List<int> statistics = await super.getStatistics();
+  Future<List<int>> getStatisticsWithoutMe(User me) async {
+    List<int> statistics = await super.getStatisticsWithoutMe(me);
     statistics[1] = null;
     return statistics;
   }

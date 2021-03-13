@@ -11,6 +11,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widget/component/no_data_message.dart';
 
 class SwipeDeck extends StatefulWidget {
   final List cards;
@@ -47,12 +48,8 @@ class _SwipeDeckState extends State<SwipeDeck> {
       alignment: Alignment.topCenter,
       children: [
         widget.numCards == 0
-            ? Container(
-                height: 100,
-                alignment: Alignment.bottomCenter,
-                child: Text(widget.emptyMessage,
-                    style: AppTheme.getFont(
-                        color: AppTheme.colors.primary, isBold: true)))
+            ? NoDataMessage(widget.emptyMessage,
+                alignment: Alignment.bottomCenter)
             : SizedBox.shrink(),
         Container(
             height: widget.height,

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
+=======
+import 'package:padong/core/node/schedule/event.dart';
+>>>>>>> feat: Event in this Moth with timeline
 
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
@@ -175,6 +179,14 @@ class TimeManager {
         (one.day == another.day) &&
         (one.month == another.month) &&
         (one.year == another.year);
+  }
+
+  static Map<String, List<Event>> cutDayByDay(List<Event> events) {
+    Map<String, List<Event>> cutDay = {};
+    for (Event event in events)
+      for (TimeManager tm in event.times)
+        cutDay[tm.date] = (cutDay[tm.date] ?? []) + [event];
+    return cutDay;
   }
 
   static String thisMonth() => monthString(DateTime.now().month);

@@ -47,7 +47,8 @@ class ProfileButton extends StatelessWidget {
           CircleAvatar(
             radius: this.size / 2,
             backgroundColor: AppTheme.colors.transparent,
-            backgroundImage: this.user.profileImageURL != null
+            backgroundImage: (this.user.profileImageURL != null) &&
+                    (this.user.profileImageURL.length > 0)
                 ? NetworkImage(this.user.profileImageURL)
                 : null,
           )

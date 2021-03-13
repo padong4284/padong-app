@@ -1,3 +1,6 @@
+import 'package:padong/core/node/deck/post.dart';
+import 'package:padong/core/node/schedule/question.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -33,9 +36,10 @@ import 'package:padong/core/node/map/building.dart';
 ///      Center
 ///
 ///    -> Board
-///      Popular, Favorite, Informs
+///      Popular, Favorite, Informs, Questions
 
 Future<void> initUniv() async {
+  /*
   // -> Wiki init
   for (String title in ['Vision', 'Mission', 'History'])
     await Wiki.fromMap('', {...wiki, 'title': title, 'parentId': univ.id})
@@ -53,4 +57,9 @@ Future<void> initUniv() async {
   for (String title in ['Popular', 'Favorite', 'Informs'])
     await Board.fromMap('', {...board, 'title': title, 'parentId': univ.id})
         .create();
+   */
+  Board _board = await Board.fromMap(
+      '', {...board, 'title': 'Question', 'parentId': univ.id}).create();
+
+  await Question.fromMap('', {...post, 'parentId': _board.id}).create();
 }

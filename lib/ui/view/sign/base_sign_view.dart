@@ -11,6 +11,7 @@
 import 'dart:ui';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/util/wave/wave_clipper.dart';
 import 'package:padong/util/wave/wave.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -24,11 +25,17 @@ Wave secondaryWave = new Wave(-75, 25, 500, 4);
 class BaseSignView extends StatefulWidget {
   final bool isSignIn;
   final String welcomeMsg;
-  final Widget forms;
+  final List<Widget> forms;
   final Future<bool> Function() onTapEnter;
+  final TextEditingController idController;
 
   //final bool func() onSignUp;
-  BaseSignView(this.isSignIn, this.welcomeMsg, this.forms, this.onTapEnter);
+  BaseSignView(
+      {this.isSignIn,
+      this.welcomeMsg,
+      this.idController,
+      this.forms,
+      this.onTapEnter});
 
   @override
   _BaseSignViewState createState() => _BaseSignViewState();
@@ -99,7 +106,26 @@ class _BaseSignViewState extends State<BaseSignView>
                 child: SingleChildScrollView(
                   child: Stack(children: <Widget>[
                     ...this.waves(height, bottomPadding),
-                    widget.forms,
+                    Positioned(
+                        bottom: 140 + bottomPadding,
+                        child: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            child: Container(
+                                width: MediaQuery.of(context).size.width -
+                                    2 * (AppTheme.horizontalPadding + 30),
+                                child: Column(children: [
+                                  Hero(
+                                      tag: 'ID_INPUT',
+                                      child: Material(
+                                          color: AppTheme.colors.transparent,
+                                          child: Input(
+                                              controller: widget.idController,
+                                              margin:
+                                                  EdgeInsets.only(top: 10.0),
+                                              hintText: 'ID'))),
+                                  ...widget.forms
+                                ])))),
                     Positioned(
                         bottom: 10,
                         left: 0,
@@ -121,7 +147,7 @@ class _BaseSignViewState extends State<BaseSignView>
               padding: EdgeInsets.only(
                   right: 50.0,
                   bottom:
-                  widget.isSignIn ? 60 : height / 2 + 35 - bottomPadding),
+                      widget.isSignIn ? 60 : height / 2 + 35 - bottomPadding),
               alignment: Alignment.centerRight,
               child: Text(widget.welcomeMsg,
                   textAlign: TextAlign.right,
@@ -173,32 +199,29 @@ class _BaseSignViewState extends State<BaseSignView>
             children: <Widget>[
               Padding(
                   padding: const EdgeInsets.only(left: 40, bottom: 30),
-                  child: Button(
-                      widget.isSignIn ? 'Sign Up' : 'Sign In',
+                  child: Button(widget.isSignIn ? 'Sign Up' : 'Sign In',
                       color: AppTheme.colors.support,
                       type: ButtonType.STADIUM,
                       buttonSize: ButtonSize.LARGE,
                       onTap: widget.isSignIn
                           ? () {
-                        Navigator.pushNamed(context, '/sign_up');
-                        primaryWave.moveYNorm(-155 + bottomPadding);
-                        secondaryWave.moveYNorm(-335 + bottomPadding);
-                      }
+                              Navigator.pushNamed(context, '/sign_up');
+                              primaryWave.moveYNorm(-155 + bottomPadding);
+                              secondaryWave.moveYNorm(-335 + bottomPadding);
+                            }
                           : () {
-                        Navigator.pop(context);
-                        primaryWave.moveYNorm(155 - bottomPadding);
-                        secondaryWave.moveYNorm(335 - bottomPadding);
-                      })),
+                              Navigator.pop(context);
+                              primaryWave.moveYNorm(155 - bottomPadding);
+                              secondaryWave.moveYNorm(335 - bottomPadding);
+                            })),
               Padding(
                   padding: const EdgeInsets.only(right: 45, bottom: 40),
                   child: widget.isSignIn
-                      ? SimpleButton(
-                      'Forgot Password?',
-                      color: AppTheme.colors.semiPrimary,
-                      buttonSize: ButtonSize.REGULAR,
-                      onTap: () {
-                        Navigator.pushNamed(context, '/forgot');
-                      })
+                      ? SimpleButton('Forgot Password?',
+                          color: AppTheme.colors.semiPrimary,
+                          buttonSize: ButtonSize.REGULAR, onTap: () {
+                          Navigator.pushNamed(context, '/forgot');
+                        })
                       : null),
             ]));
   }
@@ -222,7 +245,7 @@ class _BaseSignViewState extends State<BaseSignView>
                   onPressed: () async {
                     if (this.isButtonDisabled == false) {
                       this.isButtonDisabled = true;
-                      if (await widget.onTapEnter())
+                      if (await widget.onTapEnter()) // isEnterSuccess
                         Navigator.pushNamed(context, '/main');
                       else
                         // TODO: feedback to user

@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
+import 'package:padong/ui/view/sign/sign_up_view.dart';
 import 'package:padong/util/animation_routers.dart';
 
 class PadongRouter {
@@ -22,6 +23,8 @@ class PadongRouter {
     switch (settings.name) {
       case '/':
         return PageRouteBuilder(pageBuilder: (_, __, ___) => SignInView());
+      case '/sign_up':
+        return fadeRouter(pageBuilder: (_, __, ___) => SignUpView());
 
       default:
         return PageRouteBuilder(

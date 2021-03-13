@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/view/sign/base_sign_view.dart';
 import 'package:padong/ui/widget/input/input.dart';
 
@@ -26,25 +25,17 @@ class _SignInViewState extends State<SignInView> {
 
   @override
   Widget build(BuildContext context) {
-    return new BaseSignView(
-      true,
-      "Welcome\nBack",
-      Positioned(
-          bottom: 140 + MediaQuery.of(context).padding.bottom,
-          child: Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-                  width: MediaQuery.of(context).size.width -
-                      2 * (AppTheme.horizontalPadding + 30),
-                  child: Column(children: [
-                    Input(controller: _idController, hintText: 'ID'),
-                    Input(
-                        controller: _pwController,
-                        margin: EdgeInsets.only(top: 10.0),
-                        hintText: 'Password')
-                  ])))),
-      this.onSignIn,
+    return BaseSignView(
+      isSignIn: true,
+      welcomeMsg: "Welcome\nBack",
+      idController: this._idController,
+      forms: [
+        Input(
+            controller: _pwController,
+            margin: EdgeInsets.only(top: 10.0),
+            hintText: 'Password')
+      ],
+      onTapEnter: this.onSignIn,
     );
   }
 

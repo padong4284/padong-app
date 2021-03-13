@@ -38,6 +38,7 @@ class TopBoards extends StatelessWidget {
               tabs: tabs.keys.toList(),
               children: tabs.values
                   .map((board) => PadongFutureBuilder(
+                      height: 248,
                       future: board.getChildren(Post(), upToDate: true),
                       builder: (_posts) => HorizontalScroller(
                               moreLink: '/board?id=${board.id}',

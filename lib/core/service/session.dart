@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';

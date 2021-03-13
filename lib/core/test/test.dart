@@ -39,7 +39,7 @@ Future<void> deckTesting() async {
       await Post.fromMap('', {...post, 'parentId': _board.id}).create();
   Reply _reply =
       await Reply.fromMap('', {...reply, 'parentId': _post.id}).create();
-  ReReply _reReply = await ReReply.fromMap('', {
+  ReReply _ = await ReReply.fromMap('', {
     ...reReply,
     'parentId': _reply.id,
     'grandParentId': _reply.parentId
@@ -55,7 +55,7 @@ Future<void> coverTesting() async {
   Item _item = await Item.fromMap('', {...item, 'parentId': _wiki.id}).create();
   Argue _argue = await Argue.fromMap(
       '', {...argue, 'parentId': _item.id, 'wikiId': _wiki.id}).create();
-  ReReply _reReply = await ReReply.fromMap('', {
+  ReReply _ = await ReReply.fromMap('', {
     ...reReply,
     'parentId': _argue.id,
     'grandParentId': _argue.parentId
@@ -72,7 +72,7 @@ Future<void> mappaTest() async {
       await Service.fromMap('', {...service, 'parentId': _building.id}).create();
   Review _review =
       await Review.fromMap('', {...review, 'parentId': _service.id}).create();
-  ReReply _reReply = await ReReply.fromMap('', {
+  ReReply _ = await ReReply.fromMap('', {
     ...reReply,
     'parentId': _review.id,
     'grandParentId': _review.parentId
@@ -90,7 +90,7 @@ Future<void> scheduleTest() async {
           .create();
   Reply _reply =
       await Reply.fromMap('', {...reply, 'parentId': _question.id}).create();
-  ReReply _reReply = await ReReply.fromMap('', {
+  ReReply _ = await ReReply.fromMap('', {
     ...reReply,
     'parentId': _reply.id,
     'grandParentId': _reply.parentId
@@ -100,19 +100,19 @@ Future<void> scheduleTest() async {
           .create();
   Review _review =
       await Review.fromMap('', {...review, 'parentId': _evaluation.id}).create();
-  ReReply _reReply1 = await ReReply.fromMap('', {
+  ReReply __ = await ReReply.fromMap('', {
     ...reReply,
     'parentId': _review.id,
     'grandParentId': _review.parentId
   }).create();
-  Event _eventU =
+  Event ___ =
       await Event.fromMap('', {...event, 'parentId': user.id}).create();
   Event _event =
       await Event.fromMap('', {...event, 'parentId': _schedule.id}).create();
   Memo _memo = await Memo.fromMap('', {...memo, 'parentId': _event.id}).create();
   Reply _reply1 =
       await Reply.fromMap('', {...reply, 'parentId': _memo.id}).create();
-  ReReply _reReply2 = await ReReply.fromMap('', {
+  ReReply ____ = await ReReply.fromMap('', {
     ...reReply,
     'parentId': _reply1.id,
     'grandParentId': _reply1.parentId

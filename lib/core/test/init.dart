@@ -14,7 +14,6 @@ import 'package:padong/core/test/dummy.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/map/building.dart';
-import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/schedule/question.dart';
 
 /// When Create University, should create follows!
@@ -39,7 +38,6 @@ import 'package:padong/core/node/schedule/question.dart';
 ///      Popular, Favorite, Informs, Questions
 
 Future<void> initUniv() async {
-  /*
   // -> Wiki init
   for (String title in ['Vision', 'Mission', 'History'])
     await Wiki.fromMap('', {...wiki, 'title': title, 'parentId': univ.id})
@@ -62,7 +60,6 @@ Future<void> initUniv() async {
       '', {...board, 'title': 'Question', 'parentId': univ.id}).create();
 
   await Question.fromMap('', {...post, 'parentId': _board.id}).create();
-   */
 
   await Event.fromMap('', {...event, 'parentId': univ.id}).create();
 }

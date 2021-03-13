@@ -35,7 +35,7 @@ import 'package:padong/core/node/map/building.dart';
 ///    -> Board
 ///      Popular, Favorite, Informs
 
-Future<void> initUniversity() async {
+Future<void> initUniv() async {
   // -> Wiki init
   for (String title in ['Vision', 'Mission', 'History'])
     await Wiki.fromMap('', {...wiki, 'title': title, 'parentId': univ.id})

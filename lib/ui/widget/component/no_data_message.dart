@@ -15,6 +15,7 @@ class NoDataMessage extends StatelessWidget {
         height: this.height,
         alignment: this.alignment,
         child: Text(this.message,
+            textAlign: TextAlign.center,
             style: AppTheme.getFont(
                 fontSize: AppTheme.fontSizes.mlarge,
                 color: AppTheme.colors.primary,

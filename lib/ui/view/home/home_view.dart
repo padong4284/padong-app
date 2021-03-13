@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
@@ -20,11 +21,13 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
 import 'package:padong/ui/widget/button/more_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
+import 'package:padong/ui/widget/card/building_card.dart';
 import 'package:padong/ui/widget/card/image_card.dart';
 import 'package:padong/ui/widget/card/question_card.dart';
 import 'package:padong/ui/widget/card/timeline_card.dart';
 import 'package:padong/ui/widget/component/top_boards.dart';
 import 'package:padong/ui/widget/component/univ_door.dart';
+import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/container/swipe_deck.dart';
 import 'package:padong/ui/widget/container/timeline.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
@@ -52,6 +55,7 @@ class HomeView extends StatelessWidget {
         ...this.aboutArea(),
         ...this.questionArea(),
         ...this.eventsArea(),
+        ...this.placesArea(),
       ],
     );
   }
@@ -107,6 +111,23 @@ class HomeView extends StatelessWidget {
                         events.map((event) => TimelineCard(event)).toList())),
                 hideTopDate: true);
           })
+    ];
+  }
+
+  List<Widget> placesArea() {
+    return [
+      this._title('Places'),
+      PadongFutureBuilder(
+          future: this.university.mappa.getChildren(Building()),
+          builder: (buildings) => HorizontalScroller(
+              emptyMessage:
+                  'You can explore\nthe ${this.university.title}\non the Map and pin the place!',
+              height: 150,
+              children: [
+                ...List.generate(min(10, buildings.length as int),
+                    (idx) => BuildingCard(buildings[idx]))
+              ],
+              moreLink: '123'))
     ];
   }
 

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -10,6 +8,7 @@ import 'dart:math';
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/deck/board.dart';

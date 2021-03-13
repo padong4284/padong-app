@@ -85,6 +85,9 @@ class Node {
     return parent.generateFromMap(pDoc.id, pDoc.data());
   }
 
+  Future<Node> getChild(Node child) async =>
+      (await this.getChildren(child))[0];
+
   Future<List<Node>> getChildren(Node child,
       {int limit, Node startAt, bool upToDate}) async {
     if (upToDate || (this._children[child.type] == null))

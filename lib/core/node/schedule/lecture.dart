@@ -60,6 +60,6 @@ class Lecture extends Event {
   }
 
   Future<Evaluation> getEvaluation() async {
-    return (await this.getChildren(Evaluation(), limit: 1))[0];
+    return await this.getChild(Evaluation());
   }
 }

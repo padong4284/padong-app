@@ -9,19 +9,20 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/shared/statistics.dart';
 
 // parent: Post, Memo, Question
-class Reply extends Node with Statistics {
+class Reply extends TitleNode with Statistics {
+  @override
+  String title = ''; // no Title
   bool anonymity; // hide profile
-  String description;
 
   Reply();
 
   Reply.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
-        this.description = snapshot['description'],
-        super.fromMap(id, snapshot) {
+        super.fromMap(id, {...snapshot, 'title': ''}) {
     this.likes = <String>[...snapshot['likes']];
     this.bookmarks = null; // reply can not bookmark
   }
@@ -33,8 +34,8 @@ class Reply extends Node with Statistics {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
+      'title': '',
       'anonymity': this.anonymity,
-      'description': this.description,
     };
   }
 

@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/common/subscribe.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
@@ -51,7 +50,8 @@ class _BoardListState extends State<BoardList> {
       (idx) {
         Board board = widget.boards[idx];
         return InkWell(
-            onTap: () => PadongRouter.routeURL('/${board.type}?id=${board.id}'),
+            onTap: () => PadongRouter.routeURL(
+                '/${board.type}?id=${board.id}', widget.boards[idx]),
             child: Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(vertical: 10),

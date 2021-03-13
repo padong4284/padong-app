@@ -9,6 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/node.dart';
 import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/common/university.dart';
@@ -18,6 +20,8 @@ class Session {
   static User user;
   static University userUniversity;
   static University currUniversity;
+
+  static bool get inMyUniv => userUniversity.id == currUniversity.id;
 
   static _initSession() {
     user = null;
@@ -111,5 +115,17 @@ class Session {
     university.initUniversity();
     Navigator.pushNamed(context, '/main');
     return true; // TODO: check success
+  }
+
+  static ACCESS checkAccess(Node node) {
+    // TODO: check it's right?
+    if (node.ownerId == user.id) return ACCESS.READWRITE;
+    if (node.pip == PIP.PUBLIC) {
+      return ACCESS.READWRITE;
+    } else if (node.pip == PIP.INTERNAL) {
+      if (inMyUniv && node.type == 'board') return ACCESS.READWRITE;
+      return ACCESS.READONLY;
+    } else if (inMyUniv && node.type == 'board') return ACCESS.READWRITE;
+    return ACCESS.DENIED;
   }
 }

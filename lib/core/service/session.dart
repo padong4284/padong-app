@@ -53,11 +53,11 @@ class Session {
   }
 
   static Future<SignUpResult> signUpUser(String userId, String pw, String name,
-      String email, String universityName, int entranceYear) async {
+      String email, String university, int entranceYear) async {
     User user = await User.getByUserId(userId);
     if (user != null) return SignUpResult.IdAlreadyInUse;
 
-    University univ = await University.getUniversityByName(universityName);
+    University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
     SignUpResult result = await PadongAuth.signUp(email, pw);
@@ -70,6 +70,7 @@ class Session {
         'name': name,
         'userId': userId,
         'isVerified': false,
+        'university': university,
         'entranceYear': entranceYear,
         'userEmails': [email],
         'profileImageURL': "",
@@ -92,11 +93,11 @@ class Session {
   }
 
   static Future changeUserEmail(String email, BuildContext context) async {
+    // at view, update user's parentId, university
     String uid = await PadongAuth.getUid();
     if (user == null || user.id != uid)
       throw Exception('Invalid User try to Change Email');
 
-    // TODO: user's parentId
     String currEmail = await PadongAuth.changeEmail(email);
     user.userEmails = [currEmail, email];
     await user.update();

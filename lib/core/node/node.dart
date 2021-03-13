@@ -23,6 +23,13 @@ class Node {
   DateTime modifiedAt;
   DateTime deletedAt;
   Map<String, List<Node>> _children = {};
+  DocumentSnapshot _ownerDoc;
+
+  Future<DocumentSnapshot> get ownerDoc async {
+    if (this._ownerDoc == null)
+      this._ownerDoc = await PadongFB.getDoc('user', this.ownerId);
+    return this._ownerDoc;
+  }
 
   String get type => this.toString().split("'")[1].toLowerCase();
 

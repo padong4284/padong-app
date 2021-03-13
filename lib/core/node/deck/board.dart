@@ -1,6 +1,3 @@
-import 'package:padong/core/node/deck/post.dart';
-import 'package:padong/core/node/node.dart';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -12,6 +9,7 @@ import 'package:padong/core/node/node.dart';
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/title_node.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/notification.dart';
 

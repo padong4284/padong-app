@@ -12,7 +12,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
-import 'package:padong/ui/utils/time_manager.dart';
+import 'package:padong/util/time_manager.dart';
 
 class Node {
   String id;

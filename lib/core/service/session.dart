@@ -31,7 +31,7 @@ class Session {
     university = university ?? (await user.getParent(University()));
     Session.userUniversity = university;
     Session.currUniversity = university;
-    Session.currUniversity.initUniversity();
+    await Session.currUniversity.initUniversity();
   }
 
   static Future<SignInResult> signInUser(String userId, String pw) async {

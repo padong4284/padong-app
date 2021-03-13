@@ -26,6 +26,10 @@ final Map<String, dynamic> statistics = {
   'bookmarks': <String>[]
 };
 
+final Map<String, dynamic> notification = {
+  'subscribes': <String>[]
+};
+
 /// Node
 final Map<String, dynamic> node = {
   //"id": AUTOMATICALLY SET,
@@ -50,6 +54,7 @@ final Map<String, dynamic> deck = {
 
 final Map<String, dynamic> board = {
   ...titleNode,
+  ...notification,
   'rule': 'When user write the post at this board, must follow this rule!',
 };
 
@@ -169,6 +174,7 @@ final Map<String, dynamic> message = {
 
 final Map<String, dynamic> chatRoom = {
   ...titleNode,
+  ...notification,
   'lastMessage': null,
 };
 

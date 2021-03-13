@@ -31,7 +31,9 @@ class ChatRoom extends TitleNode with Notification {
             ? Message.fromMap(
                 snapshot['lastMessage']['id'], snapshot['lastMessage'])
             : null,
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.subscribes = <String>[...snapshot['subscribes']];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => ChatRoom.fromMap(id, snapshot);
@@ -40,7 +42,7 @@ class ChatRoom extends TitleNode with Notification {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'lastMessage': this.lastMessage.toJson(),
+      'lastMessage': this.lastMessage?.toJson(),
     };
   }
 

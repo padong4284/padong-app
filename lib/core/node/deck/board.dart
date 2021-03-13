@@ -19,7 +19,9 @@ class Board extends TitleNode with Notification {
 
   Board.fromMap(String id, Map snapshot)
       : this.rule = snapshot['rule'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.subscribes = <String>[...snapshot['subscribes']];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => Board.fromMap(id, snapshot);

@@ -57,7 +57,7 @@ class University extends TitleNode {
     return University.fromMap(results.first.id, results.first.data());
   }
 
-  void initUniversity() async {
+  Future<void> initUniversity() async {
     this.cover = await this.getChild(Cover());
     this.deck = await this.getChild(Deck());
     this.schedule = await this.getChild(Schedule());

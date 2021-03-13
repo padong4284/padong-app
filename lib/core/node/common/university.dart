@@ -9,6 +9,10 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padong/core/node/cover/cover.dart';
+import 'package:padong/core/node/deck/deck.dart';
+import 'package:padong/core/node/map/mappa.dart';
+import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:padong/core/service/padong_fb.dart';
@@ -18,6 +22,11 @@ class University extends TitleNode {
   String emblemImgURL;
   LatLng location; // TODO: get Building
   String address;
+
+  Future<Deck> get cover async => this.getChild(Cover());
+  Future<Deck> get deck async => this.getChild(Deck());
+  Future<Deck> get schedule async => this.getChild(Schedule());
+  Future<Deck> get mappa async => this.getChild(Mappa());
 
   University();
 

@@ -11,11 +11,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/deck/reply.dart';
-import 'package:padong/core/node/node.dart';
+import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 
-mixin Statistics on Node {
+mixin Statistics on TitleNode {
   List<String> likes;
   List<String> bookmarks;
 

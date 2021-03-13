@@ -8,11 +8,25 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/node.dart';
 
 class TitleNode extends Node {
   String title;
   String description;
+
+  User _owner;
+
+  Future<User> get owner async {
+    // Node does not get owner directly,
+    // because Node never depends on User (Node is super class)
+    if (this._owner == null) {
+      DocumentSnapshot ownerDoc = await this.ownerDoc;
+      this._owner = User.fromMap(ownerDoc.id, ownerDoc.data());
+    }
+    return this._owner;
+  }
 
   TitleNode();
 

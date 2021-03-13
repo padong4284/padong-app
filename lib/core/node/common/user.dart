@@ -20,6 +20,7 @@ class User extends Node {
   String name;
   String userId;
   bool isVerified;
+  String university;
   int entranceYear;
   List<String> userEmails;
   String profileImageURL;
@@ -32,6 +33,7 @@ class User extends Node {
       : this.name = snapshot['name'],
         this.userId = snapshot['userId'],
         this.isVerified = snapshot['isVerified'],
+        this.university = snapshot['university'],
         this.entranceYear = snapshot['entranceYear'],
         this.userEmails = <String>[...snapshot['userEmails']],
         this.profileImageURL = snapshot['profileImageURL'],
@@ -49,6 +51,7 @@ class User extends Node {
       'name': this.name,
       'userId': this.userId,
       'isVerified': this.isVerified,
+      'university': this.university,
       'entranceYear': this.entranceYear,
       'userEmails': this.userEmails,
       'profileImageURL': this.profileImageURL,

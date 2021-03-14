@@ -1,4 +1,5 @@
 import 'package:padong/core/node/common/user.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -24,7 +25,7 @@ class Reply extends TitleNode with Statistics {
   Reply.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
         super.fromMap(id, {...snapshot, 'title': ''}) {
-    this.likes = <String>[...snapshot['likes']];
+    this.likes = <String>[...(snapshot['likes'] ?? [])];
     this.bookmarks = null; // reply can not bookmark
   }
 

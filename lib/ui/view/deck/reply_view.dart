@@ -123,9 +123,8 @@ class _ReplyViewState extends State<ReplyView> {
       ...(await ReReply.getByGrandParent(widget.post))
     ];
     this.reReplies = {};
-    for (ReReply reReply in _reReplies) {
+    for (ReReply reReply in _reReplies)
       this.reReplies[reReply.parentId] =
           (this.reReplies[reReply.parentId] ?? []) + [reReply];
-    }
   }
 }

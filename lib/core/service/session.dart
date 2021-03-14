@@ -34,6 +34,7 @@ class Session {
   }
 
   static Future<SignInResult> signInUser(String userId, String pw) async {
+    userId = userId.toLowerCase();
     User user = await User.getByUserId(userId);
     if (user == null) return SignInResult.wrongUserId;
 
@@ -74,6 +75,8 @@ class Session {
         'ownerId': uid,
       }).set(uid);
       await _registerUser(user, univ);
+    } else if(result == SignUpResult.emailAlreadyInUse){
+      return SignUpResult.emailAlreadyInUse;
     }
     return result;
   }

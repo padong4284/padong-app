@@ -26,9 +26,11 @@ class SignView extends StatefulWidget {
   final String welcomeMsg;
   final Widget forms;
   final Future<bool> Function() onTapEnter;
+  final Function resetState;
+  final Function(int, String) setError;
 
   //final bool func() onSignUp;
-  SignView(this.isSignIn, this.welcomeMsg, this.forms, this.onTapEnter);
+  SignView(this.isSignIn, this.welcomeMsg, this.forms, this.onTapEnter,{this.resetState, this.setError});
 
   @override
   _SignViewState createState() => _SignViewState();
@@ -180,6 +182,9 @@ class _SignViewState extends State<SignView>
                       buttonSize: ButtonSize.LARGE,
                       callback: widget.isSignIn
                           ? () {
+                              if (widget.resetState!=null){
+                                widget.resetState();
+                              }
                               Navigator.pushNamed(context, '/sign_up');
                               primaryWave.moveYNorm(-155 + bottomPadding);
                               secondaryWave.moveYNorm(-335 + bottomPadding);
@@ -222,13 +227,16 @@ class _SignViewState extends State<SignView>
                   onPressed: () async {
                     if (this.isButtonDisabled == false) {
                       this.isButtonDisabled = true;
-                      if (await widget.onTapEnter())
-                        // Session is Already Updated
-                        Navigator.pushNamed(context, '/main');
-                      else
-                        // TODO: feedback to user
-                        log("${widget.isSignIn ? 'SignIn' : 'SignUp'} Failed");
-                      this.isButtonDisabled = false;
+                      try {
+                        if (await widget.onTapEnter())
+                          // Session is Already Updated
+                          Navigator.pushNamed(context, '/main');
+                        else
+                          log("${widget.isSignIn ? 'SignIn' : 'SignUp'} Failed");
+                        //this.isButtonDisabled = false;
+                      } finally {
+                        this.isButtonDisabled = false;
+                      }
                     }
                   })
             ])));

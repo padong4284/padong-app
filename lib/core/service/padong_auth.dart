@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -59,8 +61,10 @@ class PadongAuth {
         return SignUpResult.weak_password;
       else if (e.code == 'email-already-in-use')
         return SignUpResult.emailAlreadyInUse;
+      log(e.toString());
       return SignUpResult.failed;
-    } catch (_) {
+    } catch (e) {
+      log(e.toString());
       return SignUpResult.failed;
     }
 

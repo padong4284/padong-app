@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/statistics.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 
@@ -21,6 +22,7 @@ class BottomButtons extends StatefulWidget {
   final double gap;
   final Color color;
   final List<int> hides;
+  static Function(int idx) update;
 
   BottomButtons(this.node, {this.left = 0, this.gap = 40, color, this.hides})
       : this.color = color ?? AppTheme.colors.support;
@@ -35,11 +37,19 @@ class _BottomButtonsState extends State<BottomButtons> {
   @override
   void initState() {
     super.initState();
+    BottomButtons.update = (int idx) => setState(() =>
+          this.isClickeds[idx] = !this.isClickeds[idx]);
     this.isClickeds = [
       widget.node.isLiked(Session.user),
       false,
       widget.node.isBookmarked(Session.user)
     ];
+  }
+
+  @override
+  void dispose() {
+    BottomButtons.update = null;
+    super.dispose();
   }
 
   @override
@@ -61,15 +71,21 @@ class _BottomButtonsState extends State<BottomButtons> {
                           unclickeds[idx],
                           toggleIcon: clickeds[idx],
                           size: 16,
+                          initEveryTime: true,
                           defaultColor: AppTheme.colors.support,
                           toggleColor: clickedClrs[idx],
                           isToggled: this.isClickeds[idx],
                           alignment: Alignment.bottomCenter,
                           onPressed: () {
-                            if (idx == 0)
+                            if (idx == 0) {
                               widget.node.updateLiked(Session.user);
-                            else if (idx == 2)
+                              if (BackAppBar.updateLikeBookmark != null)
+                                BackAppBar.updateLikeBookmark(0);
+                            } else if (idx == 2) {
                               widget.node.updateBookmarked(Session.user);
+                              if (BackAppBar.updateLikeBookmark != null)
+                                BackAppBar.updateLikeBookmark(1);
+                            }
                             setState(() {
                               this.isClickeds[idx] = !this.isClickeds[idx];
                             });
@@ -95,22 +111,20 @@ class _BottomButtonsState extends State<BottomButtons> {
             color: widget.color, fontSize: AppTheme.fontSizes.regular));
   }
 
-  int getGapIdx(idx) {
-    return widget.hides != null ? (idx + 1) >> 1 : idx;
-  }
+  int getGapIdx(idx) => widget.hides != null ? (idx + 1) >> 1 : idx;
 }
 
-List<IconData> unclickeds = [
+const List<IconData> unclickeds = [
   Icons.favorite_border_rounded,
   Icons.mode_comment_outlined,
   Icons.bookmark_border_rounded
 ];
-List<IconData> clickeds = [
+const List<IconData> clickeds = [
   Icons.favorite_rounded,
   Icons.mode_comment,
   Icons.bookmark_rounded
 ];
-List<Color> clickedClrs = [
+final List<Color> clickedClrs = [
   AppTheme.colors.pointRed,
   AppTheme.colors.primary,
   AppTheme.colors.pointYellow

@@ -14,12 +14,13 @@ import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/statistics.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widget/button/bottom_buttons.dart';
 import 'package:padong/ui/widget/button/button.dart';
 import 'package:padong/ui/widget/button/switch_button.dart';
 import 'package:padong/ui/widget/button/simple_button.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
 
-class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
+class BackAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
   final String title;
@@ -28,6 +29,7 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isClose;
   final Widget bottom;
   final Statistics likeAndBookmark;
+  static Function(int idx) updateLikeBookmark;
 
   BackAppBar(
       {Key key,
@@ -44,6 +46,31 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
         this.bottom = bottom,
         super(key: key);
 
+  _BackAppBarState createState() => _BackAppBarState();
+}
+
+class _BackAppBarState extends State<BackAppBar> {
+  List<bool> likeBookmark;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.likeAndBookmark != null) {
+      this.likeBookmark = [
+        widget.likeAndBookmark.isLiked(Session.user),
+        widget.likeAndBookmark.isBookmarked(Session.user)
+      ];
+      BackAppBar.updateLikeBookmark = (int idx) =>
+          setState(() => this.likeBookmark[idx] = !this.likeBookmark[idx]);
+    }
+  }
+
+  @override
+  void dispose() {
+    BackAppBar.updateLikeBookmark = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -51,10 +78,10 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
         brightness: Brightness.light,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: this.switchButton != null
-            ? this.switchButton
-            : this.title != null
-                ? Text(this.title,
+        title: widget.switchButton != null
+            ? widget.switchButton
+            : widget.title != null
+                ? Text(widget.title,
                     textAlign: TextAlign.center,
                     style: AppTheme.getFont(
                         color: AppTheme.colors.fontPalette[0],
@@ -67,14 +94,14 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
               Navigator.pop(context);
             },
                 icon: Icon(
-                    this.isClose ? Icons.close : Icons.arrow_back_ios_rounded,
+                    widget.isClose ? Icons.close : Icons.arrow_back_ios_rounded,
                     size: 25))),
         leadingWidth: 25 + AppTheme.horizontalPadding,
         actions: [
-          ...(this.likeAndBookmark != null
+          ...(widget.likeAndBookmark != null
               ? this._likeAndBookmarkActions()
               : []),
-          ...(this.actions ?? []).map((button) => Container(
+          ...(widget.actions ?? []).map((button) => Container(
               alignment: Alignment.centerRight,
               child: SizedBox(
                 width: button is Button ? 67 : 32,
@@ -82,10 +109,10 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
               ))),
           SizedBox(width: AppTheme.horizontalPadding)
         ],
-        bottom: this.bottom != null
+        bottom: widget.bottom != null
             ? PreferredSize(
                 preferredSize: Size.fromHeight(40.0),
-                child: this.bottom,
+                child: widget.bottom,
               )
             : null);
   }
@@ -94,12 +121,22 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
     return [
       ToggleIconButton(Icons.favorite_outline_rounded,
           toggleIcon: Icons.favorite_rounded,
-          isToggled: this.likeAndBookmark.isLiked(Session.user),
-          onPressed: () => this.likeAndBookmark.updateLiked(Session.user)),
+          isToggled: this.likeBookmark[0], onPressed: () async {
+        await widget.likeAndBookmark.updateLiked(Session.user);
+        if (BottomButtons.update != null) BottomButtons.update(0);
+        setState(() {
+          this.likeBookmark[0] = !this.likeBookmark[0];
+        });
+      }, initEveryTime: true),
       ToggleIconButton(Icons.bookmark_outline_rounded,
           toggleIcon: Icons.bookmark_rounded,
-          isToggled: this.likeAndBookmark.isBookmarked(Session.user),
-          onPressed: () => this.likeAndBookmark.updateBookmarked(Session.user))
+          isToggled: this.likeBookmark[1], onPressed: () async {
+        await widget.likeAndBookmark.updateBookmarked(Session.user);
+        if (BottomButtons.update != null) BottomButtons.update(2);
+        setState(() {
+          this.likeBookmark[1] = !this.likeBookmark[1];
+        });
+      }, initEveryTime: true)
     ];
   }
 }

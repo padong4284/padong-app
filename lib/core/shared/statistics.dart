@@ -60,18 +60,18 @@ mixin Statistics on TitleNode {
       thisData['${_targetType}s'] = FieldValue.arrayUnion([me.id]);
 
       batch.set(PadongFB.getDocRef(_targetType), data);
-      batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
       [this.likes, this.bookmarks][_likeOrBookmark].add(me.id);
     } else {
       List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
           rule: (q) => q
               .where("parentType", isEqualTo: this.type)
-              .where("ownerId", isEqualTo: me.id));
+              .where("ownerId", isEqualTo: me.id), limit: 1);
       if (target.isNotEmpty)
         batch.delete(PadongFB.getDocRef(_targetType, target.first.id));
       thisData['${_targetType}s'] = FieldValue.arrayRemove([me.id]);
       [this.likes, this.bookmarks][_likeOrBookmark].remove(me.id);
     }
+    batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
     await batch.commit();
   }
 

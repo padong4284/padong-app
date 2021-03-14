@@ -26,24 +26,32 @@ import 'package:padong/ui/widget/padong_markdown.dart';
 import 'package:padong/ui/widget/tile/node/post_tile.dart';
 import 'package:padong/ui/widget/tile/notice_tile.dart';
 
-class BoardView extends StatelessWidget {
+class BoardView extends StatefulWidget {
   final Board board;
   final ACCESS access;
 
   BoardView(this.board) : this.access = Session.checkAccess(board);
 
+  _BoardViewState createState() => _BoardViewState();
+}
+
+class _BoardViewState extends State<BoardView> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) =>
             PadongButton(isScrollingDown: isScrollingDown, bottomPadding: 40),
-        floatingBottomBarGenerator: access == ACCESS.READWRITE
+        floatingBottomBarGenerator: widget.access == ACCESS.READWRITE
             ? (isScrollingDown) => FloatingBottomButton(
                 title: 'Write',
-                onTap: () => PadongRouter.routeURL('write?id=${this.board.id}&type=board', this.board),
+                onTap: () { // register refresh to update
+                  PadongRouter.refresh = () => setState(() {});
+                  PadongRouter.routeURL(
+                      'write?id=${widget.board.id}&type=board', widget.board);
+                },
                 isScrollingDown: isScrollingDown)
             : null,
-        appBar: BackAppBar(title: this.board.title, actions: [
+        appBar: BackAppBar(title: widget.board.title, actions: [
           IconButton(
               icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
               onPressed: () {}) // TODO: more dialog
@@ -51,14 +59,14 @@ class BoardView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
-            child: PadongMarkdown(this.board.description),
+            child: PadongMarkdown(widget.board.description),
           ),
           Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
-              child: NoticeTile(this.board)),
+              child: NoticeTile(widget.board)),
           TitleHeader('Posts'),
           PadongFutureBuilder(
-              future: this.board.getChildren(Post()),
+              future: widget.board.getChildren(Post(), upToDate: true),
               builder: (posts) => Column(children: <Widget>[
                     posts.length == 0
                         ? NoDataMessage('Please write first Post!', height: 100)

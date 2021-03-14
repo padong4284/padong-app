@@ -48,7 +48,8 @@ class ReReply extends Reply {
             rule: (query) =>
                 query.where('grandParentId', isEqualTo: grandParent.id))
         .then((docs) => docs
-            .map((doc) => reReply.generateFromMap(doc.id, doc.data()) as ReReply)
+            .map(
+                (doc) => reReply.generateFromMap(doc.id, doc.data()) as ReReply)
             .toList())
         .catchError((_) => null);
   }

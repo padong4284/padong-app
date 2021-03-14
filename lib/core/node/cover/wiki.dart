@@ -20,18 +20,13 @@ class Wiki extends TitleNode with Statistics {
   String lastItemId;
   List<String> backLinks; // List of wikiId
   List<String> frontLinks; // List of wikiId
-  List<Argue> _argues;
 
   Future<List<Argue>> get argues async {
-    if (this._argues == null)
-      this._argues = await PadongFB.getDocsByRule('argue',
-          rule: (query) => query
-              .where('wikiId', isEqualTo: this.id)
-              .orderBy("createdAt", descending: true)).then((docs) =>
-          (docs ?? [])
-              .map((doc) => Argue.fromMap(doc.id, doc.data()))
-              .toList());
-    return this._argues;
+    return await PadongFB.getDocsByRule('argue',
+        rule: (query) => query
+            .where('wikiId', isEqualTo: this.id)
+            .orderBy("createdAt", descending: true)).then((docs) =>
+        (docs ?? []).map((doc) => Argue.fromMap(doc.id, doc.data())).toList());
   }
 
   Wiki();

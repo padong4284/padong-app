@@ -120,9 +120,9 @@ class _BaseSignViewState extends State<BaseSignView>
                                       child: Material(
                                           color: AppTheme.colors.transparent,
                                           child: Input(
+                                              errorText: 'ERROR',
                                               controller: widget.idController,
-                                              margin:
-                                                  EdgeInsets.only(top: 8.0),
+                                              margin: EdgeInsets.only(top: 8.0),
                                               labelText: 'ID'))),
                                   ...widget.forms
                                 ])))),

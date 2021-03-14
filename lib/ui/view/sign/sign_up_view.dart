@@ -33,10 +33,12 @@ class _SignUpViewState extends State<SignUpView> {
       idController: this._controllers[0],
       forms: [
         Input(
+            isPrivacy: true,
             controller: this._controllers[1],
             margin: EdgeInsets.only(top: 8.0),
             labelText: 'Password'),
         Input(
+            isPrivacy: true,
             controller: this._controllers[2],
             margin: EdgeInsets.only(top: 8.0),
             labelText: 'Repeat Password'),

@@ -28,6 +28,7 @@ class Input extends StatelessWidget {
   final EdgeInsets margin;
   final TextEditingController controller;
   final FocusNode focus;
+  final bool isPrivacy;
 
   Input(
       {this.hintText,
@@ -44,7 +45,8 @@ class Input extends StatelessWidget {
       this.iconTopPosition = 0,
       this.isMultiline = false,
       this.toNext = true,
-      this.enabled = true});
+      this.enabled = true,
+      this.isPrivacy = false});
 
   Widget build(BuildContext context) {
     final FocusScopeNode node = FocusScope.of(context);
@@ -60,6 +62,14 @@ class Input extends StatelessWidget {
         width: this.width,
         margin: this.margin ?? const EdgeInsets.all(0),
         child: Stack(children: [
+          this.errorText != null
+              ? Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  height: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(13.0),
+                      color: AppTheme.colors.base.withAlpha(50) ))
+              : SizedBox.shrink(),
           Padding(
               padding: EdgeInsets.only(top: this.labelText != null ? 2 : 0),
               child: input),
@@ -94,6 +104,7 @@ class Input extends StatelessWidget {
         maxLines: this.isMultiline ? 5 : 1,
         onChanged: this.onChanged,
         enabled: this.enabled,
+        obscureText: this.isPrivacy,
         controller: this.controller,
         focusNode: this.focus,
         style: AppTheme.getFont(
@@ -137,6 +148,7 @@ class Input extends StatelessWidget {
       autocorrect: false,
       onChanged: this.onChanged,
       enabled: this.enabled,
+      obscureText: this.isPrivacy,
       controller: this.controller,
       focusNode: this.focus,
       decoration: InputDecoration(
@@ -147,8 +159,6 @@ class Input extends StatelessWidget {
             fontSize: fontSize,
             isBold: !plain),
         labelText: this.labelText,
-        labelStyle: AppTheme.getFont(
-            color: AppTheme.colors.primary, fontSize: fontSize),
         errorText: this.errorText,
         errorStyle: AppTheme.getFont(
             color: AppTheme.colors.pointRed,

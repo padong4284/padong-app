@@ -31,6 +31,7 @@ class _SignInViewState extends State<SignInView> {
       idController: this._idController,
       forms: [
         Input(
+            isPrivacy: true,
             controller: _pwController,
             margin: EdgeInsets.only(top: 8.0),
             labelText: 'Password')

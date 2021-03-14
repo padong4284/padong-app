@@ -115,8 +115,8 @@ class TimeManager {
     return '${formatHM(dt.month)}/${formatHM(dt.day)}/${dt.year}';
   }
 
-  static String formatTime(int hour, int minute) {
-    return '${formatHM(hour)}:${formatHM(minute)}';
+  static String formatTime(int hour, int minute, [int second]) {
+    return '${formatHM(hour)}:${formatHM(minute)}${second == null ? '' : ':${formatHM(second)}'}';
   }
 
   static List<int> parseTime(timeStr) {

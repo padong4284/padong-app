@@ -80,7 +80,8 @@ class Node {
       'likes',
       'bookmarks',
       'subscribes',
-      'lastMessage'
+      'lastMessage',
+      'lastItemId',
     ];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {

@@ -21,10 +21,12 @@ class Timeline extends StatefulWidget {
   final Map<String, List<Widget>> timeline;
   final bool hideTopDate;
   final bool expandable;
+  final String emptyMessage;
 
   Timeline(
       {this.date,
       this.timeline,
+      this.emptyMessage = "Let's plan something good!",
       this.hideTopDate = false,
       this.expandable = false});
 
@@ -44,7 +46,7 @@ class _VerticalTimelineState extends State<Timeline> {
     if (this.dots.length == 0) {
       this.dots = ['No Event'];
       this.cards = [
-        [NoDataMessage("Let's plan something good!", height: 200)]
+        [NoDataMessage(widget.emptyMessage, height: 200)]
       ];
     }
   }

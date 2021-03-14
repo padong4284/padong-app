@@ -25,8 +25,8 @@ class Building extends TitleNode with Statistics {
       : this.location = LatLng.fromJson(snapshot['location']),
         this.serviceCheckBits = snapshot['serviceCheckBits'],
         super.fromMap(id, snapshot) {
-    this.likes = <String>[...snapshot['likes']];
-    this.bookmarks = <String>[...snapshot['bookmarks']];
+    this.likes = <String>[...(snapshot['likes'] ?? [])];
+    this.bookmarks = <String>[...(snapshot['bookmarks'] ?? [])];
   }
 
   @override

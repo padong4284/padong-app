@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 =======
 =======
@@ -9,6 +10,8 @@ import 'dart:developer';
 import 'package:padong/core/node/schedule/event.dart';
 >>>>>>> feat: Event in this Moth with timeline
 
+=======
+>>>>>>> feat: sign In & Up feedback
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -19,6 +22,9 @@ import 'package:padong/core/node/schedule/event.dart';
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'dart:developer';
+import 'package:padong/core/node/schedule/event.dart';
+
 const WEEKDAYS = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 class TimeManager {
@@ -71,8 +77,7 @@ class TimeManager {
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);
     } catch (e) {
       log(e);
-      log(
-          'TimeManager: Day And Range Wrong Format\nWEEKDAY | HH:MM ~ HH:MM\n$dayTimeRange');
+      log('TimeManager: Day And Range Wrong Format\nWEEKDAY | HH:MM ~ HH:MM\n$dayTimeRange');
     }
   }
 
@@ -87,8 +92,7 @@ class TimeManager {
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);
     } catch (e) {
       log(e);
-      log(
-          'TimeManager: Date And Range Wrong Format\nMM/DD/YYYY | HH:MM ~ HH:MM\n$dateTimeRange');
+      log('TimeManager: Date And Range Wrong Format\nMM/DD/YYYY | HH:MM ~ HH:MM\n$dateTimeRange');
     }
   }
 

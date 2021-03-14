@@ -1,5 +1,3 @@
-import 'package:padong/core/node/common/user.dart';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -13,6 +11,7 @@ import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/service/padong_fb.dart';
+import 'package:padong/core/node/common/user.dart';
 
 // parent: Reply, Argue, Review
 class ReReply extends Reply {

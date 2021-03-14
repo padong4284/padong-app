@@ -38,9 +38,9 @@ class NodeBase extends StatelessWidget {
           children: [
             Container(
                 child: Stack(children: [
-                  Hero(tag: 'node${this.node.id}owner', child: this.profile()),
-                  Hero(tag: 'node${this.node.id}common', child: this.commonArea())
-                ])),
+              Hero(tag: 'node${this.node.id}owner', child: this.profile()),
+              Hero(tag: 'node${this.node.id}common', child: this.commonArea())
+            ])),
             Hero(tag: 'node${this.node.id}bottoms', child: this.bottomArea()),
           ],
         ));
@@ -50,10 +50,10 @@ class NodeBase extends StatelessWidget {
     return noProfile
         ? SizedBox.shrink()
         : Material(
-        color: AppTheme.colors.transparent,
-        child: PadongFutureBuilder(
-            future: this.node.owner,
-            builder: (owner) => ProfileButton(owner, size: 40)));
+            color: AppTheme.colors.transparent,
+            child: PadongFutureBuilder(
+                future: this.node.owner,
+                builder: (owner) => ProfileButton(owner, size: 40)));
   }
 
   Widget commonArea() {
@@ -70,6 +70,7 @@ class NodeBase extends StatelessWidget {
 
   Widget topText() {
     return PadongFutureBuilder(
+        height: 20,
         future: this.node.owner,
         builder: (owner) => Text(owner.userId,
             style: AppTheme.getFont(color: AppTheme.colors.semiSupport)));
@@ -82,9 +83,9 @@ class NodeBase extends StatelessWidget {
     String time = diff.inDays > 0
         ? '${created.month}/${created.day}/${created.year}'
         : (diff.inHours > 0
-        ? diff.inHours.toString() + ' hour${diff.inHours > 1 ? 's' : ''}'
-        : diff.inMinutes.toString() +
-        ' minute${diff.inMinutes > 1 ? 's' : ''}');
+            ? diff.inHours.toString() + ' hour${diff.inHours > 1 ? 's' : ''}'
+            : diff.inMinutes.toString() +
+                ' minute${diff.inMinutes > 1 ? 's' : ''}');
     return Text(time,
         style: AppTheme.getFont(
             color: AppTheme.colors.semiSupport,

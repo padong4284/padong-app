@@ -30,11 +30,13 @@ mixin Statistics on TitleNode {
   }
 
   bool isLiked(User me) {
+    if (this.likes == null) return false;
     if (this.likes.contains(me.id)) return true;
     return false;
   }
 
   bool isBookmarked(User me) {
+    if (this.bookmarks == null) return false;
     if (this.bookmarks.contains(me.id)) return true;
     return false;
   }

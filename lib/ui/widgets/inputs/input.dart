@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -23,9 +25,13 @@ class Input extends StatelessWidget {
   final bool isMultiline;
   final bool toNext;
   final bool enabled;
+  final bool obsecure;
   final EdgeInsets margin;
   final TextEditingController controller;
   final FocusNode focus;
+  final String errorText;
+  final String helpText;
+  final Color borderColor;
 
   Input(
       {this.hintText,
@@ -34,13 +40,17 @@ class Input extends StatelessWidget {
       this.onPressIcon,
       this.onChanged,
       this.width,
+      this.obsecure = false,
       this.margin,
       this.controller,
       this.focus,
       this.iconTopPosition = 0,
       this.isMultiline = false,
       this.toNext = true,
-      this.enabled = true});
+      this.enabled = true,
+      this.errorText,
+      this.helpText,
+      this.borderColor});
 
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
@@ -59,7 +69,7 @@ class Input extends StatelessWidget {
           input,
           Positioned(
               right: 0,
-              top: -6 + this.iconTopPosition,
+              top: (this.errorText ==null ?-6: 12) + this.iconTopPosition,
               child: this.icon == null
                   ? SizedBox.shrink()
                   : IconButton(
@@ -82,37 +92,49 @@ class Input extends StatelessWidget {
     double fontSize = this.isMultiline
         ? AppTheme.fontSizes.regular
         : AppTheme.fontSizes.mlarge;
-    return TextField(
-        minLines: 1,
-        autocorrect: false,
-        maxLines: this.isMultiline ? 5 : 1,
-        onChanged: this.onChanged,
-        enabled: this.enabled,
-        controller: this.controller,
-        focusNode: this.focus,
-        style: AppTheme.getFont(
-            color: AppTheme.colors.support, fontSize: fontSize),
-        decoration: InputDecoration(
-            isDense: true,
-            contentPadding: EdgeInsets.only(
-                left: this.isMultiline ? 20.0 : 28.0,
-                top: 9,
-                bottom: 9,
-                right: this.icon != null
-                    ? 45
-                    : this.isMultiline
-                        ? 20.0
-                        : 28.0),
-            hintText: this.hintText,
-            hintStyle: AppTheme.getFont(
-                color: AppTheme.colors.semiSupport, fontSize: fontSize),
-            filled: true,
-            fillColor: AppTheme.colors.lightSupport,
-            border: this.getOutline(),
-            focusedBorder: this.getOutline(color: AppTheme.colors.primary),
-            errorBorder: this.getOutline(color: AppTheme.colors.pointRed)),
-        textInputAction: this.isMultiline ? null : TextInputAction.next,
-        onEditingComplete: () => node.nextFocus());
+    return Column(children: [
+      this.errorText == null
+          ? SizedBox.shrink()
+          : new Align(
+          alignment: Alignment.centerLeft, child: new Text(this.errorText, style: TextStyle(color: AppTheme.colors.pointRed))),
+      TextField(
+          minLines: 1,
+          autocorrect: false,
+          maxLines: this.isMultiline ? 5 : 1,
+          onChanged: this.onChanged,
+          enabled: this.enabled,
+          controller: this.controller,
+          obscureText: this.obsecure,
+          focusNode: this.focus,
+          style: AppTheme.getFont(
+              color: AppTheme.colors.support, fontSize: fontSize),
+          decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.only(
+                  left: this.isMultiline ? 20.0 : 28.0,
+                  top: 9,
+                  bottom: 9,
+                  right: this.icon != null
+                      ? 45
+                      : this.isMultiline
+                          ? 20.0
+                          : 28.0),
+              hintText: this.hintText,
+              hintStyle: AppTheme.getFont(
+                  color: AppTheme.colors.semiSupport, fontSize: fontSize),
+              filled: true,
+              fillColor: AppTheme.colors.lightSupport,
+              border: this.getOutline(
+                  color:
+                      this.errorText == null ? null : AppTheme.colors.pointRed),
+              enabledBorder: this.getOutline(
+                  color:
+                      this.errorText == null ? null : AppTheme.colors.pointRed),
+              focusedBorder: this.getOutline(color: AppTheme.colors.primary),
+              errorBorder: this.getOutline(color: AppTheme.colors.pointRed)),
+          textInputAction: this.isMultiline ? null : TextInputAction.next,
+          onEditingComplete: () => node.nextFocus())
+    ]);
   }
 
   Widget _buildOtherInput({bool plain = false}) {

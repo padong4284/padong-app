@@ -27,6 +27,7 @@ class ListPicker extends StatefulWidget {
   final EdgeInsets margin;
   final Function beforePick;
   final TextEditingController controller;
+  final String errorText;
 
   ListPicker(this.controller,
       {this.hintText,
@@ -35,7 +36,8 @@ class ListPicker extends StatefulWidget {
       int initIdx,
       this.beforePick,
       this.looping = false,
-      this.margin})
+      this.margin,
+      this.errorText})
       : assert(list != null && list.length > 0),
         assert(initIdx == null || list.length > initIdx),
         this.lists = <List>[list],
@@ -51,7 +53,8 @@ class ListPicker extends StatefulWidget {
       List<int> initIdxs,
       this.beforePick,
       this.looping = false,
-      this.margin})
+      this.margin,
+      this.errorText})
       : assert(initIdxs == null || (lists.length == initIdxs.length)),
         assert(separators == null || (lists.length == separators.length + 1)),
         this.lists = lists,
@@ -77,8 +80,10 @@ class _ListPickerState extends State<ListPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final focus = FocusNode();
     return InkWell(
         onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
           this.showPicker(context);
         },
         child: Input(
@@ -87,7 +92,10 @@ class _ListPickerState extends State<ListPicker> {
           toNext: false,
           margin: widget.margin,
           controller: widget.controller,
+          focus: focus,
+          errorText: widget.errorText,
           onPressIcon: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
             this.showPicker(context);
           },
           icon: Icon(Icons.expand_more_rounded,

@@ -21,8 +21,20 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  String idErrorText = "";
+  String pwErrorText = "";
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+
+  bool alertId = false;
+  bool alertPw = false;
+
+  _setAlerT() {
+    setState(() {
+      alertId = true;
+      alertPw = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +50,60 @@ class _SignInViewState extends State<SignInView> {
                   width: MediaQuery.of(context).size.width -
                       2 * (AppTheme.horizontalPadding + 30),
                   child: Column(children: [
-                    Input(controller: _idController, hintText: 'ID'),
                     Input(
-                        controller: _pwController,
-                        margin: EdgeInsets.only(top: 10.0),
-                        hintText: 'Password')
+                      controller: _idController,
+                      hintText: 'ID',
+                      errorText:
+                          this.idErrorText == "" ? null : this.idErrorText,
+                    ),
+                    Input(
+                      controller: _pwController,
+                      margin: EdgeInsets.only(top: 10.0),
+                      obsecure: true,
+                      hintText: 'Password',
+                      errorText:
+                          this.pwErrorText == "" ? null : this.pwErrorText,
+                    )
                   ])))),
       this.onSignIn,
     );
   }
 
+  _setErrorMessage(int index, String message) {
+    setState(() {
+      if (index == 0) {
+        this.idErrorText = message;
+      } else if (index == 1) {
+        this.pwErrorText = message;
+      }
+    });
+  }
+
+  _resetErrorTexts() {
+    _setErrorMessage(0, "");
+    _setErrorMessage(1, "");
+  }
+
   Future<bool> onSignIn() async {
     String id = _idController.text;
     String pw = _pwController.text;
+    _resetErrorTexts();
 
-    // TODO: validate check
+    if (id == "") {
+      _setErrorMessage(0, "id is empty");
+      return false;
+    }
+
+    if (pw == "") {
+      _setErrorMessage(1, "pw is empty");
+      return false;
+    }
+
     SignInResult result = await Session.signInUser(id, pw);
     if (result == SignInResult.success) return true;
+
+    _setErrorMessage(1, "Wrong id or password");
+    //if (result == SignInResult.)
     return false;
   }
 }

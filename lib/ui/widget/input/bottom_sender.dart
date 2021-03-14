@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/padong_bottom_bar.dart';
@@ -78,8 +77,8 @@ class BottomSender extends StatelessWidget {
   }
 
   Function addPhotoFunction(context) {
-    return ImageUploader.getImageFromUser(context, (PickedFile image) {
-      this.msgController.text = image.path; // TODO: send img to chatroom
+    return ImageUploader.getImageFromUser(context, (String imageURL) {
+      this.msgController.text = imageURL; // TODO: send img to chatroom
     });
   }
 }

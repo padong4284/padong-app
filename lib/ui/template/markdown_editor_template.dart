@@ -132,15 +132,19 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
   }
 
   void onTabOk() {
-    Map data = {
-      'title': this._titleController.text,
-      'description': this._mdController.text,
-      'ownerId': Session.user.id,
-    };
-    if (widget.topArea == null)
-      data['pip'] = [PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE][this.pipIdx];
-    widget.onSubmit(data);
-    PadongRouter.goBack();
+    if(this._titleController.text.isNotEmpty && this._mdController.text.isNotEmpty) {
+      Map data = {
+        'title': this._titleController.text,
+        'description': this._mdController.text,
+        'ownerId': Session.user.id,
+      };
+      if (widget.topArea == null)
+        data['pip'] =
+            pipToString([PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE][this.pipIdx]);
+      widget.onSubmit(data);
+      PadongRouter.goBack();
+    }
+    // TODO: alert no empty title & description
   }
 }
 

@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/theme/markdown_theme.dart';
@@ -45,8 +44,8 @@ class MarkdownSupporter extends StatelessWidget {
   }
 
   Function addPhotoFunction(context) {
-    return ImageUploader.getImageFromUser(context, (PickedFile image) {
-      this._mdController.text += '![IMAGE](' + image.path + ')';
+    return ImageUploader.getImageFromUser(context, (String imageURL) {
+      this._mdController.text += '![IMAGE]($imageURL)';
     });
   }
 

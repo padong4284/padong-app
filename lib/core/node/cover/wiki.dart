@@ -44,8 +44,8 @@ class Wiki extends TitleNode with Statistics {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'backLinks': this.backLinks,
-      'frontLinks': this.frontLinks,
+      'backLinks': this.backLinks  ?? [],
+      'frontLinks': this.frontLinks  ?? [],
     };
   }
 

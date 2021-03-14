@@ -24,8 +24,8 @@ mixin Statistics on TitleNode {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'likes': this.likes,
-      'bookmarks': this.bookmarks,
+      'likes': this.likes ?? [],
+      'bookmarks': this.bookmarks ?? [],
     };
   }
 

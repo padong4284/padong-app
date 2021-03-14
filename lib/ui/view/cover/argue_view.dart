@@ -86,7 +86,7 @@ class _ArgueViewState extends State<ArgueView> {
               this.scrollToReply(argue.id);
             },
             child: Container(
-              // TODO: close argue
+                // TODO: close argue
                 key: this.argueKeys[argue.id],
                 color: this.readyReReply[argue.id]
                     ? AppTheme.colors.semiPrimary
@@ -152,5 +152,6 @@ class _ArgueViewState extends State<ArgueView> {
         'wikiId': widget.wiki.id,
       }).create();
     this._argueController.text = '';
+    this.getArgues();
   }
 }

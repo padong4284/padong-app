@@ -65,7 +65,8 @@ mixin Statistics on TitleNode {
       List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
           rule: (q) => q
               .where("parentType", isEqualTo: this.type)
-              .where("ownerId", isEqualTo: me.id), limit: 1);
+              .where("ownerId", isEqualTo: me.id),
+          limit: 1);
       if (target.isNotEmpty)
         batch.delete(PadongFB.getDocRef(_targetType, target.first.id));
       thisData['${_targetType}s'] = FieldValue.arrayRemove([me.id]);

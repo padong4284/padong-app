@@ -90,7 +90,7 @@ class PostView extends PostTile {
         'grandParentId': this.node.id, // for ReReply
         'likes': [],
       }).create();
-      // TODO: append on view
+      ReReplyFocus.update();
     }
     this._replyController.text = '';
   }

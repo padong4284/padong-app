@@ -1,4 +1,5 @@
 import 'package:padong/core/node/common/user.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -10,6 +11,8 @@ import 'package:padong/core/node/common/user.dart';
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/deck/reply.dart';
+import 'package:padong/core/node/node.dart';
+import 'package:padong/core/service/padong_fb.dart';
 
 // parent: Reply, Argue, Review
 class ReReply extends Reply {
@@ -18,8 +21,7 @@ class ReReply extends Reply {
   ReReply();
 
   ReReply.fromMap(String id, Map snapshot)
-      :
-        this.grandParentId= snapshot['grandParentId'],
+      : this.grandParentId = snapshot['grandParentId'],
         super.fromMap(id, snapshot);
 
   @override
@@ -38,5 +40,16 @@ class ReReply extends Reply {
       ...super.toJson(),
       'grandParentId': this.grandParentId,
     };
+  }
+
+  static Future<List<ReReply>> getByGrandParent(Node grandParent) async {
+    ReReply reReply = ReReply();
+    return await PadongFB.getDocsByRule('rereply',
+            rule: (query) =>
+                query.where('grandParentId', isEqualTo: grandParent.id))
+        .then((docs) => docs
+            .map((doc) => reReply.generateFromMap(doc.id, doc.data()) as ReReply)
+            .toList())
+        .catchError((_) => null);
   }
 }

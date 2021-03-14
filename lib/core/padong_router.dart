@@ -13,6 +13,7 @@ import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/nodes.dart';
 import 'package:padong/ui/view/deck/board_view.dart';
 import 'package:padong/ui/view/deck/post_view.dart';
+import 'package:padong/ui/view/deck/write_view.dart';
 import 'package:padong/ui/view/main_view.dart';
 import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
@@ -44,6 +45,9 @@ class PadongRouter {
             pageBuilder: (_, __, ___) => BoardView(args['node']), direction: 1);
       case '/post':
         return sizeRouter(pageBuilder: (_, __, ___) => PostView(args['node']));
+
+      case '/write':
+        return slideRouter(pageBuilder: (_, __, ___) => WriteView(args['node']));
 
       default:
         return PageRouteBuilder(

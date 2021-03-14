@@ -56,7 +56,7 @@ class PhotoCard extends StatelessWidget {
           style: AppTheme.getFont(
               color: AppTheme.colors.fontPalette[2], isBold: true)),
       SizedBox(
-          height: 20,
+          height: 18,
           child: Text(this.node.description,
               overflow: TextOverflow.ellipsis,
               style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3])))

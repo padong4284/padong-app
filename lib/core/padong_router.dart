@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/nodes.dart';
+import 'package:padong/ui/view/cover/edit_view.dart';
 import 'package:padong/ui/view/deck/board_view.dart';
 import 'package:padong/ui/view/deck/make_view.dart';
 import 'package:padong/ui/view/deck/post_view.dart';
@@ -42,6 +43,9 @@ class PadongRouter {
       case '/main':
         return MaterialPageRoute(builder: (_) => MainView());
 
+      case '/edit':
+        return slideRouter(pageBuilder: (_, __, ___) => EditView(args['node']));
+
       case '/board':
         return slideRouter(
             pageBuilder: (_, __, ___) => BoardView(args['node']), direction: 1);
@@ -50,7 +54,8 @@ class PadongRouter {
       case '/make':
         return slideRouter(pageBuilder: (_, __, ___) => MakeView(args['node']));
       case '/write':
-        return slideRouter(pageBuilder: (_, __, ___) => WriteView(args['node']));
+        return slideRouter(
+            pageBuilder: (_, __, ___) => WriteView(args['node']));
 
       default:
         return PageRouteBuilder(
@@ -91,7 +96,7 @@ class PadongRouter {
 
   static goBack() {
     Navigator.pop(PadongRouter.context);
-    if(refresh != null) refresh();
+    if (refresh != null) refresh();
     refresh = null;
   }
 }

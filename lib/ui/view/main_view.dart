@@ -11,12 +11,14 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/ui/view/cover/cover_view.dart';
 import 'package:padong/ui/view/deck/deck_view.dart';
 import 'package:padong/ui/widget/bar/padong_navigation_bar.dart';
 import 'package:padong/ui/view/home/home_view.dart';
 
 final List<Widget> pages = [
   HomeView(Session.currUniversity),
+  CoverView(Session.currUniversity.cover),
   DeckView(Session.currUniversity.deck),
 ];
 

@@ -116,7 +116,7 @@ class NodeBase extends StatelessWidget {
   }
 
   void routePage() =>
-      PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}');
+      PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}', this.node);
 
   void onMoreTap() {
     // TODO: Click more button " ... "

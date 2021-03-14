@@ -50,7 +50,7 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
               width: 32.0,
               child: IconButton(
                   onPressed: () => PadongRouter.routeURL(
-                      '/profile?id=${Session.user.id}'),
+                      '/profile?id=${Session.user.id}&type=user', Session.user),
                   icon: Icon(Icons.account_circle,
                       color: AppTheme.colors.support))),
           SizedBox(width: AppTheme.horizontalPadding)

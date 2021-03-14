@@ -24,7 +24,7 @@ class TimelineCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => PadongRouter.routeURL('/event?id=${this.event.id}'),
+        onTap: () => PadongRouter.routeURL('/event?id=${this.event.id}&type=${this.event.type}', this.event),
         child: BaseCard(children: [
           Text(this.isLecture ? 'Lecture' : 'Event',
               style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3])),

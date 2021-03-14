@@ -36,7 +36,7 @@ class PhotoCard extends StatelessWidget {
       {@required Widget child, double width = 140, double height = 220}) {
     return InkWell(
         onTap: () {
-          PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}');
+          PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}', this.node);
         },
         child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: width, maxHeight: height),

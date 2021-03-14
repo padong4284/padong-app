@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/nodes.dart';
+import 'package:padong/ui/view/cover/compare_view.dart';
 import 'package:padong/ui/view/cover/edit_view.dart';
 import 'package:padong/ui/view/cover/wiki_view.dart';
 import 'package:padong/ui/view/deck/board_view.dart';
@@ -49,6 +50,9 @@ class PadongRouter {
             pageBuilder: (_, __, ___) => WikiView(args['node']), direction: 1);
       case '/edit':
         return slideRouter(pageBuilder: (_, __, ___) => EditView(args['node']));
+      case '/compare':
+        return sizeRouter(
+            pageBuilder: (_, __, ___) => CompareView(args['node']));
 
       case '/board':
         return slideRouter(

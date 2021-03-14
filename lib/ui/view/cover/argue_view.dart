@@ -49,7 +49,7 @@ class _ArgueViewState extends State<ArgueView> {
   @override
   void initState() {
     super.initState();
-    this.getArgues().then((_) => setState(() {}));
+    this.getArgues();
   }
 
   @override
@@ -77,13 +77,16 @@ class _ArgueViewState extends State<ArgueView> {
         GestureDetector(
             onTap: () {
               bool next = !this.readyReReply[argue.id];
-              setState(() {
-                this.initReplyFocus();
-                ArgueFocus.argueId = next ? argue.id : null;
-              });
+              if (this.mounted)
+                setState(() {
+                  this.initReplyFocus();
+                  this.readyReReply[argue.id] = next;
+                  ArgueFocus.argueId = next ? argue.id : null;
+                });
               this.scrollToReply(argue.id);
             },
             child: Container(
+              // TODO: close argue
                 key: this.argueKeys[argue.id],
                 color: this.readyReReply[argue.id]
                     ? AppTheme.colors.semiPrimary
@@ -120,6 +123,7 @@ class _ArgueViewState extends State<ArgueView> {
       this.argueKeys[argue.id] = new GlobalKey();
     }
     await this.getReReplies();
+    if (this.mounted) setState(() {});
   }
 
   Future<void> getReReplies() async {
@@ -144,6 +148,8 @@ class _ArgueViewState extends State<ArgueView> {
         'anonymity': false,
         'grandParentId': widget.wiki.id, // for ReReply
         'likes': [],
+        'isClosed': false,
+        'wikiId': widget.wiki.id,
       }).create();
     this._argueController.text = '';
   }

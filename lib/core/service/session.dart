@@ -76,6 +76,8 @@ class Session {
         'ownerId': uid,
       }).set(uid);
       await _registerUser(user, univ);
+    } else if(result == SignUpResult.emailAlreadyInUse){
+      return SignUpResult.emailAlreadyInUse;
     }
     return result;
   }

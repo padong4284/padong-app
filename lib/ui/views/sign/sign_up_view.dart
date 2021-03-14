@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -207,8 +209,14 @@ class _SignUpViewState extends State<SignUpView> {
       return false;
     }
 
-    SignUpResult result =
-        await Session.signUpUser(id, pw, name, email, univName, entranceYear);
+    SignUpResult result;
+    //try{
+      result =
+          await Session.signUpUser(id, pw, name, email, univName, entranceYear);
+    /*} catch (e){
+      log(e.toString());
+      return false;
+    }*/
 
     if (result == SignUpResult.weak_password) {
       _setErrorMessage(2, "");

@@ -53,7 +53,6 @@ class Session {
 
   static Future<SignUpResult> signUpUser(String userId, String pw, String name,
       String email, String universityName, int entranceYear) async {
-    userId = userId.toLowerCase();
     User user = await User.getByUserId(userId);
     if (user != null) return SignUpResult.IdAlreadyInUse;
 

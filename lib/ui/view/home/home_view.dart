@@ -117,14 +117,14 @@ class HomeView extends StatelessWidget {
       PadongFutureBuilder(
           future: this.university.mappa.getChildren(Building()),
           builder: (buildings) => HorizontalScroller(
-              emptyMessage:
-                  'You can explore\nthe ${this.university.title}\non the Map and pin the place!',
-              height: 150,
-              children: [
-                ...List.generate(min(10, buildings.length as int),
-                    (idx) => BuildingCard(buildings[idx]))
-              ],
-              moreLink: '123'))
+                emptyMessage:
+                    'You can explore\nthe ${this.university.title}\non the Map and pin the place!',
+                height: 150,
+                children: [
+                  ...List.generate(min(10, buildings.length as int),
+                      (idx) => BuildingCard(buildings[idx]))
+                ],
+              ))
     ];
   }
 

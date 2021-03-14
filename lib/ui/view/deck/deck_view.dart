@@ -31,7 +31,8 @@ class DeckView extends StatelessWidget {
     return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
           onPressAdd: Session.inMyUniv
-              ? () => PadongRouter.routeURL('make?id=${this.deck.id}')
+              ? () => PadongRouter.routeURL(
+                  'make?id=${this.deck.id}&type=deck', this.deck)
               : null,
           isScrollingDown: isScrollingDown),
       title: 'Deck',

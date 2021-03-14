@@ -58,6 +58,7 @@ class WriteView extends StatelessWidget {
 
   void createPost(Map data) async {
     // TODO: if user is owner of this board, ask isNotice
+    // with dialog
     await Post.fromMap('', {
       ...data,
       'parentId': this.board.id,

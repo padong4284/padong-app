@@ -1,6 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 =======
+=======
+import 'dart:developer';
+
+>>>>>>> bug: Compare View
 import 'package:padong/core/node/schedule/event.dart';
 >>>>>>> feat: Event in this Moth with timeline
 
@@ -65,8 +70,8 @@ class TimeManager {
           this.startT[1]);
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);
     } catch (e) {
-      print(e);
-      print(
+      log(e);
+      log(
           'TimeManager: Day And Range Wrong Format\nWEEKDAY | HH:MM ~ HH:MM\n$dayTimeRange');
     }
   }
@@ -81,8 +86,8 @@ class TimeManager {
           DateTime(date[2], date[0], date[1], this.startT[0], this.startT[1]);
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);
     } catch (e) {
-      print(e);
-      print(
+      log(e);
+      log(
           'TimeManager: Date And Range Wrong Format\nMM/DD/YYYY | HH:MM ~ HH:MM\n$dateTimeRange');
     }
   }

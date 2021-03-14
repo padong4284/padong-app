@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/util/compare/diff_line.dart';
 
-class MarkCompared extends StatelessWidget {
+class DiffMarker extends StatelessWidget {
   final String prev;
   final String next;
 
-  MarkCompared(this.prev, this.next);
+  DiffMarker(this.prev, this.next);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class MarkCompared extends StatelessWidget {
                 backgroundColor: diff.op == DELETE
                     ? AppTheme.colors.pointRed.withAlpha(70)
                     : AppTheme.colors.primary
-                        .withAlpha(70)))); // diff.op == INSERT
+                    .withAlpha(70)))); // diff.op == INSERT
       }
     }
     return compared;

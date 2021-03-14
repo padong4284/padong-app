@@ -60,13 +60,14 @@ class _LinkViewState extends State<LinkView> {
     this.backLinks = [];
     this.frontLinks = [];
     List<Wiki> links = await widget.wiki.getLinks();
-    setState(() {
-      for (Wiki link in links) {
-        if (widget.wiki.backLinks.contains(link.id))
-          this.backLinks.add(link);
-        else
-          this.frontLinks.add(link);
-      }
-    });
+    if (this.mounted)
+      setState(() {
+        for (Wiki link in links) {
+          if (widget.wiki.backLinks.contains(link.id))
+            this.backLinks.add(link);
+          else
+            this.frontLinks.add(link);
+        }
+      });
   }
 }

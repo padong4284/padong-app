@@ -36,7 +36,7 @@ class Item extends Post {
     return {
       ...super.toJson(),
       'anonymity': false,
-      'prevId': this.prevDescription,
+      'prevDescription': this.prevDescription,
       'deleted': this.deleted,
       'inserted': this.inserted,
     };

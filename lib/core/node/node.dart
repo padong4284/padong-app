@@ -116,7 +116,7 @@ class Node {
           .then((docs) => docs
               .map((doc) => child.generateFromMap(doc.id, doc.data()))
               .toList())
-          .catchError((_) => null);
+          .catchError((e) {log(e); return null;});
     return this._children[child.type] ?? [];
   }
 

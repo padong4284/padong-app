@@ -30,9 +30,9 @@ class EditView extends StatelessWidget {
     return MarkdownEditorTemplate(
       editTxt: 'edit',
       titleHint: 'Title of Wiki',
-      initPIP: this.isCreateWiki ? null : wiki.pip,
-      title: this.isCreateWiki ? null : wiki.title,
-      content: this.isCreateWiki ? null : wiki.description,
+      initPIP: this.isCreateWiki ? null : this.wiki.pip,
+      title: this.isCreateWiki ? null : this.wiki.title,
+      content: this.isCreateWiki ? null : this.wiki.description,
       onSubmit: this.isCreateWiki ? this.createWiki : this.updateWiki,
     );
   }

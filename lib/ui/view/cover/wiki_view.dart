@@ -59,10 +59,10 @@ class WikiView extends StatelessWidget {
           unselectedLabelStyle:
               AppTheme.getFont(fontSize: AppTheme.fontSizes.mlarge),
           indicator: UnderlineTabIndicator(
+              // left align
               borderSide: BorderSide(width: 2, color: AppTheme.colors.support)),
-          // left align
-          isScrollable: true,
           // no space between
+          isScrollable: true,
           labelPadding: EdgeInsets.only(left: 0, right: 0),
           tabs: ['View', 'Argue', 'Link', 'History']
               .map((tab) => Padding(

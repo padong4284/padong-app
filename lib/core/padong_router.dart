@@ -23,6 +23,7 @@ import 'package:padong/util/animation_routers.dart';
 
 class PadongRouter {
   static BuildContext context;
+  static Function() refresh;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final Map<String, dynamic> args =
@@ -86,5 +87,9 @@ class PadongRouter {
         arguments: arguments);
   }
 
-  static goBack() => Navigator.pop(PadongRouter.context);
+  static goBack() {
+    Navigator.pop(PadongRouter.context);
+    if(refresh != null) refresh();
+    refresh = null;
+  }
 }

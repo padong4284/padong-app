@@ -32,8 +32,8 @@ class _SignInViewState extends State<SignInView> {
       forms: [
         Input(
             controller: _pwController,
-            margin: EdgeInsets.only(top: 10.0),
-            hintText: 'Password')
+            margin: EdgeInsets.only(top: 8.0),
+            labelText: 'Password')
       ],
       onTapEnter: this.onSignIn,
     );

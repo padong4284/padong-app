@@ -19,6 +19,8 @@ final hPadding = AppTheme.horizontalPadding + 20;
 
 class ListPicker extends StatefulWidget {
   final String hintText;
+  final String labelText;
+  final String errorText;
   final bool looping;
   final List<List> lists;
   final List<int> initIdxs;
@@ -30,6 +32,8 @@ class ListPicker extends StatefulWidget {
 
   ListPicker(this.controller,
       {this.hintText,
+      this.labelText,
+      this.errorText,
       @required List list,
       String title,
       int initIdx,
@@ -45,6 +49,8 @@ class ListPicker extends StatefulWidget {
 
   ListPicker.multiple(this.controller,
       {this.hintText,
+      this.labelText,
+      this.errorText,
       @required List<List> lists,
       List<String> separators,
       List<String> titles,
@@ -83,6 +89,8 @@ class _ListPickerState extends State<ListPicker> {
         },
         child: Input(
           hintText: widget.hintText,
+          labelText: widget.labelText,
+          errorText: widget.errorText,
           enabled: false,
           toNext: false,
           margin: widget.margin,

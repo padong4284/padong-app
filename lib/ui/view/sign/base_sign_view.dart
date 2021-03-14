@@ -122,8 +122,8 @@ class _BaseSignViewState extends State<BaseSignView>
                                           child: Input(
                                               controller: widget.idController,
                                               margin:
-                                                  EdgeInsets.only(top: 10.0),
-                                              hintText: 'ID'))),
+                                                  EdgeInsets.only(top: 8.0),
+                                              labelText: 'ID'))),
                                   ...widget.forms
                                 ])))),
                     Positioned(

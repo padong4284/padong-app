@@ -10,6 +10,8 @@
 ///*********************************************************************
 import 'dart:io';
 import 'dart:async';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -20,20 +22,20 @@ import 'package:padong/ui/widget/button/switch_button.dart';
 final ImagePicker _picker = ImagePicker();
 
 class ImageUploader extends StatefulWidget {
-  final Function(PickedFile) onTapOk;
+  final Function(String imgURL) onTapOk;
 
-  ImageUploader({@required this.onTapOk});
+  ImageUploader(this.onTapOk);
 
   @override
   _ImageUploaderState createState() => _ImageUploaderState();
 
   static Function getImageFromUser(
-      BuildContext context, Function(PickedFile) onTapOk) {
+      BuildContext context, Function(String imgURL) onTapOk) {
     return () => showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return ImageUploader(onTapOk: onTapOk);
+          return ImageUploader(onTapOk);
         });
   }
 }
@@ -41,14 +43,6 @@ class ImageUploader extends StatefulWidget {
 class _ImageUploaderState extends State<ImageUploader> {
   PickedFile _image;
   ImageSource source = ImageSource.gallery;
-
-  Future<PickedFile> _uploadImageToStorage() async {
-    try {
-      return await _picker.getImage(source: source);
-    } catch (e) {
-      return null;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +68,7 @@ class _ImageUploaderState extends State<ImageUploader> {
                           buttonSize: ButtonSize.SMALL,
                           borderColor: AppTheme.colors.primary,
                           shadow: false, onTap: () {
-                        widget.onTapOk(this._image);
-                        // TODO: upload to firebase
-
-
+                        this._uploadImageWith(widget.onTapOk);
                         Navigator.pop(context);
                       }))
                 ])),
@@ -85,7 +76,7 @@ class _ImageUploaderState extends State<ImageUploader> {
             child: Column(children: [
           InkWell(
               onTap: () async {
-                PickedFile image = await _uploadImageToStorage();
+                PickedFile image = await _getImageFromUser();
                 setState(() {
                   this._image = image;
                 });
@@ -117,5 +108,24 @@ class _ImageUploaderState extends State<ImageUploader> {
                 });
               })
         ])));
+  }
+
+  Future<PickedFile> _getImageFromUser() async {
+    try {
+      return await _picker.getImage(source: source);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<void> _uploadImageWith(Function(String) onTapOk) async {
+    List<String> _temp = this._image.path.split('/');
+    String fileName = _temp[_temp.length - 1];
+    Reference firebaseStorageRef = // TODO: identical image file nae
+        FirebaseStorage.instance.ref().child('image/$fileName');
+    UploadTask uploadTask = firebaseStorageRef.putFile(File(this._image.path));
+    await uploadTask.whenComplete(() => uploadTask.snapshot.ref
+        .getDownloadURL()
+        .then((String url) => onTapOk(url)));
   }
 }

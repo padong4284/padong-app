@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:padong/core/node/common/user.dart';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -10,8 +8,10 @@ import 'package:padong/core/node/common/user.dart';
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/shared/types.dart';
+import 'package:padong/core/node/common/user.dart';
 
 // parent: ChatRoom
 class Participant extends Node {

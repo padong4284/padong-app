@@ -25,6 +25,8 @@ Wave secondaryWave = new Wave(-75, 25, 500, 4);
 class BaseSignView extends StatefulWidget {
   final bool isSignIn;
   final String welcomeMsg;
+  final String idErrorText;
+  final Function(String) onIdChanged;
   final List<Widget> forms;
   final Future<bool> Function() onTapEnter;
   final TextEditingController idController;
@@ -33,6 +35,8 @@ class BaseSignView extends StatefulWidget {
   BaseSignView(
       {this.isSignIn,
       this.welcomeMsg,
+      this.idErrorText,
+      this.onIdChanged,
       this.idController,
       this.forms,
       this.onTapEnter});
@@ -120,10 +124,11 @@ class _BaseSignViewState extends State<BaseSignView>
                                       child: Material(
                                           color: AppTheme.colors.transparent,
                                           child: Input(
-                                              errorText: 'ERROR',
+                                              onChanged: widget.onIdChanged,
                                               controller: widget.idController,
                                               margin: EdgeInsets.only(top: 8.0),
-                                              labelText: 'ID'))),
+                                              labelText: 'ID',
+                                              errorText: widget.idErrorText))),
                                   ...widget.forms
                                 ])))),
                     Positioned(
@@ -245,12 +250,14 @@ class _BaseSignViewState extends State<BaseSignView>
                   onPressed: () async {
                     if (this.isButtonDisabled == false) {
                       this.isButtonDisabled = true;
-                      if (await widget.onTapEnter()) // isEnterSuccess
-                        Navigator.pushNamed(context, '/main');
-                      else
-                        // TODO: feedback to user
-                        log("${widget.isSignIn ? 'SignIn' : 'SignUp'} Failed");
-                      this.isButtonDisabled = false;
+                      try {
+                        if (await widget.onTapEnter()) // isEnterSuccess
+                          Navigator.pushNamed(context, '/main');
+                        else
+                          log("${widget.isSignIn ? 'SignIn' : 'SignUp'} Failed");
+                      } finally {
+                        this.isButtonDisabled = false;
+                      }
                     }
                   })
             ])));

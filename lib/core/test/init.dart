@@ -1,4 +1,3 @@
-import 'package:padong/core/node/schedule/event.dart';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -9,12 +8,12 @@ import 'package:padong/core/node/schedule/event.dart';
 ///
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-
 import 'package:padong/core/test/dummy.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/question.dart';
+import 'package:padong/core/node/schedule/event.dart';
 
 /// When Create University, should create follows!
 ///   1. University
@@ -49,7 +48,8 @@ Future<void> initUniv() async {
         '', {...board, 'title': title, 'parentId': univ.deck.id}).create();
 
   // -> Building
-  await Building.fromMap('', {...building, 'parentId': univ.id, 'title': univ.title}).create();
+  await Building.fromMap(
+      '', {...building, 'parentId': univ.id, 'title': univ.title}).create();
 
   // -> Board
   for (String title in ['Popular', 'Favorite', 'Informs'])

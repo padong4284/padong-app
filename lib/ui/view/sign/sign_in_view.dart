@@ -20,6 +20,7 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  List<String> _errorTexts = [null, null];
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
 
@@ -28,25 +29,48 @@ class _SignInViewState extends State<SignInView> {
     return BaseSignView(
       isSignIn: true,
       welcomeMsg: "Welcome\nBack",
+      idErrorText: this._errorTexts[0],
       idController: this._idController,
+      onIdChanged: (curr) {
+        if (curr.isEmpty) this._setErrorText();
+      },
       forms: [
         Input(
-            isPrivacy: true,
-            controller: _pwController,
-            margin: EdgeInsets.only(top: 8.0),
-            labelText: 'Password')
+          isPrivacy: true,
+          controller: _pwController,
+          margin: EdgeInsets.only(top: 8.0),
+          labelText: 'Password',
+          errorText: this._errorTexts[1],
+          onChanged: (curr) {
+            if (curr.isEmpty) this._setErrorText();
+          },
+        )
       ],
       onTapEnter: this.onSignIn,
     );
   }
 
+  bool _setErrorText([int idx, String errorText]) {
+    setState(() {
+      this._errorTexts = [null, null];
+      if (idx != null) this._errorTexts[idx] = errorText;
+    });
+    return false;
+  }
+
   Future<bool> onSignIn() async {
     String id = _idController.text;
     String pw = _pwController.text;
+    if (id == "") return this._setErrorText(0, "ID is empty.");
+    if (pw == "") return this._setErrorText(1, "Password is empty.");
 
-    // TODO: validate check
     SignInResult result = await Session.signInUser(id, pw);
     if (result == SignInResult.success) return true;
-    return false;
+
+    if (result == SignInResult.wrongUserId)
+      return this._setErrorText(0, "Check your ID.");
+    if (result == SignInResult.wrongEmailOrPassword)
+      return this._setErrorText(1, "Check your Password.");
+    return this._setErrorText(1, "Sorry, failed Sign In.");
   }
 }

@@ -1,5 +1,3 @@
-import 'package:padong/core/node/common/user.dart';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -14,6 +12,7 @@ import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/common/user.dart';
 
 // parent: Cover
 class Wiki extends TitleNode with Statistics {

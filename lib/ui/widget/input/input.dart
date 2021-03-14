@@ -14,6 +14,8 @@ import 'package:padong/ui/shared/types.dart';
 
 class Input extends StatelessWidget {
   final hintText;
+  final labelText;
+  final errorText;
   final Icon icon;
   final InputType type;
   final Function onPressIcon;
@@ -29,6 +31,8 @@ class Input extends StatelessWidget {
 
   Input(
       {this.hintText,
+      this.labelText,
+      this.errorText,
       this.icon,
       this.type = InputType.ROUNDED,
       this.onPressIcon,
@@ -43,7 +47,7 @@ class Input extends StatelessWidget {
       this.enabled = true});
 
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
+    final FocusScopeNode node = FocusScope.of(context);
     Widget input;
     if (this.type == InputType.ROUNDED)
       input = this._buildRoundedInput(node);
@@ -56,7 +60,9 @@ class Input extends StatelessWidget {
         width: this.width,
         margin: this.margin ?? const EdgeInsets.all(0),
         child: Stack(children: [
-          input,
+          Padding(
+              padding: EdgeInsets.only(top: this.labelText != null ? 2 : 0),
+              child: input),
           Positioned(
               right: 0,
               top: -6 + this.iconTopPosition,
@@ -78,7 +84,7 @@ class Input extends StatelessWidget {
         ]));
   }
 
-  Widget _buildRoundedInput(node) {
+  Widget _buildRoundedInput(FocusScopeNode node) {
     double fontSize = this.isMultiline
         ? AppTheme.fontSizes.regular
         : AppTheme.fontSizes.mlarge;
@@ -104,8 +110,16 @@ class Input extends StatelessWidget {
                         ? 20.0
                         : 28.0),
             hintText: this.hintText,
-            hintStyle: AppTheme.getFont(
-                color: AppTheme.colors.semiSupport, fontSize: fontSize),
+            labelText: this.labelText,
+            labelStyle: this.enabled
+                ? null
+                : AppTheme.getFont(
+                    color: AppTheme.colors.primary,
+                    fontSize: AppTheme.fontSizes.mlarge),
+            errorText: this.errorText,
+            errorStyle: AppTheme.getFont(
+                color: AppTheme.colors.pointRed,
+                fontSize: AppTheme.fontSizes.small),
             filled: true,
             fillColor: AppTheme.colors.lightSupport,
             border: this.getOutline(),
@@ -116,6 +130,8 @@ class Input extends StatelessWidget {
   }
 
   Widget _buildOtherInput({bool plain = false}) {
+    double fontSize =
+        plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge;
     return TextField(
       maxLines: plain ? null : 1,
       autocorrect: false,
@@ -124,18 +140,21 @@ class Input extends StatelessWidget {
       controller: this.controller,
       focusNode: this.focus,
       decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: this.hintText,
-          hintStyle: AppTheme.getFont(
-              color: AppTheme.colors.semiSupport,
-              fontSize: plain
-                  ? AppTheme.fontSizes.regular
-                  : AppTheme.fontSizes.xlarge,
-              isBold: !plain)),
-      style: AppTheme.getFont(
-          fontSize:
-              plain ? AppTheme.fontSizes.regular : AppTheme.fontSizes.xlarge,
-          isBold: !plain),
+        border: InputBorder.none,
+        hintText: this.hintText,
+        hintStyle: AppTheme.getFont(
+            color: AppTheme.colors.semiSupport,
+            fontSize: fontSize,
+            isBold: !plain),
+        labelText: this.labelText,
+        labelStyle: AppTheme.getFont(
+            color: AppTheme.colors.primary, fontSize: fontSize),
+        errorText: this.errorText,
+        errorStyle: AppTheme.getFont(
+            color: AppTheme.colors.pointRed,
+            fontSize: AppTheme.fontSizes.small),
+      ),
+      style: AppTheme.getFont(fontSize: fontSize, isBold: !plain),
     );
   }
 

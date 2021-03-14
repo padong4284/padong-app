@@ -34,33 +34,33 @@ class _SignUpViewState extends State<SignUpView> {
       forms: [
         Input(
             controller: this._controllers[1],
-            margin: EdgeInsets.only(top: 10.0),
-            hintText: 'Password'),
+            margin: EdgeInsets.only(top: 8.0),
+            labelText: 'Password'),
         Input(
             controller: this._controllers[2],
-            margin: EdgeInsets.only(top: 10.0),
-            hintText: 'Repeat Password'),
+            margin: EdgeInsets.only(top: 8.0),
+            labelText: 'Repeat Password'),
         // TODO: check match feedback real-time
         Input(
             controller: this._controllers[3],
-            margin: EdgeInsets.only(top: 20.0 + bottomPadding),
-            hintText: 'Name'),
+            margin: EdgeInsets.only(top: 18.0 + bottomPadding),
+            labelText: 'Name'),
         ListPicker(
           this._controllers[4],
-          margin: EdgeInsets.only(top: 10.0),
-          hintText: 'University',
+          margin: EdgeInsets.only(top: 8.0),
+          labelText: 'University',
           list: ['Georgia Tech'], // TODO: get from PB
         ),
         ListPicker(
           this._controllers[5],
-          margin: EdgeInsets.only(top: 10.0),
-          hintText: 'Entrance Year',
+          margin: EdgeInsets.only(top: 8.0),
+          labelText: 'Entrance Year',
           list: List.generate(10, (y) => 2021 - y),
         ),
         Input(
             controller: this._controllers[6],
-            margin: EdgeInsets.only(top: 10.0),
-            hintText: 'Email')
+            margin: EdgeInsets.only(top: 8.0),
+            labelText: 'Email')
       ],
       onTapEnter: this.onSignUp,
     );

@@ -21,7 +21,7 @@ class ImageCard extends NodeBase {
   Widget build(BuildContext context) {
     return InkWell(
         // TODO: routing
-        onTap: () => PadongRouter.routeURL('/wiki?id=123'),
+        onTap: () => PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}', this.node),
         child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),

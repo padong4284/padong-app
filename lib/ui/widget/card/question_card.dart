@@ -85,8 +85,9 @@ class QuestionCard extends NodeBase {
                   buttonSize: ButtonSize.REGULAR,
                   icon: Icon(Icons.send_rounded,
                       color: AppTheme.colors.primary, size: 20),
-                  onTap: () =>
-                      PadongRouter.routeURL('/post?id=${this.node.id}')),
+                  onTap: () => PadongRouter.routeURL(
+                      '/post?id=${this.node.id}&type=${this.node.type}',
+                      this.node)),
             )
           ],
         ));

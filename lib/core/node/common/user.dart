@@ -85,6 +85,16 @@ class User extends Node {
     return null;
   }
 
+  Future<List<User>> getMyReceived() async {
+    return await PadongFB.getDocsByRule('user',
+        rule: (query) =>
+            query.where('friendIds', arrayContains: Session.user.id)).then(
+        (docs) => docs
+            .map((doc) => User.fromMap(doc.id, doc.data()))
+            .where((user) => !Session.user.friendIds.contains(user.id))
+            .toList());
+  }
+
   Future<List<User>> getFriends() async {
     if (this.friendIds.isEmpty) return [];
     return await PadongFB.getDocsByRule('user',

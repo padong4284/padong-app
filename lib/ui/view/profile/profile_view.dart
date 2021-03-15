@@ -118,17 +118,17 @@ class _ProfileViewState extends State<ProfileView> {
             SizedBox(
                 width: 32,
                 child: IconButton(
+                    onPressed: () {}, // TODO: more dialog
+                    icon: Icon(Icons.more_horiz_rounded,
+                        color: AppTheme.colors.support))),
+            SizedBox(
+                width: 32,
+                child: IconButton(
                     // TODO: check chatRoom is exists
                     onPressed: () => PadongRouter.routeURL(
                         '/chat?id=${widget.user.id}&type=user', widget.user),
                     icon: Icon(Icons.mode_comment_outlined,
                         color: AppTheme.colors.support))),
-            SizedBox(
-                width: 32,
-                child: IconButton(
-                    onPressed: () {}, // TODO: more dialog
-                    icon: Icon(Icons.more_horiz_rounded,
-                        color: AppTheme.colors.support)))
           ];
   }
 

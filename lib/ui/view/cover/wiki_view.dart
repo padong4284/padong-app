@@ -29,12 +29,7 @@ class WikiView extends StatelessWidget {
         child: Scaffold(
             appBar: BackAppBar(
                 title: this.wiki.title,
-                actions: [
-                  IconButton(
-                      icon: Icon(Icons.more_horiz,
-                          color: AppTheme.colors.support),
-                      onPressed: () {}) // TODO: more dialog
-                ],
+                likeAndBookmark: this.wiki,
                 bottom: this.topTabs()),
             body: TabBarView(
               children: [

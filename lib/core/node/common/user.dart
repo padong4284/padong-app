@@ -11,7 +11,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/chat/participant.dart';
+import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
 
@@ -24,8 +27,12 @@ class User extends Node {
   int entranceYear;
   List<String> userEmails;
   String profileImageURL;
-  List<String> friendIds; // I send
+  List<String> friendIds; // send (not received)
   List<String> lectureIds;
+
+  // memoization
+  List<Post> _writtens;
+  List<Board> _myBoards; // replied, liked, bookmarked
 
   User();
 
@@ -67,15 +74,43 @@ class User extends Node {
     return User.fromMap(users.first.id, users.first.data());
   }
 
-  RELATION getRelationWith(User other) {
-    bool received = this.friendIds.contains(other.id);
-    bool send = other.friendIds.contains(this.id);
-    if (received) {
-      if (send) return RELATION.FRIEND;
+  RELATION getRelationWith(User me) {
+    bool iSendToThis = me.friendIds.contains(this.id);
+    bool iReceivedFromThis = this.friendIds.contains(me.id);
+    if (iReceivedFromThis) {
+      if (iSendToThis) return RELATION.FRIEND;
       return RELATION.RECEIVED;
     }
-    if (send) return RELATION.SEND;
+    if (iSendToThis) return RELATION.SEND;
     return null;
+  }
+
+  Future<List<User>> getFriends() async {
+    if (this.friendIds.isEmpty) return [];
+    return await PadongFB.getDocsByRule('user',
+        rule: (query) =>
+            query.where('id', whereIn: this.friendIds)).then(
+        (docs) => docs.map((doc) => User.fromMap(doc.id, doc.data())).toList());
+  }
+
+  Future<List<Post>> getWrittens() async {
+    if (this._writtens == null)
+      this._writtens = await PadongFB.getDocsByRule('post',
+              rule: (query) => query.where('ownerId', isEqualTo: this.id))
+          .then((docs) =>
+              docs.map((doc) => Post.fromMap(doc.id, doc.data())).toList());
+    return this._writtens;
+  }
+
+  Future<List<Board>> getMyBoards() async {
+    User me = Session.user;
+    if (me._myBoards == null) {
+      me._myBoards = [];
+
+      /// FIXME: not possible with current node system.
+      /// make new type of Node getChildren by Reply, Like, Bookmark
+    }
+    return this._myBoards;
   }
 
   Future<List<ChatRoom>> getMyChatRooms(User me) async {

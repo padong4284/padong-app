@@ -99,14 +99,14 @@ class _BackAppBarState extends State<BackAppBar> {
         leadingWidth: 25 + AppTheme.horizontalPadding,
         actions: [
           ...(widget.likeAndBookmark != null
-              ? this._likeAndBookmarkActions()
-              : []),
-          ...(widget.actions ?? []).map((button) => Container(
-              alignment: Alignment.centerRight,
-              child: SizedBox(
-                width: button is Button ? 67 : 32,
-                child: button,
-              ))),
+                  ? this._likeAndBookmarkActions()
+                  : (widget.actions ?? []))
+              .map((button) => Container(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    width: button is Button ? 67 : 32,
+                    child: button,
+                  ))),
           SizedBox(width: AppTheme.horizontalPadding)
         ],
         bottom: widget.bottom != null

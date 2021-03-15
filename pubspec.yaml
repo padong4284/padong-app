@@ -32,6 +32,8 @@ dependencies:
   firebase_core: ^0.7.0
   firebase_auth: ^0.20.0+1
   cloud_firestore: ^0.16.0
+  firebase_storage: ^7.0.0
+  firebase_analytics: ^7.0.1
 
   provider: ^4.3.3
 
@@ -43,6 +45,8 @@ dependencies:
   geolocator: ^6.2.1
   geocoder: ^0.2.1
   flutter_polyline_points: ^0.2.4
+
+  flutter_svg: ^0.19.3
 
 dev_dependencies:
   flutter_test:

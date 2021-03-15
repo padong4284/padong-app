@@ -8,10 +8,13 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:padong/core/apis/cover.dart';
 import 'package:padong/core/padong_router.dart';
+import 'package:padong/core/shared/validator.dart' as Validator;
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/utils/svgWrapper/svg_wrapper.dart';
 import 'package:padong/ui/views/templates/safe_padding_template.dart';
 import 'package:padong/ui/widgets/buttons/padong_floating_button.dart';
 import 'package:padong/ui/widgets/cards/photo_card.dart';
@@ -20,6 +23,8 @@ import 'package:padong/ui/widgets/containers/horizontal_scroller.dart';
 import 'package:padong/ui/widgets/containers/swipe_deck.dart';
 import 'package:padong/ui/widgets/univ_door.dart';
 import 'package:padong/core/apis/session.dart' as Session;
+
+import 'package:http/http.dart' as http;
 
 class CoverView extends StatelessWidget {
   final String id;
@@ -63,7 +68,26 @@ class CoverView extends StatelessWidget {
     );
   }
 
+  Future<Uint8List> convertToSvgUri(String url) async {
+  var res = await http.read(Uri.parse(url));
+  url = "https:"+res.split("fullMedia\"><p><a href=\"")[1].split("\"")[0];
+  return await http.readBytes(Uri.parse(url));
+  }
+
   Widget emblemArea() {
+    RegExp chkSvgPath = RegExp(r"https:\/\/\w\w\.wikipedia.+\.svg");
+    ImageProvider emblem=null;
+    String emblemImgURL = Session.currentUniv['emblem'];
+    if (emblemImgURL != null){
+      if (Validator.isValid(chkSvgPath, emblemImgURL )){
+        emblem = SvgNetwork(emblemImgURL, httpHooker: convertToSvgUri);
+      } else if (emblemImgURL.endsWith(".svg")){
+        emblem = SvgNetwork(emblemImgURL);
+      }else {
+        emblem = NetworkImage(emblemImgURL);
+      }
+    }
+
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 12),
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -76,9 +100,7 @@ class CoverView extends StatelessWidget {
               child: CircleAvatar(
                   radius: 32,
                   backgroundColor: AppTheme.colors.transparent,
-                  backgroundImage: this.cover['emblem'] != null
-                      ? NetworkImage(this.cover['emblem'])
-                      : null)),
+                  backgroundImage: emblem)),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.place_rounded,

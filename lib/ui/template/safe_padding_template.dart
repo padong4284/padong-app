@@ -24,6 +24,7 @@ class SafePaddingTemplate extends StatefulWidget {
   final bool isBottomBar;
   final Widget background;
   final bool isReversed;
+  final ScrollController scrollController;
 
   const SafePaddingTemplate(
       {this.appBar,
@@ -33,6 +34,7 @@ class SafePaddingTemplate extends StatefulWidget {
       @required this.children,
       this.background,
       this.isReversed = false,
+      this.scrollController,
       this.title = ''})
       : assert((floatingBottomBar == null) ||
             (floatingBottomBarGenerator == null)),
@@ -53,7 +55,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
   @override
   void initState() {
     super.initState();
-    this._scrollController = new ScrollController();
+    this._scrollController = widget.scrollController ?? ScrollController();
     this._scrollController.addListener(() {
       setState(() {
         this.isScrollingDown =

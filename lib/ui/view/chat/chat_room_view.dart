@@ -30,6 +30,8 @@ class ChatRoomView extends StatefulWidget {
 }
 
 class _ChatRoomViewState extends State<ChatRoomView> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +42,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       isReversed: true,
+      scrollController: this._scrollController,
       appBar: BackAppBar(title: widget.chatRoom.title, isClose: true, actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
@@ -54,6 +57,11 @@ class _ChatRoomViewState extends State<ChatRoomView> {
               widget.chatRoom
                   .chatMessage(Session.user, widget._msgController.text);
             widget._msgController.text = '';
+            this._scrollController.animateTo(
+                  0.0,
+                  curve: Curves.fastOutSlowIn,
+                  duration: const Duration(milliseconds: 500),
+                );
           }),
       children: [
         StreamBuilder(

@@ -138,7 +138,11 @@ class _SignUpViewState extends State<SignUpView> {
 
     SignUpResult result =
         await Session.signUpUser(id, pw, name, email, univName, entranceYear);
-    if (result == SignUpResult.success) return true;
+    if (result == SignUpResult.success) {
+      for (TextEditingController controller in this._controllers)
+        controller.text = '';
+      return true;
+    }
 
     List codes = {
       SignUpResult.IdAlreadyInUse: [0, "ID already in used"],

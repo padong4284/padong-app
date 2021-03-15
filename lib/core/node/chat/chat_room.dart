@@ -75,8 +75,8 @@ class ChatRoom extends TitleNode with Notification {
     return await this.update();
   }
 
-  Future<Stream<QuerySnapshot>> getMessageStream() async {
-    return await PadongFB.getQueryStreamByRule(
+  Stream<QuerySnapshot> getMessageStream() {
+    return PadongFB.getQueryStreamByRule(
       Message().type,
       rule: (query) => query
           .where("parentId", isEqualTo: this.id)

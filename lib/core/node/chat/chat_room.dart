@@ -41,7 +41,7 @@ class ChatRoom extends TitleNode with Notification {
                 snapshot['lastMessage']['id'], snapshot['lastMessage'])
             : null,
         super.fromMap(id, snapshot) {
-    this.subscribes = <String>[...snapshot['subscribes']];
+    this.subscribes = <String>[...(snapshot['subscribes'] ?? [])];
   }
 
   @override
@@ -51,16 +51,17 @@ class ChatRoom extends TitleNode with Notification {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'lastMessage': this.lastMessage?.toJson(),
+      'lastMessage':
+          this.lastMessage != null ? this.lastMessage.toJson() : null,
     };
   }
 
-  Future<Participant> invite(User user, [String role]) async {
+  Future<Participant> invite(User user, [ROLE role]) async {
     return await Participant.fromMap('', {
       'pip': pipToString(this.pip),
       'parentId': this.id,
       'ownerId': user.id,
-      'role': role ?? "Student",
+      'role': role != null ? roleToString(role) : "Student",
     }).create();
   }
 

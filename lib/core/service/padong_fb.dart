@@ -15,6 +15,8 @@ class PadongFB {
 
   static WriteBatch getBatch() => _db.batch();
 
+  static var documentId = FieldPath.documentId;
+
   static Future<DocumentReference> createDoc(String type, Map data) async {
     data.remove('id');
     return await _db.collection(type).add({

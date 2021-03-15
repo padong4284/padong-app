@@ -75,7 +75,7 @@ class Wiki extends TitleNode with Statistics {
     if (links.isEmpty) return [];
     return await PadongFB.getDocsByRule('wiki',
         rule: (query) => query
-            .where('id', whereIn: links)
+            .where(PadongFB.documentId, whereIn: links)
             .orderBy('createdAt', descending: true)).then(
         (docs) => docs.map((doc) => Wiki.fromMap(doc.id, doc.data())).toList());
   }

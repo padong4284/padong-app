@@ -71,16 +71,23 @@ class ChatRoomTile extends NodeTile {
 
   @override
   Widget topText() {
-    return Text(this.chatRoom.title,
-        overflow: TextOverflow.ellipsis,
-        style: AppTheme.getFont(color: AppTheme.colors.semiSupport));
+    return Padding(
+        padding: const EdgeInsets.only(left: 2),
+        child: Text(this.chatRoom.title,
+            overflow: TextOverflow.ellipsis,
+            style: AppTheme.getFont(color: AppTheme.colors.semiSupport)));
   }
 
   @override
   Widget followText() {
-    return Text(this.chatRoom.lastMessage.message,
-        overflow: TextOverflow.ellipsis,
-        style: AppTheme.getFont(color: AppTheme.colors.support));
+    return Padding(
+        padding: const EdgeInsets.only(left: 2),
+        child: Text(
+            this.chatRoom.lastMessage != null
+                ? this.chatRoom.lastMessage.message
+                : '',
+            overflow: TextOverflow.ellipsis,
+            style: AppTheme.getFont(color: AppTheme.colors.support)));
   }
 
   @override

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/nodes.dart';
 import 'package:padong/ui/view/chat/chat_room_view.dart';
+import 'package:padong/ui/view/chat/chat_view.dart';
 import 'package:padong/ui/view/chat/chats_view.dart';
 import 'package:padong/ui/view/cover/compare_view.dart';
 import 'package:padong/ui/view/cover/edit_view.dart';
@@ -80,6 +81,8 @@ class PadongRouter {
         return slideRouter(
             pageBuilder: (_, __, ___) => ChatRoomView(args['node']),
             direction: 2);
+      case '/chat':
+        return slideRouter(pageBuilder: (_, __, ___) => ChatView(args['node']));
 
       case '/profile':
         return slideRouter(

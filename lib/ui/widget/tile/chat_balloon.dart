@@ -14,6 +14,7 @@ import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/profile_button.dart';
+import 'package:padong/ui/widget/button/simple_button.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/util/time_manager.dart';
 
@@ -31,7 +32,11 @@ class ChatBalloon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> message = [this.messageBox(this.isMine)];
+    List<Widget> message = [
+      chatMsg.isImage
+          ? this.imageMessage(context)
+          : this.messageBox(this.isMine)
+    ];
     if (!this.hideTimestamp) message.add(this.timestamp(this.isMine));
     return Container(
         padding: EdgeInsets.only(top: this.hideSender ? 0 : 10),
@@ -114,5 +119,34 @@ class ChatBalloon extends StatelessWidget {
         ? (prev.ownerId == cur.ownerId &&
             TimeManager.isSameYMDHM(prev.createdAt, cur.createdAt))
         : false;
+  }
+
+  Widget imageMessage(BuildContext context) {
+    double _width =
+        MediaQuery.of(context).size.width - AppTheme.horizontalPadding * 2;
+    Widget _img(double width) => ClipRRect(
+        borderRadius: BorderRadius.circular(5.0),
+        child: Image.network(this.chatMsg.message,
+            width: width, fit: BoxFit.fitWidth));
+    return InkWell(
+        onTap: () => showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Center(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Container(
+                        margin: const EdgeInsets.only(top: 15),
+                        width: 25,
+                        height: 25,
+                        child: SimpleButton('',
+                            icon: Icon(Icons.close_rounded,
+                                color: AppTheme.colors.base, size: 25),
+                            onTap: () => Navigator.pop(context))),
+                    Expanded(child: _img(_width))
+                  ]));
+            }),
+        child: _img(200.0));
   }
 }

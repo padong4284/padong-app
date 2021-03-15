@@ -11,7 +11,6 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -119,6 +118,7 @@ class _ImageUploaderState extends State<ImageUploader> {
   }
 
   Future<void> _uploadImageWith(Function(String) onTapOk) async {
+    if (this._image == null) return;
     List<String> _temp = this._image.path.split('/');
     String fileName = _temp[_temp.length - 1];
     Reference firebaseStorageRef = // TODO: identical image file nae

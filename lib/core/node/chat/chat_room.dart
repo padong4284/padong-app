@@ -21,6 +21,8 @@ import 'package:padong/core/shared/types.dart';
 class ChatRoom extends TitleNode with Notification {
   Message lastMessage;
 
+  Participant myParticipant;
+
   Future<List<User>> get participants async {
     List<User> result = [];
     List<Participant> _participants = <Participant>[

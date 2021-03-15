@@ -27,16 +27,19 @@ class BottomSender extends StatelessWidget {
   final Icon icon;
   final BottomSenderType type;
   final Function onSubmit;
+  final Function(String img) chatImage;
   final TextEditingController msgController;
   final bool afterHide;
   final FocusNode focus;
 
   BottomSender(BottomSenderType senderType,
       {@required this.onSubmit,
-        this.msgController,
-        this.focus,
-        this.afterHide = false})
-      : this.hintText = hints[senderType],
+      this.msgController,
+      this.focus,
+      this.chatImage,
+      this.afterHide = false})
+      : assert((senderType != BottomSenderType.CHAT) || (chatImage != null)),
+        this.hintText = hints[senderType],
         this.icon = Icon(
             BottomSenderType.ARGUE == senderType ? Icons.add : Icons.send,
             color: AppTheme.colors.primary,
@@ -65,20 +68,20 @@ class BottomSender extends StatelessWidget {
               ))),
       this.type == BottomSenderType.CHAT
           ? Container(
-        // Image Uploader
-          margin: const EdgeInsets.only(
-              left: AppTheme.horizontalPadding - 2, top: 7),
-          child: IconButton(
-              onPressed: this.addPhotoFunction(context),
-              icon: Icon(Icons.photo_camera_rounded,
-                  size: 30, color: AppTheme.colors.support)))
+              // Image Uploader
+              margin: const EdgeInsets.only(
+                  left: AppTheme.horizontalPadding - 2, top: 7),
+              child: IconButton(
+                  onPressed: this.addPhotoFunction(context),
+                  icon: Icon(Icons.photo_camera_rounded,
+                      size: 30, color: AppTheme.colors.support)))
           : SizedBox.shrink()
     ]);
   }
 
   Function addPhotoFunction(context) {
     return ImageUploader.getImageFromUser(context, (String imageURL) {
-      this.msgController.text = imageURL; // TODO: send img to chatroom
+      this.chatImage(imageURL);
     });
   }
 }

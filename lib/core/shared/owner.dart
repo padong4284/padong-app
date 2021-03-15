@@ -11,28 +11,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/node.dart';
-import 'package:padong/core/shared/owner.dart';
+import 'package:padong/core/service/padong_fb.dart';
 
-class TitleNode extends Node with Owner {
-  String title;
-  String description;
+mixin Owner on Node {
+  User _owner;
 
-  TitleNode();
-
-  TitleNode.fromMap(String id, Map snapshot)
-      : this.title = snapshot['title'],
-        this.description = snapshot['description'],
-        super.fromMap(id, snapshot);
-
-  @override
-  generateFromMap(String id, Map snapshot) => TitleNode.fromMap(id, snapshot);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      ...super.toJson(),
-      'title': this.title,
-      'description': this.description,
-    };
+  Future<User> get owner async {
+    // Node does not get owner directly,
+    // because Node never depends on User (Node is super class)
+    if (this._owner == null) {
+      DocumentSnapshot ownerDoc = await PadongFB.getDoc('user', this.ownerId);
+      this._owner = User.fromMap(ownerDoc.id, ownerDoc.data());
+    }
+    return this._owner;
   }
 }

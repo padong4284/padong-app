@@ -33,22 +33,28 @@ class _ChatRoomViewState extends State<ChatRoomView> {
   @override
   void initState() {
     super.initState();
-    PadongRouter.refresh = this.updateParticipant;
+    PadongRouter.refresh = this.updateUnread;
   }
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
+      isReversed: true,
       appBar: BackAppBar(title: widget.chatRoom.title, isClose: true, actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
             onPressed: () {}) // TODO: more dialog
       ]),
       floatingBottomBar: BottomSender(BottomSenderType.CHAT,
-          msgController: widget._msgController, onSubmit: () {
-        widget.chatRoom.chatMessage(Session.user, widget._msgController.text);
-        widget._msgController.text = '';
-      }),
+          msgController: widget._msgController,
+          chatImage: (imgURL) =>
+              widget.chatRoom.chatMessage(Session.user, imgURL, isImage: true),
+          onSubmit: () {
+            if (widget._msgController.text.isNotEmpty)
+              widget.chatRoom
+                  .chatMessage(Session.user, widget._msgController.text);
+            widget._msgController.text = '';
+          }),
       children: [
         StreamBuilder(
             stream: widget.chatRoom.getMessageStream(),
@@ -71,12 +77,12 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                             )));
               }
             }),
-        SizedBox(height: 40)
+        SizedBox(height: 45)
       ],
     );
   }
 
-  void updateParticipant() async {
-    // TODO: to make unread clear
+  void updateUnread() async {
+    // TODO: to make unread clear using Participant
   }
 }

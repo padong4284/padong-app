@@ -33,8 +33,7 @@ class _FriendsViewState extends State<FriendsView> {
   void initState() {
     super.initState();
     this.friends = {'Friends': [], 'Follows': []};
-    if (widget.isMine)
-      this.friends['Received'] = [];
+    if (widget.isMine) this.friends['Received'] = [];
     this.getFriends();
   }
 
@@ -47,7 +46,9 @@ class _FriendsViewState extends State<FriendsView> {
           TabContainer(
               tabWidth: 85.0,
               tabs: this.friends.keys.toList(),
-              children: this.friends.values
+              children: this
+                  .friends
+                  .values
                   .map((_friends) => this.friendList(_friends))
                   .toList())
         ]);
@@ -56,15 +57,13 @@ class _FriendsViewState extends State<FriendsView> {
   Widget friendList(List<User> friends) {
     return Column(
         children: friends
-            .map((friend) =>
-            InkWell(
-                onTap: () =>
-                    PadongRouter.routeURL(
-                        '/profile?id=${friend.id}&type=user', friend),
-                child: FriendTile(friend, onTapChat: this.chatWith,
-                    onTapMore: () {
-                      // TODO: more dialog
-                    })))
+            .map((friend) => InkWell(
+                onTap: () => PadongRouter.routeURL(
+                    '/profile?id=${friend.id}&type=user', friend),
+                child:
+                    FriendTile(friend, onTapChat: this.chatWith, onTapMore: () {
+                  // TODO: more dialog
+                })))
             .toList());
   }
 
@@ -76,10 +75,13 @@ class _FriendsViewState extends State<FriendsView> {
   void getFriends() async {
     List<User> _friends = await widget.user.getFriends();
     for (User friend in _friends) {
-      if (friend.friendIds.contains(widget.user.id)) this.friends['Friends'].add(friend);
-      else this.friends['Follows'].add(friend);
+      if (friend.friendIds.contains(widget.user.id))
+        this.friends['Friends'].add(friend);
+      else
+        this.friends['Follows'].add(friend);
     }
-    if (widget.isMine) this.friends['Received'] = await Session.user.getMyReceived();
-    setState((){});
+    if (widget.isMine)
+      this.friends['Received'] = await Session.user.getMyReceived(Session.user);
+    setState(() {});
   }
 }

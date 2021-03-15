@@ -16,8 +16,15 @@ import 'package:padong/ui/widget/node_base.dart';
 class NodeTile extends NodeBase {
   final double leftPadding;
 
-  NodeTile(Node node, {noProfile = false, this.leftPadding = 0.0, isRoute = true})
-      : super(node, noProfile: noProfile, isRoute: isRoute);
+  NodeTile(Node node,
+      {noProfile = false,
+      this.leftPadding = 0.0,
+      isRoute = true,
+      withStatistics = true})
+      : super(node,
+            noProfile: noProfile,
+            isRoute: isRoute,
+            withStatistics: withStatistics);
 
   @override
   Widget build(BuildContext context) {

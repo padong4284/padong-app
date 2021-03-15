@@ -23,6 +23,7 @@ import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/friends_view.dart';
 import 'package:padong/ui/view/profile/profile_view.dart';
+import 'package:padong/ui/view/search/search_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
 import 'package:padong/ui/view/sign/sign_up_view.dart';
@@ -47,6 +48,8 @@ class PadongRouter {
 
       case '/main':
         return MaterialPageRoute(builder: (_) => MainView());
+      case '/search':
+        return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView());
 
       case '/wiki':
         return slideRouter(
@@ -75,7 +78,8 @@ class PadongRouter {
       case '/configure':
         return fadeRouter(pageBuilder: (_, __, ___) => ConfigureView());
       case '/friends':
-        return sizeRouter(pageBuilder: (_, __, ___) => FriendsView(args['node']));
+        return sizeRouter(
+            pageBuilder: (_, __, ___) => FriendsView(args['node']));
 
       default:
         return PageRouteBuilder(

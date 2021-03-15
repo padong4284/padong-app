@@ -20,11 +20,15 @@ import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/chat_room_tile.dart';
 
-class ChatsView extends StatelessWidget {
+class ChatsView extends StatefulWidget {
   final User me;
 
   ChatsView() : this.me = Session.user;
 
+  _ChatsViewState createState() => _ChatsViewState();
+}
+
+class _ChatsViewState extends State<ChatsView> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
@@ -32,7 +36,10 @@ class ChatsView extends StatelessWidget {
             PadongButton(isScrollingDown: isScrollingDown, bottomPadding: 40),
         floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
             title: 'Chat',
-            onTap: () => PadongRouter.routeURL('/chat'),
+            onTap: () {
+              PadongRouter.refresh = () => setState(() {});
+              PadongRouter.routeURL('/chat');
+            },
             isScrollingDown: isScrollingDown),
         appBar: BackAppBar(title: 'Chats', actions: [
           IconButton(
@@ -41,7 +48,7 @@ class ChatsView extends StatelessWidget {
         ]),
         children: [
           PadongFutureBuilder(
-              future: this.me.getMyChatRooms(this.me),
+              future: widget.me.getMyChatRooms(widget.me),
               builder: (chatRooms) => Column(children: <Widget>[
                     ...chatRooms.map((chatRoom) => ChatRoomTile(chatRoom))
                   ]))

@@ -8,8 +8,6 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/shared/owner.dart';
 

@@ -20,6 +20,7 @@ import 'package:padong/ui/view/deck/post_view.dart';
 import 'package:padong/ui/view/deck/write_view.dart';
 import 'package:padong/ui/view/main_view.dart';
 import 'package:padong/ui/view/not_found_view.dart';
+import 'package:padong/ui/view/profile/profile_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
 import 'package:padong/ui/view/sign/sign_up_view.dart';
@@ -65,6 +66,11 @@ class PadongRouter {
         return slideRouter(
             pageBuilder: (_, __, ___) => WriteView(args['node']));
 
+      case '/profile':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => ProfileView(args['node']),
+            direction: 1);
+
       default:
         return PageRouteBuilder(
             pageBuilder: (_, __, ___) => NotFoundView('/${settings.name}'));
@@ -94,8 +100,9 @@ class PadongRouter {
       }
     }
     if (node != null) arguments['type'] = node.type;
-    arguments['node'] =
-        node ?? (await Nodes.getNodeById(arguments['type'], arguments['id']));
+    if (arguments['id'] != null)
+      arguments['node'] = // no node : configure, chats, sign, forgot, main
+          node ?? (await Nodes.getNodeById(arguments['type'], arguments['id']));
 
     // arguments := {id: String, node: Node, type: String}
     Navigator.pushNamed(PadongRouter.context, '/' + parsed[0],

@@ -55,7 +55,7 @@ class PadongFB {
     return await _db
         .collection(type)
         .doc(id)
-        .update({...data, 'modifiedAt': DateTime.now().toIso8601String()})
+        .update({...data, 'modifiedAt': FieldValue.serverTimestamp()})
         .then((_) => true)
         .catchError((e) => false);
   }
@@ -64,7 +64,7 @@ class PadongFB {
     return await _db
         .collection(type)
         .doc(id)
-        .update({'deletedAt': DateTime.now().toIso8601String()})
+        .update({'deletedAt': FieldValue.serverTimestamp()})
         .then((_) => true)
         .catchError((e) => false);
   }

@@ -8,26 +8,13 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/shared/owner.dart';
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/core/node/common/user.dart';
 
 // parent: ChatRoom
-class Participant extends Node {
+class Participant extends Node with Owner {
   ROLE role;
-
-  User _user;
-
-  Future<User> get owner async {
-    // Node does not get owner directly,
-    // because Node never depends on User (Node is super class)
-    if (this._user == null) {
-      DocumentSnapshot userDoc = await this.ownerDoc;
-      this._user = User.fromMap(userDoc.id, userDoc.data());
-    }
-    return this._user;
-  }
 
   Participant();
 

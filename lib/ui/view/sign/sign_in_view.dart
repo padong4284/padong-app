@@ -35,7 +35,7 @@ class _SignInViewState extends State<SignInView> {
       forms: [
         Input(
           isPrivacy: true,
-          controller: _pwController,
+          controller: this._pwController,
           margin: EdgeInsets.only(top: 8.0),
           labelText: 'Password',
           errorText: this._errorTexts[1],
@@ -57,13 +57,17 @@ class _SignInViewState extends State<SignInView> {
   }
 
   Future<bool> onSignIn() async {
-    String id = _idController.text;
-    String pw = _pwController.text;
+    String id = this._idController.text;
+    String pw = this._pwController.text;
     if (id == "") return this._setErrorText(0, "ID is empty.");
     if (pw == "") return this._setErrorText(1, "Password is empty.");
 
     SignInResult result = await Session.signInUser(id, pw);
-    if (result == SignInResult.success) return true;
+    if (result == SignInResult.success) {
+      this._idController.text = '';
+      this._pwController.text = '';
+      return true;
+    }
 
     if (result == SignInResult.wrongUserId)
       return this._setErrorText(0, "Check your ID.");

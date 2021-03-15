@@ -46,11 +46,13 @@ class ChatBalloon extends StatelessWidget {
                     ? SizedBox.shrink()
                     : PadongFutureBuilder(
                         future: this.chatMsg.owner,
-                        builder: (owner) => Text(
-                          (owner as User).userId,
+                        builder: (owner) => Padding(
+                            padding: const EdgeInsets.only(bottom: 2),
+                            child: Text(
+                              (owner as User).userId,
                               style: AppTheme.getFont(
                                   color: AppTheme.colors.fontPalette[1]),
-                            )),
+                            ))),
                 Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [...(this.isMine ? message.reversed : message)])
@@ -93,7 +95,7 @@ class ChatBalloon extends StatelessWidget {
 
   Widget sender() {
     return Padding(
-        padding: const EdgeInsets.only(top: 5, right: 10),
+        padding: const EdgeInsets.only(top: 5, right: 5),
         child: this.hideSender
             ? SizedBox(width: 40)
             : PadongFutureBuilder(
@@ -108,6 +110,9 @@ class ChatBalloon extends StatelessWidget {
   }
 
   static bool checkHideSender(Message prev, Message cur) {
-    return prev != null ? prev.ownerId == cur.ownerId : false;
+    return prev != null
+        ? (prev.ownerId == cur.ownerId &&
+            TimeManager.isSameYMDHM(prev.createdAt, cur.createdAt))
+        : false;
   }
 }

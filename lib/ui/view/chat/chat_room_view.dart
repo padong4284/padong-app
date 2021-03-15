@@ -10,12 +10,15 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
+import 'package:padong/core/node/chat/message.dart';
 import 'package:padong/core/padong_router.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
+import 'package:padong/ui/widget/tile/chat_balloon.dart';
 
 class ChatRoomView extends StatefulWidget {
   final ChatRoom chatRoom;
@@ -35,7 +38,6 @@ class _ChatRoomViewState extends State<ChatRoomView> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> msgs = []; // ChatBalloon
     return SafePaddingTemplate(
       appBar: BackAppBar(title: widget.chatRoom.title, isClose: true, actions: [
         IconButton(
@@ -44,10 +46,33 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       ]),
       floatingBottomBar: BottomSender(BottomSenderType.CHAT,
           msgController: widget._msgController, onSubmit: () {
-        // TODO: send and receive messages !
+        widget.chatRoom.chatMessage(Session.user, widget._msgController.text);
         widget._msgController.text = '';
       }),
-      children: [...msgs, SizedBox(height: 40)],
+      children: [
+        StreamBuilder(
+            stream: widget.chatRoom.getMessageStream(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                List<Message> messages = <Message>[
+                  ...snapshot.data.docs.reversed
+                      .map((doc) => Message.fromMap(doc.id, doc.data()))
+                ];
+                int len = messages.length;
+                return Column(
+                    children: List.generate(
+                        len,
+                        (idx) => ChatBalloon(
+                              messages[idx],
+                              prev: idx > 0 ? messages[idx - 1] : null,
+                              next: idx < len - 1 ? messages[idx + 1] : null,
+                            )));
+              }
+            }),
+        SizedBox(height: 40)
+      ],
     );
   }
 

@@ -91,8 +91,8 @@ class PadongFB {
     }).catchError((e) => null);
   }
 
-  static Future<Stream<QuerySnapshot>> getQueryStreamByRule(String type,
-      {Query Function(Query) rule, int limit = 30}) async {
+  static Stream<QuerySnapshot> getQueryStreamByRule(String type,
+      {Query Function(Query) rule, int limit = 30}) {
     Query query = _db.collection(type).where('deletedAt', isEqualTo: null);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);

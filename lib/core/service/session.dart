@@ -103,14 +103,16 @@ class Session {
       throw Exception('Invalid User try to Change Email');
 
     String currEmail = await PadongAuth.changeEmail(email);
-    if (currEmail == null) throw Exception('Change Email Failed');
-    user.userEmails = [currEmail, email];
-    await user.update();
-    await signOutUser(context);
+    if (currEmail == null)
+      throw Exception('Change Email Failed');
+    else {
+      user.userEmails = [currEmail, email];
+      await user.update();
+      await signOutUser(context);
+    }
   }
 
-  static Future<bool> changeCurrentUniversity(
-      University university) async {
+  static Future<bool> changeCurrentUniversity(University university) async {
     try {
       currUniversity = university;
       university.initUniversity();

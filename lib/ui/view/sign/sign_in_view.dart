@@ -31,9 +31,7 @@ class _SignInViewState extends State<SignInView> {
       welcomeMsg: "Welcome\nBack",
       idErrorText: this._errorTexts[0],
       idController: this._idController,
-      onIdChanged: (curr) {
-        if (curr.isEmpty) this._setErrorText();
-      },
+      onIdChanged: (_) => this._setErrorText(),
       forms: [
         Input(
           isPrivacy: true,

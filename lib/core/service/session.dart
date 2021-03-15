@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -10,6 +12,7 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/common/university.dart';
@@ -86,31 +89,37 @@ class Session {
 
   static Future<bool> signOutUser(BuildContext context) async {
     return await PadongAuth.signOut().then((_) {
+      Navigator.popUntil(context, (route) => route.isFirst);
       _initSession();
-      Navigator.pushNamed(context, '/');
       return true;
     }).catchError((e) => false);
   }
 
-  static Future changeUserEmail(String email, BuildContext context) async {
+  static Future<void> changeUserEmail(
+      String email, BuildContext context) async {
     // at view, update user's parentId, university
     String uid = await PadongAuth.getUid();
     if (user == null || user.id != uid)
       throw Exception('Invalid User try to Change Email');
 
     String currEmail = await PadongAuth.changeEmail(email);
+    if (currEmail == null) throw Exception('Change Email Failed');
     user.userEmails = [currEmail, email];
     await user.update();
     await signOutUser(context);
   }
 
   static Future<bool> changeCurrentUniversity(
-      University university, BuildContext context) async {
-    // TODO: use Provider, alert all view
-    currUniversity = university;
-    university.initUniversity();
-    Navigator.pushNamed(context, '/main');
-    return true; // TODO: check success
+      University university) async {
+    try {
+      currUniversity = university;
+      university.initUniversity();
+      PadongRouter.routeURL('/main');
+      return true;
+    } catch (e) {
+      log(e);
+      return false;
+    }
   }
 
   static ACCESS checkAccess(Node node) {
@@ -124,4 +133,7 @@ class Session {
     } else if (inMyUniv && node.type == 'board') return ACCESS.READWRITE;
     return ACCESS.DENIED;
   }
+
+  static Future<void> updateUserPassword(String pw) async =>
+      await PadongAuth.changePassword(pw);
 }

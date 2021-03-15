@@ -20,6 +20,7 @@ import 'package:padong/ui/view/deck/post_view.dart';
 import 'package:padong/ui/view/deck/write_view.dart';
 import 'package:padong/ui/view/main_view.dart';
 import 'package:padong/ui/view/not_found_view.dart';
+import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/profile_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
@@ -70,6 +71,8 @@ class PadongRouter {
         return slideRouter(
             pageBuilder: (_, __, ___) => ProfileView(args['node']),
             direction: 1);
+      case '/configure':
+        return fadeRouter(pageBuilder: (_, __, ___) => ConfigureView());
 
       default:
         return PageRouteBuilder(

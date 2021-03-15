@@ -89,4 +89,7 @@ class PadongAuth {
     }
     return sessionUser.email;
   }
+
+  static Future<void> changePassword(String pw) async =>
+      await _auth.currentUser.updatePassword(pw);
 }

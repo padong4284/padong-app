@@ -44,9 +44,7 @@ class _SignUpViewState extends State<SignUpView> {
       welcomeMsg: "Welcome",
       idErrorText: this._errorTexts[0],
       idController: this._controllers[0],
-      onIdChanged: (curr) {
-        if (curr.isEmpty) this._setErrorText();
-      },
+      onIdChanged: (_) => this._setErrorText(),
       forms: [
         Input(
             isPrivacy: true,
@@ -55,8 +53,8 @@ class _SignUpViewState extends State<SignUpView> {
             labelText: this._labels[1],
             errorText: this._errorTexts[1],
             onChanged: (_) {
-              this._initError(_);
               this._controllers[2].text = '';
+              this._initError(_);
             }),
         Input(
             isPrivacy: true,
@@ -64,13 +62,10 @@ class _SignUpViewState extends State<SignUpView> {
             margin: EdgeInsets.only(top: 8.0),
             labelText: this._labels[2],
             errorText: this._errorTexts[2],
-            onChanged: (repeat) {
-              setState(() {
-                this._errorTexts[2] = repeat != this._controllers[1].text
+            onChanged: (repeat) => setState(() => this._errorTexts[2] =
+                repeat != this._controllers[1].text
                     ? "Repeat Password doesn't match"
-                    : null;
-              });
-            }),
+                    : null)),
         Input(
             controller: this._controllers[3],
             margin: EdgeInsets.only(top: 18.0 + bottomPadding),

@@ -14,7 +14,6 @@ import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/node.dart';
-import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
 
@@ -85,13 +84,12 @@ class User extends Node {
     return null;
   }
 
-  Future<List<User>> getMyReceived() async {
+  Future<List<User>> getMyReceived(User me) async {
     return await PadongFB.getDocsByRule('user',
-        rule: (query) =>
-            query.where('friendIds', arrayContains: Session.user.id)).then(
-        (docs) => docs
+            rule: (query) => query.where('friendIds', arrayContains: me.id))
+        .then((docs) => docs
             .map((doc) => User.fromMap(doc.id, doc.data()))
-            .where((user) => !Session.user.friendIds.contains(user.id))
+            .where((user) => me.friendIds.contains(user.id))
             .toList());
   }
 
@@ -112,8 +110,7 @@ class User extends Node {
     return this._writtens;
   }
 
-  Future<List<Board>> getMyBoards() async {
-    User me = Session.user;
+  Future<List<Board>> getMyBoards(User me) async {
     if (me._myBoards == null) {
       me._myBoards = [];
 
@@ -126,7 +123,7 @@ class User extends Node {
   Future<List<ChatRoom>> getMyChatRooms(User me) async {
     if (this != me) throw Exception("Not me!");
 
-    List<String> chatRoomIds;
+    List<String> chatRoomIds = [];
     List<DocumentSnapshot> myParticipants = await PadongFB.getDocsByRule(
         Participant().type,
         rule: (query) => query.where('ownerId', isEqualTo: me.id));

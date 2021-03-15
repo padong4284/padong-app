@@ -94,7 +94,7 @@ class _ProfileViewState extends State<ProfileView> {
           widget.isMine && false
               // FIXME: not possible with current node system.
               ? PadongFutureBuilder(
-                  future: Session.user.getMyBoards(),
+                  future: Session.user.getMyBoards(Session.user),
                   builder: (boards) => BoardList(boards, icons: [
                         Icons.mode_comment_rounded,
                         Icons.favorite_rounded,

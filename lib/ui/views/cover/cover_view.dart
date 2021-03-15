@@ -81,7 +81,9 @@ class CoverView extends StatelessWidget {
     if (emblemImgURL != null){
       if (Validator.isValid(chkSvgPath, emblemImgURL )){
         emblem = SvgNetwork(emblemImgURL, httpHooker: convertToSvgUri);
-      } else {
+      } else if (emblemImgURL.endsWith(".svg")){
+        emblem = SvgNetwork(emblemImgURL);
+      }else {
         emblem = NetworkImage(emblemImgURL);
       }
     }

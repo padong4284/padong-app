@@ -28,7 +28,7 @@ List<Diff> diffLine(String prev, String next) {
     return [Diff(INSERT, next)];
   else if (next == null || next.length == 0) return [Diff(DELETE, prev)];
 
-  List<Diff> result = List<Diff>();
+  List<Diff> result = [];
   List<String> p = toLinuxNewLine(prev).split('\n');
   List<String> n = toLinuxNewLine(next).split('\n');
 

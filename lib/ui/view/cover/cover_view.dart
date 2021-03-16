@@ -14,6 +14,7 @@ import 'package:padong/core/node/cover/cover.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/core/shared/validator.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
@@ -23,6 +24,7 @@ import 'package:padong/ui/widget/component/univ_door.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/container/swipe_deck.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
+import 'package:padong/util/svgWrapper/svg_wrapper.dart';
 
 class CoverView extends StatelessWidget {
   final Cover cover;
@@ -65,6 +67,17 @@ class CoverView extends StatelessWidget {
   }
 
   Widget emblemArea() {
+    ImageProvider emblem;
+    String emblemImgURL = Session.currUniversity.emblemImgURL;
+    if (emblemImgURL != null) {
+      if (Validator.isWikiSvg(emblemImgURL))
+        emblem = SvgNetwork(emblemImgURL, httpHooker: this.convertWikiToSvg);
+      else if (emblemImgURL.endsWith(".svg"))
+        emblem = SvgNetwork(emblemImgURL);
+      else
+        emblem = NetworkImage(emblemImgURL);
+    }
+
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 12),
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -77,9 +90,7 @@ class CoverView extends StatelessWidget {
               child: CircleAvatar(
                   radius: 32,
                   backgroundColor: AppTheme.colors.transparent,
-                  backgroundImage: Session.currUniversity.emblemImgURL != null
-                      ? NetworkImage(Session.currUniversity.emblemImgURL)
-                      : null)),
+                  backgroundImage: emblem)),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.place_rounded,

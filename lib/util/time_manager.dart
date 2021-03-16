@@ -83,10 +83,16 @@ class TimeManager {
 
   TimeManager.dateNRange(String dateTimeRange) {
     /// MM/DD/YYYY | HH:MM ~ HH:MM
+    /// YYYY-MM-DD | HH:MM ~ HH:MM
     try {
       this.init(dateTimeRange);
-      String source = this.dr[0].replaceAll('-', '/');
-      List<int> date = source.split('/').map((d) => int.parse(d)).toList();
+      List<int> date = [];
+      if (this.dr[0].contains('-')) {
+        List<int> _temp =
+            this.dr[0].split('-').map((d) => int.tryParse(d)).toList();
+        date = [_temp[1], _temp[2], _temp[0]];
+      } else
+        date = this.dr[0].split('/').map((d) => int.tryParse(d)).toList();
       this.startTime =
           DateTime(date[2], date[0], date[1], this.startT[0], this.startT[1]);
       this.duration = Duration(hours: this.dMin ~/ 60, minutes: this.dMin % 60);

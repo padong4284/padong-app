@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -149,6 +151,22 @@ class TimeManager {
       summary.add([range, temp.substring(1, temp.length - 1)]);
     }
     return summary;
+  }
+
+  //toDateTime convert various type of time to DateTime.
+  //for supporting backward of firestore DateTime Data.
+  static DateTime toDateTime(dynamic date){
+    if (date is String){
+      return DateTime.tryParse(date) ?? null;
+    } else if(date is int) {
+      return DateTime.fromMillisecondsSinceEpoch(date * 1000);
+    } else if(date is FieldValue){
+      return DateTime.now();
+    } else if (date is Timestamp){
+      return date.toDate();
+    } else {
+      return null;
+    }
   }
 
   static bool isSameYMDHM(DateTime one, DateTime another) {

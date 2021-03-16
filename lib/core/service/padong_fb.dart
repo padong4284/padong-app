@@ -17,7 +17,11 @@ class PadongFB {
 
   static Future<DocumentReference> createDoc(String type, Map data) async {
     data.remove('id');
-    return await _db.collection(type).add(data).then((DocumentReference ref) {
+    return await _db.collection(type).add({
+      ...data,
+      'modifiedAt': FieldValue.serverTimestamp(),
+      'createdAt': FieldValue.serverTimestamp()
+    }).then((DocumentReference ref) {
       if (ref.id == null) return null;
       return ref;
     }).catchError((e) => null);
@@ -25,10 +29,16 @@ class PadongFB {
 
   static Future<bool> setDoc(String type, String id, Map data) async {
     data.remove('id');
+
+    await PadongFB.getDoc("node", id).catchError((e) {
+      //id doesn't exists. so id will created.
+      data['createdAt'] = FieldValue.serverTimestamp();
+    });
+
     return await _db
         .collection(type)
         .doc(id)
-        .set(data)
+        .set({...data, 'modifiedAt': FieldValue.serverTimestamp()})
         .then((_) => true)
         .catchError((e) => false);
   }

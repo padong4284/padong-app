@@ -12,6 +12,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
+import 'package:padong/ui/utils/time_manager.dart';
 
 class Node {
   String id;
@@ -27,34 +28,19 @@ class Node {
 
   Node();
 
-
-  //toDateTime convert various type of time to DateTime.
-  //for supporting backward of firestore DateTime Data.
-  DateTime toDateTime(dynamic date){
-    if (date is String){
-      return DateTime.tryParse(date) ?? FieldValue.serverTimestamp();
-    } else if(date is int) {
-      return DateTime.fromMillisecondsSinceEpoch(date * 1000);
-    } else if(date == FieldValue){
-      return DateTime.now();
-    } else if (date is Timestamp){
-      return date.toDate();
-    }
-  }
-
   Node.fromMap(String id, Map snapshot) {
     this.id = id;
     this.pip = parsePIP(snapshot['pip']);
     this.parentId = snapshot['parentId'];
     this.ownerId = snapshot['ownerId'];
     snapshot['createdAt'] = // auto initialize
-        snapshot['createdAt']!=null ? toDateTime(snapshot['createdAt']): DateTime.now();
+        snapshot['createdAt']!=null ? TimeManager.toDateTime(snapshot['createdAt']): DateTime.now();
     this.createdAt = snapshot['createdAt'];
     this.modifiedAt = // not modified yet
-        snapshot['modifiedAt']!= null ? toDateTime(snapshot['createdAt']) : snapshot['createdAt'];
+        snapshot['modifiedAt']!= null ?  TimeManager.toDateTime(snapshot['createdAt']) : snapshot['createdAt'];
     this.deletedAt = snapshot['deletedAt'] == null
         ? null // It may not deleted
-        : toDateTime(snapshot['deletedAt']);
+        :  TimeManager.toDateTime(snapshot['deletedAt']);
     if (!this.isValidate())
       throw Exception(
           'Invalid data try to construct ${this.type}\n${this.toJson()}');
@@ -69,11 +55,11 @@ class Node {
       "type": this.type,
       "parentId": this.parentId,
       "ownerId": this.ownerId,
-      "createdAt": Timestamp.fromDate(this.createdAt),
-      "modifiedAt": Timestamp.fromDate((this.modifiedAt ?? this.createdAt)),
+      "createdAt": this.createdAt,
+      "modifiedAt": this.modifiedAt ?? this.createdAt,
       "deletedAt": this.deletedAt == null
           ? null // It may not deleted
-          : Timestamp.fromDate(this.deletedAt),
+          : this.deletedAt,
     };
   }
 
@@ -111,26 +97,13 @@ class Node {
     return this._children[child.type];
   }
 
-  void _refreshCreatedAt(Map<String,dynamic> data){
-    data['createdAt'] = FieldValue.serverTimestamp();
-  }
-  void _refreshModifiedAt(Map<String,dynamic> data){
-    data['modifiedAt'] = FieldValue.serverTimestamp();
-  }
-  void _refreshDeletedAt(Map<String,dynamic> data){
-    data['modifiedAt'] = FieldValue.serverTimestamp();
-  }
-
   Future<Node> create() async {
     // create document at Fire Base
     //this.createdAt = DateTime.now();
-    var data = this.toJson();
-    _refreshCreatedAt(data);
-    _refreshModifiedAt(data);
 
     if (this.isValidate()) {
       DocumentReference ref =
-          await PadongFB.createDoc(this.type, data);
+          await PadongFB.createDoc(this.type, this.toJson());
       if (ref == null) throw Exception('Create Document Failed ${this.type}');
       this.id = ref.id;
       return this;
@@ -142,15 +115,8 @@ class Node {
     // set document at Fire Base with id
     this.id = id;
 
-    var data = this.toJson();
-    await PadongFB.getDoc("node", id).catchError((e) {
-      //id not exists. so id will created.
-      _refreshCreatedAt(data);
-    });
-    _refreshModifiedAt(data);
-
     if (this.isValidate())
-      return (await PadongFB.setDoc(this.type, id, data))
+      return (await PadongFB.setDoc(this.type, id, this.toJson()))
           ? this
           : null;
     return null;
@@ -159,17 +125,13 @@ class Node {
   Future<bool> update() async {
     // assume this node is already modified (updated)
     // just update Fire Store data
-    var data = this.toJson();
-    _refreshModifiedAt(data);
     if (this.isValidate())
-      return await PadongFB.updateDoc(this.type, this.id, data);
+      return await PadongFB.updateDoc(this.type, this.id, this.toJson());
     return false;
   }
 
   Future<bool> delete() async {
     // set deletedAt now, PadongFB.getDoc never return this node;
-    var data = this.toJson();
-    _refreshDeletedAt(data);
     if (this.isValidate())
       return await PadongFB.deleteDoc(this.type, this.id); // success or not
     return false;

@@ -154,13 +154,11 @@ class TimeManager {
     return numStr;
   }
 
-  static List<List<String>> summaryTimes(List<String> times, bool showWeekday) {
+  static List<List<String>> summaryTimes(List<TimeManager> times, bool showWeekday) {
     /// 1st, time range equality
     /// 2nd, date equality
     Map<String, List> ranges = {};
-    List<TimeManager> tms =
-        times.map((t) => TimeManager.fromString(t)).toList();
-    for (TimeManager tm in tms) {
+    for (TimeManager tm in times) {
       ranges[tm.range] = (ranges[tm.range] ?? []) +
           [showWeekday ? WEEKDAYS[tm.weekday] : tm.date.substring(0, 5)];
     }

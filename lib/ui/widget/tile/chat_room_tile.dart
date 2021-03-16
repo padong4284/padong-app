@@ -24,10 +24,6 @@ class ChatRoomTile extends NodeTile {
   ChatRoomTile(this.chatRoom) : super(chatRoom, withStatistics: false);
 
   @override
-  void routePage() =>
-      PadongRouter.routeURL('chatroom?id=${this.chatRoom.id}', this.chatRoom);
-
-  @override
   Widget profile() {
     return PadongFutureBuilder(
         future: this.chatRoom.participants,

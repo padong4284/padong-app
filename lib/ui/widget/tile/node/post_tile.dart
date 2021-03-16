@@ -9,8 +9,16 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/deck/post.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/widget/tile/node/node_tile.dart';
 
 class PostTile extends NodeTile {
-  PostTile(Post post) : super(post);
+  final String url;
+
+  PostTile(Post post, {this.url}) : super(post);
+
+  @override
+  void routePage() => PadongRouter.routeURL(
+      '/${this.url ?? this.node.type}?id=${this.node.id}&type=${this.node.type}',
+      this.node);
 }

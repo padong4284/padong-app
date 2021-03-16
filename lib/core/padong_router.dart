@@ -27,6 +27,7 @@ import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/friends_view.dart';
 import 'package:padong/ui/view/profile/profile_view.dart';
 import 'package:padong/ui/view/schedule/event_view.dart';
+import 'package:padong/ui/view/schedule/lecture_view.dart';
 import 'package:padong/ui/view/schedule/rail_view.dart';
 import 'package:padong/ui/view/search/search_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
@@ -79,6 +80,10 @@ class PadongRouter {
       case '/event':
         return slideRouter(
             pageBuilder: (_, __, ___) => EventView(args['node']), direction: 1);
+      case '/lecture':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => LectureView(args['node']),
+            direction: 1);
       case '/rail':
         return slideRouter(
             pageBuilder: (_, __, ___) => RailView(args['node']), direction: 1);

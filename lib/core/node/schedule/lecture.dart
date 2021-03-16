@@ -1,3 +1,6 @@
+import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/schedule/review.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -25,6 +28,7 @@ class Lecture extends Event {
   String exam;
   String attendance;
   String book;
+  Evaluation _evaluation;
 
   Lecture();
 
@@ -60,6 +64,33 @@ class Lecture extends Event {
   }
 
   Future<Evaluation> getEvaluation() async {
-    return await this.getChild(Evaluation());
+    if (this._evaluation == null)
+      this._evaluation = await this.getChild(Evaluation());
+    return this._evaluation;
+  }
+
+  Future<List<Review>> getReviews() async {
+    return await (await this.getEvaluation())
+        .getChildren(Review(), upToDate: true);
+  }
+
+  Future<Review> reviewWithRate(User me, String review, double rate) async {
+    Evaluation eval = await this.getEvaluation();
+    List<Review> _reviews = await this.getReviews();
+    for (Review _review in _reviews)
+      if (_review.ownerId == me.id) {
+        _review.delete();
+        _reviews.remove(_review);
+      }
+
+    await Review.fromMap('', {
+      'pip': pipToString(PIP.INTERNAL),
+      'parentId': eval.id,
+      'ownerId': me.id,
+      'rate': rate,
+      'description': review,
+    }).create();
+    eval.rate = ((eval.rate * _reviews.length) + rate) / (_reviews.length + 1);
+    eval.update();
   }
 }

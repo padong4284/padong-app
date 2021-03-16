@@ -30,7 +30,7 @@ class LectureCard extends EventCard {
                 moreText: this.isToReview ? 'Reviews' : null,
                 onTapMore: this.isToReview
                     ? () => PadongRouter.routeURL(
-                        '/evaluation?id=${evaluation.id}', evaluation)
+                        '/review?id=${this.event.id}&type=lecture', this.event)
                     : null,
                 children: [
                   this.timeRange(),

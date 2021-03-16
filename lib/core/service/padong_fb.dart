@@ -29,11 +29,9 @@ class PadongFB {
 
   static Future<bool> setDoc(String type, String id, Map data) async {
     data.remove('id');
-
-    await PadongFB.getDoc("node", id).catchError((e) {
-      //id doesn't exists. so id will created.
+    if (await PadongFB.getDoc("node", id) == null) {
       data['createdAt'] = FieldValue.serverTimestamp();
-    });
+    }
 
     return await _db
         .collection(type)

@@ -14,6 +14,7 @@ import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
+import 'package:padong/ui/widget/component/no_data_message.dart';
 import 'package:padong/ui/widget/tile/base_tile.dart';
 
 class BoardList extends StatefulWidget {
@@ -21,8 +22,10 @@ class BoardList extends StatefulWidget {
   final List<IconData> icons;
   final bool isAlerts;
   final bool isLecture;
+  final String emptyMsg;
 
-  BoardList(this.boards, {List<IconData> icons, isLecture = false})
+  BoardList(this.boards,
+      {List<IconData> icons, isLecture = false, this.emptyMsg})
       : this.icons = icons,
         this.isAlerts = isLecture || (icons == null),
         this.isLecture = isLecture;
@@ -45,34 +48,41 @@ class _BoardListState extends State<BoardList> {
   @override
   Widget build(BuildContext context) {
     return BaseTile(
-        children: List.generate(
-      widget.boards.length,
-      (idx) {
-        Board board = widget.boards[idx];
-        return InkWell(
-            onTap: () => PadongRouter.routeURL(
-                '/${board.type}?id=${board.id}', widget.boards[idx]),
-            child: Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Row(children: [
-                  Padding(
-                      padding: const EdgeInsets.only(right: 15.0),
-                      child: widget.isAlerts
-                          ? ToggleIconButton(Icons.notifications_off,
-                              toggleIcon: Icons.notifications,
-                              isToggled: board.isSubscribed(Session.user),
-                              defaultColor: AppTheme.colors.support,
-                              toggleColor: AppTheme.colors.pointYellow,
-                              size: 25, onPressed: () {
-                              board.updateSubscribe(Session.user);
-                            })
-                          : Icon(widget.icons[idx],
-                              size: 25, color: AppTheme.colors.support)),
-                  this.boardText(board.title)
-                ])));
-      },
-    ));
+        children: widget.boards.isNotEmpty
+            ? List.generate(widget.boards.length, (idx) {
+                Board board = widget.boards[idx];
+                return InkWell(
+                    onTap: () => PadongRouter.routeURL(
+                        '/${board.type}?id=${board.id}', widget.boards[idx]),
+                    child: Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Row(children: [
+                          Padding(
+                              padding: const EdgeInsets.only(right: 15.0),
+                              child: widget.isAlerts
+                                  ? ToggleIconButton(Icons.notifications_off,
+                                      toggleIcon: Icons.notifications,
+                                      isToggled:
+                                          board.isSubscribed(Session.user),
+                                      defaultColor: AppTheme.colors.support,
+                                      toggleColor: AppTheme.colors.pointYellow,
+                                      size: 25, onPressed: () {
+                                      board.updateSubscribe(Session.user);
+                                    })
+                                  : Icon(widget.icons[idx],
+                                      size: 25,
+                                      color: AppTheme.colors.support)),
+                          this.boardText(board.title)
+                        ])));
+              })
+            : [
+                Center(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 50),
+                        child: NoDataMessage(
+                            widget.emptyMsg ?? 'Nothing to Show You')))
+              ]);
   }
 
   Text boardText(text) {

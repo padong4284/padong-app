@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import 'package:cloud_firestore/cloud_firestore.dart';
-=======
-=======
-import 'dart:developer';
-
->>>>>>> bug: Compare View
-import 'package:padong/core/node/schedule/event.dart';
->>>>>>> feat: Event in this Moth with timeline
-
-=======
->>>>>>> feat: sign In & Up feedback
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -23,6 +9,7 @@ import 'package:padong/core/node/schedule/event.dart';
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/schedule/event.dart';
 
 const WEEKDAYS = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -154,7 +141,8 @@ class TimeManager {
     return numStr;
   }
 
-  static List<List<String>> summaryTimes(List<TimeManager> times, bool showWeekday) {
+  static List<List<String>> summaryTimes(
+      List<TimeManager> times, bool showWeekday) {
     /// 1st, time range equality
     /// 2nd, date equality
     Map<String, List> ranges = {};
@@ -172,18 +160,17 @@ class TimeManager {
 
   //toDateTime convert various type of time to DateTime.
   //for supporting backward of firestore DateTime Data.
-  static DateTime toDateTime(dynamic date){
-    if (date is String){
+  static DateTime toDateTime(dynamic date) {
+    if (date is String)
       return DateTime.tryParse(date) ?? null;
-    } else if(date is int) {
+     else if (date is int)
       return DateTime.fromMillisecondsSinceEpoch(date * 1000);
-    } else if(date is FieldValue){
+     else if (date is FieldValue)
       return DateTime.now();
-    } else if (date is Timestamp){
+     else if (date is Timestamp)
       return date.toDate();
-    } else {
+     else
       return null;
-    }
   }
 
   static bool isSameYMDHM(DateTime one, DateTime another) {

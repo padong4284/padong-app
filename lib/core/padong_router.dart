@@ -26,6 +26,7 @@ import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/friends_view.dart';
 import 'package:padong/ui/view/profile/profile_view.dart';
+import 'package:padong/ui/view/schedule/rail_view.dart';
 import 'package:padong/ui/view/search/search_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
@@ -73,6 +74,10 @@ class PadongRouter {
       case '/write':
         return slideRouter(
             pageBuilder: (_, __, ___) => WriteView(args['node']));
+
+      case '/rail':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => RailView(args['node']), direction: 1);
 
       case '/chats':
         return slideRouter(

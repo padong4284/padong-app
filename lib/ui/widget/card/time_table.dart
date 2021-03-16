@@ -54,7 +54,7 @@ class _TimeTableState extends State<TimeTable> {
             for (TimeManager tm in lecture.times) {
               this.lectureAndTMs.add([lecture, tm]);
               this.startHour = min(this.startHour, tm.hour);
-              this.endHour = max(this.startHour, tm.hour + 1 + tm.dMin ~/ 60);
+              this.endHour = max(this.endHour, tm.hour + 1 + tm.dMin ~/ 60);
             }
         }));
   }

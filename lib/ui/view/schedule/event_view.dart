@@ -18,6 +18,7 @@ import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/floating_bottom_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/card/event_card.dart';
+import 'package:padong/ui/widget/component/no_data_message.dart';
 import 'package:padong/ui/widget/component/title_header.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/node/post_tile.dart';
@@ -57,7 +58,12 @@ class EventView extends StatelessWidget {
           PadongFutureBuilder(
               future: this.event.getChildren(Memo()),
               builder: (memos) => Column(
-                    children: memos.map((memo) => PostTile(memo, url: 'post')),
+                    children: [
+                      memos.isEmpty
+                          ? NoDataMessage('You can memo anything!', height: 100)
+                          : SizedBox.shrink(),
+                      ...memos.map((memo) => PostTile(memo, url: 'post'))
+                    ],
                   ))
         ]);
   }

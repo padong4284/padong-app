@@ -94,7 +94,7 @@ class Node {
 
   Future<Node> getChild(Node child) async {
     List<Node> _children = await this.getChildren(child);
-    return (_children == null || _children.length == 0) ? null : _children[0];
+    return _children.isEmpty ? null : _children[0];
   }
 
   Future<List<Node>> getChildren(Node child,

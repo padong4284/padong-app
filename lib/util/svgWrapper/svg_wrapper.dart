@@ -132,25 +132,25 @@ class SvgNetwork extends ImageProvider<SvgImageKey> {
   /// Width and height can also be specified from [Image] constrictor.
   /// Default size is 100x100 logical pixels.
   /// Different size can be specified in [Image] parameters
-  const SvgNetwork(this.url, {this.httpHooker, this.size, this.color}) : assert(url != null);
+  const SvgNetwork(this.url, {this.httpHooker, this.size, this.color})
+      : assert(url != null);
 
   @override
-  ImageStreamCompleter load(SvgImageKey key, nil,{PictureErrorListener onError}) {
+  ImageStreamCompleter load(SvgImageKey key, nil,
+      {PictureErrorListener onError}) {
     return OneFrameImageStreamCompleter(_loadAsync(key, onError: onError),
         informationCollector: () sync* {
-          yield DiagnosticsProperty<ImageProvider>('Picture provider', this);
-          yield DiagnosticsProperty<SvgImageKey>('Picture key', key);
-        });
+      yield DiagnosticsProperty<ImageProvider>('Picture provider', this);
+      yield DiagnosticsProperty<SvgImageKey>('Picture key', key);
+    });
   }
 
   //static Future<ImageInfo> _loadAsync(SvgImageKey key) async {
-  Future<ImageInfo> getImageInfo (Uint8List bytes, SvgImageKey key) async {
-    final DrawableRoot svgRoot = await flutter_svg.svg.fromSvgBytes(bytes, "networkPicture");
+  Future<ImageInfo> getImageInfo(Uint8List bytes, SvgImageKey key) async {
+    final DrawableRoot svgRoot =
+        await flutter_svg.svg.fromSvgBytes(bytes, "networkPicture");
     final ui.Picture picture = svgRoot.toPicture(
-      size: Size(
-          key.pixelWidth.toDouble(),
-          key.pixelHeight.toDouble()
-      ),
+      size: Size(key.pixelWidth.toDouble(), key.pixelHeight.toDouble()),
       clipToViewBox: false,
       colorFilter: ColorFilter.mode(key.color, BlendMode.srcATop),
     );
@@ -163,17 +163,18 @@ class SvgNetwork extends ImageProvider<SvgImageKey> {
       scale: key.scale,
     );
   }
-    Future<ImageInfo> _loadAsync(SvgImageKey key,
-        {PictureErrorListener onError}) async {
-      //assert(key == this);
-      final Uint8List bytes = this.httpHooker != null ? await this.httpHooker(url) : await httpGet(url);
-      if (onError != null) {
-        return await getImageInfo(bytes, key).catchError(onError);
-      }
-      return await getImageInfo(bytes, key);
+
+  Future<ImageInfo> _loadAsync(SvgImageKey key,
+      {PictureErrorListener onError}) async {
+    //assert(key == this);
+    final Uint8List bytes = this.httpHooker != null
+        ? await this.httpHooker(url)
+        : await httpGet(url);
+    if (onError != null) {
+      return await getImageInfo(bytes, key).catchError(onError);
     }
-
-
+    return await getImageInfo(bytes, key);
+  }
 
   /*{
     final String rawSvg = await rootBundle.loadString(key.assetName);

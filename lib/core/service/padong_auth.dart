@@ -90,4 +90,15 @@ class PadongAuth {
     }
     return sessionUser.email;
   }
+
+
+  static Future<bool> resetPassword(String email) async {
+    return await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => true)
+        .catchError((e) {
+      log(e.toString());
+      return false;
+    });
+  }
 }

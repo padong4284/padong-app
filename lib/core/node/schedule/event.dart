@@ -28,7 +28,7 @@ class Event extends Board {
         this.times = <TimeManager>[
           ...snapshot['times'].map((time) => TimeManager.fromString(time))
         ],
-        this.alerts = <String>[...snapshot['alerts']],
+        this.alerts = <String>[...(snapshot['alerts'] ?? [])],
         super.fromMap(id, {...snapshot, 'rule': MEMO_RULE});
 
   @override
@@ -43,5 +43,13 @@ class Event extends Board {
       'times': <String>[...this.times.map((tManager) => tManager.toString())],
       'alerts': this.alerts,
     };
+  }
+
+  void setDataWithMap(Map data) {
+    this.title = data['title'] ?? this.title;
+    this.description = data['description'] ?? this.description;
+    this.periodicity = data['periodicity'] ?? this.periodicity;
+    this.times = data['times'] ?? this.times;
+    this.alerts = data['alerts'] ?? this.alerts;
   }
 }

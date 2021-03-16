@@ -65,7 +65,17 @@ class Lecture extends Event {
 
   Future<Evaluation> getEvaluation() async {
     if (this._evaluation == null)
-      this._evaluation = await this.getChild(Evaluation());
+      this._evaluation = (await this.getChild(Evaluation())) ??
+          (await Evaluation.fromMap('', {
+            'pip': 'Internal',
+            'parentId': this.id,
+            'ownerId': this.id,
+            'title': this.title,
+            'description': this.description,
+            'rate': 0.0,
+            'anonymity': true,
+            'isNotice': false,
+          }).create());
     return this._evaluation;
   }
 
@@ -95,5 +105,17 @@ class Lecture extends Event {
     eval.rate = ((eval.rate * _reviews.length) + rate) / (_reviews.length + 1);
     eval.update();
     return _rev;
+  }
+
+  @override
+  void setDataWithMap(Map data) {
+    super.setDataWithMap(data);
+    this.periodicity = data['periodicity'] ?? this.periodicity;
+    this.professor = data['professor'] ?? this.professor;
+    this.room = data['room'] ?? this.room;
+    this.grade = data['grade'] ?? this.grade;
+    this.exam = data['exam'] ?? this.exam;
+    this.attendance = data['attendance'] ?? this.attendance;
+    this.book = data['book'] ?? this.book;
   }
 }

@@ -13,6 +13,7 @@ import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/schedule/lecture.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -114,7 +115,7 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void onTabOk() async {
-    if(this.invites.isEmpty) return PadongRouter.goBack();
+    if (this.invites.isEmpty) return PadongRouter.goBack();
     this.invites.add(Session.user);
     ChatRoom chatRoom = await ChatRoom.fromMap('', {
       'pip': PIPs[this.pipIdx],
@@ -131,17 +132,3 @@ class _ChatViewState extends State<ChatView> {
     PadongRouter.routeURL('chatroom?id=${chatRoom.id}', chatRoom);
   }
 }
-
-const CHAT_RULE = """PIP Access 
-
-- Public
-  Group Chat Room which anyone can search
-  and join.
-
-- Internal
-  Group Chat Room which only invitees 
-  participate
-
-- Private
-  1:1 Chat Room.
-""";

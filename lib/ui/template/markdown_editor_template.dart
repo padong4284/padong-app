@@ -10,6 +10,7 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -97,7 +98,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                       type: InputType.UNDERLINE),
                   Input(
                       controller: this._mdController,
-                      hintText: widget.contentHint ?? pipHint,
+                      hintText: widget.contentHint ?? PIP_HINT,
                       type: InputType.PLAIN)
                 ]),
           SizedBox(height: 20),
@@ -148,13 +149,3 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
   }
 }
 
-String pipHint = """PIP Access 
-- Public
-  Everyone can see and edit.
-
-- Internal
-  Everyone can see, but only students of this
-  university can edit.
-
-- Private
-  Students of this university can see & edit.""";

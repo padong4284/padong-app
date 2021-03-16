@@ -22,10 +22,10 @@ class BoardList extends StatefulWidget {
   final List<IconData> icons;
   final bool isAlerts;
   final bool isLecture;
-  final String emptyMsg;
+  final String emptyMessage;
 
   BoardList(this.boards,
-      {List<IconData> icons, isLecture = false, this.emptyMsg})
+      {List<IconData> icons, isLecture = false, this.emptyMessage})
       : this.icons = icons,
         this.isAlerts = isLecture || (icons == null),
         this.isLecture = isLecture;
@@ -81,7 +81,7 @@ class _BoardListState extends State<BoardList> {
                     child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 50),
                         child: NoDataMessage(
-                            widget.emptyMsg ?? 'Nothing to Show You')))
+                            widget.emptyMessage ?? 'Nothing to Show You')))
               ]);
   }
 

@@ -9,28 +9,28 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/schedule/lecture.dart';
-import 'package:padong/core/node/schedule/question.dart';
+import 'package:padong/core/node/schedule/event.dart';
+import 'package:padong/core/node/schedule/memo.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/template/markdown_editor_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/padong_bottom_bar.dart';
 
-class AskView extends StatelessWidget {
-  final Lecture lecture;
+class MemoView extends StatelessWidget {
+  final Event event;
 
-  AskView(this.lecture);
+  MemoView(this.event);
 
   @override
   Widget build(BuildContext context) {
     return MarkdownEditorTemplate(
-      editTxt: 'ask',
-      titleHint: 'Title of Question',
-      contentHint: QUESTION_HINT,
+      editTxt: 'memo',
+      titleHint: 'Title of Memo',
+      contentHint: MEMO_HINT,
       withAnonym: true,
       topArea: this.lectureInfo(),
-      onSubmit: this.createQuestion,
+      onSubmit: this.createMemo,
     );
   }
 
@@ -45,23 +45,23 @@ class AskView extends StatelessWidget {
               color: AppTheme.colors.primary,
               borderRadius: BorderRadius.circular(15)),
           child: Text(
-            this.lecture.title,
+            this.event.title,
             style: AppTheme.getFont(color: AppTheme.colors.base),
           )),
       Text(
-        this.lecture.professor,
+        periodicityToString(this.event.periodicity),
         style: AppTheme.getFont(isBold: true),
       )
     ]);
   }
 
-  void createQuestion(Map data) async {
+  void createMemo(Map data) async {
     // TODO: if user is owner of this board, ask isNotice
     // with dialog
-    await Question.fromMap('', {
+    await Memo.fromMap('', {
       ...data,
-      'parentId': this.lecture.id,
-      'pip': pipToString(this.lecture.pip),
+      'parentId': this.event.id,
+      'pip': pipToString(this.event.pip),
       'anonymity': TipInfo.isAnonym,
       'isNotice': false,
     }).create();

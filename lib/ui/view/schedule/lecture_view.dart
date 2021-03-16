@@ -24,11 +24,15 @@ import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/node/post_tile.dart';
 import 'package:padong/ui/widget/tile/notice_tile.dart';
 
-class LectureView extends StatelessWidget {
+class LectureView extends StatefulWidget {
   final Lecture lecture;
 
   LectureView(this.lecture);
 
+  _LectureViewState createState() => _LectureViewState();
+}
+
+class _LectureViewState extends State<LectureView> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
@@ -36,10 +40,13 @@ class LectureView extends StatelessWidget {
           PadongButton(isScrollingDown: isScrollingDown, bottomPadding: 40),
       floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
           title: 'Ask',
-          onTap: () => PadongRouter.routeURL(
-              'ask?id=${this.lecture.id}&type=lecture', this.lecture),
+          onTap: () {
+            PadongRouter.refresh = () => setState(() {});
+            PadongRouter.routeURL(
+                'ask?id=${widget.lecture.id}&type=lecture', widget.lecture);
+          },
           isScrollingDown: isScrollingDown),
-      appBar: BackAppBar(title: this.lecture.title, actions: [
+      appBar: BackAppBar(title: widget.lecture.title, actions: [
         IconButton(
             icon: Icon(Icons.mode_comment_outlined,
                 color: AppTheme.colors.support),
@@ -48,28 +55,30 @@ class LectureView extends StatelessWidget {
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
             onPressed: () {
               PadongRouter.routeURL(
-                  '/update?id=${this.lecture.id}&type=lecture', this.lecture);
+                  '/update?id=${widget.lecture.id}&type=lecture',
+                  widget.lecture);
             }) // TODO: more dialog
       ]),
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
-          child: Text(this.lecture.description, style: AppTheme.getFont()),
+          child: Text(widget.lecture.description, style: AppTheme.getFont()),
         ),
         Padding(
             padding: const EdgeInsets.only(bottom: 5.0),
-            child: LectureCard(this.lecture, isToReview: true)),
+            child: LectureCard(widget.lecture, isToReview: true)),
         Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
-            child: NoticeTile(this.lecture)),
+            child: NoticeTile(widget.lecture)),
         TitleHeader('Q&A'),
         PadongFutureBuilder(
-            future: this.lecture.getChildren(Question()),
+            future: widget.lecture.getChildren(Question(), upToDate: true),
             builder: (questions) => Column(children: [
                   questions.isEmpty
                       ? NoDataMessage('You can ask anything!', height: 100)
                       : SizedBox.shrink(),
-                  ...questions.map((question) => PostTile(question))
+                  ...questions
+                      .map((question) => PostTile(question, url: 'post'))
                 ]))
       ],
     );

@@ -70,8 +70,10 @@ class Lecture extends Event {
   }
 
   Future<List<Review>> getReviews() async {
-    return await (await this.getEvaluation())
-        .getChildren(Review(), upToDate: true);
+    return <Review>[
+      ...(await (await this.getEvaluation())
+          .getChildren(Review(), upToDate: true))
+    ];
   }
 
   Future<Review> reviewWithRate(User me, String review, double rate) async {
@@ -83,7 +85,7 @@ class Lecture extends Event {
         _reviews.remove(_review);
       }
 
-    await Review.fromMap('', {
+    Review _rev = await Review.fromMap('', {
       'pip': pipToString(PIP.INTERNAL),
       'parentId': eval.id,
       'ownerId': me.id,
@@ -92,5 +94,6 @@ class Lecture extends Event {
     }).create();
     eval.rate = ((eval.rate * _reviews.length) + rate) / (_reviews.length + 1);
     eval.update();
+    return _rev;
   }
 }

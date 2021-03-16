@@ -18,7 +18,7 @@ import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/floating_bottom_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
-import 'package:padong/ui/widget/tile/chat_room_tile.dart';
+import 'package:padong/ui/widget/tile/node/chat_room_tile.dart';
 
 class ChatsView extends StatefulWidget {
   final User me;

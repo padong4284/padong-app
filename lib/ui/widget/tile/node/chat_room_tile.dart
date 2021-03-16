@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/common/user.dart';
-import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/profile_button.dart';

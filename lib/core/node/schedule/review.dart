@@ -33,10 +33,4 @@ class Review extends Reply {
       'rate': this.rate,
     };
   }
-
-  @override
-  Future<bool> update() async {
-    // TODO: transaction to update Evaluation's rate
-    return await super.update();
-  }
 }

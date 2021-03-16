@@ -13,6 +13,7 @@ import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/view/cover/cover_view.dart';
 import 'package:padong/ui/view/deck/deck_view.dart';
+import 'package:padong/ui/view/map/map_view.dart';
 import 'package:padong/ui/view/schedule/schedule_view.dart';
 import 'package:padong/ui/widget/bar/padong_navigation_bar.dart';
 import 'package:padong/ui/view/home/home_view.dart';
@@ -22,6 +23,7 @@ final List<Widget> pages = [
   CoverView(Session.currUniversity.cover),
   DeckView(Session.currUniversity.deck),
   ScheduleView(Session.currUniversity.schedule),
+  MapView(Session.currUniversity.mappa),
 ];
 
 class MainView extends StatefulWidget {

@@ -22,6 +22,8 @@ class Validator {
   static RegExp alphabetChar = new RegExp(r"[a-zA-Z]");
   static RegExp numberChar = new RegExp(r"[0-9]");
 
+  static RegExp checkWikiSvg = RegExp(r"https:\/\/\w\w\.wikipedia.+\.svg");
+
   static bool isValid(RegExp regexp, String data) {
     RegExpMatch matchResult = regexp.firstMatch(data);
     if (matchResult == null) return false;
@@ -38,4 +40,6 @@ class Validator {
           1, "Use combination of letters, numbers, and symbols");
     return true;
   }
+
+  static isWikiSvg(String data) => isValid(checkWikiSvg, data);
 }

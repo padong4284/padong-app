@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 import 'dart:ui' as ui show Image, Picture;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -213,6 +214,12 @@ class SvgNetwork extends ImageProvider<SvgImageKey> {
         url == other.url &&
         this.color == other.color &&
         this.size == other.size;
+  }
+
+  Future<Uint8List> convertWikiToSvg(String url) async {
+    var res = await http.read(Uri.parse(url));
+    url = "https:" + res.split("fullMedia\"><p><a href=\"")[1].split("\"")[0];
+    return await http.readBytes(Uri.parse(url));
   }
 }
 

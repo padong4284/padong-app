@@ -34,13 +34,17 @@ class Node {
     this.parentId = snapshot['parentId'];
     this.ownerId = snapshot['ownerId'];
     snapshot['createdAt'] = // auto initialize
-        snapshot['createdAt']!=null ? TimeManager.toDateTime(snapshot['createdAt']): DateTime.now();
+        snapshot['createdAt'] != null
+            ? TimeManager.toDateTime(snapshot['createdAt'])
+            : DateTime.now();
     this.createdAt = snapshot['createdAt'];
     this.modifiedAt = // not modified yet
-        snapshot['modifiedAt']!= null ?  TimeManager.toDateTime(snapshot['createdAt']) : snapshot['createdAt'];
+        snapshot['modifiedAt'] != null
+            ? TimeManager.toDateTime(snapshot['createdAt'])
+            : snapshot['createdAt'];
     this.deletedAt = snapshot['deletedAt'] == null
         ? null // It may not deleted
-        :  TimeManager.toDateTime(snapshot['deletedAt']);
+        : TimeManager.toDateTime(snapshot['deletedAt']);
     if (!this.isValidate())
       throw Exception(
           'Invalid data try to construct ${this.type}\n${this.toJson()}');
@@ -99,8 +103,6 @@ class Node {
 
   Future<Node> create() async {
     // create document at Fire Base
-    //this.createdAt = DateTime.now();
-
     if (this.isValidate()) {
       DocumentReference ref =
           await PadongFB.createDoc(this.type, this.toJson());

@@ -27,19 +27,34 @@ class Node {
 
   Node();
 
+
+  //toDateTime convert various type of time to DateTime.
+  //for supporting backward of firestore DateTime Data.
+  DateTime toDateTime(dynamic date){
+    if (date is String){
+      return DateTime.tryParse(date) ?? FieldValue.serverTimestamp();
+    } else if(date is int) {
+      return DateTime.fromMillisecondsSinceEpoch(date * 1000);
+    } else if(date == FieldValue){
+      return DateTime.now();
+    } else if (date is Timestamp){
+      return date.toDate();
+    }
+  }
+
   Node.fromMap(String id, Map snapshot) {
     this.id = id;
     this.pip = parsePIP(snapshot['pip']);
     this.parentId = snapshot['parentId'];
     this.ownerId = snapshot['ownerId'];
     snapshot['createdAt'] = // auto initialize
-        snapshot['createdAt']!=null ? (snapshot['createdAt'] as Timestamp).toDate() : DateTime.now();
+        snapshot['createdAt']!=null ? toDateTime(snapshot['createdAt']): DateTime.now();
     this.createdAt = snapshot['createdAt'];
     this.modifiedAt = // not modified yet
-        snapshot['modifiedAt']!= null ? (snapshot['createdAt'] as Timestamp).toDate() : snapshot['createdAt'];
+        snapshot['modifiedAt']!= null ? toDateTime(snapshot['createdAt']) : snapshot['createdAt'];
     this.deletedAt = snapshot['deletedAt'] == null
         ? null // It may not deleted
-        : (snapshot['deletedAt'] as Timestamp).toDate();
+        : toDateTime(snapshot['deletedAt']);
     if (!this.isValidate())
       throw Exception(
           'Invalid data try to construct ${this.type}\n${this.toJson()}');
@@ -54,11 +69,11 @@ class Node {
       "type": this.type,
       "parentId": this.parentId,
       "ownerId": this.ownerId,
-      "createdAt": this.createdAt.toIso8601String(),
-      "modifiedAt": (this.modifiedAt ?? this.createdAt).toIso8601String(),
+      "createdAt": Timestamp.fromDate(this.createdAt),
+      "modifiedAt": Timestamp.fromDate((this.modifiedAt ?? this.createdAt)),
       "deletedAt": this.deletedAt == null
           ? null // It may not deleted
-          : this.deletedAt.toIso8601String(),
+          : Timestamp.fromDate(this.deletedAt),
     };
   }
 
@@ -129,6 +144,7 @@ class Node {
 
     var data = this.toJson();
     await PadongFB.getDoc("node", id).catchError((e) {
+      //id not exists. so id will created.
       _refreshCreatedAt(data);
     });
     _refreshModifiedAt(data);

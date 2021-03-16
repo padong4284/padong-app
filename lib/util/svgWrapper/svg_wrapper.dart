@@ -216,7 +216,7 @@ class SvgNetwork extends ImageProvider<SvgImageKey> {
         this.size == other.size;
   }
 
-  Future<Uint8List> convertWikiToSvg(String url) async {
+  static Future<Uint8List> convertWikiToSvg(String url) async {
     var res = await http.read(Uri.parse(url));
     url = "https:" + res.split("fullMedia\"><p><a href=\"")[1].split("\"")[0];
     return await http.readBytes(Uri.parse(url));

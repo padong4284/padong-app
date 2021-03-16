@@ -71,7 +71,7 @@ class CoverView extends StatelessWidget {
     String emblemImgURL = Session.currUniversity.emblemImgURL;
     if (emblemImgURL != null) {
       if (Validator.isWikiSvg(emblemImgURL))
-        emblem = SvgNetwork(emblemImgURL, httpHooker: this.convertWikiToSvg);
+        emblem = SvgNetwork(emblemImgURL, httpHooker: SvgNetwork.convertWikiToSvg);
       else if (emblemImgURL.endsWith(".svg"))
         emblem = SvgNetwork(emblemImgURL);
       else

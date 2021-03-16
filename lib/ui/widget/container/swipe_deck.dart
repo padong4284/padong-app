@@ -79,7 +79,7 @@ class _SwipeDeckState extends State<SwipeDeck> {
   }
 
   List<Widget> _getCards() {
-    List<Widget> cardList = new List();
+    List<Widget> cardList = [];
     for (int idx = 0; idx < widget.numCards; idx++) {
       cardList.add(
         Draggable(

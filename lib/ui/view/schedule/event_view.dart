@@ -23,11 +23,15 @@ import 'package:padong/ui/widget/component/title_header.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/node/post_tile.dart';
 
-class EventView extends StatelessWidget {
+class EventView extends StatefulWidget {
   final Event event;
 
   EventView(this.event);
 
+  _EventViewState createState() => _EventViewState();
+}
+
+class _EventViewState extends State<EventView> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
@@ -35,28 +39,31 @@ class EventView extends StatelessWidget {
             PadongButton(isScrollingDown: isScrollingDown, bottomPadding: 40),
         floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
             title: 'Memo',
-            onTap: () => PadongRouter.routeURL(
-                'memo?id=${this.event.id}&type=event', this.event),
+            onTap: () {
+              PadongRouter.refresh = () => setState(() {});
+              PadongRouter.routeURL(
+                  'memo?id=${widget.event.id}&type=event', widget.event);
+            },
             isScrollingDown: isScrollingDown),
-        appBar: BackAppBar(title: this.event.title, actions: [
+        appBar: BackAppBar(title: widget.event.title, actions: [
           IconButton(
               icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
               onPressed: () {
                 PadongRouter.routeURL(
-                    '/update?id=${this.event.id}&type=event', this.event);
+                    '/update?id=${widget.event.id}&type=event', widget.event);
               }) // TODO: more dialog
         ]),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
-            child: Text(this.event.description, style: AppTheme.getFont()),
+            child: Text(widget.event.description, style: AppTheme.getFont()),
           ),
           Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
-              child: EventCard(this.event)),
+              child: EventCard(widget.event)),
           TitleHeader('Memos'),
           PadongFutureBuilder(
-              future: this.event.getChildren(Memo()),
+              future: widget.event.getChildren(Memo()),
               builder: (memos) => Column(
                     children: [
                       memos.isEmpty

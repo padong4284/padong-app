@@ -27,6 +27,7 @@ import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/friends_view.dart';
 import 'package:padong/ui/view/profile/profile_view.dart';
 import 'package:padong/ui/view/schedule/ask_view.dart';
+import 'package:padong/ui/view/schedule/memo_view.dart';
 import 'package:padong/ui/view/schedule/review_view.dart';
 import 'package:padong/ui/view/schedule/event_view.dart';
 import 'package:padong/ui/view/schedule/lecture_view.dart';
@@ -88,13 +89,16 @@ class PadongRouter {
             direction: 1);
       case '/review':
         return slideRouter(
-            pageBuilder: (_, __, ___) => ReviewView(args['node']), direction: 1);
+            pageBuilder: (_, __, ___) => ReviewView(args['node']),
+            direction: 1);
       case '/rail':
         return slideRouter(
             pageBuilder: (_, __, ___) => RailView(args['node']), direction: 1);
 
       case '/ask':
         return slideRouter(pageBuilder: (_, __, ___) => AskView(args['node']));
+      case '/memo':
+        return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['node']));
 
       case '/chats':
         return slideRouter(

@@ -80,7 +80,10 @@ class ScheduleView extends StatelessWidget {
               if (tm.isToday())
                 timeline[tm.time] =
                     (timeline[tm.time] ?? []) + [TimelineCard(event)];
-          return Timeline(date: TimeManager.todayString(), timeline: timeline);
+          return Timeline(
+              emptyMessage: 'Have a Nice Day :)',
+              date: TimeManager.todayString(),
+              timeline: timeline);
         });
   }
 }

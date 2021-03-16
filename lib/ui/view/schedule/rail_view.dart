@@ -31,22 +31,25 @@ class RailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PadongFutureBuilder(
         future: this.schedule.getMyEvents(Session.user),
-        builder: (events) => SafePaddingTemplate(
-                appBar: BackAppBar(title: 'Events', isClose: true),
-                floatingActionButtonGenerator: (isScrollingDown) =>
-                    PadongButton(
-                        isScrollingDown: isScrollingDown, bottomPadding: 40),
-                children: [
-                  Timeline(
-                      hideTopDate: true, timeline: this.cutDayByDay(events))
-                ]));
+        builder: (events) {
+          return SafePaddingTemplate(
+              appBar: BackAppBar(title: 'Events', isClose: true),
+              floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
+                  isScrollingDown: isScrollingDown, bottomPadding: 40),
+              children: [
+                Timeline(hideTopDate: true, timeline: this.cutDayByDay(events))
+              ]);
+        });
   }
 
   Map<String, List<Widget>> cutDayByDay(List<Event> events) {
+    Map<String, List<Widget>> temp = {};
     Map<String, List<Widget>> timeline = {};
     for (Event event in events)
       for (TimeManager tm in event.times)
-        timeline[tm.date] = (timeline[tm.date] ?? []) + [TimelineCard(event)];
+        temp[tm.date] = (temp[tm.date] ?? []) + [TimelineCard(event)];
+
+    for (String date in temp.keys.toList()..sort()) timeline[date] = temp[date];
     return timeline;
   }
 }

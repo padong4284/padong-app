@@ -32,6 +32,7 @@ import 'package:padong/ui/view/schedule/review_view.dart';
 import 'package:padong/ui/view/schedule/event_view.dart';
 import 'package:padong/ui/view/schedule/lecture_view.dart';
 import 'package:padong/ui/view/schedule/rail_view.dart';
+import 'package:padong/ui/view/schedule/update_view.dart';
 import 'package:padong/ui/view/search/search_view.dart';
 import 'package:padong/ui/view/sign/forgot_view.dart';
 import 'package:padong/ui/view/sign/sign_in_view.dart';
@@ -94,7 +95,9 @@ class PadongRouter {
       case '/rail':
         return slideRouter(
             pageBuilder: (_, __, ___) => RailView(args['node']), direction: 1);
-
+      case '/update':
+        return slideRouter(
+            pageBuilder: (_, __, ___) => UpdateView(args['node']));
       case '/ask':
         return slideRouter(pageBuilder: (_, __, ___) => AskView(args['node']));
       case '/memo':

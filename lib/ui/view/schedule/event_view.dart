@@ -49,6 +49,7 @@ class _EventViewState extends State<EventView> {
           IconButton(
               icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
               onPressed: () {
+                PadongRouter.refresh = null;
                 PadongRouter.routeURL(
                     '/update?id=${widget.event.id}&type=event', widget.event);
               }) // TODO: more dialog

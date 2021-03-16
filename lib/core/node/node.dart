@@ -75,6 +75,7 @@ class Node {
       'subscribes',
       'lastMessage',
       'lastItemId',
+      'periodicity',
     ];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {

@@ -33,10 +33,8 @@ class ScheduleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
-            onPressAdd: () {
-              PadongRouter.routeURL(
-                  'update?id=${this.schedule.id}&type=schedule', this.schedule);
-            },
+            onPressAdd: () => PadongRouter.routeURL(
+                'update?id=${this.schedule.id}&type=schedule', this.schedule),
             isScrollingDown: isScrollingDown),
         title: 'Schedule',
         children: [
@@ -68,7 +66,7 @@ class ScheduleView extends StatelessWidget {
               icon: Icon(Icons.format_list_bulleted_rounded,
                   color: AppTheme.colors.support, size: 25),
               onPressed: () => PadongRouter.routeURL(
-                  '/rail?id=${Session.user}&type=user', Session.user)))
+                  '/rail?id=${this.schedule.id}&type=schedule', this.schedule)))
     ]);
   }
 

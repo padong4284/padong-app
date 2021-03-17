@@ -93,4 +93,13 @@ class PadongAuth {
   static Future<void> changePassword(String pw) async =>
       await _auth.currentUser.updatePassword(pw);
 
+  static Future<bool> resetPassword(String email) async {
+    return await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => true)
+        .catchError((e) {
+      log(e.toString());
+      return false;
+    });
+  }
 }

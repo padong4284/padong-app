@@ -21,7 +21,7 @@ class ReviewTile extends NodeTile {
 
   @override
   Widget followText() {
-    return Column(children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       StarRateButton(rate: this.review.rate, size: 25, disable: true),
       Text(this.node.description,
           style: AppTheme.getFont(color: AppTheme.colors.support))

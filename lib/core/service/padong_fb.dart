@@ -31,9 +31,8 @@ class PadongFB {
 
   static Future<bool> setDoc(String type, String id, Map data) async {
     data.remove('id');
-    if (await PadongFB.getDoc("node", id) == null) {
+    if (await PadongFB.getDoc("node", id) == null)
       data['createdAt'] = FieldValue.serverTimestamp();
-    }
 
     return await _db
         .collection(type)
@@ -70,18 +69,27 @@ class PadongFB {
         .catchError((e) => false);
   }
 
-  static Future<bool> deleteDoc(String type, String id) async {
+  static Future<bool> deleteDoc(String type, String id, Map data) async {
     return await _db
         .collection(type)
         .doc(id)
-        .update({'deletedAt': FieldValue.serverTimestamp()})
+        .update({...data, 'deletedAt': FieldValue.serverTimestamp()})
+        .then((_) => true)
+        .catchError((e) => false);
+  }
+
+  static Future<bool> removeDoc(String type, String id) async {
+    return await _db
+        .collection(type)
+        .doc(id)
+        .delete()
         .then((_) => true)
         .catchError((e) => false);
   }
 
   static Future<List<DocumentSnapshot>> getDocsByRule(String type,
       {Query Function(Query) rule, int limit, String startId}) async {
-    Query query = _db.collection(type).where('deletedAt', isEqualTo: null);
+    Query query = _db.collection(type).where('deletedAt', isNull: true);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
     if (startId != null) {
@@ -95,7 +103,7 @@ class PadongFB {
 
   static Stream<QuerySnapshot> getQueryStreamByRule(String type,
       {Query Function(Query) rule, int limit = 30}) {
-    Query query = _db.collection(type).where('deletedAt', isEqualTo: null);
+    Query query = _db.collection(type).where('deletedAt', isNull: true);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
     return query.snapshots();

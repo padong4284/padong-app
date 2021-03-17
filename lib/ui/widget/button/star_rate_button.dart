@@ -37,6 +37,7 @@ class _StarRateButtonState extends State<StarRateButton> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.disable) setState(() => this.curr = (widget.rate * 2) ~/ 1);
     return Container(
         child: Row(
             children: List.generate(

@@ -11,19 +11,23 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widget/button/simple_button.dart';
 
 class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
   final String title;
+  final bool withClose;
 
-  TopAppBar(this.title) : preferredSize = Size.fromHeight(kToolbarHeight);
+  TopAppBar(this.title, {this.withClose = false})
+      : preferredSize = Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      // when dark mode, using dark
+        // when dark mode, using dark
         brightness: Brightness.light,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -31,14 +35,21 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {
               // TODO: routing to Padong Main and change current univ
             },
-            child: Container(
-                padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
-                alignment: Alignment.center,
-                child: Text(this.title,
-                    style: AppTheme.getFont(
-                        fontSize: AppTheme.fontSizes.large,
-                        color: AppTheme.colors.semiPrimary)))),
-        leadingWidth: 110.0,
+            child: this.withClose
+                ? Padding(
+                    padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
+                    child: SimpleButton('', buttonSize: ButtonSize.LARGE,
+                        onTap: () {
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.close, size: 25)))
+                : Container(
+                    padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
+                    alignment: Alignment.center,
+                    child: Text(this.title,
+                        style: AppTheme.getFont(
+                            fontSize: AppTheme.fontSizes.large,
+                            color: AppTheme.colors.semiPrimary)))),
+        leadingWidth: this.withClose ? null : 110.0,
         actions: [
           SizedBox(
               width: 32.0,

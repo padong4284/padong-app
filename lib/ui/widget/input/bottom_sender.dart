@@ -15,11 +15,12 @@ import 'package:padong/ui/widget/bar/padong_bottom_bar.dart';
 import 'package:padong/ui/widget/dialog/image_uploader.dart';
 import 'package:padong/ui/widget/input/input.dart';
 
-const Map<BottomSenderType, String> hints = {
+const Map<BottomSenderType, String> _hints = {
   BottomSenderType.ARGUE: "Argue",
   BottomSenderType.REPLY: "Reply",
   BottomSenderType.REVIEW: "Review",
-  BottomSenderType.CHAT: "Message"
+  BottomSenderType.CHAT: "Message",
+  BottomSenderType.SEARCH: "Search",
 };
 
 class BottomSender extends StatelessWidget {
@@ -28,6 +29,7 @@ class BottomSender extends StatelessWidget {
   final BottomSenderType type;
   final Function onSubmit;
   final Function(String img) chatImage;
+  final Function(String curr) onChange;
   final TextEditingController msgController;
   final bool afterHide;
   final FocusNode focus;
@@ -37,11 +39,16 @@ class BottomSender extends StatelessWidget {
       this.msgController,
       this.focus,
       this.chatImage,
+      this.onChange,
       this.afterHide = false})
       : assert((senderType != BottomSenderType.CHAT) || (chatImage != null)),
-        this.hintText = hints[senderType],
+        this.hintText = _hints[senderType],
         this.icon = Icon(
-            BottomSenderType.ARGUE == senderType ? Icons.add : Icons.send,
+            senderType == BottomSenderType.ARGUE
+                ? Icons.add
+                : senderType == BottomSenderType.SEARCH
+                    ? Icons.search_rounded
+                    : Icons.send,
             color: AppTheme.colors.primary,
             size: 24),
         this.type = senderType;
@@ -59,12 +66,13 @@ class BottomSender extends StatelessWidget {
                       : 0),
               child: Input(
                 hintText: this.hintText,
-                isMultiline: true,
+                isMultiline: this.type != BottomSenderType.SEARCH,
                 icon: this.icon,
                 toNext: this.afterHide,
                 controller: this.msgController,
                 onPressIcon: this.onSubmit,
                 focus: this.focus,
+                onChanged: this.onChange,
               ))),
       this.type == BottomSenderType.CHAT
           ? Container(

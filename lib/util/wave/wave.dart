@@ -10,16 +10,16 @@
 ///*********************************************************************
 import "dart:math";
 
-var rand = new Random();
+Random rand = new Random();
 
-class Point {
+class WavePoint {
   double cur;
   double y;
   double yNorm;
   double amplitude;
   double speed = 0.05 + rand.nextInt(10) / 500;
 
-  Point(amp, this.cur, this.yNorm) {
+  WavePoint(amp, this.cur, this.yNorm) {
     this.amplitude = rand.nextDouble() * 15 + amp;
     this.y = this.yNorm + this.amplitude * sin(this.cur);
   }
@@ -40,27 +40,20 @@ class Wave {
   double lean;
   double yNorm;
   int pointNum;
-  List<Point> points = [];
+  List<WavePoint> points = [];
 
-  Wave(this.amplitude, this.lean, this.yNorm, this.pointNum) {
-    for (int i = 0; i < this.pointNum; i++) {
-      this.points.add(new Point(
-          (i == 0 || i == this.pointNum - 1) ? 0 : this.amplitude,
-          i.toDouble(),
-          yNorm + lean * i));
-    }
+  Wave(this.amplitude, this.lean, this.yNorm, this.pointNum)
+      : this.points = List.generate(
+            pointNum,
+            (i) => WavePoint((i % (pointNum - 1) == 0) ? 0 : amplitude,
+                i.toDouble(), yNorm + lean * i));
+
+  void updating() {
+    for (int i = 1; i < this.pointNum - 1; i++) this.points[i].updating();
   }
 
-  updating() {
-    for (int i = 1; i < this.pointNum - 1; i++) {
-      this.points[i].updating();
-    }
-  }
-
-  moveYNorm(double dy) {
+  void moveYNorm(double dy) {
     this.yNorm += dy;
-    for (int i = 0; i < this.pointNum; i++) {
-      this.points[i].moveYNorm(dy);
-    }
+    for (WavePoint point in this.points) point.moveYNorm(dy);
   }
 }

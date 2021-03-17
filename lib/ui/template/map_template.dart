@@ -189,8 +189,9 @@ class _MapTemplateState extends State<MapTemplate> {
                 padding: const EdgeInsets.only(right: 10, bottom: 15),
                 child: InkWell(
                     onTap: () => PadongRouter.routeURL(
-                        // TODO: generate Building Node without Create
-                        '/pin?id=${widget.mappa.id}&type=mappa',
+                        '/pin?id=${widget.mappa.id}&type=mappa&lat=${
+                            widget.pinLocation.loc.latitude}&lng=${
+                            widget.pinLocation.loc.longitude}',
                         widget.mappa),
                     child: Container(
                       width: 25,

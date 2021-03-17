@@ -1,4 +1,3 @@
-import 'package:padong/core/node/common/user.dart';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.

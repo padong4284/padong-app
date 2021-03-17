@@ -1,5 +1,3 @@
-import 'package:padong/core/node/common/user.dart';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -11,6 +9,7 @@ import 'package:padong/core/node/common/user.dart';
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/deck/post.dart';
+import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/schedule/review.dart';
 import 'package:padong/core/shared/types.dart';
 

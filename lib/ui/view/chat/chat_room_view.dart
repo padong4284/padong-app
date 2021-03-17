@@ -71,7 +71,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                 return Center(child: CircularProgressIndicator());
               } else {
                 List<Message> messages = <Message>[
-                  ...snapshot.data.docs.reversed
+                  ...snapshot.data.docs
                       .map((doc) => Message.fromMap(doc.id, doc.data()))
                 ];
                 int len = messages.length;

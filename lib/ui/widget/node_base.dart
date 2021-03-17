@@ -83,9 +83,9 @@ class NodeBase extends StatelessWidget {
     String time = diff.inDays > 0
         ? '${created.month}/${created.day}/${created.year}'
         : (diff.inHours > 0
-            ? diff.inHours.toString() + ' hour${diff.inHours > 1 ? 's' : ''}'
+            ? diff.inHours.toString() + ' hour${diff.inHours > 1 ? 's' : ''} ago'
             : diff.inMinutes.toString() +
-                ' minute${diff.inMinutes > 1 ? 's' : ''}');
+                ' minute${diff.inMinutes > 1 ? 's' : ''} ago');
     return Text(time,
         style: AppTheme.getFont(
             color: AppTheme.colors.semiSupport,

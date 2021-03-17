@@ -22,6 +22,7 @@ import 'package:padong/ui/view/deck/make_view.dart';
 import 'package:padong/ui/view/deck/post_view.dart';
 import 'package:padong/ui/view/deck/write_view.dart';
 import 'package:padong/ui/view/main_view.dart';
+import 'package:padong/ui/view/map/building_view.dart';
 import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/friends_view.dart';
@@ -102,6 +103,10 @@ class PadongRouter {
         return slideRouter(pageBuilder: (_, __, ___) => AskView(args['node']));
       case '/memo':
         return slideRouter(pageBuilder: (_, __, ___) => MemoView(args['node']));
+
+      case '/building':
+        return fadeRouter(
+            pageBuilder: (_, __, ___) => BuildingView(args['node']));
 
       case '/chats':
         return slideRouter(

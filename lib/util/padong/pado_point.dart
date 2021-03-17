@@ -47,7 +47,7 @@ class PadoPoint {
   void _startPulse() async {
     this.isPulsing = true;
     while (this.amplitude < this.maxAmp) {
-      this.amplitude += 1 + rand.nextDouble() / 10;
+      this.amplitude += 0.5 + rand.nextDouble() / 10 +  this.speed;
       await Future.delayed(Duration(milliseconds: 8));
     }
     this._endPulse();
@@ -55,8 +55,8 @@ class PadoPoint {
 
   void _endPulse() async {
     while (this.minAmp < this.amplitude) {
-      this.amplitude -= 0.8 + rand.nextDouble() / 5;
-      await Future.delayed(Duration(milliseconds: 12));
+      this.amplitude -= 0.5 + rand.nextDouble() / 10 + this.speed;
+      await Future.delayed(Duration(milliseconds: 10));
     }
     this.amplitude = this.minAmp;
     this.isPulsing = false;

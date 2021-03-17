@@ -50,14 +50,15 @@ class _SearchViewState extends State<SearchView>
             });
           before = curr;
         }),
-        children: [
-          SizedBox(height: 230),
+        children: [],
+        stackChildren: [
+          Align(alignment: Alignment.bottomCenter, child:
           Container(
-              height: 300,
+              height: 210,
               child: CustomPaint(
                 painter: PadongPainter(this.padong),
                 child: Container(),
-              ))
+              )))
         ]);
   }
 

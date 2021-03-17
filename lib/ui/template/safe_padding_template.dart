@@ -21,6 +21,7 @@ class SafePaddingTemplate extends StatefulWidget {
   final Widget Function(bool)
       floatingBottomBarGenerator; // (isScrollingDown) => Widget
   final List<Widget> children;
+  final List<Widget> stackChildren;
   final bool isBottomBar;
   final Widget background;
   final bool isReversed;
@@ -32,6 +33,7 @@ class SafePaddingTemplate extends StatefulWidget {
       floatingBottomBar,
       floatingBottomBarGenerator,
       @required this.children,
+        this.stackChildren,
       this.background,
       this.isReversed = false,
       this.scrollController,
@@ -111,6 +113,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                                   ? SizedBox(height: 30)
                                   : SizedBox.shrink()
                             ])),
+                    ...(widget.stackChildren ?? []),
                     AnimatedContainer(
                         transform: Matrix4.translationValues(
                             0.0, this.isRendered ? 0.0 : 200, 0.0),

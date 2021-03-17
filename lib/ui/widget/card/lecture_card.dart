@@ -25,7 +25,7 @@ class LectureCard extends EventCard {
   @override
   Widget build(BuildContext context) {
     return PadongFutureBuilder(
-        future: (this.event as Lecture).getEvaluation(),
+        future: (this.event as Lecture).evaluation,
         builder: (evaluation) => BaseCard(
                 moreText: this.isToReview ? 'Reviews' : null,
                 onTapMore: this.isToReview

@@ -23,6 +23,7 @@ import 'package:padong/ui/view/deck/post_view.dart';
 import 'package:padong/ui/view/deck/write_view.dart';
 import 'package:padong/ui/view/main_view.dart';
 import 'package:padong/ui/view/map/building_view.dart';
+import 'package:padong/ui/view/map/service_view.dart';
 import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/view/profile/configure_view.dart';
 import 'package:padong/ui/view/profile/friends_view.dart';
@@ -107,6 +108,8 @@ class PadongRouter {
       case '/building':
         return fadeRouter(
             pageBuilder: (_, __, ___) => BuildingView(args['node']));
+      case '/service':
+        return sizeRouter(pageBuilder: (_, __, ___) => ServiceView(args['node']));
 
       case '/chats':
         return slideRouter(

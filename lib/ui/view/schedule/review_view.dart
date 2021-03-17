@@ -46,7 +46,7 @@ class _ReviewViewState extends State<ReviewView> {
           PadongFutureBuilder(
               future: widget.lecture.getReviews(),
               builder: (reviews) => Column(
-                    children: [...reviews.map((review) => ReviewTile(review))],
+                    children: [...reviews.reversed.map((review) => ReviewTile(review))],
                   )),
           SizedBox(height: 65)
         ]);
@@ -54,7 +54,7 @@ class _ReviewViewState extends State<ReviewView> {
 
   void sendReply() async {
     if (widget._replyController.text.length > 0)
-      await widget.lecture.reviewWithRate(
+      await (await widget.lecture.evaluation).reviewWithRate(
           Session.user, widget._replyController.text, TipInfo.starRate);
     setState(() {
       widget._replyController.text = '';

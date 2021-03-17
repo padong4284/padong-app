@@ -93,7 +93,7 @@ class NodeBase extends StatelessWidget {
   }
 
   Widget followText() {
-    return Text(this.node.title,
+    return Text(this.node.title, textAlign: TextAlign.left,
         style: AppTheme.getFont(color: AppTheme.colors.support, isBold: true));
   }
 

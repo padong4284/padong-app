@@ -8,7 +8,6 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/schedule/review.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/shared/constants.dart';
@@ -62,7 +61,7 @@ class Lecture extends Event {
     };
   }
 
-  Future<Evaluation> getEvaluation() async {
+  Future<Evaluation> get evaluation async {
     if (this._evaluation == null)
       this._evaluation = (await this.getChild(Evaluation())) ??
           (await Evaluation.fromMap('', {
@@ -80,30 +79,9 @@ class Lecture extends Event {
 
   Future<List<Review>> getReviews() async {
     return <Review>[
-      ...(await (await this.getEvaluation())
+      ...(await (await this.evaluation)
           .getChildren(Review(), upToDate: true))
     ];
-  }
-
-  Future<Review> reviewWithRate(User me, String review, double rate) async {
-    Evaluation eval = await this.getEvaluation();
-    List<Review> _reviews = await this.getReviews();
-    for (Review _review in _reviews)
-      if (_review.ownerId == me.id) {
-        _review.delete();
-        _reviews.remove(_review);
-      }
-
-    Review _rev = await Review.fromMap('', {
-      'pip': pipToString(PIP.INTERNAL),
-      'parentId': eval.id,
-      'ownerId': me.id,
-      'rate': rate,
-      'description': review,
-    }).create();
-    eval.rate = ((eval.rate * _reviews.length) + rate) / (_reviews.length + 1);
-    eval.update();
-    return _rev;
   }
 
   @override

@@ -218,13 +218,13 @@ class _MapViewState extends State<MapView> {
     controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: dest, zoom: 17.0)));
   }
-/* Navigator
+
   void navigateTo(LatLng dest) async {
     double totalDistance = 0.0;
     PolylineResult result = await this
         .polylinePoints
         .getRouteBetweenCoordinates(
-            Session.GOOGLE_API_KEY,
+            "YOUR_GOOGLE_API_KEY_HERE",
             PointLatLng(this.myLocation.latitude, this.myLocation.longitude),
             PointLatLng(dest.latitude, dest.longitude));
 
@@ -256,5 +256,4 @@ class _MapViewState extends State<MapView> {
             2;
     return 12742 * asin(sqrt(a));
   }
-*/
 }

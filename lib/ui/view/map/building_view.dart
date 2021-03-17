@@ -25,7 +25,6 @@ import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/padong_markdown.dart';
 
 class BuildingView extends StatefulWidget {
-  // TODO: PIP / Written, Replied, Liked, Bookmarked
   final Building building;
 
   BuildingView(this.building);
@@ -44,7 +43,7 @@ class _BuildingViewState extends State<BuildingView> {
           onTap: () {
             PadongRouter.refresh = () => setState(() {});
             PadongRouter.routeURL(
-                '/serve?id=${widget.building.id}&type=buidling',
+                '/serve?id=${widget.building.id}&type=building',
                 widget.building);
           },
           isScrollingDown: isScrollingDown),

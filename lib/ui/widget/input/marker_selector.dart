@@ -30,10 +30,9 @@ class _MarkerSelectorState extends State<MarkerSelector> {
   @override
   void initState() {
     super.initState();
-    if (widget.fixedBitMask != null) {
-      this.isMarkeds = List.generate(
-          5, (idx) => widget.fixedBitMask & [1, 2, 4, 8, 16][idx] > 0);
-    } else {
+    if (widget.fixedBitMask != null)
+      this.setMarkers();
+    else {
       this.isMarkeds = List.generate(5, (_) => false);
       if (widget.isOnlyOne) this.isMarkeds[0] = true;
     }
@@ -41,14 +40,14 @@ class _MarkerSelectorState extends State<MarkerSelector> {
 
   @override
   Widget build(BuildContext context) {
-    double height = 40.0;
+    if (widget.fixedBitMask != null) this.setMarkers();
     return Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(height / 2)),
+            borderRadius: BorderRadius.circular(40.0 / 2)),
         elevation: 3.0,
         child: Container(
           width: 195,
-          height: height,
+          height: 40.0,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +61,8 @@ class _MarkerSelectorState extends State<MarkerSelector> {
                         disabled: widget.fixedBitMask != null,
                         defaultColor: AppTheme.colors.semiSupport,
                         toggleColor: AppTheme.colors.primary,
-                        initEveryTime: widget.isOnlyOne,
+                        initEveryTime:
+                            widget.isOnlyOne || widget.fixedBitMask != null,
                         onPressed: () {
                           if (widget.isOnlyOne)
                             setState(() {
@@ -75,4 +75,7 @@ class _MarkerSelectorState extends State<MarkerSelector> {
                       )))),
         ));
   }
+
+  void setMarkers() => setState(() => this.isMarkeds = List.generate(
+      5, (idx) => widget.fixedBitMask & [1, 2, 4, 8, 16][idx] > 0));
 }

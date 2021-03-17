@@ -100,19 +100,18 @@ Future<void> scheduleTest() async {
           .create();
   Review _review =
       await Review.fromMap('', {...review, 'parentId': _evaluation.id}).create();
-  ReReply __ = await ReReply.fromMap('', {
+  await ReReply.fromMap('', {
     ...reReply,
     'parentId': _review.id,
     'grandParentId': _review.parentId
   }).create();
-  Event ___ =
-      await Event.fromMap('', {...event, 'parentId': user.id}).create();
+  await Event.fromMap('', {...event, 'parentId': user.id}).create();
   Event _event =
       await Event.fromMap('', {...event, 'parentId': _schedule.id}).create();
   Memo _memo = await Memo.fromMap('', {...memo, 'parentId': _event.id}).create();
   Reply _reply1 =
       await Reply.fromMap('', {...reply, 'parentId': _memo.id}).create();
-  ReReply ____ = await ReReply.fromMap('', {
+  await ReReply.fromMap('', {
     ...reReply,
     'parentId': _reply1.id,
     'grandParentId': _reply1.parentId

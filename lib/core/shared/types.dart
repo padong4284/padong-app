@@ -145,8 +145,8 @@ enum SignInResult {
   wrongUserId,
   wrongEmailOrPassword,
 }
-enum ResetPasswordResult{
+enum ResetPasswordResult {
   success,
   InvalidUser,
-  InvalidEmail
+  InvalidEmail,
 }

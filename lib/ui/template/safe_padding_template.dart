@@ -63,7 +63,6 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
           (this._scrollController.position.userScrollDirection ==
               ScrollDirection.reverse));
     });
-    this.isRendered = false;
     this.setRendered();
   }
 

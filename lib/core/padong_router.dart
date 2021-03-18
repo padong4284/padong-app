@@ -63,7 +63,8 @@ class PadongRouter {
       case '/main':
         return MaterialPageRoute(builder: (_) => MainView());
       case '/search':
-        return PageRouteBuilder(pageBuilder: (_, __, ___) => SearchView(args['node']));
+        return fadeRouter(
+            pageBuilder: (_, __, ___) => SearchView(args['node']));
 
       case '/wiki':
         return slideRouter(

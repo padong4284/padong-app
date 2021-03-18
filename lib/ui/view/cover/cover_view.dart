@@ -39,7 +39,8 @@ class CoverView extends StatelessWidget {
             PadongRouter.routeURL(
                 'edit?id=${this.cover.id}&type=cover', this.cover);
           },
-          isScrollingDown: isScrollingDown),
+          isScrollingDown: isScrollingDown,
+          noShadow: true),
       title: 'Wiki',
       children: [
         UnivDoor(Session.currUniversity),
@@ -71,7 +72,8 @@ class CoverView extends StatelessWidget {
     String emblemImgURL = Session.currUniversity.emblemImgURL;
     if (emblemImgURL != null) {
       if (Validator.isWikiSvg(emblemImgURL))
-        emblem = SvgNetwork(emblemImgURL, httpHooker: SvgNetwork.convertWikiToSvg);
+        emblem =
+            SvgNetwork(emblemImgURL, httpHooker: SvgNetwork.convertWikiToSvg);
       else if (emblemImgURL.endsWith(".svg"))
         emblem = SvgNetwork(emblemImgURL);
       else

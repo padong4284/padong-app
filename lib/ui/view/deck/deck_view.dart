@@ -34,7 +34,8 @@ class DeckView extends StatelessWidget {
               ? () => PadongRouter.routeURL(
                   'make?id=${this.deck.id}&type=deck', this.deck)
               : null,
-          isScrollingDown: isScrollingDown),
+          isScrollingDown: isScrollingDown,
+          noShadow: true),
       title: 'Deck',
       children: [
         SizedBox(height: 10),

@@ -52,13 +52,14 @@ class _SearchViewState extends State<SearchView>
         }),
         children: [],
         stackChildren: [
-          Align(alignment: Alignment.bottomCenter, child:
-          Container(
-              height: 210,
-              child: CustomPaint(
-                painter: PadongPainter(this.padong),
-                child: Container(),
-              )))
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  height: 210,
+                  child: CustomPaint(
+                    painter: PadongPainter(this.padong),
+                    child: Container(),
+                  )))
         ]);
   }
 

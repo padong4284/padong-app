@@ -1,3 +1,13 @@
+///*********************************************************************
+///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
+///* All Rights Reserved.
+///* This file is part of PADONG.
+///*
+///* PADONG can not be copied and/or distributed without the express
+///* permission of Taejun Jang, Daewoong Ko, Hyunsik Kim, Seongbin Hong
+///*
+///* Github [https://github.com/padong4284]
+///*********************************************************************
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -7,6 +17,7 @@ const double halfPi = pi / 2;
 class Spinner extends StatefulWidget {
   final double radius;
   final List<Widget> actions;
+  final Widget child;
   final double resistance;
   final double actionSize;
   final double padding;
@@ -17,10 +28,11 @@ class Spinner extends StatefulWidget {
       {@required this.radius,
       @required this.actions,
       @required this.actionSize,
+      this.child,
       color,
-      this.padding = 5,
+      this.padding = 25,
       this.resistance = 0.7,
-      this.isShadow = false})
+      this.isShadow = true})
       : assert(resistance > 0),
         this.color = color ?? AppTheme.colors.primary;
 
@@ -76,7 +88,9 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
                       boxShadow: widget.isShadow
                           ? [BoxShadow(color: Colors.black12, blurRadius: 15)]
                           : []),
-                  child: Text('hello flutter')),
+                  child: Transform.rotate(
+                      angle: -this.angle,
+                      child: widget.child ?? SizedBox.shrink())),
               ...List.generate(
                   n,
                   (i) => Positioned(
@@ -94,10 +108,11 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
     RenderBox spinner = context.findRenderObject();
     Offset offset = spinner.globalToLocal(details.globalPosition);
     double angle = atan2(offset.dx - widget.radius, widget.radius - offset.dy);
-    setState(() {
-      this.dAngle = angle - this.angle;
-      this.angle = angle;
-    });
+    if (mounted)
+      setState(() {
+        this.dAngle = angle - this.angle;
+        this.angle = angle;
+      });
   }
 
   void _rotateFadeOut(DragEndDetails details) async {
@@ -106,7 +121,7 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
     double v = details.velocity.pixelsPerSecond.distance / 100;
     for (double i = v * d; (d > 0 ? i > 0 : i < 0); i /= 2) {
       await Future.delayed(Duration(milliseconds: 100));
-      setState(() => this.angle += i / (50 * widget.resistance));
+      if (mounted) setState(() => this.angle += i / (50 * widget.resistance));
     }
   }
 }

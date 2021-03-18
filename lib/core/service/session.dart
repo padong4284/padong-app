@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb;
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -15,6 +13,7 @@ import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/shared/types.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 
 class Session {
   static User user;

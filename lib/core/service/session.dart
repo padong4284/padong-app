@@ -16,6 +16,7 @@ import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/shared/types.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 
 class Session {
   static User user;
@@ -82,6 +83,8 @@ class Session {
         'lectureIds': <String>[],
       }).set(uid);
       await _registerUser(user, univ);
+    } else if (result == SignUpResult.emailAlreadyInUse) {
+      return SignUpResult.emailAlreadyInUse;
     }
     return result;
   }
@@ -137,4 +140,26 @@ class Session {
 
   static Future<void> updateUserPassword(String pw) async =>
       await PadongAuth.changePassword(pw);
+
+  static Future<ResetPasswordResult> sendResetPasswordEmail(
+      String id, String email) async {
+    User targetUser = await User.getByUserId(id);
+    if (targetUser == null) {
+      return ResetPasswordResult.InvalidUser;
+    }
+    if (!targetUser.userEmails.contains(email)) {
+      return ResetPasswordResult.InvalidEmail;
+    }
+    try {
+      await PadongAuth.resetPassword(email);
+    } on fb.FirebaseAuthException catch (e) {
+      if (e.code == "invalid-email") {
+        return ResetPasswordResult.InvalidEmail;
+      } else if (e.code == "user-not-found") {
+        return ResetPasswordResult.InvalidEmail;
+      }
+    }
+
+    return ResetPasswordResult.success;
+  }
 }

@@ -155,3 +155,9 @@ enum ACCESS {
   READONLY,
   READWRITE,
 }
+
+enum ResetPasswordResult {
+  success,
+  InvalidUser,
+  InvalidEmail,
+}

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
+import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/container/spinner.dart';
 
 double iconSize = 45.0;
@@ -23,31 +24,8 @@ class ForgotView extends StatelessWidget {
       appBar: BackAppBar(title: 'Forgot'),
       children: [
         Center(
-            child: Spinner(
-                radius: 150,
-                isShadow: true,
-                actions: [
-                  Icon(Icons.home, size: iconSize),
-                  Icon(Icons.wysiwyg, size: iconSize),
-                  Icon(Icons.book, size: iconSize)
-                ],
-                actionSize: iconSize,
-                padding: 20,
-                resistance: 0.7,
-                color: AppTheme.colors.support,
-                child: Spinner(
-                  radius: 90,
-                  isShadow: true,
-                  actions: [
-                    Icon(Icons.home, size: iconSize),
-                    Icon(Icons.wysiwyg, size: iconSize),
-                    Icon(Icons.book, size: iconSize)
-                  ],
-                  actionSize: iconSize,
-                  padding: 15,
-                  resistance: 0.7,
-                  child: FloatingActionButton(child: Icon(Icons.search)),
-                )))
+        child:PadongButton()
+        )
       ],
     );
   }

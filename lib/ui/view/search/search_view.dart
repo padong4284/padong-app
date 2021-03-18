@@ -44,7 +44,7 @@ class _SearchViewState extends State<SearchView>
           if (widget._searchController.text.isNotEmpty) {}
           widget._searchController.text = '';
         }, onChange: (curr) {
-          if (curr.length > before.length)
+          if (curr.isNotEmpty && curr.length != before.length)
             setState(() {
               this.padong.onKeyPressed(curr[curr.length - 1]);
             });

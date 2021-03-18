@@ -9,6 +9,9 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:padong/core/node/node.dart';
+import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/widget/container/spinner.dart';
@@ -20,6 +23,7 @@ class PadongButton extends StatefulWidget {
   final double bottomPadding;
   final IconData replaceAddIcon;
   final bool isSearchView;
+  final Node node;
 
   PadongButton(
       {this.onPressAdd,
@@ -27,13 +31,15 @@ class PadongButton extends StatefulWidget {
       this.noShadow = false,
       this.bottomPadding = 0,
       this.replaceAddIcon,
-      this.isSearchView = false});
+      this.isSearchView = false,
+      this.node});
 
   _PadongButtonState createState() => _PadongButtonState();
 }
 
 class _PadongButtonState extends State<PadongButton> {
-  final double radius = 80;
+  final double iconSize = 30.0;
+  final double radius = 65;
   List<Widget> searchButtons = [];
   int searchLevel = 0;
 
@@ -79,42 +85,95 @@ class _PadongButtonState extends State<PadongButton> {
   @override
   void initState() {
     super.initState();
+    this.initButtons();
     if (widget.isSearchView) this.searchLevel = 1;
-    double iconSize = 30.0;
-    this.searchButtons.add(SizedBox(
+  }
+
+  void initButtons() {
+    this.searchButtons = [null, null, null];
+    this.searchButtons[0] = SizedBox(
         width: 56,
         child: FloatingActionButton(
             heroTag: null,
             elevation: widget.noShadow ? 0 : null,
-            child:
-                Icon(Icons.search, color: AppTheme.colors.base, size: iconSize),
+            child: Icon(Icons.search,
+                color: AppTheme.colors.base, size: this.iconSize),
             backgroundColor: AppTheme.colors.primary,
             onPressed: () {
-              /*if (widget.isSearchView)
-                setState(() => this.searchLevel = (this.searchLevel + 1) % 3);
-              else
-                PadongRouter.routeURL('/search');*/
-              setState(() => this.searchLevel = (this.searchLevel + 1) % 3);
-            })));
+              setState(() => this.searchLevel = (this.searchLevel + 1) % 2);
+            }));
 
-    this.searchButtons.add(Spinner(
+    Map<String, Widget> _level1 = {
+      'Padong': Image.asset('assets/padong.png',
+          width: 35, height: 35, color: AppTheme.colors.base),
+      'Univ.': Icon(Icons.school_rounded,
+          size: this.iconSize, color: AppTheme.colors.base),
+      'My Own': Icon(Icons.person_rounded,
+          size: this.iconSize, color: AppTheme.colors.base)
+    };
+    this.searchButtons[1] = Spinner(
+        padding: 8,
+        color: Color(0xFF20AADD),
         radius: 28 + this.radius,
-        actions: [
-          Icon(Icons.home, size: iconSize),
-          Icon(Icons.wysiwyg, size: iconSize),
-          Icon(Icons.book, size: iconSize)
-        ],
-        actionSize: iconSize,
-        child: this.searchButtons[0]));
+        actions: _level1.keys
+            .map((label) => InkWell(
+                onTap: () => this.setLevel2(label),
+                child: Column(children: [
+                  _level1[label],
+                  Text(label,
+                      style: AppTheme.getFont(
+                          color: AppTheme.colors.base,
+                          fontSize: AppTheme.fontSizes.small))
+                ])))
+            .toList(),
+        actionSize: this.iconSize + 20.0,
+        child: this.searchButtons[0]);
+  }
 
-    this.searchButtons.add(Spinner(
-        radius: 28 + this.radius * 2,
-        actions: [
-          Icon(Icons.home, size: iconSize),
-          Icon(Icons.wysiwyg, size: iconSize),
-          Icon(Icons.book, size: iconSize)
-        ],
-        actionSize: iconSize,
-        child: this.searchButtons[1]));
+  void setLevel2(String level1) {
+    this.searchLevel = 2;
+    Map<String, IconData> _level2 = {
+      'Padong': {
+        'Univ.': Icons.school_rounded,
+        'Wiki': CustomIcons.wiki,
+        'Board': Icons.wysiwyg_rounded,
+        'Post': Icons.assignment_rounded,
+        'Event': Icons.event_rounded,
+      },
+      'Univ.': {
+        'Wiki': CustomIcons.wiki,
+        'Board': Icons.wysiwyg_rounded,
+        'Post': Icons.assignment_rounded,
+        'Event': Icons.event_rounded,
+        'Lecture': Icons.menu_book_rounded,
+        'Building': Icons.location_city_rounded,
+        'Service': Icons.work_rounded,
+      },
+      'My Own': {
+        'User': Icons.person_rounded,
+        'Chat': Icons.mode_comment_rounded,
+        'Like': Icons.favorite_rounded,
+        'Save': Icons.bookmark_rounded,
+      }
+    }[level1];
+    this.searchButtons[2] = Spinner(
+        color: Color(0xFF50B8DD),
+        radius: 28.0 + 2 * this.radius,
+        actions: _level2.keys
+            .map((label) => InkWell(
+                onTap: () => PadongRouter.routeURL(
+                    '/search?l1=$level1&l2=$label', widget.node),
+                child: Column(children: [
+                  Icon(_level2[label],
+                      size: this.iconSize, color: AppTheme.colors.base),
+                  Text(label,
+                      style: AppTheme.getFont(
+                          color: AppTheme.colors.base,
+                          fontSize: AppTheme.fontSizes.small))
+                ])))
+            .toList(),
+        actionSize: this.iconSize + 20.0,
+        child: this.searchButtons[1]);
+    setState(() {});
   }
 }

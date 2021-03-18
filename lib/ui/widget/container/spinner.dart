@@ -30,7 +30,7 @@ class Spinner extends StatefulWidget {
       @required this.actionSize,
       this.child,
       color,
-      this.padding = 25,
+      this.padding = 10,
       this.resistance = 0.7,
       this.isShadow = true})
       : assert(resistance > 0),
@@ -86,7 +86,12 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
                       color: widget.color,
                       shape: BoxShape.circle,
                       boxShadow: widget.isShadow
-                          ? [BoxShadow(color: Colors.black12, blurRadius: 15)]
+                          ? [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 10,
+                                  spreadRadius: 3)
+                            ]
                           : []),
                   child: Transform.rotate(
                       angle: -this.angle,

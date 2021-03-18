@@ -9,8 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/util/shadow_clip_path.dart';
-import 'package:padong/util/tip_clipper.dart';
+import 'package:padong/util/clipper/shadow_clip_path.dart';
+import 'package:padong/util/clipper/tip_clipper.dart';
 import 'package:padong/ui//theme/app_theme.dart';
 
 class TipContainer extends StatelessWidget {

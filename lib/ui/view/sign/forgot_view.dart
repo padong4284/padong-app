@@ -10,10 +10,8 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
-import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
-import 'package:padong/ui/widget/container/spinner.dart';
 
 double iconSize = 45.0;
 

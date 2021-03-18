@@ -23,7 +23,7 @@ import 'package:padong/ui/widget/card/building_card.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/container/tip_container.dart';
 import 'package:padong/ui/widget/input/marker_selector.dart';
-import 'package:padong/util/tip_clipper.dart';
+import 'package:padong/util/clipper/tip_clipper.dart';
 
 class Pin {
   final String name;

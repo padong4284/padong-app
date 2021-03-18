@@ -19,7 +19,6 @@ import 'package:padong/ui/widget/bar/top_app_bar.dart';
 import 'package:padong/ui/widget/card/photo_card.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
-import 'package:padong/util/padong/padong.dart';
 
 class SearchView extends StatefulWidget {
   final Node currNode;
@@ -32,16 +31,9 @@ class SearchView extends StatefulWidget {
   _SearchViewState createState() => _SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView>
-    with SingleTickerProviderStateMixin {
+class _SearchViewState extends State<SearchView> {
   bool isSearched = false;
   bool isRendered = false;
-  AnimationController _controller;
-  Animation animation;
-  bool startAnimate = true;
-  Padong padong = Padong(
-      100, List.generate(3, (_) => AppTheme.colors.primary.withAlpha(100)));
-  String before = '';
   List<TitleNode> result = [];
 
   @override
@@ -62,10 +54,6 @@ class _SearchViewState extends State<SearchView>
             setState(() {});
           }
           widget._searchController.text = '';
-        }, onChange: (curr) {
-          if (curr.isNotEmpty && curr.length != before.length)
-            this.padong.onKeyPressed(curr[curr.length - 1]);
-          before = curr;
         }),
         children: [
           this.level(),
@@ -75,9 +63,6 @@ class _SearchViewState extends State<SearchView>
                   ? 'Nothing to Show you'
                   : 'You can Search by Title',
               children: this.result.map((node) => PhotoCard(node)).toList())
-        ],
-        stackChildren: [
-          this.keyboardWave()
         ]);
   }
 
@@ -98,58 +83,14 @@ class _SearchViewState extends State<SearchView>
             .toList());
   }
 
-  Widget keyboardWave() {
-    return AnimatedContainer(
-        transform:
-            Matrix4.translationValues(0.0, this.isRendered ? 0.0 : 200, 0.0),
-        duration: Duration(milliseconds: 400),
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 210,
-              child: CustomPaint(
-                  painter: PadongPainter(this.padong), child: Container()),
-            )));
-  }
-
   @override
   void initState() {
     super.initState();
-    this._controller =
-        AnimationController(duration: Duration(seconds: 5), vsync: this);
-    this.animation = CurvedAnimation(
-        parent: this._controller, // using controller, not this.controller
-        curve: Curves.bounceInOut);
-    this.animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed)
-        this._controller.reverse();
-      else if (status == AnimationStatus.dismissed) this._controller.forward();
-    });
-
-    this.animation.addListener(() {
-      if (this.startAnimate) {
-        this.startAnimate = false;
-        this.animate();
-      }
-    });
-    this._controller.forward();
     this.setRendered();
   }
 
   void setRendered() async {
     await Future.delayed(Duration(milliseconds: 250));
     if (this.mounted) setState(() => this.isRendered = true);
-  }
-
-  @override
-  void dispose() {
-    this._controller.dispose(); // finish animation
-    super.dispose(); // due to lifecycle, call after controller disposed
-  }
-
-  void animate() async {
-    await Future.delayed(Duration(milliseconds: 20));
-    if (mounted) setState(() => this.padong.update());
-    this.startAnimate = true;
   }
 }

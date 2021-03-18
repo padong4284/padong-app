@@ -9,10 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/search_engine.dart';
-import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/widget/container/spinner.dart';

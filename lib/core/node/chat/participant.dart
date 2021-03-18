@@ -9,10 +9,11 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/shared/owner.dart';
 import 'package:padong/core/shared/types.dart';
 
 // parent: ChatRoom
-class Participant extends Node {
+class Participant extends Node with Owner {
   ROLE role;
 
   Participant();
@@ -30,10 +31,5 @@ class Participant extends Node {
       ...super.toJson(),
       'role': roleToString(this.role),
     };
-  }
-
-  int countUnread() {
-    // TODO: based on Participant's modifiedAt, message's createdAt
-    return 0;
   }
 }

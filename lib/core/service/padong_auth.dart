@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -10,6 +8,7 @@ import 'dart:developer';
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:padong/core/shared/types.dart';
 
@@ -91,7 +90,20 @@ class PadongAuth {
     return sessionUser.email;
   }
 
-  static resetPassword(String email) async {
-    await _auth.sendPasswordResetEmail(email: email);
+  static Future<void> changePassword(String pw) async =>
+      await _auth.currentUser.updatePassword(pw);
+
+  static Future<bool> resetPassword(String email) async {
+    return await _auth
+        .sendPasswordResetEmail(email: email)
+        .then((value) => true)
+        .catchError((e) {
+      log(e.toString());
+      return false;
+    });
   }
+  
+  static resetPassword(String email) async =>
+    await _auth.sendPasswordResetEmail(email: email);
+
 }

@@ -8,6 +8,7 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:padong/core/node/schedule/review.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/node/schedule/event.dart';
@@ -25,6 +26,7 @@ class Lecture extends Event {
   String exam;
   String attendance;
   String book;
+  Evaluation _evaluation;
 
   Lecture();
 
@@ -59,7 +61,38 @@ class Lecture extends Event {
     };
   }
 
-  Future<Evaluation> getEvaluation() async {
-    return (await this.getChildren(Evaluation(), limit: 1))[0];
+  Future<Evaluation> get evaluation async {
+    if (this._evaluation == null)
+      this._evaluation = (await this.getChild(Evaluation())) ??
+          (await Evaluation.fromMap('', {
+            'pip': 'Internal',
+            'parentId': this.id,
+            'ownerId': this.id,
+            'title': this.title,
+            'description': this.description,
+            'rate': 0.0,
+            'anonymity': true,
+            'isNotice': false,
+          }).create());
+    return this._evaluation;
+  }
+
+  Future<List<Review>> getReviews() async {
+    return <Review>[
+      ...(await (await this.evaluation)
+          .getChildren(Review(), upToDate: true))
+    ];
+  }
+
+  @override
+  void setDataWithMap(Map data) {
+    super.setDataWithMap(data);
+    this.periodicity = data['periodicity'] ?? this.periodicity;
+    this.professor = data['professor'] ?? this.professor;
+    this.room = data['room'] ?? this.room;
+    this.grade = data['grade'] ?? this.grade;
+    this.exam = data['exam'] ?? this.exam;
+    this.attendance = data['attendance'] ?? this.attendance;
+    this.book = data['book'] ?? this.book;
   }
 }

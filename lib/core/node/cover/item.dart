@@ -9,7 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/deck/post.dart';
-import 'package:padong/ui/utils/compare/diff_line.dart';
+import 'package:padong/util/compare/diff_line.dart';
 
 // parent: Wiki
 class Item extends Post {
@@ -36,7 +36,7 @@ class Item extends Post {
     return {
       ...super.toJson(),
       'anonymity': false,
-      'prevId': this.prevDescription,
+      'prevDescription': this.prevDescription,
       'deleted': this.deleted,
       'inserted': this.inserted,
     };

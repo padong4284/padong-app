@@ -9,8 +9,9 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/shared/owner.dart';
 
-class TitleNode extends Node {
+class TitleNode extends Node with Owner {
   String title;
   String description;
 
@@ -31,5 +32,18 @@ class TitleNode extends Node {
       'title': this.title,
       'description': this.description,
     };
+  }
+
+  // Work with [lib/util/http/http.dart]'s
+  // Future<List<CheckUrl>> checkImgUrls(List<String> urls) async
+  List<String> getImageUrls() {
+    var extractedImgurls = RegExp(
+        "!\\[[^\\]]*\]\\((?<filename>.*?)(?=\\\"|\\))(?<optionalpart>\\\".*\\\")?\\)");
+    List<String> result = [];
+
+    for (var i in extractedImgurls.allMatches(this.description)) {
+      result.add(i.namedGroup("filename"));
+    }
+    return result;
   }
 }

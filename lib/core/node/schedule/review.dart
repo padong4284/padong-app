@@ -10,7 +10,7 @@
 ///*********************************************************************
 import 'package:padong/core/node/deck/reply.dart';
 
-// parent: Evaluation
+// parent: Evaluation, Service
 class Review extends Reply {
   @override // always anonymous!
   bool anonymity = true;
@@ -32,11 +32,5 @@ class Review extends Reply {
       'anonymity': true,
       'rate': this.rate,
     };
-  }
-
-  @override
-  Future<bool> update() async {
-    // TODO: transaction to update Evaluation's rate
-    return await super.update();
   }
 }

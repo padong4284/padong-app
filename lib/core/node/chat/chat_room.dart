@@ -21,6 +21,18 @@ import 'package:padong/core/shared/types.dart';
 class ChatRoom extends TitleNode with Notification {
   Message lastMessage;
 
+  Participant myParticipant;
+
+  Future<List<User>> get participants async {
+    List<User> result = [];
+    List<Participant> _participants = <Participant>[
+      ...(await this.getChildren(Participant()))
+    ];
+    for (Participant participant in _participants)
+      result.add(await participant.owner);
+    return result;
+  }
+
   ChatRoom();
 
   ChatRoom.fromMap(String id, Map snapshot)
@@ -28,7 +40,9 @@ class ChatRoom extends TitleNode with Notification {
             ? Message.fromMap(
                 snapshot['lastMessage']['id'], snapshot['lastMessage'])
             : null,
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.subscribes = <String>[...(snapshot['subscribes'] ?? [])];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => ChatRoom.fromMap(id, snapshot);
@@ -37,16 +51,17 @@ class ChatRoom extends TitleNode with Notification {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'lastMessage': this.lastMessage,
+      'lastMessage':
+          this.lastMessage != null ? this.lastMessage.toJson() : null,
     };
   }
 
-  Future<Participant> addParticipant(User user, [String role]) async {
+  Future<Participant> invite(User user, [ROLE role]) async {
     return await Participant.fromMap('', {
       'pip': pipToString(this.pip),
       'parentId': this.id,
       'ownerId': user.id,
-      'role': role ?? "Student",
+      'role': role != null ? roleToString(role) : "Student",
     }).create();
   }
 
@@ -63,13 +78,18 @@ class ChatRoom extends TitleNode with Notification {
     return await this.update();
   }
 
-  Future<Stream<QuerySnapshot>> getMessageStream() async {
-    return await PadongFB.getQueryStreamByRule(
+  Stream<QuerySnapshot> getMessageStream() {
+    return PadongFB.getQueryStreamByRule(
       Message().type,
       rule: (query) => query
           .where("parentId", isEqualTo: this.id)
           .orderBy("createdAt", descending: true),
       limit: 30,
     );
+  }
+
+  Future<int> countUnread(User me) async {
+    // TODO: based on Participant's modifiedAt, message's createdAt
+    return 0;
   }
 }

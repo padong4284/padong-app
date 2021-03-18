@@ -9,8 +9,9 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/shared/owner.dart';
 
-class Message extends Node {
+class Message extends Node with Owner {
   String message;
   bool isImage;
 

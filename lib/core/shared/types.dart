@@ -54,16 +54,20 @@ enum PERIODICITY {
   WEEKLY,
 }
 
+const List<String> PERIODICITYS = ['Annual', 'Monthly', 'Weekly', 'none'];
+
 PERIODICITY parsePERIODICITY(String periodicity) => {
       'Annual': PERIODICITY.ANNUALLY,
       'Monthly': PERIODICITY.MONTHLY,
       'Weekly': PERIODICITY.WEEKLY,
+      'none': null,
     }[periodicity];
 
 String periodicityToString(PERIODICITY periodicity) => {
       PERIODICITY.ANNUALLY: 'Annual',
       PERIODICITY.MONTHLY: 'Monthly',
       PERIODICITY.WEEKLY: 'Weekly',
+      null: 'none',
     }[periodicity];
 
 const SERVICE_CODES = [1, 2, 4, 8, 16];
@@ -144,6 +148,12 @@ enum SignInResult {
   failed,
   wrongUserId,
   wrongEmailOrPassword,
+}
+
+enum ACCESS {
+  DENIED,
+  READONLY,
+  READWRITE,
 }
 
 enum ResetPasswordResult {

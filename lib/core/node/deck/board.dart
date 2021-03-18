@@ -9,6 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/title_node.dart';
+import 'package:padong/core/node/deck/post.dart';
+import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/notification.dart';
 
 // parent: Deck
@@ -19,7 +21,9 @@ class Board extends TitleNode with Notification {
 
   Board.fromMap(String id, Map snapshot)
       : this.rule = snapshot['rule'],
-        super.fromMap(id, snapshot);
+        super.fromMap(id, snapshot) {
+    this.subscribes = <String>[...(snapshot['subscribes'] ?? [])];
+  }
 
   @override
   generateFromMap(String id, Map snapshot) => Board.fromMap(id, snapshot);
@@ -32,9 +36,16 @@ class Board extends TitleNode with Notification {
     };
   }
 
-  List<TitleNode> getNotices() {
-    // TODO: get notice posts!
-    // only owner can write, set isNotice
-    return [];
+  Future<List<Post>> getNotices() async {
+    Post temp = Post();
+    return await PadongFB.getDocsByRule(temp.type,
+            rule: (query) => query
+                .where('parentId', isEqualTo: this.id)
+                .where('isNotice', isEqualTo: true)
+                .orderBy("createdAt", descending: true))
+        .then((docs) => docs
+            .map((doc) => temp.generateFromMap(doc.id, doc.data()) as Post)
+            .toList())
+        .catchError((e) => null);
   }
 }

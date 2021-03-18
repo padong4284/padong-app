@@ -12,27 +12,31 @@ import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/common/user.dart';
 
 // parent: Cover
 class Wiki extends TitleNode with Statistics {
+  String lastItemId;
   List<String> backLinks; // List of wikiId
   List<String> frontLinks; // List of wikiId
-  List<Argue> _argues;
 
-  List<Argue> get argues {
-    // TODO: check does it work?
-    if (this._argues == null) this._getArgues();
-    return this._argues;
+  Future<List<Argue>> get argues async {
+    return await PadongFB.getDocsByRule('argue',
+        rule: (query) => query
+            .where('wikiId', isEqualTo: this.id)
+            .orderBy("createdAt", descending: true)).then((docs) =>
+        (docs ?? []).map((doc) => Argue.fromMap(doc.id, doc.data())).toList());
   }
 
   Wiki();
 
   Wiki.fromMap(String id, Map snapshot)
-      : this.backLinks = <String>[...snapshot['backLinks']],
-        this.frontLinks = <String>[...snapshot['frontLinks']],
+      : this.lastItemId = snapshot['lastItemId'],
+        this.backLinks = <String>[...(snapshot['backLinks'] ?? [])],
+        this.frontLinks = <String>[...(snapshot['frontLinks'] ?? [])],
         super.fromMap(id, snapshot) {
-    this.likes = <String>[...snapshot['likes']];
-    this.bookmarks = <String>[...snapshot['bookmarks']];
+    this.likes = <String>[...(snapshot['likes'] ?? [])];
+    this.bookmarks = <String>[...(snapshot['bookmarks'] ?? [])];
   }
 
   @override
@@ -42,16 +46,10 @@ class Wiki extends TitleNode with Statistics {
   Map<String, dynamic> toJson() {
     return {
       ...super.toJson(),
-      'backLinks': this.backLinks,
-      'frontLinks': this.frontLinks,
+      'lastItemId': this.lastItemId,
+      'backLinks': this.backLinks ?? [],
+      'frontLinks': this.frontLinks ?? [],
     };
-  }
-
-  void _getArgues() async {
-    this._argues = await PadongFB.getDocsByRule(Argue().type,
-            rule: (query) => query.where('wikiId', isEqualTo: this.id))
-        .then((docs) =>
-            docs.map((doc) => Argue.fromMap(doc.id, doc.data())).toList());
   }
 
   void updateBackLinks(String targetWikiId, {bool isRemove = false}) async {
@@ -63,11 +61,22 @@ class Wiki extends TitleNode with Statistics {
   }
 
   @override
-  Future<List<int>> getStatistics() async {
+  Future<List<int>> getStatisticsWithoutMe(User me) async {
     return [
-      this.likes?.length,
-      null, // no count Reply, ReReply
-      this.bookmarks?.length
+      // no count me
+      (this.likes ?? []).where((id) => id != me.id).length,
+      null,
+      (this.bookmarks ?? []).where((id) => id != me.id).length,
     ];
+  }
+
+  Future<List<Wiki>> getLinks() async {
+    List<String> links = this.backLinks + this.frontLinks;
+    if (links.isEmpty) return [];
+    return await PadongFB.getDocsByRule('wiki',
+        rule: (query) => query
+            .where(PadongFB.documentId, whereIn: links)
+            .orderBy('createdAt', descending: true)).then(
+        (docs) => docs.map((doc) => Wiki.fromMap(doc.id, doc.data())).toList());
   }
 }

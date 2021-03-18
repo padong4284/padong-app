@@ -25,6 +25,8 @@ class AppTheme {
       primaryColor: colors.primary,
       accentColor: colors.semiPrimary,
       focusColor: colors.primary,
+      hintColor: colors.semiSupport,
+      errorColor: colors.pointRed,
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
   }

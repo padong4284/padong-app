@@ -8,7 +8,10 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/node.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/common/university.dart';
@@ -19,6 +22,8 @@ class Session {
   static User user;
   static University userUniversity;
   static University currUniversity;
+
+  static bool get inMyUniv => userUniversity.id == currUniversity.id;
 
   static _initSession() {
     user = null;
@@ -32,10 +37,10 @@ class Session {
     university = university ?? (await user.getParent(University()));
     Session.userUniversity = university;
     Session.currUniversity = university;
+    await Session.currUniversity.initUniversity();
   }
 
   static Future<SignInResult> signInUser(String userId, String pw) async {
-    userId = userId.toLowerCase();
     User user = await User.getByUserId(userId);
     if (user == null) return SignInResult.wrongUserId;
 
@@ -53,27 +58,29 @@ class Session {
   }
 
   static Future<SignUpResult> signUpUser(String userId, String pw, String name,
-      String email, String universityName, int entranceYear) async {
+      String email, String university, int entranceYear) async {
     User user = await User.getByUserId(userId);
     if (user != null) return SignUpResult.IdAlreadyInUse;
 
-    University univ = await University.getUniversityByName(universityName);
+    University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
     SignUpResult result = await PadongAuth.signUp(email, pw);
     if (result == SignUpResult.success) {
       String uid = await PadongAuth.getUid();
       user = await User.fromMap(uid, {
+        'pip': pipToString(PIP.PUBLIC),
+        'parentId': univ.id,
+        'ownerId': uid,
         'name': name,
         'userId': userId,
         'isVerified': false,
+        'university': university,
         'entranceYear': entranceYear,
         'userEmails': [email],
         'profileImageURL': "",
         'friendIds': <String>[],
-        'pip': pipToString(PIP.PUBLIC),
-        'parentId': univ.id,
-        'ownerId': uid,
+        'lectureIds': <String>[],
       }).set(uid);
       await _registerUser(user, univ);
     } else if (result == SignUpResult.emailAlreadyInUse) {
@@ -84,31 +91,55 @@ class Session {
 
   static Future<bool> signOutUser(BuildContext context) async {
     return await PadongAuth.signOut().then((_) {
+      Navigator.popUntil(context, (route) => route.isFirst);
       _initSession();
-      Navigator.pushNamed(context, '/');
       return true;
     }).catchError((e) => false);
   }
 
-  static Future changeUserEmail(String email, BuildContext context) async {
+  static Future<void> changeUserEmail(
+      String email, BuildContext context) async {
+    // at view, update user's parentId, university
     String uid = await PadongAuth.getUid();
     if (user == null || user.id != uid)
       throw Exception('Invalid User try to Change Email');
 
-    // TODO: user's parentId
     String currEmail = await PadongAuth.changeEmail(email);
-    user.userEmails = [currEmail, email];
-    await user.update();
-    await signOutUser(context);
+    if (currEmail == null)
+      throw Exception('Change Email Failed');
+    else {
+      user.userEmails = [currEmail, email];
+      await user.update();
+      await signOutUser(context);
+    }
   }
 
-  static Future<bool> changeCurrentUniversity(
-      University university, BuildContext context) async {
-    // TODO: use Provider, alert all view
-    currUniversity = university;
-    Navigator.pushNamed(context, '/main');
-    return true; // TODO: check success
+  static Future<bool> changeCurrentUniversity(University university) async {
+    try {
+      currUniversity = university;
+      university.initUniversity();
+      PadongRouter.routeURL('/main');
+      return true;
+    } catch (e) {
+      log(e);
+      return false;
+    }
   }
+
+  static ACCESS checkAccess(Node node) {
+    // TODO: check it's right?
+    if (node.ownerId == user.id) return ACCESS.READWRITE;
+    if (node.pip == PIP.PUBLIC) {
+      return ACCESS.READWRITE;
+    } else if (node.pip == PIP.INTERNAL) {
+      if (inMyUniv && node.type == 'board') return ACCESS.READWRITE;
+      return ACCESS.READONLY;
+    } else if (inMyUniv && node.type == 'board') return ACCESS.READWRITE;
+    return ACCESS.DENIED;
+  }
+
+  static Future<void> updateUserPassword(String pw) async =>
+      await PadongAuth.changePassword(pw);
 
   static Future<ResetPasswordResult> sendResetPasswordEmail(
       String id, String email) async {

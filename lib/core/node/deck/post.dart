@@ -20,10 +20,10 @@ class Post extends TitleNode with Statistics {
 
   Post.fromMap(String id, Map snapshot)
       : this.anonymity = snapshot['anonymity'],
-        this.isNotice = snapshot['isNotice'],
+        this.isNotice = snapshot['isNotice'] ?? false,
         super.fromMap(id, snapshot) {
-    this.likes = <String>[...snapshot['likes']];
-    this.bookmarks = <String>[...snapshot['bookmarks']];
+    this.likes = <String>[...(snapshot['likes'] ?? [])];
+    this.bookmarks = <String>[...(snapshot['bookmarks'] ?? [])];
   }
 
   @override

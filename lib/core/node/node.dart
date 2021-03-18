@@ -12,6 +12,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/service/padong_fb.dart';
+import 'package:padong/util/time_manager.dart';
 
 class Node {
   String id;
@@ -21,7 +22,7 @@ class Node {
   DateTime createdAt;
   DateTime modifiedAt;
   DateTime deletedAt;
-  Map<String, List<Node>> _children;
+  Map<String, List<Node>> _children = {};
 
   String get type => this.toString().split("'")[1].toLowerCase();
 
@@ -33,13 +34,17 @@ class Node {
     this.parentId = snapshot['parentId'];
     this.ownerId = snapshot['ownerId'];
     snapshot['createdAt'] = // auto initialize
-        snapshot['createdAt'] ?? DateTime.now().toIso8601String();
-    this.createdAt = DateTime.parse(snapshot['createdAt']);
+        snapshot['createdAt'] != null
+            ? TimeManager.toDateTime(snapshot['createdAt'])
+            : DateTime.now();
+    this.createdAt = snapshot['createdAt'];
     this.modifiedAt = // not modified yet
-        DateTime.parse(snapshot['modifiedAt'] ?? snapshot['createdAt']);
+        snapshot['modifiedAt'] != null
+            ? TimeManager.toDateTime(snapshot['createdAt'])
+            : snapshot['createdAt'];
     this.deletedAt = snapshot['deletedAt'] == null
         ? null // It may not deleted
-        : DateTime.parse(snapshot['deletedAt']);
+        : TimeManager.toDateTime(snapshot['deletedAt']);
     if (!this.isValidate())
       throw Exception(
           'Invalid data try to construct ${this.type}\n${this.toJson()}');
@@ -54,21 +59,29 @@ class Node {
       "type": this.type,
       "parentId": this.parentId,
       "ownerId": this.ownerId,
-      "createdAt": this.createdAt.toIso8601String(),
-      "modifiedAt": (this.modifiedAt ?? this.createdAt).toIso8601String(),
+      "createdAt": this.createdAt,
+      "modifiedAt": this.modifiedAt ?? this.createdAt,
       "deletedAt": this.deletedAt == null
           ? null // It may not deleted
-          : this.deletedAt.toIso8601String(),
+          : this.deletedAt,
     };
   }
 
   bool isValidate() {
-    List<String> pass = ['deletedAt', 'likes', 'bookmarks', 'lastMessage'];
+    List<String> pass = [
+      'deletedAt',
+      'likes',
+      'bookmarks',
+      'subscribes',
+      'lastMessage',
+      'lastItemId',
+      'periodicity',
+    ];
     Map<String, dynamic> data = this.toJson();
     for (String key in data.keys) {
       if (pass.contains(key)) continue;
       if (data[key] == null) {
-        log('Node(${this.type}) Validation Check Failed.\n$data');
+        log('Node(${this.type}) Validation Check Failed. [$key]\n$data');
         return false;
       }
     } // check all fields are not null except deletedAt
@@ -80,25 +93,32 @@ class Node {
     return parent.generateFromMap(pDoc.id, pDoc.data());
   }
 
+  Future<Node> getChild(Node child) async {
+    List<Node> _children = await this.getChildren(child);
+    return _children.isEmpty ? null : _children[0];
+  }
+
   Future<List<Node>> getChildren(Node child,
-      {int limit, Node startAt, bool upToDate}) async {
+      {int limit, Node startAt, bool upToDate = true}) async {
     if (upToDate || (this._children[child.type] == null))
       this._children[child.type] = await PadongFB.getDocsByRule(child.type,
               rule: (query) => query
-                  .where(this.id, isEqualTo: 'parentId')
+                  .where('parentId', isEqualTo: this.id)
                   .orderBy("createdAt", descending: true),
               limit: limit,
-              startId: startAt.id)
+              startId: startAt != null ? startAt.id : null)
           .then((docs) => docs
               .map((doc) => child.generateFromMap(doc.id, doc.data()))
               .toList())
-          .catchError((_) => null);
-    return this._children[child.type];
+          .catchError((e) {
+        log(e);
+        return null;
+      });
+    return this._children[child.type] ?? [];
   }
 
   Future<Node> create() async {
     // create document at Fire Base
-    this.createdAt = DateTime.now();
     if (this.isValidate()) {
       DocumentReference ref =
           await PadongFB.createDoc(this.type, this.toJson());
@@ -112,7 +132,7 @@ class Node {
   Future<Node> set(String id) async {
     // set document at Fire Base with id
     this.id = id;
-    this.createdAt = DateTime.now();
+
     if (this.isValidate())
       return (await PadongFB.setDoc(this.type, id, this.toJson()))
           ? this
@@ -123,7 +143,6 @@ class Node {
   Future<bool> update() async {
     // assume this node is already modified (updated)
     // just update Fire Store data
-    this.modifiedAt = DateTime.now();
     if (this.isValidate())
       return await PadongFB.updateDoc(this.type, this.id, this.toJson());
     return false;
@@ -131,9 +150,14 @@ class Node {
 
   Future<bool> delete() async {
     // set deletedAt now, PadongFB.getDoc never return this node;
-    this.deletedAt = DateTime.now();
     if (this.isValidate())
-      return await PadongFB.deleteDoc(this.type, this.id); // success or not
+      return await PadongFB.deleteDoc(this.type, this.id, this.toJson()); // success or not
+    return false;
+  }
+
+  Future<bool> remove() async {
+    if(this.isValidate())
+      return await PadongFB.removeDoc(this.type, this.id);
     return false;
   }
 }

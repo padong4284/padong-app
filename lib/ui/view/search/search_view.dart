@@ -19,7 +19,6 @@ import 'package:padong/ui/widget/bar/top_app_bar.dart';
 import 'package:padong/ui/widget/card/photo_card.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
-import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/util/padong/padong.dart';
 
 class SearchView extends StatefulWidget {
@@ -35,6 +34,7 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView>
     with SingleTickerProviderStateMixin {
+  bool isSearched = false;
   bool isRendered = false;
   AnimationController _controller;
   Animation animation;
@@ -56,22 +56,24 @@ class _SearchViewState extends State<SearchView>
                   'Save': 'bookmark'
                 }[widget.level2] ??
                 widget.level2.toLowerCase();
-            this.result = await SearchEngine.search(
-                type, widget._searchController.text);
+            this.isSearched = true;
+            this.result =
+                await SearchEngine.search(type, widget._searchController.text);
             setState(() {});
           }
           widget._searchController.text = '';
         }, onChange: (curr) {
           if (curr.isNotEmpty && curr.length != before.length)
-            setState(() {
-              this.padong.onKeyPressed(curr[curr.length - 1]);
-            });
+            this.padong.onKeyPressed(curr[curr.length - 1]);
           before = curr;
         }),
         children: [
           this.level(),
           SizedBox(height: 30),
           HorizontalScroller(
+              emptyMessage: this.isSearched
+                  ? 'Nothing to Show you'
+                  : 'You can Search by Title',
               children: this.result.map((node) => PhotoCard(node)).toList())
         ],
         stackChildren: [

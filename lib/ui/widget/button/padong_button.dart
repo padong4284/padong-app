@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/search_engine.dart';
 import 'package:padong/ui/shared/custom_icons.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/core/padong_router.dart';
@@ -132,30 +133,7 @@ class _PadongButtonState extends State<PadongButton> {
 
   void setLevel2(String level1) {
     this.searchLevel = 2;
-    Map<String, IconData> _level2 = {
-      'Padong': {
-        'Univ.': Icons.school_rounded,
-        'Wiki': CustomIcons.wiki,
-        'Board': Icons.wysiwyg_rounded,
-        'Post': Icons.assignment_rounded,
-        'Event': Icons.event_rounded,
-      },
-      'Univ.': {
-        'Wiki': CustomIcons.wiki,
-        'Board': Icons.wysiwyg_rounded,
-        'Post': Icons.assignment_rounded,
-        'Event': Icons.event_rounded,
-        'Lecture': Icons.menu_book_rounded,
-        'Building': Icons.location_city_rounded,
-        'Service': Icons.work_rounded,
-      },
-      'My Own': {
-        'User': Icons.person_rounded,
-        'Chat': Icons.mode_comment_rounded,
-        'Like': Icons.favorite_rounded,
-        'Save': Icons.bookmark_rounded,
-      }
-    }[level1];
+    Map<String, IconData> _level2 = SearchEngine.level2[level1];
     this.searchButtons[2] = Spinner(
         color: Color(0xFF50B8DD),
         radius: 28.0 + 2 * this.radius,

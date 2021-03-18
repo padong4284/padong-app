@@ -8,22 +8,49 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:flutter/material.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/node/nodes.dart';
+import 'package:padong/ui/shared/custom_icons.dart';
 
 class SearchEngine {
+  static const level2 = {
+    'Padong': {
+      'Univ.': Icons.school_rounded,
+      'Wiki': CustomIcons.wiki,
+      'Board': Icons.wysiwyg_rounded,
+      'Post': Icons.assignment_rounded,
+      'Event': Icons.event_rounded,
+    },
+    'Univ.': {
+      'Wiki': CustomIcons.wiki,
+      'Board': Icons.wysiwyg_rounded,
+      'Post': Icons.assignment_rounded,
+      'Event': Icons.event_rounded,
+      'Lecture': Icons.menu_book_rounded,
+      'Building': Icons.location_city_rounded,
+      'Service': Icons.work_rounded,
+    },
+    'My Own': {
+      'User': Icons.person_rounded,
+      'Chat': Icons.mode_comment_rounded,
+      'Like': Icons.favorite_rounded,
+      'Save': Icons.bookmark_rounded,
+    }
+  };
+
   static Future<List<TitleNode>> search(String type, String searching) async {
     List<String> keywords =
-        searching.split(' ').map((keyword) => keyword.toLowerCase()).toList();
+    searching.split(' ').map((keyword) => keyword.toLowerCase()).toList();
     if (type == 'like' || type == 'bookmark')
       return [
         // TODO: get Post by like and bookmark
       ];
     List<TitleNode> nodes = await PadongFB.getDocsByRule(type).then((docs) =>
-        <TitleNode>[
-          ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
-        ]);
+    <TitleNode>[
+      ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
+    ]);
 
     // only searching title
     List<TitleNode> result = [];

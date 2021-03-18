@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart' as fb;
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -75,7 +76,7 @@ class Session {
         'ownerId': uid,
       }).set(uid);
       await _registerUser(user, univ);
-    } else if(result == SignUpResult.emailAlreadyInUse){
+    } else if (result == SignUpResult.emailAlreadyInUse) {
       return SignUpResult.emailAlreadyInUse;
     }
     return result;
@@ -107,5 +108,26 @@ class Session {
     currUniversity = university;
     Navigator.pushNamed(context, '/main');
     return true; // TODO: check success
+  }
+
+  static Future<ResetPasswordResult> sendResetPasswordEmail(String id, String email) async {
+    User targetUser = await User.getByUserId(id);
+    if(targetUser == null){
+      return ResetPasswordResult.InvalidUser;
+    }
+    if(!targetUser.userEmails.contains(email)){
+      return ResetPasswordResult.InvalidEmail;
+    }
+    try {
+      await PadongAuth.resetPassword(email);
+    } on fb.FirebaseAuthException catch (e) {
+      if(e.code== "invalid-email"){
+        return ResetPasswordResult.InvalidEmail;
+      } else if(e.code== "user-not-found") {
+        return ResetPasswordResult.InvalidEmail;
+      }
+    }
+
+    return ResetPasswordResult.success;
   }
 }

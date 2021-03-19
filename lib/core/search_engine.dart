@@ -53,12 +53,12 @@ class SearchEngine {
       return [
         // TODO: get Post by like and bookmark
       ];
-    else if (type == 'Chat') type = 'chatroom';
+    else if (type == 'chat') type = 'chatroom';
     // TODO: memo & question
-    List<TitleNode> nodes = await PadongFB.getDocsByRule(type).then((docs) =>
-        <TitleNode>[
-          ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
-        ]);
+    List<TitleNode> nodes = await PadongFB.getDocsByRule(type, limit: 30).then(
+        (docs) => <TitleNode>[
+              ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
+            ]);
 
     // only searching title
     List<TitleNode> result = [];

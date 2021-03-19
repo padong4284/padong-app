@@ -14,6 +14,7 @@ import 'package:padong/core/search_engine.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/view/search/result_view.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
 import 'package:padong/ui/widget/card/photo_card.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
@@ -56,11 +57,7 @@ class _SearchViewState extends State<SearchView> {
         children: [
           this.level(),
           SizedBox(height: 30),
-          HorizontalScroller(
-              emptyMessage: this.isSearched
-                  ? 'Nothing to Show you'
-                  : 'You can Search by Title',
-              children: this.result.map((node) => PhotoCard(node)).toList())
+          ResultView(this.result, this.isSearched)
         ]);
   }
 

@@ -130,7 +130,7 @@ class _PadongButtonState extends State<PadongButton> {
 
   void setLevel2(String level1, [String level2]) {
     this.searchLevel = 2;
-    this.setLevel1();
+    this.setLevel1(level1);
     Map<String, IconData> _level2 = SearchEngine.level2[level1];
     Color getColor(label) =>
         label == level2 ? AppTheme.colors.base : AppTheme.colors.semiPrimary;

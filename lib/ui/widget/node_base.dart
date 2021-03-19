@@ -97,12 +97,12 @@ class NodeBase extends StatelessWidget {
         style: AppTheme.getFont(color: AppTheme.colors.support, isBold: true));
   }
 
-  Widget bottomArea({List<int> hides, bool isSubNode}) {
+  Widget bottomArea({List<int> hides}) {
     return Material(
         color: AppTheme.colors.transparent,
         child: Stack(
           children: [
-            BottomButtons(this.statistics, left: 0, hides: hides, isSubNode: isSubNode),
+            BottomButtons(this.statistics, left: 0, hides: hides),
             Positioned(
                 bottom: 5,
                 right: 0,

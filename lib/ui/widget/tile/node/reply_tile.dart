@@ -23,7 +23,7 @@ class ReplyTile extends NodeTile {
   }
 
   @override
-  Widget bottomArea({List<int> hides, bool isSubNode=true}) {
-    return super.bottomArea(hides: [2], isSubNode: isSubNode);
+  Widget bottomArea({List<int> hides}) {
+    return super.bottomArea(hides: [2]);
   }
 }

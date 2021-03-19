@@ -71,12 +71,12 @@ class QuestionCard extends NodeBase {
   }
 
   @override
-  Widget bottomArea({List<int> hides, bool isSubNode}) {
+  Widget bottomArea({List<int> hides}) {
     return Material(
         color: AppTheme.colors.transparent,
         child: Stack(
           children: [
-            BottomButtons(this.node, left: 0, hides: [2], isSubNode: isSubNode,),
+            BottomButtons(this.node, left: 0, hides: [2]),
             Positioned(
               bottom: 0,
               right: 5,

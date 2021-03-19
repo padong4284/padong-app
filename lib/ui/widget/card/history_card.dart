@@ -38,7 +38,7 @@ class HistoryCard extends NodeBase {
   }
 
   @override
-  Widget bottomArea({List<int> hides, bool isSubNode}) {
+  Widget bottomArea({List<int> hides}) {
     return Container(
         padding: const EdgeInsets.only(top: 2),
         transform: Matrix4.translationValues(0.0, 5.0, 0.0),

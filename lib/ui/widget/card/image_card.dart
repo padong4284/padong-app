@@ -76,7 +76,7 @@ class ImageCard extends NodeBase {
   }
 
   @override
-  Widget bottomArea({List<int> hides, bool isSubNode}) {
+  Widget bottomArea({List<int> hides}) {
     return Padding(
         padding: const EdgeInsets.only(top: 18, left: 5, right: 5),
         child: super.bottomArea(hides: [1]));

@@ -22,11 +22,10 @@ class BottomButtons extends StatefulWidget {
   final double gap;
   final Color color;
   final List<int> hides;
-  final bool isSubNode;
   static Function(int idx) update;
 
   BottomButtons(this.node,
-      {this.left = 0, this.gap = 40, color, this.hides, this.isSubNode = false})
+      {this.left = 0, this.gap = 40, color, this.hides})
       : this.color = color ?? AppTheme.colors.support;
 
   @override
@@ -85,15 +84,11 @@ class _BottomButtonsState extends State<BottomButtons> {
                           onPressed: () {
                             if (idx == 0) {
                               widget.node.updateLiked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null &&
-                                  (widget.isSubNode == null ||
-                                      !widget.isSubNode))
+                              if (BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(0);
                             } else if (idx == 2) {
                               widget.node.updateBookmarked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null &&
-                                  (widget.isSubNode == null ||
-                                      !widget.isSubNode))
+                              if (BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(1);
                             }
                             setState(() {

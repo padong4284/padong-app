@@ -22,9 +22,11 @@ class BottomButtons extends StatefulWidget {
   final double gap;
   final Color color;
   final List<int> hides;
+  final bool isSubNode;
   static Function(int idx) update;
 
-  BottomButtons(this.node, {this.left = 0, this.gap = 40, color, this.hides})
+  BottomButtons(this.node,
+      {this.left = 0, this.gap = 40, color, this.hides, this.isSubNode = false})
       : this.color = color ?? AppTheme.colors.support;
 
   @override
@@ -37,13 +39,16 @@ class _BottomButtonsState extends State<BottomButtons> {
   @override
   void initState() {
     super.initState();
-    BottomButtons.update = (int idx) => setState(() =>
-          this.isClickeds[idx] = !this.isClickeds[idx]);
-    this.isClickeds = [
-      widget.node.isLiked(Session.user),
-      false,
-      widget.node.isBookmarked(Session.user)
-    ];
+    BottomButtons.update = (int idx) =>
+        setState(() => this.isClickeds[idx] = !this.isClickeds[idx]);
+
+    () async {
+      this.isClickeds = [
+        widget.node.isLiked(Session.user),
+        await widget.node.isReplied(Session.user),
+        widget.node.isBookmarked(Session.user)
+      ];
+    }();
   }
 
   @override
@@ -74,16 +79,21 @@ class _BottomButtonsState extends State<BottomButtons> {
                           initEveryTime: true,
                           defaultColor: AppTheme.colors.support,
                           toggleColor: clickedClrs[idx],
+                          disabled: idx == 1,
                           isToggled: this.isClickeds[idx],
                           alignment: Alignment.bottomCenter,
                           onPressed: () {
                             if (idx == 0) {
                               widget.node.updateLiked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null)
+                              if (BackAppBar.updateLikeBookmark != null &&
+                                  (widget.isSubNode == null ||
+                                      !widget.isSubNode))
                                 BackAppBar.updateLikeBookmark(0);
                             } else if (idx == 2) {
                               widget.node.updateBookmarked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null)
+                              if (BackAppBar.updateLikeBookmark != null &&
+                                  (widget.isSubNode == null ||
+                                      !widget.isSubNode))
                                 BackAppBar.updateLikeBookmark(1);
                             }
                             setState(() {

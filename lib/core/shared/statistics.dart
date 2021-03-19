@@ -10,6 +10,7 @@
 ///*********************************************************************
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/deck/re_reply.dart';
 import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/title_node.dart';
@@ -38,6 +39,53 @@ mixin Statistics on TitleNode {
   bool isBookmarked(User me) {
     if (this.bookmarks == null) return false;
     if (this.bookmarks.contains(me.id)) return true;
+    return false;
+  }
+
+  Future<bool> isReplied(User me) async {
+    switch (this.type) {
+      case "post":
+        {
+          return (await PadongFB.getDocsByRule("reply",
+              rule: (q) => q
+                  .where("parentId", isEqualTo: this.id)
+                  .where("ownerId", isEqualTo: me.id),
+              limit: 1)).isNotEmpty || (await PadongFB.getDocsByRule("rereply",
+              rule: (q) => q
+                  .where("grandParentId", isEqualTo: this.id)
+                  .where("ownerId", isEqualTo: me.id),
+              limit: 1)).isNotEmpty;
+        }
+        break;
+      case "reply":
+        {
+          var result= (await PadongFB.getDocsByRule("rereply",
+              rule: (q) => q
+                  .where("parentId", isEqualTo: this.id)
+                  .where("ownerId", isEqualTo: me.id),
+              limit: 1));
+          return result.isNotEmpty;
+        }
+        break;
+      case "building":
+        {
+          return (await PadongFB.getDocsByRule("service",
+              rule: (q) => q
+                  .where("parentId", isEqualTo: this.id)
+                  .where("ownerId", isEqualTo: me.id),
+              limit: 1)).isNotEmpty;
+        }
+        break;
+      case "wiki":
+        {
+          return (await PadongFB.getDocsByRule("item",
+              rule: (q) => q
+                  .where("parentId", isEqualTo: this.id)
+                  .where("ownerId", isEqualTo: me.id),
+              limit: 1)).isNotEmpty;
+        }
+        break;
+    }
     return false;
   }
 
@@ -87,14 +135,16 @@ mixin Statistics on TitleNode {
 
   Future<List<int>> getStatisticsWithoutMe(User me) async {
     List<Node> replyResult = await this.getChildren(Reply());
-    List<DocumentSnapshot> reReplyResult = await PadongFB.getDocsByRule(
-        "rereply",
-        rule: (q) => q.where("grandParentId", isEqualTo: this.id));
+    List<DocumentSnapshot> reReplyResult = (await PadongFB.getDocsByRule(
+          "rereply",
+          rule: (q) => q.where("grandParentId", isEqualTo: this.id)));
+    List<Node> reReplyChildrenResult = await this.getChildren(ReReply());
+
 
     return [
       // no count me
       (this.likes ?? []).where((id) => id != me.id).length,
-      replyResult.length + reReplyResult.length,
+      replyResult.length + reReplyResult.length + reReplyChildrenResult.length - ((await this.isReplied(me))?1:0),
       (this.bookmarks ?? []).where((id) => id != me.id).length,
     ];
   }

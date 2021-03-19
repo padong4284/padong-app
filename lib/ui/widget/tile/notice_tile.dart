@@ -83,7 +83,7 @@ class _NoticeTile extends NodeTile {
   _NoticeTile(Post node, this.isLast) : super(node, noProfile: true);
 
   @override
-  Widget bottomArea({List<int> hides}) {
+  Widget bottomArea({List<int> hides, bool isSubNode}) {
     return SizedBox(height: 5);
   }
 

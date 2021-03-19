@@ -86,7 +86,7 @@ class ChatRoomTile extends NodeTile {
   }
 
   @override
-  Widget bottomArea({List<int> hides}) {
+  Widget bottomArea({List<int> hides, bool isSubNode=false}) {
     return PadongFutureBuilder(
         future: this.chatRoom.countUnread(Session.user),
         builder: (unread) =>

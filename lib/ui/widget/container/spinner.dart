@@ -44,6 +44,7 @@ class Spinner extends StatefulWidget {
 class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
   double angle = 0;
   double dAngle = 0;
+  double originAngle = 0;
   AnimationController _animationController;
   Animation<double> _animation;
   bool startAnimate = true;
@@ -70,6 +71,7 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
     double r = widget.actionSize / 2;
     double rp = widget.radius - r - widget.padding;
     return GestureDetector(
+        onPanStart: this._prepare,
         onPanUpdate: this._rotate,
         onPanEnd: this._rotateFadeOut,
         child: AnimatedBuilder(
@@ -112,14 +114,21 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
             ])));
   }
 
+  void _prepare(DragStartDetails details) {
+    RenderBox spinner = context.findRenderObject();
+    Offset offset = spinner.globalToLocal(details.globalPosition);
+    this.originAngle = atan2(offset.dx - widget.radius, widget.radius - offset.dy);
+  }
+
   void _rotate(DragUpdateDetails details) {
     RenderBox spinner = context.findRenderObject();
     Offset offset = spinner.globalToLocal(details.globalPosition);
     double angle = atan2(offset.dx - widget.radius, widget.radius - offset.dy);
     if (mounted)
       setState(() {
-        this.dAngle = angle - this.angle;
-        this.angle = angle;
+        this.dAngle = angle - this.originAngle;
+        this.originAngle = angle;
+        this.angle += this.dAngle;
       });
   }
 

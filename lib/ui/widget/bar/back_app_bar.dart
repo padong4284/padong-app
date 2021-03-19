@@ -118,9 +118,11 @@ class _BackAppBarState extends State<BackAppBar> {
   }
 
   List<Widget> _likeAndBookmarkActions() {
+    Color color = AppTheme.colors.fontPalette[1];
     return [
       ToggleIconButton(Icons.favorite_outline_rounded,
           toggleIcon: Icons.favorite_rounded,
+          defaultColor: color,
           isToggled: this.likeBookmark[0], onPressed: () async {
         await widget.likeAndBookmark.updateLiked(Session.user);
         if (BottomButtons.update != null) BottomButtons.update(0);
@@ -130,6 +132,7 @@ class _BackAppBarState extends State<BackAppBar> {
       }, initEveryTime: true),
       ToggleIconButton(Icons.bookmark_outline_rounded,
           toggleIcon: Icons.bookmark_rounded,
+          defaultColor: color,
           isToggled: this.likeBookmark[1], onPressed: () async {
         await widget.likeAndBookmark.updateBookmarked(Session.user);
         if (BottomButtons.update != null) BottomButtons.update(2);

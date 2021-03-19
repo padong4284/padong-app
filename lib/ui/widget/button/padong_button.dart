@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/node.dart';
 import 'package:padong/core/search_engine.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/core/padong_router.dart';
@@ -22,7 +21,6 @@ class PadongButton extends StatefulWidget {
   final double bottomPadding;
   final IconData replaceAddIcon;
   final bool isSearchView;
-  final Node node;
 
   PadongButton(
       {this.onPressAdd,
@@ -30,8 +28,7 @@ class PadongButton extends StatefulWidget {
       this.noShadow = false,
       this.bottomPadding = 0,
       this.replaceAddIcon,
-      this.isSearchView = false,
-      this.node});
+      this.isSearchView = false});
 
   _PadongButtonState createState() => _PadongButtonState();
 }
@@ -85,7 +82,6 @@ class _PadongButtonState extends State<PadongButton> {
   void initState() {
     super.initState();
     this.initButtons();
-    if (widget.isSearchView) this.searchLevel = 1;
   }
 
   void initButtons() {
@@ -99,29 +95,32 @@ class _PadongButtonState extends State<PadongButton> {
                 color: AppTheme.colors.base, size: this.iconSize),
             backgroundColor: AppTheme.colors.primary,
             onPressed: () {
+              this.setLevel1();
               setState(() => this.searchLevel = (this.searchLevel + 1) % 2);
             }));
+    this.setLevel1();
+  }
 
-    Map<String, Widget> _level1 = {
-      'Padong': Image.asset('assets/padong.png',
-          width: 35, height: 35, color: AppTheme.colors.base),
-      'Univ.': Icon(Icons.school_rounded,
-          size: this.iconSize, color: AppTheme.colors.base),
-      'My Own': Icon(Icons.person_rounded,
-          size: this.iconSize, color: AppTheme.colors.base)
-    };
-    this.searchButtons[1] = Spinner(
+  void setLevel1([String level1]) {
+    Color color =
+        level1 == null ? AppTheme.colors.base : AppTheme.colors.semiPrimary;
+    Color getColor(label) => level1 != null
+        ? (label == level1 ? AppTheme.colors.base : color)
+        : color;
+    this.searchButtons[1] = new Spinner(
         padding: 8,
+        initAngle: 5.2,
         color: Color(0xFF20AADD),
         radius: 28 + this.radius,
-        actions: _level1.keys
+        actions: SearchEngine.level1.keys
             .map((label) => InkWell(
                 onTap: () => this.setLevel2(label),
                 child: Column(children: [
-                  _level1[label],
+                  Icon(SearchEngine.level1[label],
+                      size: this.iconSize, color: getColor(label)),
                   Text(label,
                       style: AppTheme.getFont(
-                          color: AppTheme.colors.base,
+                          color: getColor(label),
                           fontSize: AppTheme.fontSizes.small))
                 ])))
             .toList(),
@@ -129,22 +128,27 @@ class _PadongButtonState extends State<PadongButton> {
         child: this.searchButtons[0]);
   }
 
-  void setLevel2(String level1) {
+  void setLevel2(String level1, [String level2]) {
     this.searchLevel = 2;
+    this.setLevel1();
     Map<String, IconData> _level2 = SearchEngine.level2[level1];
+    Color getColor(label) =>
+        label == level2 ? AppTheme.colors.base : AppTheme.colors.semiPrimary;
     this.searchButtons[2] = Spinner(
         color: Color(0xFF50B8DD),
         radius: 28.0 + 2 * this.radius,
         actions: _level2.keys
             .map((label) => InkWell(
-                onTap: () => PadongRouter.routeURL(
-                    '/search?l1=$level1&l2=$label', widget.node),
+                onTap: () {
+                  this.setLevel2(level1, label);
+                  PadongRouter.routeURL('/search?l1=$level1&l2=$label');
+                },
                 child: Column(children: [
                   Icon(_level2[label],
-                      size: this.iconSize, color: AppTheme.colors.base),
+                      size: this.iconSize, color: getColor(label)),
                   Text(label,
                       style: AppTheme.getFont(
-                          color: AppTheme.colors.base,
+                          color: getColor(label),
                           fontSize: AppTheme.fontSizes.small))
                 ])))
             .toList(),

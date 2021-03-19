@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/search_engine.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -21,12 +20,11 @@ import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
 
 class SearchView extends StatefulWidget {
-  final Node currNode;
   final String level1;
   final String level2;
   final TextEditingController _searchController = TextEditingController();
 
-  SearchView(this.currNode, this.level1, this.level2);
+  SearchView(this.level1, this.level2);
 
   _SearchViewState createState() => _SearchViewState();
 }

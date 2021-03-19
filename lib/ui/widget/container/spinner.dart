@@ -21,6 +21,7 @@ class Spinner extends StatefulWidget {
   final double resistance;
   final double actionSize;
   final double padding;
+  final double initAngle;
   final Color color;
   final bool isShadow;
 
@@ -31,6 +32,7 @@ class Spinner extends StatefulWidget {
       this.child,
       color,
       this.padding = 10,
+      this.initAngle = 0,
       this.resistance = 0.7,
       this.isShadow = true})
       : assert(resistance > 0),
@@ -49,6 +51,7 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    this.angle = widget.initAngle;
     this._animationController =
         AnimationController(duration: Duration(seconds: 5), vsync: this);
     this._animation = Tween(begin: 0.0, end: 2 * pi).animate(CurvedAnimation(

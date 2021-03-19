@@ -15,7 +15,13 @@ import 'package:padong/core/node/nodes.dart';
 import 'package:padong/ui/shared/custom_icons.dart';
 
 class SearchEngine {
-  static const level2 = {
+  static const Map<String, IconData> level1 = {
+    'Padong': CustomIcons.padong,
+    'Univ.': Icons.school_rounded,
+    'My Own': Icons.person_rounded,
+  };
+
+  static const Map<String, Map<String, IconData>> level2 = {
     'Padong': {
       'Univ.': Icons.school_rounded,
       'Wiki': CustomIcons.wiki,
@@ -42,15 +48,17 @@ class SearchEngine {
 
   static Future<List<TitleNode>> search(String type, String searching) async {
     List<String> keywords =
-    searching.split(' ').map((keyword) => keyword.toLowerCase()).toList();
+        searching.split(' ').map((keyword) => keyword.toLowerCase()).toList();
     if (type == 'like' || type == 'bookmark')
       return [
         // TODO: get Post by like and bookmark
       ];
+    else if (type == 'Chat') type = 'chatroom';
+    // TODO: memo & question
     List<TitleNode> nodes = await PadongFB.getDocsByRule(type).then((docs) =>
-    <TitleNode>[
-      ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
-    ]);
+        <TitleNode>[
+          ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
+        ]);
 
     // only searching title
     List<TitleNode> result = [];

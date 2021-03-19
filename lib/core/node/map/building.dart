@@ -11,7 +11,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/title_node.dart';
-import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/mixin/statistics.dart';
 import 'package:padong/core/shared/types.dart';
 
 // parent: Mappa

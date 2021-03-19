@@ -10,7 +10,7 @@
 ///*********************************************************************
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/service/session.dart';
-import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/mixin/statistics.dart';
 import 'package:padong/core/node/common/user.dart';
 
 // parent: Post, Memo, Question

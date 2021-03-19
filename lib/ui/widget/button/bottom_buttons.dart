@@ -9,8 +9,12 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/cover/argue.dart';
+import 'package:padong/core/node/deck/re_reply.dart';
+import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/service/session.dart';
-import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/mixin/statistics.dart';
+import 'package:padong/ui/shared/button_properties.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
@@ -32,18 +36,25 @@ class BottomButtons extends StatefulWidget {
 }
 
 class _BottomButtonsState extends State<BottomButtons> {
-  List<bool> isClickeds; // likes, replies, bookmarks
+  bool isReply;
+  List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
 
   @override
   void initState() {
     super.initState();
-    BottomButtons.update = (int idx) => setState(() =>
-          this.isClickeds[idx] = !this.isClickeds[idx]);
+    this.isReply = widget.node is Reply || widget.node is ReReply;
+    if (!this.isReply)
+      BottomButtons.update = (int idx) =>
+          setState(() => this.isClickeds[idx] = !this.isClickeds[idx]);
+
     this.isClickeds = [
       widget.node.isLiked(Session.user),
       false,
       widget.node.isBookmarked(Session.user)
     ];
+    widget.node
+        .isReplied(Session.user)
+        .then((isReplied) => setState(() => this.isClickeds[1] = isReplied));
   }
 
   @override
@@ -68,22 +79,23 @@ class _BottomButtonsState extends State<BottomButtons> {
                         left: widget.left + widget.gap * this.getGapIdx(idx),
                         bottom: 2,
                         child: ToggleIconButton(
-                          unclickeds[idx],
-                          toggleIcon: clickeds[idx],
+                          UnClickIcons[idx],
+                          toggleIcon: ClickIcons[idx],
                           size: 16,
                           initEveryTime: true,
                           defaultColor: AppTheme.colors.support,
-                          toggleColor: clickedClrs[idx],
+                          toggleColor: ClickColors[idx],
+                          disabled: idx == 1,
                           isToggled: this.isClickeds[idx],
                           alignment: Alignment.bottomCenter,
                           onPressed: () {
                             if (idx == 0) {
                               widget.node.updateLiked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null)
+                              if (!this.isReply && BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(0);
                             } else if (idx == 2) {
                               widget.node.updateBookmarked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null)
+                              if (!this.isReply &&BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(1);
                             }
                             setState(() {
@@ -106,26 +118,11 @@ class _BottomButtonsState extends State<BottomButtons> {
   }
 
   Text getNumText(idx, bottoms) {
-    return Text((bottoms[idx] + (this.isClickeds[idx] ? 1 : 0)).toString(),
+    return Text(
+        (bottoms[idx] + (idx != 1 && this.isClickeds[idx] ? 1 : 0)).toString(),
         style: TextStyle(
             color: widget.color, fontSize: AppTheme.fontSizes.regular));
   }
 
   int getGapIdx(idx) => widget.hides != null ? (idx + 1) >> 1 : idx;
 }
-
-const List<IconData> unclickeds = [
-  Icons.favorite_border_rounded,
-  Icons.mode_comment_outlined,
-  Icons.bookmark_border_rounded
-];
-const List<IconData> clickeds = [
-  Icons.favorite_rounded,
-  Icons.mode_comment,
-  Icons.bookmark_rounded
-];
-final List<Color> clickedClrs = [
-  AppTheme.colors.pointRed,
-  AppTheme.colors.primary,
-  AppTheme.colors.pointYellow
-];

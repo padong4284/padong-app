@@ -11,7 +11,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:padong/core/service/session.dart';
-import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/mixin/statistics.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/bottom_buttons.dart';

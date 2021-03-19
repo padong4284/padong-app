@@ -10,6 +10,7 @@
 ///*********************************************************************
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/deck/re_reply.dart';
 import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/title_node.dart';
@@ -41,6 +42,21 @@ mixin Statistics on TitleNode {
     return false;
   }
 
+  Future<bool> isReplied(User me) async {
+    if ((await PadongFB.getDocsByRule("reply",
+            rule: (query) => query
+                .where("parentId", isEqualTo: this.id)
+                .where("ownerId", isEqualTo: me.id),
+            limit: 1))
+        .isNotEmpty) return true;
+    return (await PadongFB.getDocsByRule("rereply",
+            rule: (query) => query
+                .where("grandParentId", isEqualTo: this.id)
+                .where("ownerId", isEqualTo: me.id),
+            limit: 1))
+        .isNotEmpty;
+  }
+
   Future<void> _update(User me, int _likeOrBookmark) async {
     String _targetType = _likeOrBookmark == 0 ? 'like' : 'bookmark';
     bool isChecked = [this.isLiked, this.isBookmarked][_likeOrBookmark](me);
@@ -63,7 +79,7 @@ mixin Statistics on TitleNode {
       [this.likes, this.bookmarks][_likeOrBookmark].add(me.id);
     } else {
       List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
-          rule: (q) => q
+          rule: (query) => query
               .where("parentType", isEqualTo: this.type)
               .where("ownerId", isEqualTo: me.id),
           limit: 1);
@@ -86,15 +102,14 @@ mixin Statistics on TitleNode {
   }
 
   Future<List<int>> getStatisticsWithoutMe(User me) async {
-    List<Node> replyResult = await this.getChildren(Reply());
-    List<DocumentSnapshot> reReplyResult = await PadongFB.getDocsByRule(
-        "rereply",
-        rule: (q) => q.where("grandParentId", isEqualTo: this.id));
+    List<Node> replies = await this.getChildren(Reply());
+    List<DocumentSnapshot> reReplies = (await PadongFB.getDocsByRule("rereply",
+        rule: (q) => q.where("grandParentId", isEqualTo: this.id)));
+    List<Node> reReplyChildren = await this.getChildren(ReReply());
 
     return [
-      // no count me
       (this.likes ?? []).where((id) => id != me.id).length,
-      replyResult.length + reReplyResult.length,
+      replies.length + reReplies.length + reReplyChildren.length,
       (this.bookmarks ?? []).where((id) => id != me.id).length,
     ];
   }

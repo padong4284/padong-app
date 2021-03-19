@@ -11,7 +11,7 @@
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/service/padong_fb.dart';
-import 'package:padong/core/shared/notification.dart';
+import 'package:padong/core/node/mixin/notification.dart';
 
 // parent: Deck
 class Board extends TitleNode with Notification {

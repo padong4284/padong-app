@@ -13,7 +13,7 @@ import 'package:padong/core/node/chat/message.dart';
 import 'package:padong/core/node/chat/participant.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/title_node.dart';
-import 'package:padong/core/shared/notification.dart';
+import 'package:padong/core/node/mixin/notification.dart';
 import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 

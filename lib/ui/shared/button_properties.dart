@@ -60,7 +60,7 @@ final simpleButtonSizes = {
   )
 };
 
-const List<IconData> UnclickIcons = [
+const List<IconData> UnClickIcons = [
   Icons.favorite_border_rounded,
   Icons.mode_comment_outlined,
   Icons.bookmark_border_rounded

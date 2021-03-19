@@ -9,6 +9,9 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/cover/argue.dart';
+import 'package:padong/core/node/deck/re_reply.dart';
+import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/node/mixin/statistics.dart';
 import 'package:padong/ui/shared/button_properties.dart';
@@ -33,13 +36,16 @@ class BottomButtons extends StatefulWidget {
 }
 
 class _BottomButtonsState extends State<BottomButtons> {
+  bool isReply;
   List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
 
   @override
   void initState() {
     super.initState();
-    BottomButtons.update = (int idx) =>
-        setState(() => this.isClickeds[idx] = !this.isClickeds[idx]);
+    this.isReply = widget.node is Reply || widget.node is ReReply;
+    if (!this.isReply)
+      BottomButtons.update = (int idx) =>
+          setState(() => this.isClickeds[idx] = !this.isClickeds[idx]);
 
     this.isClickeds = [
       widget.node.isLiked(Session.user),
@@ -73,7 +79,7 @@ class _BottomButtonsState extends State<BottomButtons> {
                         left: widget.left + widget.gap * this.getGapIdx(idx),
                         bottom: 2,
                         child: ToggleIconButton(
-                          UnclickIcons[idx],
+                          UnClickIcons[idx],
                           toggleIcon: ClickIcons[idx],
                           size: 16,
                           initEveryTime: true,
@@ -85,11 +91,11 @@ class _BottomButtonsState extends State<BottomButtons> {
                           onPressed: () {
                             if (idx == 0) {
                               widget.node.updateLiked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null)
+                              if (!this.isReply && BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(0);
                             } else if (idx == 2) {
                               widget.node.updateBookmarked(Session.user);
-                              if (BackAppBar.updateLikeBookmark != null)
+                              if (!this.isReply &&BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(1);
                             }
                             setState(() {
@@ -120,4 +126,3 @@ class _BottomButtonsState extends State<BottomButtons> {
 
   int getGapIdx(idx) => widget.hides != null ? (idx + 1) >> 1 : idx;
 }
-

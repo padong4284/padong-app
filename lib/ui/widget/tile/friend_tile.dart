@@ -26,7 +26,7 @@ class FriendTile extends StatelessWidget {
   FriendTile(
     this.user, {
     this.type = FriendTileType.LIST,
-    this.onTapChat,
+    this.onTapChat, // TODO
     this.onTapMore,
     this.invited = false,
   });

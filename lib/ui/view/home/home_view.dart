@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
     return SafePaddingTemplate(
       appBar: TopAppBar('PADONG'),
       floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongButton(isScrollingDown: isScrollingDown),
+          PadongButton(isScrollingDown: isScrollingDown, noShadow: true),
       children: [
         UnivDoor(this.university),
         SizedBox(height: 35),

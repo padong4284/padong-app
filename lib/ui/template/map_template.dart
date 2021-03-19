@@ -23,7 +23,7 @@ import 'package:padong/ui/widget/card/building_card.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/container/tip_container.dart';
 import 'package:padong/ui/widget/input/marker_selector.dart';
-import 'package:padong/util/tip_clipper.dart';
+import 'package:padong/util/clipper/tip_clipper.dart';
 
 class Pin {
   final String name;
@@ -87,7 +87,8 @@ class _MapTemplateState extends State<MapTemplate> {
       floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
           isScrollingDown: isScrollingDown,
           onPressAdd: widget.toUniversity,
-          replaceAddIcon: Icons.school_rounded),
+          replaceAddIcon: Icons.school_rounded,
+          noShadow: true),
     );
   }
 
@@ -189,9 +190,7 @@ class _MapTemplateState extends State<MapTemplate> {
                 padding: const EdgeInsets.only(right: 10, bottom: 15),
                 child: InkWell(
                     onTap: () => PadongRouter.routeURL(
-                        '/pin?id=${widget.mappa.id}&type=mappa&lat=${
-                            widget.pinLocation.loc.latitude}&lng=${
-                            widget.pinLocation.loc.longitude}',
+                        '/pin?id=${widget.mappa.id}&type=mappa&lat=${widget.pinLocation.loc.latitude}&lng=${widget.pinLocation.loc.longitude}',
                         widget.mappa),
                     child: Container(
                       width: 25,

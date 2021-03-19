@@ -24,7 +24,7 @@ import 'package:padong/ui/widget/component/univ_door.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/container/swipe_deck.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
-import 'package:padong/util/svgWrapper/svg_wrapper.dart';
+import 'package:padong/util/img_supporter/svg_wrapper.dart';
 
 class CoverView extends StatelessWidget {
   final Cover cover;
@@ -35,11 +35,10 @@ class CoverView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
-          onPressAdd: () {
-            PadongRouter.routeURL(
-                'edit?id=${this.cover.id}&type=cover', this.cover);
-          },
-          isScrollingDown: isScrollingDown),
+          onPressAdd: () => PadongRouter.routeURL(
+              'edit?id=${this.cover.id}&type=cover', this.cover),
+          isScrollingDown: isScrollingDown,
+          noShadow: true),
       title: 'Wiki',
       children: [
         UnivDoor(Session.currUniversity),
@@ -71,7 +70,8 @@ class CoverView extends StatelessWidget {
     String emblemImgURL = Session.currUniversity.emblemImgURL;
     if (emblemImgURL != null) {
       if (Validator.isWikiSvg(emblemImgURL))
-        emblem = SvgNetwork(emblemImgURL, httpHooker: SvgNetwork.convertWikiToSvg);
+        emblem =
+            SvgNetwork(emblemImgURL, httpHooker: SvgNetwork.convertWikiToSvg);
       else if (emblemImgURL.endsWith(".svg"))
         emblem = SvgNetwork(emblemImgURL);
       else

@@ -34,16 +34,13 @@ class TitleNode extends Node with Owner {
     };
   }
 
-  // Work with [lib/util/http/http.dart]'s
-  // Future<List<CheckUrl>> checkImgUrls(List<String> urls) async
+  // Work with [lib/util/http/img_url_checker.dart]'
   List<String> getImageUrls() {
+    List<String> result = [];
     var extractedImgurls = RegExp(
         "!\\[[^\\]]*\]\\((?<filename>.*?)(?=\\\"|\\))(?<optionalpart>\\\".*\\\")?\\)");
-    List<String> result = [];
-
-    for (var i in extractedImgurls.allMatches(this.description)) {
+    for (var i in extractedImgurls.allMatches(this.description))
       result.add(i.namedGroup("filename"));
-    }
     return result;
   }
 }

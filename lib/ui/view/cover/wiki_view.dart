@@ -32,6 +32,9 @@ class WikiView extends StatelessWidget {
                 likeAndBookmark: this.wiki,
                 bottom: this.topTabs()),
             body: TabBarView(
+              physics: new NeverScrollableScrollPhysics(
+                // to disable move tab when dragging
+              ),
               children: [
                 ItemView(this.wiki),
                 ArgueView(this.wiki),

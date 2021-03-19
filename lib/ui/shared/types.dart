@@ -48,4 +48,5 @@ enum BottomSenderType {
   REVIEW,
   REPLY,
   CHAT,
+  SEARCH,
 }

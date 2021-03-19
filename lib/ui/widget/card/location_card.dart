@@ -12,7 +12,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:padong/util/bitmap_icon_loader.dart';
+import 'package:padong/util/img_supporter/bitmap_icon_loader.dart';
 
 class LocationCard extends StatefulWidget {
   final LatLng loc;

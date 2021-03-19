@@ -11,13 +11,20 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
+import 'package:padong/ui/widget/button/padong_button.dart';
+
+double iconSize = 45.0;
 
 class ForgotView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       appBar: BackAppBar(title: 'Forgot'),
-      children: [],
+      children: [
+        Center(
+        child:PadongButton()
+        )
+      ],
     );
   }
 }

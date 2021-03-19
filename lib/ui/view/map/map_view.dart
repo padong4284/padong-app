@@ -22,7 +22,7 @@ import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/template/map_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/util/bitmap_icon_loader.dart';
+import 'package:padong/util/img_supporter/bitmap_icon_loader.dart';
 
 class MapView extends StatefulWidget {
   final Mappa mappa;

@@ -62,3 +62,13 @@ const String CHAT_RULE = """PIP Access
 - Private
   1:1 Chat Room.
 """;
+
+const List<List<String>> KEYBOARDS = [
+  ["1234567890", "QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"],
+  [
+    "!@#\$%^&*()",
+    "ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔ",
+    "ㅁㄴㅇㄹㅎㅗㅓㅏㅣ",
+    "ㅋㅌㅊㅍㅠㅜㅡ",
+  ],
+];

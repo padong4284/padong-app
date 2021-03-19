@@ -8,7 +8,9 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:flutter/material.dart';
 import 'package:padong/ui/shared/types.dart';
+import 'package:padong/ui/theme/app_theme.dart';
 
 class ButtonProperties {
   double height;
@@ -42,8 +44,6 @@ final buttonSizes = {
   )
 };
 
-
-
 final simpleButtonSizes = {
   "ButtonSize.GIANT": ButtonProperties(
     height: 30.0,
@@ -59,3 +59,21 @@ final simpleButtonSizes = {
     fontSize: 12.0,
   )
 };
+
+const List<IconData> UnclickIcons = [
+  Icons.favorite_border_rounded,
+  Icons.mode_comment_outlined,
+  Icons.bookmark_border_rounded
+];
+
+const List<IconData> ClickIcons = [
+  Icons.favorite_rounded,
+  Icons.mode_comment,
+  Icons.bookmark_rounded
+];
+
+final List<Color> ClickColors = [
+  AppTheme.colors.pointRed,
+  AppTheme.colors.primary,
+  AppTheme.colors.pointYellow
+];

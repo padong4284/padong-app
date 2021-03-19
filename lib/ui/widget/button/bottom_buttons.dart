@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/node/mixin/statistics.dart';
+import 'package:padong/ui/shared/button_properties.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
@@ -24,8 +25,7 @@ class BottomButtons extends StatefulWidget {
   final List<int> hides;
   static Function(int idx) update;
 
-  BottomButtons(this.node,
-      {this.left = 0, this.gap = 40, color, this.hides})
+  BottomButtons(this.node, {this.left = 0, this.gap = 40, color, this.hides})
       : this.color = color ?? AppTheme.colors.support;
 
   @override
@@ -33,7 +33,7 @@ class BottomButtons extends StatefulWidget {
 }
 
 class _BottomButtonsState extends State<BottomButtons> {
-  List<bool> isClickeds; // likes, replies, bookmarks
+  List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
 
   @override
   void initState() {
@@ -41,13 +41,14 @@ class _BottomButtonsState extends State<BottomButtons> {
     BottomButtons.update = (int idx) =>
         setState(() => this.isClickeds[idx] = !this.isClickeds[idx]);
 
-    () async {
-      this.isClickeds = [
-        widget.node.isLiked(Session.user),
-        await widget.node.isReplied(Session.user),
-        widget.node.isBookmarked(Session.user)
-      ];
-    }();
+    this.isClickeds = [
+      widget.node.isLiked(Session.user),
+      false,
+      widget.node.isBookmarked(Session.user)
+    ];
+    widget.node
+        .isReplied(Session.user)
+        .then((isReplied) => setState(() => this.isClickeds[1] = isReplied));
   }
 
   @override
@@ -72,12 +73,12 @@ class _BottomButtonsState extends State<BottomButtons> {
                         left: widget.left + widget.gap * this.getGapIdx(idx),
                         bottom: 2,
                         child: ToggleIconButton(
-                          unclickeds[idx],
-                          toggleIcon: clickeds[idx],
+                          UnclickIcons[idx],
+                          toggleIcon: ClickIcons[idx],
                           size: 16,
                           initEveryTime: true,
                           defaultColor: AppTheme.colors.support,
-                          toggleColor: clickedClrs[idx],
+                          toggleColor: ClickColors[idx],
                           disabled: idx == 1,
                           isToggled: this.isClickeds[idx],
                           alignment: Alignment.bottomCenter,
@@ -111,7 +112,8 @@ class _BottomButtonsState extends State<BottomButtons> {
   }
 
   Text getNumText(idx, bottoms) {
-    return Text((bottoms[idx] + (this.isClickeds[idx] ? 1 : 0)).toString(),
+    return Text(
+        (bottoms[idx] + (idx != 1 && this.isClickeds[idx] ? 1 : 0)).toString(),
         style: TextStyle(
             color: widget.color, fontSize: AppTheme.fontSizes.regular));
   }
@@ -119,18 +121,3 @@ class _BottomButtonsState extends State<BottomButtons> {
   int getGapIdx(idx) => widget.hides != null ? (idx + 1) >> 1 : idx;
 }
 
-const List<IconData> unclickeds = [
-  Icons.favorite_border_rounded,
-  Icons.mode_comment_outlined,
-  Icons.bookmark_border_rounded
-];
-const List<IconData> clickeds = [
-  Icons.favorite_rounded,
-  Icons.mode_comment,
-  Icons.bookmark_rounded
-];
-final List<Color> clickedClrs = [
-  AppTheme.colors.pointRed,
-  AppTheme.colors.primary,
-  AppTheme.colors.pointYellow
-];

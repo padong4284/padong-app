@@ -9,7 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/node.dart';
-import 'package:padong/core/shared/owner.dart';
+import 'package:padong/core/node/mixin/owner.dart';
 
 class TitleNode extends Node with Owner {
   String title;

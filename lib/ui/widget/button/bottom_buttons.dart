@@ -10,7 +10,7 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/service/session.dart';
-import 'package:padong/core/shared/statistics.dart';
+import 'package:padong/core/node/mixin/statistics.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';

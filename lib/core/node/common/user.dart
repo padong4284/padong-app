@@ -41,10 +41,10 @@ class User extends Node {
         this.isVerified = snapshot['isVerified'],
         this.university = snapshot['university'],
         this.entranceYear = snapshot['entranceYear'],
-        this.userEmails = <String>[...snapshot['userEmails']],
+        this.userEmails = <String>[...(snapshot['userEmails'] ?? [])],
         this.profileImageURL = snapshot['profileImageURL'],
-        this.friendIds = <String>[...snapshot['friendIds']],
-        this.lectureIds = <String>[...snapshot['lectureIds']],
+        this.friendIds = <String>[...(snapshot['friendIds'] ?? [])],
+        this.lectureIds = <String>[...(snapshot['lectureIds'] ?? [])],
         super.fromMap(id, snapshot);
 
   @override
@@ -130,8 +130,9 @@ class User extends Node {
     for (DocumentSnapshot p in myParticipants) chatRoomIds.add(p['parentId']);
 
     return await PadongFB.getDocsByRule(ChatRoom().type,
-            rule: (query) => query.where(PadongFB.documentId, whereIn: chatRoomIds))
-        .then((docs) =>
+        rule: (query) =>
+            query.where(PadongFB.documentId, whereIn: chatRoomIds)).then(
+        (docs) =>
             docs.map((doc) => ChatRoom.fromMap(doc.id, doc.data())).toList());
   }
 }

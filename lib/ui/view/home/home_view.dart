@@ -16,6 +16,7 @@ import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
@@ -44,7 +45,7 @@ class HomeView extends StatelessWidget {
     return SafePaddingTemplate(
       appBar: TopAppBar('PADONG'),
       floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongButton(isScrollingDown: isScrollingDown, noShadow: true),
+          PadongButton(isScrollingDown: isScrollingDown),
       children: [
         UnivDoor(this.university),
         SizedBox(height: 35),
@@ -60,7 +61,7 @@ class HomeView extends StatelessWidget {
 
   List<Widget> aboutArea() {
     return [
-      this._title('About Georgia Tech'), // TODO: from currentUniv
+      this._title('About Our University'),
       SizedBox(height: 10),
       PadongFutureBuilder(
           future: this.university.getChildren(Wiki()),
@@ -187,4 +188,3 @@ class HomeView extends StatelessWidget {
         )));
   }
 }
-// TODO: 스크롤 파동 버튼 숨김

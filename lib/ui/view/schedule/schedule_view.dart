@@ -35,8 +35,7 @@ class ScheduleView extends StatelessWidget {
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
             onPressAdd: () => PadongRouter.routeURL(
                 'update?id=${this.schedule.id}&type=schedule', this.schedule),
-            isScrollingDown: isScrollingDown,
-            noShadow: true),
+            isScrollingDown: isScrollingDown),
         title: 'Schedule',
         children: [
           SizedBox(height: 10),

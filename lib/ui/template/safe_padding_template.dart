@@ -11,6 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/view/main_view.dart';
 
 class SafePaddingTemplate extends StatefulWidget {
   final String title;
@@ -59,9 +60,13 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
     super.initState();
     this._scrollController = widget.scrollController ?? ScrollController();
     this._scrollController.addListener(() {
-      setState(() => this.isScrollingDown =
-          (this._scrollController.position.userScrollDirection ==
-              ScrollDirection.reverse));
+      setState(() {
+        this.isScrollingDown =
+            (this._scrollController.position.userScrollDirection ==
+                ScrollDirection.reverse);
+        if (MainViewState.setMainScrollingDown != null)
+          MainViewState.setMainScrollingDown(this.isScrollingDown);
+      });
     });
     this.setRendered();
   }

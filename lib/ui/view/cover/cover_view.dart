@@ -37,8 +37,7 @@ class CoverView extends StatelessWidget {
       floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
           onPressAdd: () => PadongRouter.routeURL(
               'edit?id=${this.cover.id}&type=cover', this.cover),
-          isScrollingDown: isScrollingDown,
-          noShadow: true),
+          isScrollingDown: isScrollingDown),
       title: 'Wiki',
       children: [
         UnivDoor(Session.currUniversity),

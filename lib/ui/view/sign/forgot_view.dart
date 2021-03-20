@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
-import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/padong_wave.dart';
 
 double iconSize = 45.0;

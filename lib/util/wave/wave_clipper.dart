@@ -18,7 +18,7 @@ class WaveClipper extends CustomClipper<Path> {
   bool isReversed;
   int staticIdx;
 
-  WaveClipper(this.wave, {this.isBottom = false});
+  WaveClipper(this.wave, {this.isBottom = false}) : this.isStatic = false;
 
   WaveClipper.static(this.staticIdx,
       {this.isBottom = true, this.isReversed = false})

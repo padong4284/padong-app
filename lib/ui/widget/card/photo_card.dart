@@ -13,7 +13,6 @@ import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/node/mixin/statistics.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/bottom_buttons.dart';
-import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/padong_wave.dart';
 
 class PhotoCard extends StatelessWidget {
@@ -83,5 +82,5 @@ class PhotoCard extends StatelessWidget {
       height: height,
       child: img == null ? PadongWave() : null,
     );
-  } //https://user-images.githubusercontent.com/35912840/111458746-278a1080-875d-11eb-8d73-791a828a99a7.png
+  }
 }

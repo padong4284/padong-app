@@ -53,7 +53,7 @@ class HomeView extends StatelessWidget {
         ...this.questionArea(),
         ...this.eventsArea(),
         ...this.placesArea(),
-        ...this.padongArea(),
+        ...this.padongArea(context),
       ],
     );
   }
@@ -78,7 +78,7 @@ class HomeView extends StatelessWidget {
           future: this.university.getChildren(Board()),
           builder: (boards) {
             Board qBoard =
-                boards.where((board) => board.title == 'Question').first;
+                boards.where((board) => board.title == 'Questions').first;
             return Column(children: [
               PadongFutureBuilder(
                 future: qBoard.getChildren(Question()),
@@ -128,7 +128,7 @@ class HomeView extends StatelessWidget {
     ];
   }
 
-  List<Widget> padongArea() {
+  List<Widget> padongArea(BuildContext context) {
     return [
       this._title('PADONG'),
       // TODO: create PADONG univ, create boards
@@ -136,13 +136,22 @@ class HomeView extends StatelessWidget {
       PadongFutureBuilder(
           future: this.university.getChildren(Board()),
           builder: (boards) => BoardList(<Board>[...boards])),
+      InkWell(
+          onTap: () => this.showAboutPadong(context),
+          child: Container(
+              padding: const EdgeInsets.only(top: 30),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                this.logoPADONG(size: 30.0),
+                Text('Contact Us',
+                    style: AppTheme.getFont(
+                        isBold: true,
+                        color: AppTheme.colors.primary,
+                        fontSize: AppTheme.fontSizes.large))
+              ]))),
       Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.only(top: 30),
-          child: Text('Contact Us')),
-      Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(top: 5, bottom: 50),
           child: Text('Copyright 2021. PADONG. All rights reserved.',
               style: AppTheme.getFont(
                   color: AppTheme.colors.semiSupport,
@@ -157,4 +166,25 @@ class HomeView extends StatelessWidget {
             style: AppTheme.getFont(
                 fontSize: AppTheme.fontSizes.mlarge, isBold: true)));
   }
+
+  void showAboutPadong(BuildContext context) {
+    showAboutDialog(
+      context: context,
+      applicationVersion: '1.0.0',
+      applicationIcon: this.logoPADONG(),
+      applicationLegalese: 'Copyright 2021, PADONG, All Rights Reserved',
+    );
+  }
+
+  Widget logoPADONG({double size = 50}) {
+    return Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage('assets/logo/PADONG.png'),
+          fit: BoxFit.fill,
+        )));
+  }
 }
+// TODO: 스크롤 파동 버튼 숨김

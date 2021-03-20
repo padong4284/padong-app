@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/mixin/owner.dart';
-import 'package:padong/util/img_supporter/img_url_checker.dart';
 
 class TitleNode extends Node with Owner {
   String title;

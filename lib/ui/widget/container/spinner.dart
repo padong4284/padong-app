@@ -136,9 +136,9 @@ class _SpinnerState extends State<Spinner> with SingleTickerProviderStateMixin {
     if (_animationController.isAnimating) return;
     int d = this.dAngle > 0 ? 1 : -1;
     double v = details.velocity.pixelsPerSecond.distance / 100;
-    for (double i = v * d; (d > 0 ? i > 0 : i < 0); i /= 2) {
-      await Future.delayed(Duration(milliseconds: 100));
-      if (mounted) setState(() => this.angle += i / (50 * widget.resistance));
+    for (double i = v * d; (d > 0 ? i > 0 : i < 0); i /= 1.2) {
+      await Future.delayed(Duration(milliseconds: 20));
+      if (mounted) setState(() => this.angle += i / (100 * widget.resistance));
     }
   }
 }

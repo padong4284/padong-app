@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
@@ -82,7 +83,9 @@ class HomeView extends StatelessWidget {
                 boards.where((board) => board.title == 'Questions').first;
             return Column(children: [
               PadongFutureBuilder(
-                future: qBoard.getChildren(Question()),
+                future: (() async =>
+                    (await qBoard.getChildren(Post())) +
+                    (await qBoard.getChildren(Question())))(),
                 builder: (_questions) {
                   return SwipeDeck(
                       emptyMessage: 'Ask Free!',

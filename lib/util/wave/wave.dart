@@ -40,16 +40,22 @@ class Wave {
   double lean;
   double yNorm;
   int pointNum;
+  bool isDynamic;
   List<WavePoint> points = [];
 
-  Wave(this.amplitude, this.lean, this.yNorm, this.pointNum)
+  Wave(this.amplitude, this.lean, this.yNorm, this.pointNum,
+      {this.isDynamic = false})
       : this.points = List.generate(
             pointNum,
-            (i) => WavePoint((i % (pointNum - 1) == 0) ? 0 : amplitude,
-                i.toDouble(), yNorm + lean * i));
+            (i) => WavePoint(
+                !isDynamic && (i % (pointNum - 1) == 0) ? 0 : amplitude,
+                i.toDouble(),
+                yNorm + lean * i));
 
   void updating() {
-    for (int i = 1; i < this.pointNum - 1; i++) this.points[i].updating();
+    for (int i = this.isDynamic ? 0 : 1;
+        i < this.pointNum - (this.isDynamic ? 0 : 1);
+        i++) this.points[i].updating();
   }
 
   void moveYNorm(double dy) {

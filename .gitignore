@@ -32,6 +32,9 @@
 /build/
 pubspec.lock
 
+# ios setting
+ios/Runner.xcodeproj/project.pbxproj
+
 # Web related
 lib/generated_plugin_registrant.dart
 

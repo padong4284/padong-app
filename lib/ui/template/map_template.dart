@@ -67,6 +67,11 @@ class _MapTemplateState extends State<MapTemplate> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
+      floatingBottomBar: this.bottomBuildingCards(),
+      floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
+          isScrollingDown: isScrollingDown,
+          onPressAdd: widget.toUniversity,
+          replaceAddIcon: Icons.school_rounded),
       background: Stack(children: [
         widget.googleMap,
         widget.focusBuilding != null
@@ -83,12 +88,6 @@ class _MapTemplateState extends State<MapTemplate> {
           MarkerSelector(setMarkers: widget.setMarkers),
         ]),
       ],
-      floatingBottomBar: this.bottomBuildingCards(),
-      floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
-          isScrollingDown: isScrollingDown,
-          onPressAdd: widget.toUniversity,
-          replaceAddIcon: Icons.school_rounded,
-          noShadow: true),
     );
   }
 

@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/view/cover/cover_view.dart';
@@ -31,23 +30,19 @@ final List<Widget> pages = [
 class MainView extends StatefulWidget {
   // Session.registerUser is already complete.
   @override
-  _MainViewState createState() => _MainViewState();
+  MainViewState createState() => MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
-  ScrollController _scrollController;
+class MainViewState extends State<MainView> {
   int _selectedIdx = 0;
   bool isScrollingDown = false;
+  static Function(bool) setMainScrollingDown;
 
   @override
   void initState() {
     super.initState();
-    this._scrollController = ScrollController();
-    this._scrollController.addListener(() {
-      setState(() => this.isScrollingDown =
-          (this._scrollController.position.userScrollDirection ==
-              ScrollDirection.reverse));
-    });
+    MainViewState.setMainScrollingDown =
+        (bool isDown) => setState(() => this.isScrollingDown = true);
   }
 
   @override
@@ -57,7 +52,7 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
         floatingActionButton: Visibility(
             visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
-            child: PadongButton(isScrollingDown: this.isScrollingDown)),
+            child: PadongButton(isScrollingDown: this.isScrollingDown, noShadow: true)),
         bottomNavigationBar: PadongNavigationBar(
             selectedIdx: _selectedIdx,
             setSelectedIdx: (int idx) => setState(() {

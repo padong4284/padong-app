@@ -16,8 +16,6 @@ import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/view/search/result_view.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
-import 'package:padong/ui/widget/card/photo_card.dart';
-import 'package:padong/ui/widget/container/horizontal_scroller.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
 
 class SearchView extends StatefulWidget {

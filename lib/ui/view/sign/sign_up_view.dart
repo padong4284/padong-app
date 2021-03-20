@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/shared/validator.dart';
@@ -16,12 +17,15 @@ import 'package:padong/ui/view/sign/base_sign_view.dart';
 import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/ui/widget/input/list_picker.dart';
 
+const String WAIT_MSG = 'Please Wait..';
+
 class SignUpView extends StatefulWidget {
   @override
   _SignUpViewState createState() => _SignUpViewState();
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  List<String> universityList = [WAIT_MSG];
   final List<String> _labels = [
     'ID',
     'Password',
@@ -32,9 +36,17 @@ class _SignUpViewState extends State<SignUpView> {
     'Email'
   ];
   List<String> _errorTexts = List.generate(7, (_) => null);
-
   final List<TextEditingController> _controllers =
       List.generate(7, (_) => TextEditingController());
+
+  @override
+  void initState() {
+    super.initState();
+    University.getUnivList().then((univs) => setState(() {
+          univs.sort();
+          this.universityList = univs;
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +88,8 @@ class _SignUpViewState extends State<SignUpView> {
           this._controllers[4],
           margin: EdgeInsets.only(top: 8.0),
           labelText: this._labels[4],
-          list: ['Georgia Tech'],
-          errorText: this._errorTexts[4], // TODO: get from PB
+          list: this.universityList,
+          errorText: this._errorTexts[4],
         ),
         ListPicker(
           this._controllers[5],
@@ -112,6 +124,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   Future<bool> onSignUp() async {
     // empty check
+    if (this._controllers[4].text == WAIT_MSG) return false;
     for (var i = 0; i < this._controllers.length; i++)
       if (this._controllers[i].text.isEmpty) {
         this._setErrorText(i, "${this._labels[i]} is empty");

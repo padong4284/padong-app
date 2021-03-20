@@ -85,7 +85,7 @@ class TitleHeader extends StatelessWidget {
                             label: 'Ok',
                             textColor: AppTheme.colors.primary,
                             onPressed: () {}));
-                    Scaffold.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
               })
             : SizedBox.shrink();

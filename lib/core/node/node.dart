@@ -90,7 +90,8 @@ class Node {
 
   Future<Node> getParent(Node parent) async {
     DocumentSnapshot pDoc = await PadongFB.getDoc(parent.type, this.parentId);
-    return parent.generateFromMap(pDoc.id, pDoc.data());
+    if (pDoc != null) return parent.generateFromMap(pDoc.id, pDoc.data());
+    return null;
   }
 
   Future<Node> getChild(Node child) async {
@@ -151,13 +152,13 @@ class Node {
   Future<bool> delete() async {
     // set deletedAt now, PadongFB.getDoc never return this node;
     if (this.isValidate())
-      return await PadongFB.deleteDoc(this.type, this.id, this.toJson()); // success or not
+      return await PadongFB.deleteDoc(
+          this.type, this.id, this.toJson()); // success or not
     return false;
   }
 
   Future<bool> remove() async {
-    if(this.isValidate())
-      return await PadongFB.removeDoc(this.type, this.id);
+    if (this.isValidate()) return await PadongFB.removeDoc(this.type, this.id);
     return false;
   }
 }

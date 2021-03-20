@@ -125,7 +125,15 @@ class _PadongButtonState extends State<PadongButton> {
                 ])))
             .toList(),
         actionSize: this.iconSize + 20.0,
-        child: this.searchButtons[0]);
+        child: Container(
+            decoration: new BoxDecoration(shape: BoxShape.circle, boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10,
+                spreadRadius: 3,
+              )
+            ]),
+            child: this.searchButtons[0]));
   }
 
   void setLevel2(String level1, [String level2]) {

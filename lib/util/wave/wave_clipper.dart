@@ -13,17 +13,34 @@ import 'package:padong/util/wave/wave.dart';
 
 class WaveClipper extends CustomClipper<Path> {
   Wave wave;
-  WaveClipper(this.wave);
+  bool isBottom;
+  bool isStatic;
+  bool isReversed;
+  int staticIdx;
+
+  WaveClipper(this.wave, {this.isBottom = false}) : this.isStatic = false;
+
+  WaveClipper.static(this.staticIdx,
+      {this.isBottom = true, this.isReversed = false})
+      : this.isStatic = true;
 
   @override
   getClip(Size size) {
+    if (this.isStatic) {
+      this.wave = Wave(size.height / (8 + this.staticIdx), 0,
+          (2 + this.staticIdx / 2) * size.height / 5, 5 + rand.nextInt(3),
+          isDynamic: true);
+      for (int _ = 0; _ < rand.nextInt(2000); _++) this.wave.updating();
+    }
+
     var path = new Path();
     double prevX = 0;
     double prevY = wave.points[0].y;
     double xGap = size.width / (wave.pointNum - 1);
 
+    if (this.isBottom) path.moveTo(0, size.height);
     path.lineTo(prevX, prevY);
-    for (int i=1; i<wave.pointNum; i++) {
+    for (int i = 1; i < wave.pointNum; i++) {
       double cx = (prevX + xGap * i) / 2;
       double cy = (prevY + wave.points[i].y) / 2;
 
@@ -34,7 +51,10 @@ class WaveClipper extends CustomClipper<Path> {
     }
     path.lineTo(prevX, prevY);
 
-    path.lineTo(size.width, 0);
+    if (this.isBottom)
+      path.lineTo(size.width, size.height);
+    else
+      path.lineTo(size.width, 0);
     path.close();
     return path;
   }

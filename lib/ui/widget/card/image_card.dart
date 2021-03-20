@@ -19,8 +19,10 @@ class ImageCard extends NodeBase {
 
   @override
   Widget build(BuildContext context) {
+    var img = this.node.getImage();
     return InkWell(
-        onTap: () => PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}', this.node),
+        onTap: () => PadongRouter.routeURL(
+            '/${this.node.type}?id=${this.node.id}', this.node),
         child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
@@ -32,13 +34,13 @@ class ImageCard extends NodeBase {
                       AppTheme.horizontalPadding * 2,
                   height: 120,
                   padding: EdgeInsets.all(10),
-                  // TODO: get image from wiki
-                  /* decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/pinIcon/loc.png"),
-                  fit: BoxFit.fitWidth,
-                  alignment: Alignment.topCenter,
-                )), */
+                  decoration: BoxDecoration(
+                      image: img != null
+                          ? DecorationImage(
+                              image: img,
+                              fit: BoxFit.fitWidth,
+                              alignment: Alignment.topCenter)
+                          : null),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

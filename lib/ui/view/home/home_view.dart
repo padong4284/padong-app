@@ -16,6 +16,7 @@ import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
@@ -44,7 +45,7 @@ class HomeView extends StatelessWidget {
     return SafePaddingTemplate(
       appBar: TopAppBar('PADONG'),
       floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongButton(isScrollingDown: isScrollingDown, noShadow: true),
+          PadongButton(isScrollingDown: isScrollingDown),
       children: [
         UnivDoor(this.university),
         SizedBox(height: 35),
@@ -53,14 +54,14 @@ class HomeView extends StatelessWidget {
         ...this.questionArea(),
         ...this.eventsArea(),
         ...this.placesArea(),
-        ...this.padongArea(),
+        ...this.padongArea(context),
       ],
     );
   }
 
   List<Widget> aboutArea() {
     return [
-      this._title('About Georgia Tech'), // TODO: from currentUniv
+      this._title('About Our University'),
       SizedBox(height: 10),
       PadongFutureBuilder(
           future: this.university.getChildren(Wiki()),
@@ -78,7 +79,7 @@ class HomeView extends StatelessWidget {
           future: this.university.getChildren(Board()),
           builder: (boards) {
             Board qBoard =
-                boards.where((board) => board.title == 'Question').first;
+                boards.where((board) => board.title == 'Questions').first;
             return Column(children: [
               PadongFutureBuilder(
                 future: qBoard.getChildren(Question()),
@@ -128,7 +129,7 @@ class HomeView extends StatelessWidget {
     ];
   }
 
-  List<Widget> padongArea() {
+  List<Widget> padongArea(BuildContext context) {
     return [
       this._title('PADONG'),
       // TODO: create PADONG univ, create boards
@@ -136,13 +137,22 @@ class HomeView extends StatelessWidget {
       PadongFutureBuilder(
           future: this.university.getChildren(Board()),
           builder: (boards) => BoardList(<Board>[...boards])),
+      InkWell(
+          onTap: () => this.showAboutPadong(context),
+          child: Container(
+              padding: const EdgeInsets.only(top: 30),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                this.logoPADONG(size: 30.0),
+                Text('Contact Us',
+                    style: AppTheme.getFont(
+                        isBold: true,
+                        color: AppTheme.colors.primary,
+                        fontSize: AppTheme.fontSizes.large))
+              ]))),
       Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.only(top: 30),
-          child: Text('Contact Us')),
-      Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(top: 5, bottom: 50),
           child: Text('Copyright 2021. PADONG. All rights reserved.',
               style: AppTheme.getFont(
                   color: AppTheme.colors.semiSupport,
@@ -156,5 +166,25 @@ class HomeView extends StatelessWidget {
         child: Text(title,
             style: AppTheme.getFont(
                 fontSize: AppTheme.fontSizes.mlarge, isBold: true)));
+  }
+
+  void showAboutPadong(BuildContext context) {
+    showAboutDialog(
+      context: context,
+      applicationVersion: '1.0.0',
+      applicationIcon: this.logoPADONG(),
+      applicationLegalese: 'Copyright 2021, PADONG, All Rights Reserved',
+    );
+  }
+
+  Widget logoPADONG({double size = 50}) {
+    return Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage('assets/logo/PADONG.png'),
+          fit: BoxFit.fill,
+        )));
   }
 }

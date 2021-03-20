@@ -8,12 +8,15 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/mixin/owner.dart';
 
 class TitleNode extends Node with Owner {
   String title;
   String description;
+  NetworkImage _img;
+  bool _noImg = false;
 
   TitleNode();
 
@@ -42,5 +45,17 @@ class TitleNode extends Node with Owner {
     for (var i in extractedImgurls.allMatches(this.description))
       result.add(i.namedGroup("filename"));
     return result;
+  }
+
+  NetworkImage getImage() {
+    if (this._noImg || this._img != null) return this._img;
+    List<String> urls = this.getImageUrls();
+    for (String url in urls) {
+      try {
+        this._img = NetworkImage(url);
+      } catch (e) {}
+    }
+    if (this._img == null) this._noImg = true;
+    return this._img;
   }
 }

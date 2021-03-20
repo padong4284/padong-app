@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/deck/re_reply.dart';
 import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/service/session.dart';
@@ -44,17 +43,18 @@ class _BottomButtonsState extends State<BottomButtons> {
     super.initState();
     this.isReply = widget.node is Reply || widget.node is ReReply;
     if (!this.isReply)
-      BottomButtons.update = (int idx) =>
+      BottomButtons.update = (int idx) {
+        if (mounted)
           setState(() => this.isClickeds[idx] = !this.isClickeds[idx]);
-
+      };
     this.isClickeds = [
       widget.node.isLiked(Session.user),
       false,
       widget.node.isBookmarked(Session.user)
     ];
-    widget.node
-        .isReplied(Session.user)
-        .then((isReplied) => setState(() => this.isClickeds[1] = isReplied));
+    widget.node.isReplied(Session.user).then((isReplied) {
+      if (mounted) setState(() => this.isClickeds[1] = isReplied);
+    });
   }
 
   @override
@@ -91,16 +91,19 @@ class _BottomButtonsState extends State<BottomButtons> {
                           onPressed: () {
                             if (idx == 0) {
                               widget.node.updateLiked(Session.user);
-                              if (!this.isReply && BackAppBar.updateLikeBookmark != null)
+                              if (!this.isReply &&
+                                  BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(0);
                             } else if (idx == 2) {
                               widget.node.updateBookmarked(Session.user);
-                              if (!this.isReply &&BackAppBar.updateLikeBookmark != null)
+                              if (!this.isReply &&
+                                  BackAppBar.updateLikeBookmark != null)
                                 BackAppBar.updateLikeBookmark(1);
                             }
-                            setState(() {
-                              this.isClickeds[idx] = !this.isClickeds[idx];
-                            });
+                            if (mounted)
+                              setState(() {
+                                this.isClickeds[idx] = !this.isClickeds[idx];
+                              });
                           },
                         )))
                 .where((element) => element != null),

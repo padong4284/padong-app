@@ -63,4 +63,9 @@ class University extends TitleNode {
     this.schedule = await this.getChild(Schedule());
     this.mappa = await this.getChild(Mappa());
   }
+
+  static Future<List<String>> getUnivList() async {
+    return await PadongFB.getDocsByRule(University().type)
+        .then((docs) => <String>[...docs.map((doc) => doc.data()['title'])]);
+  }
 }

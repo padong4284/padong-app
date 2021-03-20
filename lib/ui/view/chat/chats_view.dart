@@ -17,6 +17,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/floating_bottom_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
+import 'package:padong/ui/widget/component/no_data_message.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/node/chat_room_tile.dart';
 
@@ -49,9 +50,12 @@ class _ChatsViewState extends State<ChatsView> {
         children: [
           PadongFutureBuilder(
               future: widget.me.getMyChatRooms(widget.me),
-              builder: (chatRooms) => Column(children: <Widget>[
-                    ...chatRooms.map((chatRoom) => ChatRoomTile(chatRoom))
-                  ]))
+              builder: (chatRooms) => (chatRooms == null || chatRooms.isEmpty)
+                  ? NoDataMessage('Start Your first Padong Message',
+                      height: 250)
+                  : Column(children: <Widget>[
+                      ...chatRooms.map((chatRoom) => ChatRoomTile(chatRoom))
+                    ]))
         ]);
-  }
+  }//https://user-images.githubusercontent.com/35912840/111458746-278a1080-875d-11eb-8d73-791a828a99a7.png
 }

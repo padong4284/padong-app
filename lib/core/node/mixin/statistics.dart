@@ -18,6 +18,7 @@ import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 
 mixin Statistics on TitleNode {
+  bool anonymity; // hide profile
   List<String> likes;
   List<String> bookmarks;
 

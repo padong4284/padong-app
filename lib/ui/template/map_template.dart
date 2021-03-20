@@ -148,12 +148,13 @@ class _MapTemplateState extends State<MapTemplate> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(widget.focusBuilding.title,
-                          style: AppTheme.getFont(isBold: true)),
+                          style: AppTheme.getFont(isBold: true),
+                          overflow: TextOverflow.ellipsis),
                       Text(widget.focusBuilding.description,
                           style: AppTheme.getFont(
                               color: AppTheme.colors.fontPalette[3]),
                           overflow: TextOverflow.ellipsis),
-                      BottomButtons(widget.focusBuilding)
+                      BottomButtons(widget.focusBuilding, gap: 25)
                     ]),
               )),
         ));

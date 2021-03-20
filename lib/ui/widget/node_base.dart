@@ -53,7 +53,8 @@ class NodeBase extends StatelessWidget {
             color: AppTheme.colors.transparent,
             child: PadongFutureBuilder(
                 future: this.node.owner,
-                builder: (owner) => ProfileButton(owner, size: 40)));
+                builder: (owner) => ProfileButton(owner,
+                    size: 40, isAnonym: this.statistics.anonymity)));
   }
 
   Widget commonArea() {
@@ -72,7 +73,8 @@ class NodeBase extends StatelessWidget {
     return PadongFutureBuilder(
         height: 20,
         future: this.node.owner,
-        builder: (owner) => Text(owner.userId,
+        builder: (owner) => Text(
+            this.statistics.anonymity ? 'Anonymous' : owner.userId,
             style: AppTheme.getFont(color: AppTheme.colors.semiSupport)));
   }
 
@@ -83,7 +85,8 @@ class NodeBase extends StatelessWidget {
     String time = diff.inDays > 0
         ? '${created.month}/${created.day}/${created.year}'
         : (diff.inHours > 0
-            ? diff.inHours.toString() + ' hour${diff.inHours > 1 ? 's' : ''} ago'
+            ? diff.inHours.toString() +
+                ' hour${diff.inHours > 1 ? 's' : ''} ago'
             : diff.inMinutes.toString() +
                 ' minute${diff.inMinutes > 1 ? 's' : ''} ago');
     return Text(time,
@@ -93,7 +96,8 @@ class NodeBase extends StatelessWidget {
   }
 
   Widget followText() {
-    return Text(this.node.title, textAlign: TextAlign.left,
+    return Text(this.node.title,
+        textAlign: TextAlign.left,
         style: AppTheme.getFont(color: AppTheme.colors.support, isBold: true));
   }
 

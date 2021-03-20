@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/schedule/lecture.dart';
 import 'package:padong/core/node/schedule/question.dart';
 import 'package:padong/core/padong_router.dart';
@@ -50,7 +51,10 @@ class _LectureViewState extends State<LectureView> {
         IconButton(
             icon: Icon(Icons.mode_comment_outlined,
                 color: AppTheme.colors.support),
-            onPressed: () {}), // TODO: route to chat
+            onPressed: () async {
+              ChatRoom chatRoom = await widget.lecture.getChatRoom();
+              PadongRouter.routeURL('/chatroom?id=${chatRoom.id}', chatRoom);
+            }),
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
             onPressed: () {

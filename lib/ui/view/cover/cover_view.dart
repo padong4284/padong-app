@@ -94,7 +94,10 @@ class CoverView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.place_rounded,
                   color: AppTheme.colors.primary, size: 30)),
-          Text(Session.currUniversity.address, style: AppTheme.getFont())
+          Container(
+              width: 150,
+              child: Text(Session.currUniversity.address,
+                  style: AppTheme.getFont()))
         ]));
   }
 }

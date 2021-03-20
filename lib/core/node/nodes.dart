@@ -40,7 +40,6 @@ import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/service/padong_fb.dart';
 
-
 final List<Node> _nodes = [
   Node(), TitleNode(), // base
   Deck(), Board(), Post(), Reply(), ReReply(), // deck
@@ -51,15 +50,18 @@ final List<Node> _nodes = [
   User(), University(), Like(), Bookmark(), Subscribe(), // common*/
 ];
 
-
 class Nodes {
   static final Map<String, Node> _nodeMap =
       Map.fromIterable(_nodes, key: (node) => node.type, value: (node) => node);
 
   static Future<Node> getNodeById(String type, String id) async {
     assert(type != null && id != null);
-    DocumentSnapshot doc = await PadongFB.getDoc(type, id);
-    return _nodeMap[type].generateFromMap(doc.id, doc.data());
+    try {
+      DocumentSnapshot doc = await PadongFB.getDoc(type, id);
+      return _nodeMap[type].generateFromMap(doc.id, doc.data());
+    } catch (e) {
+      return null;
+    }
   }
 
   static Node generateNode(

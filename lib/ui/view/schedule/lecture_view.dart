@@ -49,19 +49,19 @@ class _LectureViewState extends State<LectureView> {
           isScrollingDown: isScrollingDown),
       appBar: BackAppBar(title: widget.lecture.title, actions: [
         IconButton(
+            icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
+            onPressed: () {
+              PadongRouter.routeURL(
+                  '/update?id=${widget.lecture.id}&type=lecture',
+                  widget.lecture);
+            }), // TODO: more dialog
+        IconButton(
             icon: Icon(Icons.mode_comment_outlined,
                 color: AppTheme.colors.support),
             onPressed: () async {
               ChatRoom chatRoom = await widget.lecture.getChatRoom();
               PadongRouter.routeURL('/chatroom?id=${chatRoom.id}', chatRoom);
             }),
-        IconButton(
-            icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-            onPressed: () {
-              PadongRouter.routeURL(
-                  '/update?id=${widget.lecture.id}&type=lecture',
-                  widget.lecture);
-            }) // TODO: more dialog
       ]),
       children: [
         Padding(

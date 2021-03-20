@@ -47,12 +47,14 @@ class FriendTile extends StatelessWidget {
                       fontSize: AppTheme.fontSizes.mlarge,
                       isBold: true)),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Padding(
-                    padding: EdgeInsets.only(right: 4.0),
-                    child: Text(this.user.university,
-                        style: AppTheme.getFont(
-                            color: AppTheme.colors.primary,
-                            fontSize: AppTheme.fontSizes.regular))),
+                ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 150),
+                    child: Padding(
+                        padding: EdgeInsets.only(right: 4.0),
+                        child: Text(this.user.university,
+                            style: AppTheme.getFont(
+                                color: AppTheme.colors.primary,
+                                fontSize: AppTheme.fontSizes.regular)))),
                 Padding(
                     padding: EdgeInsets.only(right: 4.0),
                     child: Text(this.user.entranceYear.toString(),

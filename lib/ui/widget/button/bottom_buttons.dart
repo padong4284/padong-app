@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/deck/re_reply.dart';
 import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/core/service/session.dart';

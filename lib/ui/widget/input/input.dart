@@ -68,7 +68,7 @@ class Input extends StatelessWidget {
                   height: 70,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(13.0),
-                      color: AppTheme.colors.base.withAlpha(50) ))
+                      color: AppTheme.colors.base.withAlpha(50)))
               : SizedBox.shrink(),
           Padding(
               padding: EdgeInsets.only(top: this.labelText != null ? 2 : 0),
@@ -107,6 +107,7 @@ class Input extends StatelessWidget {
         obscureText: this.isPrivacy,
         controller: this.controller,
         focusNode: this.focus,
+        onSubmitted: (_) => (this.onPressIcon ?? () {})(),
         style: AppTheme.getFont(
             color: AppTheme.colors.support, fontSize: fontSize),
         decoration: InputDecoration(

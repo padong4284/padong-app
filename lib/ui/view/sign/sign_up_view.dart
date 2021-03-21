@@ -126,10 +126,8 @@ class _SignUpViewState extends State<SignUpView> {
     // empty check
     if (this._controllers[4].text == WAIT_MSG) return false;
     for (var i = 0; i < this._controllers.length; i++)
-      if (this._controllers[i].text.isEmpty) {
-        this._setErrorText(i, "${this._labels[i]} is empty");
-        return false;
-      }
+      if (this._controllers[i].text.isEmpty)
+        return this._setErrorText(i, "${this._labels[i]} is empty");
 
     String id = this._controllers[0].text;
     String pw = this._controllers[1].text;
@@ -143,7 +141,8 @@ class _SignUpViewState extends State<SignUpView> {
     if (id.length < 6 || id.length > 30)
       return this._setErrorText(0, "The length of ID is 6~30.");
     if (!Validator.isValid(Validator.idRule, id))
-      this._setErrorText(0, "Use only lowercase alphabet, number and '.'");
+      return this
+          ._setErrorText(0, "Use only lowercase alphabet, number and '.'");
 
     if (pw != rePw) // with real-time matching
       return this._setErrorText(2, "Repeat Password doesn't match");
@@ -154,6 +153,8 @@ class _SignUpViewState extends State<SignUpView> {
     if (result == SignUpResult.success) {
       for (TextEditingController controller in this._controllers)
         controller.text = '';
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please check verified email ($email)')));
       return true;
     }
 

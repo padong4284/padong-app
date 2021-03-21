@@ -10,7 +10,9 @@
 ///*********************************************************************
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:padong/core/node/cover/cover.dart';
+import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/deck/deck.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/map/mappa.dart';
 import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/node/title_node.dart';
@@ -67,5 +69,17 @@ class University extends TitleNode {
   static Future<List<String>> getUnivList() async {
     return await PadongFB.getDocsByRule(University().type)
         .then((docs) => <String>[...docs.map((doc) => doc.data()['title'])]);
+  }
+
+  static Future<List<Board>> getPadongBoards() async {
+    return await PadongFB.getDocsByRule('board',
+        rule: (query) => query
+            .where('parentId', isEqualTo: 'PADONG')
+            .orderBy("createdAt", descending: true)).then((docs) =>
+        <Board>[...docs.map((doc) => Board.fromMap(doc.id, doc.data()))]);
+  }
+
+  Future<List<Post>> getQuestions() async {
+
   }
 }

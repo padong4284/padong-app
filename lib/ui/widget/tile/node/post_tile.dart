@@ -8,8 +8,10 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
+import 'package:flutter/material.dart';
 import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/padong_router.dart';
+import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/tile/node/node_tile.dart';
 
 class PostTile extends NodeTile {
@@ -21,4 +23,13 @@ class PostTile extends NodeTile {
   void routePage() => PadongRouter.routeURL(
       '/${this.url ?? this.node.type}?id=${this.node.id}&type=${this.node.type}',
       this.node);
+
+  @override
+  Widget followText() {
+    return Text(this.node.title,
+        maxLines: 1,
+        textAlign: TextAlign.left,
+        overflow: TextOverflow.ellipsis,
+        style: AppTheme.getFont(color: AppTheme.colors.support, isBold: true));
+  }
 }

@@ -1,6 +1,3 @@
-import 'package:padong/core/node/chat/chat_room.dart';
-import 'package:padong/core/node/node.dart';
-
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -17,6 +14,8 @@ import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/evaluation.dart';
+import 'package:padong/core/node/chat/chat_room.dart';
+import 'package:padong/core/node/node.dart';
 
 // parent: Schedule
 class Lecture extends Event {

@@ -132,7 +132,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                 }));
   }
 
-  void onTabOk() {
+  void onTabOk() async {
     if(this._titleController.text.isNotEmpty && this._mdController.text.isNotEmpty) {
       Map data = {
         'title': this._titleController.text,
@@ -142,7 +142,7 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
       if (widget.topArea == null)
         data['pip'] =
             pipToString([PIP.PUBLIC, PIP.INTERNAL, PIP.PRIVATE][this.pipIdx]);
-      widget.onSubmit(data);
+      await widget.onSubmit(data);
       PadongRouter.goBack();
     }
     // TODO: alert no empty title & description

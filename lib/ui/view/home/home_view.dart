@@ -26,9 +26,11 @@ import 'package:padong/ui/widget/card/building_card.dart';
 import 'package:padong/ui/widget/card/image_card.dart';
 import 'package:padong/ui/widget/card/question_card.dart';
 import 'package:padong/ui/widget/card/timeline_card.dart';
+import 'package:padong/ui/widget/card/university_card.dart';
 import 'package:padong/ui/widget/component/top_boards.dart';
 import 'package:padong/ui/widget/component/univ_door.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
+import 'package:padong/ui/widget/container/more_expandable.dart';
 import 'package:padong/ui/widget/container/swipe_deck.dart';
 import 'package:padong/ui/widget/container/timeline.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
@@ -50,7 +52,9 @@ class HomeView extends StatelessWidget {
         UnivDoor(this.university),
         SizedBox(height: 35),
         TopBoards(this.university),
-        ...this.aboutArea(),
+        ...(this.university.id == 'PADONG'
+            ? this.univArea()
+            : this.aboutArea()),
         ...this.questionArea(),
         ...this.eventsArea(),
         ...this.placesArea(),
@@ -67,6 +71,21 @@ class HomeView extends StatelessWidget {
           future: this.university.getChildren(Wiki()),
           builder: (wikis) => Column(
                 children: <Widget>[...wikis.map((wiki) => ImageCard(wiki))],
+              ))
+    ];
+  }
+
+  List<Widget> univArea() {
+    return [
+      SizedBox(height: 10),
+      PadongFutureBuilder(
+          future: this.university.getChildren(University()),
+          builder: (univs) => MoreExpandable(
+                title: this._title('Universities'),
+                children: <Widget>[
+                  ...univs.map((univ) => UniversityCard(univ))
+                ],
+                folded: 5,
               ))
     ];
   }
@@ -134,10 +153,8 @@ class HomeView extends StatelessWidget {
   List<Widget> padongArea(BuildContext context) {
     return [
       this._title('PADONG'),
-      // TODO: create PADONG univ, create boards
-      // BoardList(boards: ['freeTalk', 'questionAnswer', 'inform']),
       PadongFutureBuilder(
-          future: this.university.getChildren(Board()),
+          future: University.getPadongBoards(),
           builder: (boards) => BoardList(<Board>[...boards])),
       InkWell(
           onTap: () => this.showAboutPadong(context),

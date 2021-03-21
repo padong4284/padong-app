@@ -107,6 +107,8 @@ class _MapViewState extends State<MapView> {
       pinLocation: this.pinLocation,
       hideCards: this.hideCards,
       // navigateTo: this.navigateTo,
+      navigateTo: (_) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sorry, We have to pay Firebase,,'))),
       setMarkers: (int idx) => setState(() {
         this.pinLocation = null;
         this.focusBuilding = null;

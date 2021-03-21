@@ -12,6 +12,7 @@ import 'dart:ui';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:padong/ui/view/sign/forgot_dialog.dart';
+import 'package:padong/ui/view/sign/no_univ_dialog.dart';
 import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/util/wave/wave_clipper.dart';
 import 'package:padong/util/wave/wave.dart';
@@ -227,7 +228,10 @@ class _BaseSignViewState extends State<BaseSignView>
                           color: AppTheme.colors.semiPrimary,
                           buttonSize: ButtonSize.REGULAR,
                           onTap: () => ForgotDialog.show(context))
-                      : null),
+                      : SimpleButton('No Your University?',
+                          color: AppTheme.colors.semiPrimary,
+                          buttonSize: ButtonSize.REGULAR,
+                          onTap: () => NoUnivDialog.show(context))),
             ]));
   }
 

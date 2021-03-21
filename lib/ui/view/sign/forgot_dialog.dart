@@ -44,22 +44,21 @@ class _ForgotDialogState extends State<ForgotDialog> {
   @override
   Widget build(BuildContext context) {
     return BaseDialog(children: [
-      Row(children: [
-        Container(
-            margin: const EdgeInsets.only(left: 5, bottom: 10),
-            child: Text('Reset Password',
-                style: AppTheme.getFont(
-                    fontSize: AppTheme.fontSizes.large, isBold: true)))
-      ]),
+      Container(
+          alignment: Alignment.centerLeft,
+          margin: const EdgeInsets.only(left: 5, bottom: 10),
+          child: Text('Reset Password',
+              style: AppTheme.getFont(
+                  fontSize: AppTheme.fontSizes.large, isBold: true))),
       Input(
           controller: this._idController,
-          labelText: 'id',
+          labelText: 'ID',
           errorText: this._idError,
           onChanged: (_) => this.resetError()),
       SizedBox(height: 10),
       Input(
           controller: this._emailController,
-          labelText: 'email',
+          labelText: 'Email',
           errorText: this._emailError,
           onChanged: (_) => this.resetError())
     ], actions: [
@@ -74,9 +73,9 @@ class _ForgotDialogState extends State<ForgotDialog> {
     ResetPasswordResult result =
         await Session.sendResetPasswordEmail(id, email);
     if (result == ResetPasswordResult.InvalidUser)
-      setState(() => this._idError = 'Please check id');
+      setState(() => this._idError = 'Please check ID');
     else if (result == ResetPasswordResult.InvalidEmail)
-      setState(() => this._emailError = 'Please check email');
+      setState(() => this._emailError = 'Please check Email');
     else if (result == ResetPasswordResult.Failed)
       setState(() =>
           this._emailError = 'Sorry, Sending email failed, Please try again.');

@@ -53,22 +53,28 @@ class BaseDialog extends StatelessWidget {
                     Icon(Icons.close, color: AppTheme.colors.support, size: 25),
                 onPressed: () => Navigator.pop(context)),
             this.topTitle != null
-                ? Text(this.topTitle,
-                    style: AppTheme.getFont(
-                        fontSize: AppTheme.fontSizes.mlarge, isBold: true))
+                ? SizedBox(
+                    width: 150,
+                    child: Text(this.topTitle,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.getFont(
+                            fontSize: AppTheme.fontSizes.mlarge, isBold: true)))
                 : (this.topComponent ?? SizedBox.shrink()),
           ])),
       content: Container(
           height: 300,
           padding: const EdgeInsets.only(left: 25, right: 25),
-          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-            Expanded(
-                child: SingleChildScrollView(
-                    child: Column(children: this.children ?? []))),
-            SizedBox(height: 5),
-            ...this.actions,
-            SizedBox(height: 10),
-          ])),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                    child: SingleChildScrollView(
+                        child: Column(children: this.children ?? []))),
+                SizedBox(height: 5),
+                ...this.actions,
+                SizedBox(height: 10),
+              ])),
     );
   }
 }

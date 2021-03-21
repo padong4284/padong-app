@@ -19,14 +19,6 @@ import 'package:padong/ui/widget/bar/padong_navigation_bar.dart';
 import 'package:padong/ui/view/home/home_view.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
 
-final List<Widget> pages = [
-  HomeView(Session.currUniversity),
-  CoverView(Session.currUniversity.cover),
-  DeckView(Session.currUniversity.deck),
-  ScheduleView(Session.currUniversity.schedule),
-  MapView(Session.currUniversity.mappa),
-];
-
 class MainView extends StatefulWidget {
   // Session.registerUser is already complete.
   @override
@@ -37,10 +29,18 @@ class MainViewState extends State<MainView> {
   int _selectedIdx = 0;
   bool isScrollingDown = false;
   static Function(bool) setMainScrollingDown;
+  List<Widget> pages = [];
 
   @override
   void initState() {
     super.initState();
+    this.pages = [
+      HomeView(Session.currUniversity),
+      CoverView(Session.currUniversity.cover),
+      DeckView(Session.currUniversity.deck),
+      ScheduleView(Session.currUniversity.schedule),
+      MapView(Session.currUniversity.mappa),
+    ];
     MainViewState.setMainScrollingDown =
         (bool isDown) => setState(() => this.isScrollingDown = true);
   }
@@ -58,6 +58,6 @@ class MainViewState extends State<MainView> {
             setSelectedIdx: (int idx) => setState(() {
                   this._selectedIdx = idx;
                 })),
-        body: pages[this._selectedIdx]);
+        body: this.pages[this._selectedIdx]);
   }
 }

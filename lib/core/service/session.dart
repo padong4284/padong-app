@@ -117,7 +117,7 @@ class Session {
   static Future<bool> changeCurrentUniversity(University university) async {
     try {
       currUniversity = university;
-      university.initUniversity();
+      await university.initUniversity();
       PadongRouter.routeURL('/main');
       return true;
     } catch (e) {

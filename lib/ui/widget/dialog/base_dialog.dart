@@ -57,6 +57,7 @@ class BaseDialog extends StatelessWidget {
                     width: 150,
                     child: Text(this.topTitle,
                         overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.right,
                         style: AppTheme.getFont(
                             fontSize: AppTheme.fontSizes.mlarge, isBold: true)))
                 : (this.topComponent ?? SizedBox.shrink()),

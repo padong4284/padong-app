@@ -94,7 +94,6 @@ mixin Statistics on TitleNode {
   }
 
   Future<void> updateLiked(User me) async {
-    // TODO: update view
     if (this.likes != null) await this._update(me, 0);
   }
 

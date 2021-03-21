@@ -20,7 +20,7 @@ import 'package:padong/core/service/padong_fb.dart';
 // parent: PADONG (one and only)
 class University extends TitleNode {
   String emblemImgURL;
-  LatLng location; // TODO: get Building
+  LatLng location;
   String address;
 
   Cover cover;

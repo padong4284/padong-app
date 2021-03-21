@@ -19,18 +19,4 @@ class Deck extends Node {
 
   @override
   generateFromMap(String id, Map snapshot) => Deck.fromMap(id, snapshot);
-
-  Map<String, Board> getFixedBoards() {
-    // TODO: get fixed boards!
-    // exclude this boards from getChildren
-    // TODO: move to university
-    return {
-      'Global': null,
-      'Public': null,
-      'Internal': null,
-      'Popular': null,
-      'Favorite': null,
-      'Inform': null,
-    };
-  }
 }

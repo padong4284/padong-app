@@ -123,7 +123,7 @@ class _MapTemplateState extends State<MapTemplate> {
                 height: 150,
                 child: HorizontalScroller(height: 150, children: [
                   ...List.generate(min(10, widget.buildings.length),
-                      (idx) => BuildingCard(widget.buildings[idx])), //FIXME
+                      (idx) => BuildingCard(widget.buildings[idx])),
                   SizedBox(width: 60)
                 ])))
         : SizedBox.shrink();

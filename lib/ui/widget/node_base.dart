@@ -117,7 +117,7 @@ class NodeBase extends StatelessWidget {
                     buttonSize: ButtonSize.SMALL,
                     icon: Icon(Icons.more_horiz,
                         color: AppTheme.colors.support, size: 20),
-                    onTap: () => MoreDialog.show(context)))
+                    onTap: () => MoreDialog.show(context, this.node)))
           ],
         ));
   }

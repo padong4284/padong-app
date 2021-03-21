@@ -45,6 +45,7 @@ class _LinkViewState extends State<LinkView> {
                     fontSize: AppTheme.fontSizes.mlarge, isBold: true))),
         HorizontalScroller(
             padding: 3.0,
+            emptyMessage: 'No back links yet!',
             children: this.backLinks.map((wiki) => PhotoCard(wiki)).toList()),
         Padding(
             padding: const EdgeInsets.only(top: 25, bottom: 5),

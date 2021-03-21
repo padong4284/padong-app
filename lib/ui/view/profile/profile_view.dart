@@ -40,6 +40,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     super.initState();
+    if (widget.isMine) Session.refreshUser();
     this.relation = (widget.user.getRelationWith(Session.user)?.index ?? 3);
   }
 
@@ -111,7 +112,10 @@ class _ProfileViewState extends State<ProfileView> {
             SizedBox(
                 width: 32,
                 child: IconButton(
-                    onPressed: () => PadongRouter.routeURL('/configure'),
+                    onPressed: () {
+                      PadongRouter.refresh = () => setState(() {});
+                      PadongRouter.routeURL('/configure');
+                    },
                     icon: Icon(Icons.settings_rounded,
                         color: AppTheme.colors.support)))
           ]

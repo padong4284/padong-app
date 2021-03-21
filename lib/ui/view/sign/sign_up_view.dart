@@ -153,6 +153,7 @@ class _SignUpViewState extends State<SignUpView> {
     if (result == SignUpResult.success) {
       for (TextEditingController controller in this._controllers)
         controller.text = '';
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('')));
       return true;
     }
 

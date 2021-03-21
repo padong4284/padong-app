@@ -32,6 +32,7 @@ class _ConfigureViewState extends State<ConfigureView> {
   User user;
   String _pwMatchError;
   List<TextEditingController> _controllers;
+  List<String> universityList = ['Please Wait...'];
 
   @override
   void initState() {
@@ -43,6 +44,10 @@ class _ConfigureViewState extends State<ConfigureView> {
     this._controllers[3].text = this.user.university;
     this._controllers[4].text = this.user.entranceYear.toString();
     this._controllers[5].text = this.user.userEmails[0];
+    University.getUnivList().then((univs) => setState(() {
+          univs.sort();
+          this.universityList = univs;
+        }));
   }
 
   @override
@@ -119,7 +124,6 @@ class _ConfigureViewState extends State<ConfigureView> {
                       repeat != this._controllers[0].text
                           ? "Repeat Password doesn't match"
                           : null)),
-              // TODO: check match feedback real-time
               Input(
                   controller: this._controllers[2],
                   margin: EdgeInsets.only(top: 20.0 + paddingBottom),
@@ -129,8 +133,7 @@ class _ConfigureViewState extends State<ConfigureView> {
                   : ListPicker(this._controllers[3],
                       margin: EdgeInsets.only(top: 10.0),
                       labelText: 'University',
-                      list: ['Georgia Tech']),
-              // TODO: get univ list
+                      list: this.universityList),
               ListPicker(
                 this._controllers[4],
                 margin: EdgeInsets.only(top: 10.0),
@@ -211,7 +214,7 @@ class _ConfigureViewState extends State<ConfigureView> {
 
   void onTabOk() async {
     if (this._controllers[0].text == this._controllers[1].text &&
-        this._controllers[0].text.length > 0)
+        this._controllers[0].text.isNotEmpty)
       Session.updateUserPassword(this._controllers[0].text);
 
     bool isUpdated = false;
@@ -248,8 +251,7 @@ class _ConfigureViewState extends State<ConfigureView> {
     if (univUpdated) {
       Session.userUniversity = university;
       Session.changeCurrentUniversity(university);
-    }
-    else
+    } else
       PadongRouter.goBack();
   }
 }

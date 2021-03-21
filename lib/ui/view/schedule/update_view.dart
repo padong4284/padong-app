@@ -205,7 +205,7 @@ class _UpdateViewState extends State<UpdateView> {
       for (String info in this._lectureInfoControllers.keys)
         data[info.toLowerCase()] = this._lectureInfoControllers[info].text;
     } else {
-      data['periodicity'] = parsePERIODICITY(this.routine ?? 'none');
+      data['periodicity'] = this.routine ?? 'none';
       data['alerts'] = <String>[...this._alertController.list];
     }
 

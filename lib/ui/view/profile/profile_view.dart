@@ -73,7 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
                       children: [
                         ...friends.map((friend) => Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
+                                  horizontal: 5, vertical: 10),
                               child: ProfileButton(friend,
                                   position: UsernamePosition.BOTTOM, size: 50),
                             ))

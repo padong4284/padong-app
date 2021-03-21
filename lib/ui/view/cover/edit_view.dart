@@ -38,7 +38,6 @@ class EditView extends StatelessWidget {
   }
 
   void createWiki(Map data) async {
-    // TODO: transaction
     Wiki _wiki = await Wiki.fromMap('', {
       ...data,
       'parentId': this.cover.id,

@@ -162,4 +162,12 @@ class Session {
     }
     return ResetPasswordResult.Success;
   }
+
+  static void refreshUser() async {
+    bool emailVerified = await PadongAuth.isEmailVerified();
+    if (user.isVerified != emailVerified) {
+      user.isVerified = emailVerified;
+      await user.update();
+    }
+  }
 }

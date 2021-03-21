@@ -17,11 +17,15 @@ import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/component/title_header.dart';
 import 'package:padong/ui/widget/padong_markdown.dart';
 
-class ItemView extends StatelessWidget {
+class ItemView extends StatefulWidget {
   final Wiki wiki;
 
   ItemView(this.wiki);
 
+  _ItemViewState createState() => _ItemViewState();
+}
+
+class _ItemViewState extends State<ItemView> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
@@ -29,15 +33,18 @@ class ItemView extends StatelessWidget {
             PadongButton(isScrollingDown: isScrollingDown, bottomPadding: 40),
         floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
             title: 'Edit',
-            onTap: () => PadongRouter.routeURL(
-                'edit?id=${this.wiki.id}&type=wiki', this.wiki),
+            onTap: () {
+              PadongRouter.refresh = () {print(widget.wiki.description); setState(() {});};
+              PadongRouter.routeURL(
+                  'edit?id=${widget.wiki.id}&type=wiki', widget.wiki);
+            },
             isScrollingDown: isScrollingDown),
         children: [
           Column(children: [
-            TitleHeader(this.wiki.title, link: "/wiki?id=${this.wiki.id}"),
+            TitleHeader(widget.wiki.title, link: "/wiki?id=${widget.wiki.id}"),
             Container(
                 alignment: Alignment.topLeft,
-                child: PadongMarkdown(this.wiki.description))
+                child: PadongMarkdown(widget.wiki.description))
           ]),
         ]);
   }

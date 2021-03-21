@@ -134,8 +134,9 @@ class HomeView extends StatelessWidget {
   List<Widget> padongArea(BuildContext context) {
     return [
       this._title('PADONG'),
-      // TODO: create PADONG univ, create boards
-      // BoardList(boards: ['freeTalk', 'questionAnswer', 'inform']),
+      PadongFutureBuilder(
+          future: this.university.getChildren(Board()),
+          builder: (boards) => BoardList(<Board>[...boards])),
       PadongFutureBuilder(
           future: this.university.getChildren(Board()),
           builder: (boards) => BoardList(<Board>[...boards])),

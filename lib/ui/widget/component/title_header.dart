@@ -31,20 +31,24 @@ class TitleHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width =
+        MediaQuery.of(context).size.width - 2 * AppTheme.horizontalPadding - 50;
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       this.link != null ? SizedBox(height: 12) : SizedBox.shrink(),
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(
-          this.title,
-          style: AppTheme.getFont(
-              color: this.link != null
-                  ? AppTheme.colors.fontPalette[1]
-                  : AppTheme.colors.fontPalette[2],
-              fontSize: this.link != null
-                  ? AppTheme.fontSizes.xlarge
-                  : AppTheme.fontSizes.mlarge,
-              isBold: true),
-        ),
+        SizedBox(
+            width: width,
+            child: Text(
+              this.title,
+              style: AppTheme.getFont(
+                  color: this.link != null
+                      ? AppTheme.colors.fontPalette[1]
+                      : AppTheme.colors.fontPalette[2],
+                  fontSize: this.link != null
+                      ? AppTheme.fontSizes.xlarge
+                      : AppTheme.fontSizes.mlarge,
+                  isBold: true),
+            )),
         this.getRightButton(context)
       ]),
       Container(

@@ -157,7 +157,8 @@ enum ACCESS {
 }
 
 enum ResetPasswordResult {
-  success,
+  Success,
   InvalidUser,
   InvalidEmail,
+  Failed,
 }

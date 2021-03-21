@@ -11,7 +11,7 @@
 import 'dart:ui';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:padong/ui/widget/dialog/base_dialog.dart';
+import 'package:padong/ui/view/sign/forgot_dialog.dart';
 import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/util/wave/wave_clipper.dart';
 import 'package:padong/util/wave/wave.dart';
@@ -225,12 +225,8 @@ class _BaseSignViewState extends State<BaseSignView>
                   child: widget.isSignIn
                       ? SimpleButton('Forgot Password?',
                           color: AppTheme.colors.semiPrimary,
-                          buttonSize: ButtonSize.REGULAR, onTap: () {
-                            BaseDialog.show(context, (){},
-                              topTitle: 'Forgot',
-                              actions: [Button('test')]
-                            );
-                        })
+                          buttonSize: ButtonSize.REGULAR,
+                          onTap: () => ForgotDialog.show(context))
                       : null),
             ]));
   }

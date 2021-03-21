@@ -12,17 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 
 class BaseDialog extends StatelessWidget {
-  final Function onTapOk;
   final Widget topComponent;
   final String topTitle;
   final List<Widget> children;
   final List<Widget> actions;
 
-  BaseDialog(this.onTapOk,
-      {this.topTitle, this.topComponent, this.children, this.actions})
+  BaseDialog({this.topTitle, this.topComponent, this.children, this.actions})
       : assert(topTitle == null || topComponent == null);
 
-  static void show(BuildContext context, Function onTapOk,
+  static void show(BuildContext context,
       {String topTitle,
       Widget topComponent,
       List<Widget> children,
@@ -30,7 +28,7 @@ class BaseDialog extends StatelessWidget {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return BaseDialog(onTapOk,
+          return BaseDialog(
               topTitle: topTitle,
               topComponent: topComponent,
               children: children,
@@ -41,7 +39,7 @@ class BaseDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      titlePadding: const EdgeInsets.symmetric(vertical: 10),
+      titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       contentPadding: const EdgeInsets.only(left: 0, right: 0, bottom: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.0)),
       title: Container(
@@ -67,8 +65,9 @@ class BaseDialog extends StatelessWidget {
             Expanded(
                 child: SingleChildScrollView(
                     child: Column(children: this.children ?? []))),
+            SizedBox(height: 5),
             ...this.actions,
-            SizedBox(height: 5)
+            SizedBox(height: 10),
           ])),
     );
   }

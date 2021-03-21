@@ -89,7 +89,7 @@ class User extends Node {
             rule: (query) => query.where('friendIds', arrayContains: me.id))
         .then((docs) => docs
             .map((doc) => User.fromMap(doc.id, doc.data()))
-            .where((user) => me.friendIds.contains(user.id))
+            .where((user) => !me.friendIds.contains(user.id))
             .toList());
   }
 

@@ -9,21 +9,21 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/deck/reply.dart';
-import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widget/tile/node/node_tile.dart';
+import 'package:padong/ui/widget/dialog/base_dialog.dart';
 
-class ReplyTile extends NodeTile {
-  ReplyTile(Reply reply) : super(reply, leftPadding: 8, isRoute: false);
-
-  @override
-  Widget followText() {
-    return Text(this.node.description,
-        style: AppTheme.getFont(color: AppTheme.colors.support));
+class MoreDialog extends StatelessWidget {
+  static void show(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MoreDialog();
+        });
   }
 
   @override
-  Widget bottomArea(BuildContext context, {List<int> hides}) {
-    return super.bottomArea(context, hides: [2]);
+  Widget build(BuildContext context) {
+    return BaseDialog(
+
+    );
   }
 }

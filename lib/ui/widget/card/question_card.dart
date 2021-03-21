@@ -37,7 +37,7 @@ class QuestionCard extends NodeBase {
                     tag: 'node${this.node.id}common', child: this.commonArea()),
                 this.messages()
               ])),
-          Hero(tag: 'node${this.node.id}bottoms', child: this.bottomArea()),
+          Hero(tag: 'node${this.node.id}bottoms', child: this.bottomArea(context)),
         ]);
   }
 
@@ -71,7 +71,7 @@ class QuestionCard extends NodeBase {
   }
 
   @override
-  Widget bottomArea({List<int> hides}) {
+  Widget bottomArea(BuildContext context, {List<int> hides}) {
     return Material(
         color: AppTheme.colors.transparent,
         child: Stack(

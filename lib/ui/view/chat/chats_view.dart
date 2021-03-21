@@ -42,11 +42,7 @@ class _ChatsViewState extends State<ChatsView> {
               PadongRouter.routeURL('/chat');
             },
             isScrollingDown: isScrollingDown),
-        appBar: BackAppBar(title: 'Chats', actions: [
-          IconButton(
-              icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-              onPressed: () {}) // TODO: more dialog
-        ]),
+        appBar: BackAppBar(title: 'Chats'),
         children: [
           PadongFutureBuilder(
               future: widget.me.getMyChatRooms(widget.me),
@@ -57,5 +53,5 @@ class _ChatsViewState extends State<ChatsView> {
                       ...chatRooms.map((chatRoom) => ChatRoomTile(chatRoom))
                     ]))
         ]);
-  }//https://user-images.githubusercontent.com/35912840/111458746-278a1080-875d-11eb-8d73-791a828a99a7.png
+  }
 }

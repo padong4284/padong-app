@@ -17,6 +17,7 @@ import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/bottom_buttons.dart';
 import 'package:padong/ui/widget/button/profile_button.dart';
 import 'package:padong/ui/widget/button/simple_button.dart';
+import 'package:padong/ui/widget/dialog/more_dialog.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 
 class NodeBase extends StatelessWidget {
@@ -41,7 +42,9 @@ class NodeBase extends StatelessWidget {
               Hero(tag: 'node${this.node.id}owner', child: this.profile()),
               Hero(tag: 'node${this.node.id}common', child: this.commonArea())
             ])),
-            Hero(tag: 'node${this.node.id}bottoms', child: this.bottomArea()),
+            Hero(
+                tag: 'node${this.node.id}bottoms',
+                child: this.bottomArea(context)),
           ],
         ));
   }
@@ -101,7 +104,7 @@ class NodeBase extends StatelessWidget {
         style: AppTheme.getFont(color: AppTheme.colors.support, isBold: true));
   }
 
-  Widget bottomArea({List<int> hides}) {
+  Widget bottomArea(BuildContext context, {List<int> hides}) {
     return Material(
         color: AppTheme.colors.transparent,
         child: Stack(
@@ -114,15 +117,11 @@ class NodeBase extends StatelessWidget {
                     buttonSize: ButtonSize.SMALL,
                     icon: Icon(Icons.more_horiz,
                         color: AppTheme.colors.support, size: 20),
-                    onTap: this.onMoreTap))
+                    onTap: () => MoreDialog.show(context)))
           ],
         ));
   }
 
   void routePage() =>
       PadongRouter.routeURL('/${this.node.type}?id=${this.node.id}', this.node);
-
-  void onMoreTap() {
-    // TODO: Click more button " ... "
-  }
 }

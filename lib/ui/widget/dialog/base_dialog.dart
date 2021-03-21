@@ -72,7 +72,7 @@ class BaseDialog extends StatelessWidget {
                     child: SingleChildScrollView(
                         child: Column(children: this.children ?? []))),
                 SizedBox(height: 5),
-                ...this.actions,
+                ...(this.actions ?? []),
                 SizedBox(height: 10),
               ])),
     );

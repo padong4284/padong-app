@@ -17,7 +17,6 @@ import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
-import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
@@ -88,7 +87,7 @@ class HomeView extends StatelessWidget {
                     (await qBoard.getChildren(Question())))(),
                 builder: (_questions) {
                   return SwipeDeck(
-                      emptyMessage: 'Ask Free!',
+                      emptyMessage: 'Ask any questions for Free!',
                       children: List.generate(min(5, _questions.length as int),
                           (idx) => QuestionCard(_questions[idx])));
                 },

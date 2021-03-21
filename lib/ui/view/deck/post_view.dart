@@ -51,7 +51,9 @@ class PostView extends PostTile {
               link: "/${this.node.type}?id=${this.node.id}"),
           PadongMarkdown(this.node.description),
           SizedBox(height: 20),
-          Hero(tag: 'node${this.node.id}bottoms', child: this.bottomArea()),
+          Hero(
+              tag: 'node${this.node.id}bottoms',
+              child: this.bottomArea(context)),
           this.underLine(),
           ReplyView(this.node, focus: focus)
         ]);

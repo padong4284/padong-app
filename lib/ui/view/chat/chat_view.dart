@@ -11,7 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/common/user.dart';
-import 'package:padong/core/node/schedule/lecture.dart';
+import 'package:padong/core/node/node.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';
@@ -27,9 +27,9 @@ import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/ui/widget/tile/friend_tile.dart';
 
 class ChatView extends StatefulWidget {
-  final Lecture lecture;
+  final Node node;
 
-  ChatView(this.lecture);
+  ChatView(this.node);
 
   _ChatViewState createState() => _ChatViewState();
 }
@@ -115,20 +115,31 @@ class _ChatViewState extends State<ChatView> {
   }
 
   void onTabOk() async {
-    if (this.invites.isEmpty) return PadongRouter.goBack();
-    this.invites.add(Session.user);
-    ChatRoom chatRoom = await ChatRoom.fromMap('', {
-      'pip': PIPs[this.pipIdx],
-      'parentId': widget.lecture != null ? widget.lecture.id : '',
-      'ownerId': Session.user.id, // first creator
-      'title': this._titleController.text.length > 0
-          ? this._titleController.text
-          : this.invites.map((user) => user.userId).join(', '),
-      'description': this._contentController.text,
-    }).create();
-
-    for (User user in this.invites) await chatRoom.invite(user);
-    PadongRouter.goBack();
-    PadongRouter.routeURL('chatroom?id=${chatRoom.id}', chatRoom);
+    if (this.invites.isNotEmpty) {
+      this.invites.add(Session.user);
+      bool isOneToOne = this.invites.length == 2;
+      ChatRoom chatRoom = ChatRoom.fromMap('', {
+        'pip': PIPs[this.pipIdx],
+        'parentId': widget.node != null ? widget.node.id : '',
+        'ownerId': Session.user.id, // first creator
+        'title': this._titleController.text.length > 0
+            ? this._titleController.text
+            : this.invites.map((user) => user.userId).join(', '),
+        'description': this._contentController.text,
+      });
+      bool _isInvite = true;
+      if (isOneToOne) {
+        String _id = ChatRoom.oneToOne(this.invites[0], this.invites[1]);
+        _isInvite = (await ChatRoom.getById(_id)) == null;
+        await chatRoom.set(_id);
+      } else
+        await chatRoom.create();
+      if (_isInvite)
+        for (User user in this.invites) await chatRoom.invite(user);
+      PadongRouter.goBack();
+      PadongRouter.routeURL('chatroom?id=${chatRoom.id}', chatRoom);
+    } else
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No Participant')));
   }
 }

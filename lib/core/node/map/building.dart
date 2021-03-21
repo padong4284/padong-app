@@ -17,7 +17,7 @@ import 'package:padong/core/shared/types.dart';
 // parent: Mappa
 class Building extends TitleNode with Statistics {
   LatLng location;
-  int serviceCheckBits; // TODO transaction!
+  int serviceCheckBits;
 
   Building();
 

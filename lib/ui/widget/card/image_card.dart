@@ -53,7 +53,7 @@ class ImageCard extends NodeBase {
                             ])),
                         Hero(
                             tag: 'node${this.node.id}bottoms',
-                            child: this.bottomArea()),
+                            child: this.bottomArea(context)),
                       ]))
             ])));
   }
@@ -77,9 +77,9 @@ class ImageCard extends NodeBase {
   }
 
   @override
-  Widget bottomArea({List<int> hides}) {
+  Widget bottomArea(BuildContext context, {List<int> hides}) {
     return Padding(
         padding: const EdgeInsets.only(top: 18, left: 5, right: 5),
-        child: super.bottomArea(hides: [1]));
+        child: super.bottomArea(context, hides: [1]));
   }
 }

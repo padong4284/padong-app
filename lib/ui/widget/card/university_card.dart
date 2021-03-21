@@ -32,13 +32,15 @@ class UniversityCard extends StatelessWidget {
             height: 135,
             children: [
               SizedBox(height: 2),
-              Text(this.univ.title,
-                  style: AppTheme.getFont(
-                      color: AppTheme.colors.fontPalette[1],
-                      fontSize: AppTheme.fontSizes.large,
-                      isBold: true)),
+              ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: 50),
+                  child: Text(this.univ.title,
+                      style: AppTheme.getFont(
+                          color: AppTheme.colors.fontPalette[1],
+                          fontSize: AppTheme.fontSizes.large,
+                          isBold: true))),
               Container(
-                  height: 30,
+                  height: 15,
                   margin: const EdgeInsets.only(top: 6, bottom: 9),
                   child: Text(this.univ.description,
                       overflow: TextOverflow.ellipsis,
@@ -47,8 +49,6 @@ class UniversityCard extends StatelessWidget {
             ]));
   }
 
-  void moveUniversity() async {
-    await Session.changeCurrentUniversity(this.univ);
-    PadongRouter.routeURL('/main');
-  }
+  void moveUniversity() async =>
+      await Session.changeCurrentUniversity(this.univ);
 }

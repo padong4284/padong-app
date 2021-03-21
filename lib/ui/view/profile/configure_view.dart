@@ -245,8 +245,10 @@ class _ConfigureViewState extends State<ConfigureView> {
       }
     }
     if (isUpdated || univUpdated) await this.user.update();
-    if (univUpdated)
+    if (univUpdated) {
+      Session.userUniversity = university;
       Session.changeCurrentUniversity(university);
+    }
     else
       PadongRouter.goBack();
   }

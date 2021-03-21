@@ -121,7 +121,7 @@ class _ImageUploaderState extends State<ImageUploader> {
     if (this._image == null) return;
     List<String> _temp = this._image.path.split('/');
     String fileName = _temp[_temp.length - 1];
-    Reference firebaseStorageRef = // TODO: identical image file nae
+    Reference firebaseStorageRef = // TODO: identical image file name
         FirebaseStorage.instance.ref().child('image/$fileName');
     UploadTask uploadTask = firebaseStorageRef.putFile(File(this._image.path));
     await uploadTask.whenComplete(() => uploadTask.snapshot.ref

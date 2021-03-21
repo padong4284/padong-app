@@ -19,9 +19,13 @@ class ProfileButton extends StatelessWidget {
   final UsernamePosition position;
   final bool isBold;
   final double size;
+  final bool isAnonym;
 
   ProfileButton(this.user,
-      {this.position, this.size = 64, this.isBold = false});
+      {this.position,
+      this.size = 64,
+      this.isBold = false,
+      this.isAnonym = false});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +39,10 @@ class ProfileButton extends StatelessWidget {
 
   Widget _buildUserIconButton() {
     return InkWell(
-        onTap: this.isBold
+        onTap: this.isBold || this.isAnonym
             ? null
-            : () => PadongRouter.routeURL('profile?id=${this.user.id}&type=user', this.user),
+            : () => PadongRouter.routeURL(
+                'profile?id=${this.user.id}&type=user', this.user),
         child: Stack(children: [
           Icon(
             Icons.account_circle_rounded,
@@ -47,7 +52,8 @@ class ProfileButton extends StatelessWidget {
           CircleAvatar(
             radius: this.size / 2,
             backgroundColor: AppTheme.colors.transparent,
-            backgroundImage: (this.user.profileImageURL != null) &&
+            backgroundImage: (!this.isAnonym) &&
+                    (this.user.profileImageURL != null) &&
                     (this.user.profileImageURL.length > 0)
                 ? NetworkImage(this.user.profileImageURL)
                 : null,
@@ -79,7 +85,7 @@ class ProfileButton extends StatelessWidget {
   }
 
   Text username(double fontSize) {
-    return Text(this.user.userId,
+    return Text(this.isAnonym ? 'Anonymous' : this.user.userId,
         style: AppTheme.getFont(
           isBold: this.isBold,
           fontSize: this.isBold ? AppTheme.fontSizes.large : fontSize,

@@ -92,4 +92,15 @@ class ChatRoom extends TitleNode with Notification {
     // TODO: based on Participant's modifiedAt, message's createdAt
     return 0;
   }
+
+  static String oneToOne(User user1, User user2) {
+    bool _1front = user1.id.compareTo(user2.id) < 0;
+    return (_1front ? [user1.id, user2.id] : [user2.id, user1.id]).join('');
+  }
+
+  static Future<ChatRoom> getById(String chatRoomId) async {
+    return await PadongFB.getDoc('chatroom', chatRoomId)
+        .then((doc) => ChatRoom.fromMap(doc.id, doc.data()))
+        .catchError((e) => null);
+  }
 }

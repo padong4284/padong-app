@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/board.dart';
+import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/core/node/map/building.dart';
 import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/question.dart';
-import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/top_app_bar.dart';
@@ -82,10 +82,12 @@ class HomeView extends StatelessWidget {
                 boards.where((board) => board.title == 'Questions').first;
             return Column(children: [
               PadongFutureBuilder(
-                future: qBoard.getChildren(Question()),
+                future: (() async =>
+                    (await qBoard.getChildren(Post())) +
+                    (await qBoard.getChildren(Question())))(),
                 builder: (_questions) {
                   return SwipeDeck(
-                      emptyMessage: 'Ask Free!',
+                      emptyMessage: 'Ask any questions for Free!',
                       children: List.generate(min(5, _questions.length as int),
                           (idx) => QuestionCard(_questions[idx])));
                 },

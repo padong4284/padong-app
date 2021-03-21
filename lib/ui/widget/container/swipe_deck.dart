@@ -49,6 +49,7 @@ class _SwipeDeckState extends State<SwipeDeck> {
       children: [
         widget.numCards == 0
             ? NoDataMessage(widget.emptyMessage,
+                height: 100,
                 alignment: Alignment.bottomCenter)
             : SizedBox.shrink(),
         Container(

@@ -17,8 +17,8 @@ class WikiTile extends NodeTile {
   WikiTile(Wiki wiki) : super(wiki, noProfile: true);
 
   @override
-  Widget bottomArea({List<int> hides}) {
-    return super.bottomArea(hides: [1]);
+  Widget bottomArea(BuildContext context, {List<int> hides}) {
+    return super.bottomArea(context, hides: [1]);
   }
 
   @override

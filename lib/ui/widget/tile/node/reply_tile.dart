@@ -23,7 +23,7 @@ class ReplyTile extends NodeTile {
   }
 
   @override
-  Widget bottomArea({List<int> hides}) {
-    return super.bottomArea(hides: [2]);
+  Widget bottomArea(BuildContext context, {List<int> hides}) {
+    return super.bottomArea(context, hides: [2]);
   }
 }

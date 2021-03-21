@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
@@ -72,7 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
                       children: [
                         ...friends.map((friend) => Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
+                                  horizontal: 5, vertical: 10),
                               child: ProfileButton(friend,
                                   position: UsernamePosition.BOTTOM, size: 50),
                             ))
@@ -124,9 +125,17 @@ class _ProfileViewState extends State<ProfileView> {
             SizedBox(
                 width: 32,
                 child: IconButton(
-                    // TODO: check chatRoom is exists
-                    onPressed: () => PadongRouter.routeURL(
-                        '/chat?id=${widget.user.id}&type=user', widget.user),
+                    onPressed: () async {
+                      ChatRoom _chatRoom = await ChatRoom.getById(
+                          ChatRoom.oneToOne(Session.user, widget.user));
+                      if (_chatRoom != null)
+                        PadongRouter.routeURL(
+                            '/chatroom?id=${_chatRoom.id}', _chatRoom);
+                      else
+                        PadongRouter.routeURL(
+                            '/chat?id=${widget.user}.id}&type=user',
+                            widget.user);
+                    },
                     icon: Icon(Icons.mode_comment_outlined,
                         color: AppTheme.colors.support))),
           ];

@@ -123,7 +123,7 @@ class _MapTemplateState extends State<MapTemplate> {
                 height: 150,
                 child: HorizontalScroller(height: 150, children: [
                   ...List.generate(min(10, widget.buildings.length),
-                      (idx) => BuildingCard(widget.buildings[idx])), //FIXME
+                      (idx) => BuildingCard(widget.buildings[idx])),
                   SizedBox(width: 60)
                 ])))
         : SizedBox.shrink();
@@ -148,12 +148,13 @@ class _MapTemplateState extends State<MapTemplate> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(widget.focusBuilding.title,
-                          style: AppTheme.getFont(isBold: true)),
+                          style: AppTheme.getFont(isBold: true),
+                          overflow: TextOverflow.ellipsis),
                       Text(widget.focusBuilding.description,
                           style: AppTheme.getFont(
                               color: AppTheme.colors.fontPalette[3]),
                           overflow: TextOverflow.ellipsis),
-                      BottomButtons(widget.focusBuilding)
+                      BottomButtons(widget.focusBuilding, gap: 25)
                     ]),
               )),
         ));

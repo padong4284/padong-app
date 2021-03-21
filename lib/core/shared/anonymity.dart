@@ -8,15 +8,21 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-import 'package:padong/core/node/deck/board.dart';
-import 'package:padong/core/node/node.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
 
-// parent: University
-class Deck extends Node {
-  Deck();
+class Anonymity{
+  static String SHA256(String target){
+    List<int> bytes = utf8.encode(target);
+    return sha256.convert(bytes).toString();
+  }
 
-  Deck.fromMap(String id, Map snapshot) : super.fromMap(id, snapshot);
+  static Map<String,dynamic> MaskingOwnerId(Map<String,dynamic> target){
+    if((target["anonymity"] ?? false) == true){
+      target["ownerId"] =  SHA256(target["parentId"] + target["ownerId"]);
+    }
 
-  @override
-  generateFromMap(String id, Map snapshot) => Deck.fromMap(id, snapshot);
+    return target;
+  }
+
 }

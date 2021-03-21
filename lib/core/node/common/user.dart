@@ -89,7 +89,7 @@ class User extends Node {
             rule: (query) => query.where('friendIds', arrayContains: me.id))
         .then((docs) => docs
             .map((doc) => User.fromMap(doc.id, doc.data()))
-            .where((user) => me.friendIds.contains(user.id))
+            .where((user) => !me.friendIds.contains(user.id))
             .toList());
   }
 
@@ -113,7 +113,6 @@ class User extends Node {
   Future<List<Board>> getMyBoards(User me) async {
     if (me._myBoards == null) {
       me._myBoards = [];
-
       /// FIXME: not possible with current node system.
       /// make new type of Node getChildren by Reply, Like, Bookmark
     }
@@ -122,13 +121,12 @@ class User extends Node {
 
   Future<List<ChatRoom>> getMyChatRooms(User me) async {
     if (this != me) throw Exception("Not me!");
-
     List<String> chatRoomIds = [];
     List<DocumentSnapshot> myParticipants = await PadongFB.getDocsByRule(
         Participant().type,
         rule: (query) => query.where('ownerId', isEqualTo: me.id));
     for (DocumentSnapshot p in myParticipants) chatRoomIds.add(p['parentId']);
-
+    if (chatRoomIds.isEmpty) return [];
     return await PadongFB.getDocsByRule(ChatRoom().type,
         rule: (query) =>
             query.where(PadongFB.documentId, whereIn: chatRoomIds)).then(

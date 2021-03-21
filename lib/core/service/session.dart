@@ -117,7 +117,7 @@ class Session {
   static Future<bool> changeCurrentUniversity(University university) async {
     try {
       currUniversity = university;
-      university.initUniversity();
+      await university.initUniversity();
       PadongRouter.routeURL('/main');
       return true;
     } catch (e) {
@@ -144,12 +144,11 @@ class Session {
   static Future<ResetPasswordResult> sendResetPasswordEmail(
       String id, String email) async {
     User targetUser = await User.getByUserId(id);
-    if (targetUser == null) {
+    if (targetUser == null)
       return ResetPasswordResult.InvalidUser;
-    }
-    if (!targetUser.userEmails.contains(email)) {
+    if (!targetUser.userEmails.contains(email))
       return ResetPasswordResult.InvalidEmail;
-    }
+
     try {
       await PadongAuth.resetPassword(email);
     } on fb.FirebaseAuthException catch (e) {
@@ -158,8 +157,9 @@ class Session {
       } else if (e.code == "user-not-found") {
         return ResetPasswordResult.InvalidEmail;
       }
+    } catch (e) {
+      return ResetPasswordResult.Failed;
     }
-
-    return ResetPasswordResult.success;
+    return ResetPasswordResult.Success;
   }
 }

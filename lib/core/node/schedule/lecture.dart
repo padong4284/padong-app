@@ -1,3 +1,6 @@
+import 'package:padong/core/node/chat/chat_room.dart';
+import 'package:padong/core/node/node.dart';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -9,6 +12,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:padong/core/node/schedule/review.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/node/schedule/event.dart';
@@ -27,6 +31,7 @@ class Lecture extends Event {
   String attendance;
   String book;
   Evaluation _evaluation;
+  ChatRoom _chatRoom;
 
   Lecture();
 
@@ -79,8 +84,7 @@ class Lecture extends Event {
 
   Future<List<Review>> getReviews() async {
     return <Review>[
-      ...(await (await this.evaluation)
-          .getChildren(Review(), upToDate: true))
+      ...(await (await this.evaluation).getChildren(Review(), upToDate: true))
     ];
   }
 
@@ -94,5 +98,25 @@ class Lecture extends Event {
     this.exam = data['exam'] ?? this.exam;
     this.attendance = data['attendance'] ?? this.attendance;
     this.book = data['book'] ?? this.book;
+  }
+
+  @override
+  Future<Node> create() async {
+    // create ChatRoom
+    Lecture _this = await super.create() as Lecture;
+    this._chatRoom = await ChatRoom.fromMap('', {
+      'pip': pipToString(PIP.INTERNAL),
+      'parentId': _this.id,
+      'ownerId': Session.currUniversity.id,
+      'title': _this.title,
+      'description': this.description,
+    }).create();
+    return _this;
+  }
+
+  Future<ChatRoom> getChatRoom() async {
+    if (this._chatRoom == null)
+      this._chatRoom = await this.getChild(ChatRoom());
+    return this._chatRoom;
   }
 }

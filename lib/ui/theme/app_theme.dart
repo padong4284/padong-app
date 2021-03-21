@@ -31,14 +31,16 @@ class AppTheme {
     );
   }
 
-  static TextStyle getFont({color, fontSize, isBold = false}) {
+  static TextStyle getFont({color, fontSize, isBold = false, List<Shadow> shadows}) {
     return TextStyle(
         height: 1.25,
         color: color ?? AppTheme.colors.fontPalette[1],
         letterSpacing: 0.025,
         decoration: TextDecoration.none,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-        fontSize: fontSize ?? AppTheme.fontSizes.regular);
+        fontSize: fontSize ?? AppTheme.fontSizes.regular,
+        shadows: shadows
+    );
   }
 }
 

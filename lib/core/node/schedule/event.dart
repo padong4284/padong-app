@@ -48,7 +48,9 @@ class Event extends Board {
   void setDataWithMap(Map data) {
     this.title = data['title'] ?? this.title;
     this.description = data['description'] ?? this.description;
-    this.periodicity = data['periodicity'] ?? this.periodicity;
+    this.periodicity = data['periodicity'] != null
+        ? parsePERIODICITY(data['periodicity'])
+        : this.periodicity;
     this.times = data['times'] ?? this.times;
     this.alerts = data['alerts'] ?? this.alerts;
   }

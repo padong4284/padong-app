@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'PADONG',
       theme: AppTheme.define(),
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: PadongRouter.generateRoute,
     );
   }

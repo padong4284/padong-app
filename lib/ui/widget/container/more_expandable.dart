@@ -43,7 +43,7 @@ class _MoreExpandableState extends State<MoreExpandable> {
           children: [
             widget.title ?? SizedBox.shrink(),
             Padding(
-                padding: const EdgeInsets.only(bottom: 3),
+                padding: const EdgeInsets.only(bottom: 4),
                 child: MoreButton('',
                     expanded: this.limit == null,
                     expandFunction: () => setState(() => this.limit =

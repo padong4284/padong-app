@@ -34,7 +34,7 @@ class _ItemViewState extends State<ItemView> {
         floatingBottomBarGenerator: (isScrollingDown) => FloatingBottomButton(
             title: 'Edit',
             onTap: () {
-              PadongRouter.refresh = () {print(widget.wiki.description); setState(() {});};
+              PadongRouter.refresh = () => setState(() {});
               PadongRouter.routeURL(
                   'edit?id=${widget.wiki.id}&type=wiki', widget.wiki);
             },

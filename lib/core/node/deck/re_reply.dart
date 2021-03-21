@@ -44,8 +44,9 @@ class ReReply extends Reply {
   static Future<List<ReReply>> getByGrandParent(Node grandParent) async {
     ReReply reReply = ReReply();
     return await PadongFB.getDocsByRule('rereply',
-            rule: (query) =>
-                query.where('grandParentId', isEqualTo: grandParent.id))
+            rule: (query) => query
+                .where('grandParentId', isEqualTo: grandParent.id)
+                .orderBy('createdAt', descending: true))
         .then((docs) => docs
             .map(
                 (doc) => reReply.generateFromMap(doc.id, doc.data()) as ReReply)

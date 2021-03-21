@@ -39,7 +39,7 @@ class SummaryCard extends StatelessWidget {
               height: 70,
               margin: const EdgeInsets.only(top: 6, bottom: 9),
               child: Text(this.wiki.description,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.clip,
                   style:
                       AppTheme.getFont(color: AppTheme.colors.fontPalette[2]))),
         ]);

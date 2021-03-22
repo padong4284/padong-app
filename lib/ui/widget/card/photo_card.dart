@@ -70,7 +70,7 @@ class PhotoCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: img != null
-            ? DecorationImage(image: img, fit: BoxFit.fitWidth)
+            ? DecorationImage(image: img, fit: BoxFit.cover)
             : null,
         color: img != null
             ? AppTheme.colors.lightSupport

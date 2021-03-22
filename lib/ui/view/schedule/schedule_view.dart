@@ -39,17 +39,7 @@ class _ScheduleViewState extends State<ScheduleView> {
   @override
   void initState() {
     super.initState();
-    widget.schedule.getMyEvents(Session.user).then((events) {
-      this.thisWeekEvents = [];
-      for (Event event in events)
-        for (TimeManager tm in event.times)
-          if (tm.isToday())
-            this.todayTimeline[tm.time] =
-                (this.todayTimeline[tm.time] ?? []) + [TimelineCard(event)];
-          else if (tm.isThisWeek() && !this.thisWeekEvents.contains(event))
-            this.thisWeekEvents.add(event);
-      setState(() {});
-    });
+    this.loadSchedule();
   }
 
   @override
@@ -57,7 +47,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
             onPressAdd: () {
-              PadongRouter.refresh = () => setState(() {});
+              PadongRouter.refresh = this.loadSchedule;
               PadongRouter.routeURL(
                   'update?id=${widget.schedule.id}&type=schedule',
                   widget.schedule);
@@ -99,5 +89,23 @@ class _ScheduleViewState extends State<ScheduleView> {
                   '/rail?id=${widget.schedule.id}&type=schedule',
                   widget.schedule)))
     ]);
+  }
+
+  void loadSchedule() {
+    Map<String, List<Widget>> _timeline = {};
+    widget.schedule.getMyEvents(Session.user).then((events) {
+      this.thisWeekEvents = [];
+      for (Event event in events)
+        for (TimeManager tm in event.times)
+          if (tm.isToday())
+            _timeline[tm.time] =
+                (_timeline[tm.time] ?? []) + [TimelineCard(event)];
+          else if (tm.isThisWeek() && !this.thisWeekEvents.contains(event))
+            this.thisWeekEvents.add(event);
+      List<String> dots = _timeline.keys.toList();
+      dots.sort();
+      for(String dot in dots) this.todayTimeline[dot] = _timeline[dot];
+      setState(() {});
+    });
   }
 }

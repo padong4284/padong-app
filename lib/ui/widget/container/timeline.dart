@@ -40,6 +40,10 @@ class _VerticalTimelineState extends State<Timeline> {
   @override
   void initState() {
     super.initState();
+    this.initDotsCards();
+  }
+
+  void initDotsCards() {
     this.dots = widget.timeline.keys.toList();
     this.cards = widget.timeline.values.toList();
     if (this.dots.length == 0) {
@@ -52,6 +56,7 @@ class _VerticalTimelineState extends State<Timeline> {
 
   @override
   Widget build(BuildContext context) {
+    this.initDotsCards();
     int len = min((widget.expandable && !this.expanded) ? 3 : this.dots.length,
         this.dots.length);
     return Stack(children: [

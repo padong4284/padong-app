@@ -23,7 +23,6 @@ double blockWidth;
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 final List<Color> backColors = [
   AppTheme.colors.fontPalette[3],
-  AppTheme.colors.fontPalette[3],
   AppTheme.colors.support,
   AppTheme.colors.primary,
   AppTheme.colors.semiPrimary,

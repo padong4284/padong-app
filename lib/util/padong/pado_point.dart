@@ -47,16 +47,16 @@ class PadoPoint {
   void _startPulse() async {
     this.isPulsing = true;
     while (this.amplitude < this.maxAmp) {
-      this.amplitude += 0.8 + rand.nextDouble() / 10 +  this.speed;
-      await Future.delayed(Duration(milliseconds: 5));
+      this.amplitude += 0.4 + rand.nextDouble() / 5 +  this.speed;
+      await Future.delayed(Duration(milliseconds: 4 + rand.nextInt(1)));
     }
     this._endPulse();
   }
 
   void _endPulse() async {
     while (this.minAmp < this.amplitude) {
-      this.amplitude -= 0.6 + rand.nextDouble() / 10 + this.speed;
-      await Future.delayed(Duration(milliseconds: 8));
+      this.amplitude -= 0.2 + rand.nextDouble() / 5 + this.speed;
+      await Future.delayed(Duration(milliseconds: 4 + rand.nextInt(2)));
     }
     this.amplitude = this.minAmp;
     this.isPulsing = false;

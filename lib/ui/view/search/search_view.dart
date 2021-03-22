@@ -55,7 +55,8 @@ class _SearchViewState extends State<SearchView> {
         children: [
           this.level(),
           SizedBox(height: 30),
-          ResultView(this.result, this.isSearched)
+          ResultView(this.result, this.isSearched),
+          SizedBox(height: 100),
         ]);
   }
 

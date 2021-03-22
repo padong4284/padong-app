@@ -24,17 +24,25 @@ import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/board_list.dart';
 import 'package:padong/util/time_manager.dart';
 
-class ScheduleView extends StatelessWidget {
+class ScheduleView extends StatefulWidget {
   final Schedule schedule;
 
   ScheduleView(this.schedule);
 
+  _ScheduleViewState createState() => _ScheduleViewState();
+}
+
+class _ScheduleViewState extends State<ScheduleView> {
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
-            onPressAdd: () => PadongRouter.routeURL(
-                'update?id=${this.schedule.id}&type=schedule', this.schedule),
+            onPressAdd: () {
+              PadongRouter.refresh = () => setState(() {});
+              PadongRouter.routeURL(
+                  'update?id=${widget.schedule.id}&type=schedule',
+                  widget.schedule);
+            },
             isScrollingDown: isScrollingDown),
         title: 'Schedule',
         children: [
@@ -45,9 +53,9 @@ class ScheduleView extends StatelessWidget {
               'Table',
               'Lecture'
             ], children: [
-              TimeTable(this.schedule),
+              TimeTable(widget.schedule),
               PadongFutureBuilder(
-                  future: this.schedule.getMyLectures(Session.user),
+                  future: widget.schedule.getMyLectures(Session.user),
                   builder: (lectures) => BoardList(lectures, isLecture: true))
             ])
           ]),
@@ -66,13 +74,14 @@ class ScheduleView extends StatelessWidget {
               icon: Icon(Icons.format_list_bulleted_rounded,
                   color: AppTheme.colors.support, size: 25),
               onPressed: () => PadongRouter.routeURL(
-                  '/rail?id=${this.schedule.id}&type=schedule', this.schedule)))
+                  '/rail?id=${widget.schedule.id}&type=schedule',
+                  widget.schedule)))
     ]);
   }
 
   Widget todayTimeline() {
     return PadongFutureBuilder(
-        future: this.schedule.getMyEvents(Session.user),
+        future: widget.schedule.getMyEvents(Session.user),
         builder: (events) {
           Map<String, List<Widget>> timeline = {};
           for (Event event in events)

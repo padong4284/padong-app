@@ -50,12 +50,12 @@ class QuestionCard extends NodeBase {
     return Padding(
         padding: const EdgeInsets.only(top: 18, left: 45, bottom: 5),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          this.messageBox(this.node.title),
-          this.messageBox(this.node.description),
+          this.messageBox(this.node.title, 1),
+          this.messageBox(this.node.description, 2),
         ]));
   }
 
-  Widget messageBox(String msg) {
+  Widget messageBox(String msg, int maxLines) {
     return ConstrainedBox(
         constraints: BoxConstraints(maxHeight: 50),
         child: Container(
@@ -66,7 +66,9 @@ class QuestionCard extends NodeBase {
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 13),
             child: Text(
               msg,
-              style: AppTheme.getFont(color: AppTheme.colors.fontPalette[1]),
+              maxLines: maxLines,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.getFont(color: AppTheme.colors.fontPalette[1], isBold: maxLines==1),
             )));
   }
 

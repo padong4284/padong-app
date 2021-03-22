@@ -19,14 +19,19 @@ import 'package:padong/ui/widget/padong_future_builder.dart';
 class LectureCard extends EventCard {
   final bool isToReview;
 
-  LectureCard(lecture, {this.isToReview = false})
-      : super(lecture, isLecture: true);
+  LectureCard(lecture, {this.isToReview = false, isRouting = false})
+      : super(lecture, isLecture: true, isRouting: isRouting);
 
   @override
   Widget build(BuildContext context) {
     return PadongFutureBuilder(
         future: (this.event as Lecture).evaluation,
-        builder: (evaluation) => BaseCard(
+        builder: (evaluation) => InkWell(
+            onTap: this.isRouting
+                ? () => PadongRouter.routeURL(
+                    '/lecture?id=${this.event.id}', this.event)
+                : null,
+            child: BaseCard(
                 moreText: this.isToReview ? 'Reviews' : null,
                 onTapMore: this.isToReview
                     ? () => PadongRouter.routeURL(
@@ -36,12 +41,14 @@ class LectureCard extends EventCard {
                   this.timeRange(),
                   Padding(
                       padding: const EdgeInsets.only(top: 12, bottom: 15),
-                      child: StarRateButton(
-                        rate: evaluation.rate,
-                        disable: true,
-                      )),
+                      child: this.isRouting
+                          ? this.title()
+                          : StarRateButton(
+                              rate: evaluation.rate,
+                              disable: true,
+                            )),
                   ...this.infoList(['professor', 'room', 'grade', 'exam'] +
                       (this.isToReview ? [] : ['attendance', 'book'])),
-                ]));
+                ])));
   }
 }

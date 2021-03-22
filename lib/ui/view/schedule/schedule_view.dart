@@ -24,17 +24,34 @@ import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/board_list.dart';
 import 'package:padong/util/time_manager.dart';
 
-class ScheduleView extends StatelessWidget {
+class ScheduleView extends StatefulWidget {
   final Schedule schedule;
 
   ScheduleView(this.schedule);
+
+  _ScheduleViewState createState() => _ScheduleViewState();
+}
+
+class _ScheduleViewState extends State<ScheduleView> {
+  List<Event> thisWeekEvents;
+  Map<String, List<Widget>> todayTimeline = {};
+
+  @override
+  void initState() {
+    super.initState();
+    this.loadSchedule();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
-            onPressAdd: () => PadongRouter.routeURL(
-                'update?id=${this.schedule.id}&type=schedule', this.schedule),
+            onPressAdd: () {
+              PadongRouter.refresh = this.loadSchedule;
+              PadongRouter.routeURL(
+                  'update?id=${widget.schedule.id}&type=schedule',
+                  widget.schedule);
+            },
             isScrollingDown: isScrollingDown),
         title: 'Schedule',
         children: [
@@ -45,14 +62,17 @@ class ScheduleView extends StatelessWidget {
               'Table',
               'Lecture'
             ], children: [
-              TimeTable(this.schedule),
+              TimeTable(widget.schedule, this.thisWeekEvents ?? []),
               PadongFutureBuilder(
-                  future: this.schedule.getMyLectures(Session.user),
+                  future: widget.schedule.getMyLectures(Session.user),
                   builder: (lectures) => BoardList(lectures, isLecture: true))
             ])
           ]),
           SizedBox(height: 40),
-          this.todayTimeline()
+          Timeline(
+              emptyMessage: 'Have a Nice Day :)',
+              date: TimeManager.todayString(),
+              timeline: this.todayTimeline)
         ]);
   }
 
@@ -66,24 +86,26 @@ class ScheduleView extends StatelessWidget {
               icon: Icon(Icons.format_list_bulleted_rounded,
                   color: AppTheme.colors.support, size: 25),
               onPressed: () => PadongRouter.routeURL(
-                  '/rail?id=${this.schedule.id}&type=schedule', this.schedule)))
+                  '/rail?id=${widget.schedule.id}&type=schedule',
+                  widget.schedule)))
     ]);
   }
 
-  Widget todayTimeline() {
-    return PadongFutureBuilder(
-        future: this.schedule.getMyEvents(Session.user),
-        builder: (events) {
-          Map<String, List<Widget>> timeline = {};
-          for (Event event in events)
-            for (TimeManager tm in event.times)
-              if (tm.isToday())
-                timeline[tm.time] =
-                    (timeline[tm.time] ?? []) + [TimelineCard(event)];
-          return Timeline(
-              emptyMessage: 'Have a Nice Day :)',
-              date: TimeManager.todayString(),
-              timeline: timeline);
-        });
+  void loadSchedule() {
+    Map<String, List<Widget>> _timeline = {};
+    widget.schedule.getMyEvents(Session.user).then((events) {
+      this.thisWeekEvents = [];
+      for (Event event in events)
+        for (TimeManager tm in event.times)
+          if (tm.isToday())
+            _timeline[tm.time] =
+                (_timeline[tm.time] ?? []) + [TimelineCard(event)];
+          else if (tm.isThisWeek() && !this.thisWeekEvents.contains(event))
+            this.thisWeekEvents.add(event);
+      List<String> dots = _timeline.keys.toList();
+      dots.sort();
+      for(String dot in dots) this.todayTimeline[dot] = _timeline[dot];
+      setState(() {});
+    });
   }
 }

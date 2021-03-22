@@ -30,8 +30,8 @@ class ResultView extends StatelessWidget {
   final Map<String, Function> cardGenerator = {
     'university': (_node) => UniversityCard(_node),
     'wiki': (_node) => ImageCard(_node),
-    'event': (_node) => EventCard(_node),
-    'lecture': (_node) => LectureCard(_node),
+    'event': (_node) => EventCard(_node, isRouting: true),
+    'lecture': (_node) => LectureCard(_node, isRouting: true),
     'building': (_node) => BuildingCard(_node),
     'service': (_node) => ServiceCard(_node),
     'chatroom': (_node) => ChatRoomTile(_node),

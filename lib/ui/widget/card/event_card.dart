@@ -10,25 +10,32 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/schedule/event.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/card/base_card.dart';
 import 'package:padong/util/time_manager.dart';
 
 class EventCard extends StatelessWidget {
+  final bool isRouting;
   final bool isLecture;
   final Event event;
 
-  EventCard(this.event, {this.isLecture = false});
+  EventCard(this.event, {this.isLecture = false, this.isRouting = false});
 
   @override
   Widget build(BuildContext context) {
-    return BaseCard(children: [
-      this.timeRange(),
-      Padding(
-          padding: const EdgeInsets.only(top: 12, bottom: 15),
-          child: this.dateNYear()),
-      ...this.infoList(['periodicity', 'alerts']),
-    ]);
+    return InkWell(
+        onTap: this.isRouting
+            ? () =>
+                PadongRouter.routeURL('/event?id=${this.event.id}', this.event)
+            : null,
+        child: BaseCard(children: [
+          this.isRouting ? this.title() : this.timeRange(),
+          Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 15),
+              child: this.title()),
+          ...this.infoList(['periodicity', 'alerts']),
+        ]));
   }
 
   Widget timeRange() {
@@ -36,13 +43,16 @@ class EventCard extends StatelessWidget {
         TimeManager.summaryTimes(this.event.times, this.isLecture);
     return Column(
         children: summaries
-            .map((summary) => Row(children: [
+            .map((summary) =>
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                   Text(summary[0],
                       style: AppTheme.getFont(
                           color: AppTheme.colors.primary, isBold: true)),
                   SizedBox(width: 5),
                   Text(summary[1],
-                      style: AppTheme.getFont(color: AppTheme.colors.support))
+                      style: AppTheme.getFont(
+                          color: AppTheme.colors.support,
+                          fontSize: AppTheme.fontSizes.small))
                 ]))
             .toList());
   }
@@ -65,6 +75,16 @@ class EventCard extends StatelessWidget {
                       AppTheme.getFont(color: AppTheme.colors.fontPalette[2])))
         ])));
     return infoList;
+  }
+
+  Widget title() {
+    return Row(children: [
+      Text(this.event.title,
+          style: AppTheme.getFont(
+              color: AppTheme.colors.fontPalette[1],
+              fontSize: AppTheme.fontSizes.large,
+              isBold: true)),
+    ]);
   }
 
   Widget dateNYear() {

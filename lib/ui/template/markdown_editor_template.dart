@@ -102,7 +102,8 @@ class _MarkdownEditorTemplateState extends State<MarkdownEditorTemplate> {
                       type: InputType.PLAIN)
                 ]),
           SizedBox(height: 20),
-          ...(widget.children ?? [])
+          ...(widget.children ?? []),
+          SizedBox(height: 50),
         ]);
   }
 

@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -33,15 +32,16 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: InkWell(
-            onTap: () async => await Session.changeCurrentUniversity(
-                await University.getUniversityByName('PADONG')),
+            onTap: () {
+              // TODO: routing to Padong Main and change current univ
+            },
             child: this.withClose
                 ? Padding(
                     padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
-                    child: SimpleButton('',
-                        buttonSize: ButtonSize.LARGE,
-                        onTap: () => PadongRouter.goBack(),
-                        icon: Icon(Icons.close, size: 25)))
+                    child: SimpleButton('', buttonSize: ButtonSize.LARGE,
+                        onTap: () {
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.close, size: 25)))
                 : Container(
                     padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
                     alignment: Alignment.center,

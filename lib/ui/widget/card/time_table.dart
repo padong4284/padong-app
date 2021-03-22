@@ -10,7 +10,6 @@
 ///*********************************************************************
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:padong/core/node/schedule/event.dart';
 import 'package:padong/core/node/schedule/lecture.dart';
 import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/padong_router.dart';
@@ -21,23 +20,21 @@ import 'package:padong/util/time_manager.dart';
 
 double blockWidth;
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-final List<Color> backColors = [
-  AppTheme.colors.fontPalette[3],
-  AppTheme.colors.fontPalette[3],
-  AppTheme.colors.support,
-  AppTheme.colors.primary,
+final List<Color> blockColors = [
   AppTheme.colors.semiPrimary,
+  AppTheme.colors.primary,
   AppTheme.colors.semiSupport,
-  AppTheme.colors.pointYellow,
+  AppTheme.colors.support,
+  AppTheme.colors.fontPalette[3],
   AppTheme.colors.fontPalette[1],
   AppTheme.colors.fontPalette[0],
+  AppTheme.colors.pointYellow,
 ];
 
 class TimeTable extends StatefulWidget {
   final Schedule schedule;
-  final List<Event> thisWeekEvents;
 
-  TimeTable(this.schedule, this.thisWeekEvents);
+  TimeTable(this.schedule);
 
   _TimeTableState createState() => _TimeTableState();
 }
@@ -46,7 +43,6 @@ class _TimeTableState extends State<TimeTable> {
   int startHour = 9;
   int endHour = 16;
   List<List> lectureAndTMs = [];
-  Map<String, Color> colorSet = {};
 
   @override
   void initState() {
@@ -54,27 +50,19 @@ class _TimeTableState extends State<TimeTable> {
     this.startHour = 9;
     this.endHour = 16;
     widget.schedule.getMyLectures(Session.user).then((lectures) => setState(() {
-          this._appendToSchedule(lectures);
+          for (Lecture lecture in lectures)
+            for (TimeManager tm in lecture.times) {
+              this.lectureAndTMs.add([lecture, tm]);
+              this.startHour = min(this.startHour, tm.hour);
+              this.endHour = max(this.endHour, tm.hour + 1 + tm.dMin ~/ 60);
+            }
         }));
-  }
-
-  void _appendToSchedule(List<Event> events) {
-    for (Event lecture in events) {
-      this.colorSet[lecture.id] =
-          backColors[this.colorSet.length % backColors.length];
-      for (TimeManager tm in lecture.times) {
-        this.lectureAndTMs.add([lecture, tm]);
-        this.startHour = min(this.startHour, tm.hour);
-        this.endHour = max(this.endHour, tm.hour + 1 + tm.dMin ~/ 60);
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     blockWidth = (width - 2 * AppTheme.horizontalPadding - 35) / 5;
-    this._appendToSchedule(widget.thisWeekEvents);
 
     return Stack(children: [
       BaseCard(padding: 0, width: 25 + blockWidth * 5, children: <Widget>[
@@ -90,7 +78,7 @@ class _TimeTableState extends State<TimeTable> {
     ]);
   }
 
-  Widget getBlock(Event lecture, TimeManager tm) {
+  Widget getBlock(Lecture lecture, TimeManager tm) {
     return Positioned(
         left: 31 + blockWidth * (tm.weekday - 1),
         top: 31 + 42 * (tm.hour - this.startHour + tm.minute / 60),
@@ -101,11 +89,10 @@ class _TimeTableState extends State<TimeTable> {
               width: blockWidth - 2,
               height: 42 * (tm.dMin / 60),
               child: Container(
-                color: this.colorSet[lecture.id],
+                color: blockColors[lecture.title.length % blockColors.length],
                 padding: const EdgeInsets.all(2),
                 child: Text(lecture.title,
                     style: AppTheme.getFont(
-                        fontSize: AppTheme.fontSizes.small,
                         color: AppTheme.colors.fontPalette[4])),
               )),
         ));

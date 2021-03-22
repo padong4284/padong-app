@@ -16,6 +16,8 @@ import 'package:padong/core/service/padong_fb.dart';
 
 // parent: University
 class Schedule extends Node {
+  List<Lecture> _myLectures;
+
   Schedule();
 
   Schedule.fromMap(String id, Map snapshot) : super.fromMap(id, snapshot);
@@ -25,11 +27,13 @@ class Schedule extends Node {
 
   Future<List<Lecture>> getMyLectures(User me) async {
     if (me.lectureIds.isEmpty) return [];
-    return await PadongFB.getDocsByRule('lecture',
-        rule: (query) => query
-            .where('parentId', isEqualTo: this.id)
-            .where(PadongFB.documentId, whereIn: me.lectureIds)).then((docs) =>
-        <Lecture>[...docs.map((doc) => Lecture.fromMap(doc.id, doc.data()))]);
+    if (this._myLectures == null)
+      this._myLectures = await PadongFB.getDocsByRule('lecture',
+          rule: (query) => query.where('parentId', isEqualTo: this.id).where(
+              PadongFB.documentId,
+              whereIn: me.lectureIds)).then((docs) =>
+          <Lecture>[...docs.map((doc) => Lecture.fromMap(doc.id, doc.data()))]);
+    return this._myLectures;
   }
 
   Future<List<Event>> getMyEvents(User me) async {

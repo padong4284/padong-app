@@ -1,4 +1,4 @@
- ///*********************************************************************
+///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
 ///* This file is part of PADONG.
@@ -21,7 +21,6 @@ import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/card/lecture_card.dart';
 import 'package:padong/ui/widget/component/no_data_message.dart';
 import 'package:padong/ui/widget/component/title_header.dart';
-import 'package:padong/ui/widget/dialog/lecture_dialog.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/node/post_tile.dart';
 import 'package:padong/ui/widget/tile/notice_tile.dart';
@@ -51,8 +50,11 @@ class _LectureViewState extends State<LectureView> {
       appBar: BackAppBar(title: widget.lecture.title, actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-            onPressed: () =>
-              LectureDialog.show(context, widget.lecture)),
+            onPressed: () {
+              PadongRouter.routeURL(
+                  '/update?id=${widget.lecture.id}&type=lecture',
+                  widget.lecture);
+            }), // TODO: more dialog
         IconButton(
             icon: Icon(Icons.mode_comment_outlined,
                 color: AppTheme.colors.support),

@@ -113,11 +113,6 @@ class TimeManager {
         (now.day == this.day);
   }
 
-  bool isThisWeek() {
-    int d = this.day - this.thisMon.day;
-    return 0 <= d && d < 7;
-  }
-
   static String formatDate(DateTime dt) {
     return '${formatHM(dt.month)}/${formatHM(dt.day)}/${dt.year}';
   }

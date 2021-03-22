@@ -60,19 +60,22 @@ class EventCard extends StatelessWidget {
   List<Row> infoList(List<String> infos) {
     List<Row> infoList = [];
     Map<String, dynamic> eventInfos = this.event.toJson();
-    infos.forEach((info) => infoList.add(Row(children: [
+    infos.forEach((info) => infoList
+            .add(Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(info[0].toUpperCase() + info.substring(1),
               style: AppTheme.getFont(
                   color: AppTheme.colors.fontPalette[2], isBold: true)),
           Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                  eventInfos[info]
-                      .toString()
-                      .replaceAll('[', '')
-                      .replaceAll(']', ''),
-                  style:
-                      AppTheme.getFont(color: AppTheme.colors.fontPalette[2])))
+              child: Container(
+                  width: 200,
+                  child: Text(
+                      eventInfos[info]
+                          .toString()
+                          .replaceAll('[', '')
+                          .replaceAll(']', ''),
+                      style: AppTheme.getFont(
+                          color: AppTheme.colors.fontPalette[2]))))
         ])));
     return infoList;
   }

@@ -35,10 +35,10 @@ class ScheduleView extends StatefulWidget {
 class _ScheduleViewState extends State<ScheduleView> {
   @override
   Widget build(BuildContext context) {
+    PadongRouter.refresh = () => setState(() {});
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
             onPressAdd: () {
-              PadongRouter.refresh = () => setState(() {});
               PadongRouter.routeURL(
                   'update?id=${widget.schedule.id}&type=schedule',
                   widget.schedule);

@@ -33,12 +33,31 @@ class ScheduleView extends StatefulWidget {
 }
 
 class _ScheduleViewState extends State<ScheduleView> {
+  List<Event> thisWeekEvents;
+  Map<String, List<Widget>> todayTimeline = {};
+
+  @override
+  void initState() {
+    super.initState();
+    widget.schedule.getMyEvents(Session.user).then((events) {
+      this.thisWeekEvents = [];
+      for (Event event in events)
+        for (TimeManager tm in event.times)
+          if (tm.isToday())
+            this.todayTimeline[tm.time] =
+                (this.todayTimeline[tm.time] ?? []) + [TimelineCard(event)];
+          else if (tm.isThisWeek() && !this.thisWeekEvents.contains(event))
+            this.thisWeekEvents.add(event);
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    PadongRouter.refresh = () => setState(() {});
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
             onPressAdd: () {
+              PadongRouter.refresh = () => setState(() {});
               PadongRouter.routeURL(
                   'update?id=${widget.schedule.id}&type=schedule',
                   widget.schedule);
@@ -53,14 +72,17 @@ class _ScheduleViewState extends State<ScheduleView> {
               'Table',
               'Lecture'
             ], children: [
-              TimeTable(widget.schedule),
+              TimeTable(widget.schedule, this.thisWeekEvents ?? []),
               PadongFutureBuilder(
                   future: widget.schedule.getMyLectures(Session.user),
                   builder: (lectures) => BoardList(lectures, isLecture: true))
             ])
           ]),
           SizedBox(height: 40),
-          this.todayTimeline()
+          Timeline(
+              emptyMessage: 'Have a Nice Day :)',
+              date: TimeManager.todayString(),
+              timeline: this.todayTimeline)
         ]);
   }
 
@@ -77,22 +99,5 @@ class _ScheduleViewState extends State<ScheduleView> {
                   '/rail?id=${widget.schedule.id}&type=schedule',
                   widget.schedule)))
     ]);
-  }
-
-  Widget todayTimeline() {
-    return PadongFutureBuilder(
-        future: widget.schedule.getMyEvents(Session.user),
-        builder: (events) {
-          Map<String, List<Widget>> timeline = {};
-          for (Event event in events)
-            for (TimeManager tm in event.times)
-              if (tm.isToday())
-                timeline[tm.time] =
-                    (timeline[tm.time] ?? []) + [TimelineCard(event)];
-          return Timeline(
-              emptyMessage: 'Have a Nice Day :)',
-              date: TimeManager.todayString(),
-              timeline: timeline);
-        });
   }
 }

@@ -55,7 +55,7 @@ class SearchEngine {
       ];
     else if (type == 'chat') type = 'chatroom';
     // TODO: memo & question
-    List<TitleNode> nodes = await PadongFB.getDocsByRule(type).then(
+    List<TitleNode> nodes = await PadongFB.getDocsByRule(type, limit: 50).then(
         (docs) => <TitleNode>[
               ...docs.map((doc) => Nodes.generateNode(type, doc.id, doc.data()))
             ]);

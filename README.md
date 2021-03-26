@@ -2,7 +2,7 @@
 
 ## Padong
 
-![IMG](./assets/logo/PADONG_L.png)
+<p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
 
 Padong is a community platform that resolves information inequality among students in college life in the US.  Padong provides successful college life know-how through questions and answers to senior students who have experienced and felt directly, not formal information provided by schools. Also, you can use many functions with Padong by integrating functions of fragmented services that are useful for college life.
 
@@ -30,15 +30,47 @@ Without having to use such fragmented services, Padong provides such all functio
 
 Colleges in the US offer programs that new students can adapt to school life through orientation, advisor and etc, but the most helpful thing in practice is the senior students who have experienced and felt school life or classes in person. I've seen many cases where first-year students who just entered the U.S. university failed due to insufficient information and eventually dropped out due to class schedules that they couldn't handle. However, I was able to learn about the class of the professor who teaches well with the help of the Korean student council and have been successful academically because I could judge whether the lecture schedule is too much or not. Based on my experience, I came up with a platform called "Padong," which will connect experienced seniors to students who are having a hard time adjusting to school life.
 
-## Screenshots
-Include logo/demo screenshot etc.
+## Features
+
+**Padong Introduction video:**
+
+<p align="center"><a href="https://youtu.be/Fe-yTo1JdWU"><img src="./assets/png/thumbnail.png" alt="thumbnail"></a></p>
+
+**Padong has 5 key features:**
+
+* Wiki
+
+  College students are able to log and manage information about their schools on Wiki; thus, they can be up to date with everything that’s going on, while building a stronger sense of community. At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.
+
+  <p align="center"><img src="./assets/gif/wiki.gif" alt="GIF"/></p>
+
+* Board
+
+  Students can share information and listen to each other's concerns using the Bulletin Board. On the Q&A Board, anyone can ask questions and receive answers. Everyone will be able to give each other insight by offering their own perspectives.
+
+  <p align="center"><img src="./assets/gif/board.gif" alt="GIF"/></p>
+
+* Timetable
+
+  Timetable allows people to manage their schedules and log their classes. Lectures operate similarly to Bulletin Boards; everyone can review the classes they take, ask questions, or even chat with other students.
+
+  <p align="center"><img src="./assets/gif/timetable.gif" alt="GIF"/></p>
+
+* Maps
+
+  By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. They can also pin their favorite locations and share them with others. Plus, students can find a way using pins.
+
+  <p align="center"><img src="./assets/gif/map.gif" alt="GIF"/></p>
+
+* Chat
+
+  By tapping someone's profile and "be friend" button, you can send a request to befriend. If the one accepts your request, then you can chat with him or her and ask any questions you would like.
+
+  <p align="center"><img src="./assets/gif/chat.gif" alt="GIF"/></p>
 
 ## Tech/framework used
 - [Flutter](https://flutter.dev/)
 - [Firebase](https://firebase.google.com/)
-
-## Features
-What makes your project stand out?
 
 ## Installation
 #### Prerequisite
@@ -114,7 +146,7 @@ To run Padong, two requirements below are needed to be installed.
 
 ##### Clone and run Padong
 
-1. Open a terminal and clone Padong project and open it in **Android Studio application**:
+1. Open a terminal and clone Padong project:
 
    ```bash
    git clone https://github.com/padong4284/padong-flutter.git
@@ -135,7 +167,15 @@ To run Padong, two requirements below are needed to be installed.
 
 ## How to use?
 
-If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
+1. Install APK or IPA file you built using Android Studio **or** Download **Padong** from App Store or Google Play.
+
+2. Run Padong app.
+
+3. Tap "Sign Up" button, fill out all required fields, and tap "->"(next) button on the screen.
+
+4. Then, you will be signed in! Enjoy Padong :)
+
+   <p align="center"><img src="./assets/gif/signup.gif" alt="GIF" width="40%" /></p>
 
 ## Copyright
 

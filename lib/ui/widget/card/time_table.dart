@@ -95,7 +95,7 @@ class _TimeTableState extends State<TimeTable> {
         top: 31 + 42 * (tm.hour - this.startHour + tm.minute / 60),
         child: InkWell(
           onTap: () =>
-              PadongRouter.routeURL('/lecture?id=${lecture.id}', lecture),
+              PadongRouter.routeURL('/${lecture.type}?id=${lecture.id}', lecture),
           child: SizedBox(
               width: blockWidth - 2,
               height: 42 * (tm.dMin / 60),

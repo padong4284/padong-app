@@ -1,10 +1,13 @@
 [English](./README.md) | [Korean](./README_KO.md)
 
 ## 파동 (Padong)
+<<<<<<< HEAD
 
 <p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
+=======
+>>>>>>> doc: Compose 'Features' and 'How to use?' tab in README.md
 
-![IMG](./assets/logo/PADONG_L.png)
+<p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
 
 파동은 궁극적으로 미국 대학에 발생하는 정보 불평등을 해소하기 위한 대학 커뮤니티 플랫폼입니다. 파동은 학교에서 제공하는 형식적인 정보가 아니라 소통의장을 통해 직접 경험하고 느낀 상급생들에게 질문과 답변을 통해서 성공적인 대학생활의 노하우를 제공합니다. 또한 기존에 파편화된 서비스들의 기능들을 통합한 서비스를 제공함으로써 파동 앱 하나로 누릴 수 있습니다. 
 

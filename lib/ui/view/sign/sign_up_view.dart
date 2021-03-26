@@ -16,6 +16,7 @@ import 'package:padong/core/shared/validator.dart';
 import 'package:padong/ui/view/sign/base_sign_view.dart';
 import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/ui/widget/input/list_picker.dart';
+import 'package:padong/ui/widget/dialog/terms_dialog.dart';
 
 const String WAIT_MSG = 'Please Wait..';
 
@@ -106,7 +107,10 @@ class _SignUpViewState extends State<SignUpView> {
           onChanged: this._initError,
         )
       ],
-      onTapEnter: this.onSignUp,
+      onTapEnter: () async {
+        if(await TermsDialog.show(context)) return this.onSignUp();
+        return false;
+      },
     );
   }
 

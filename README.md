@@ -2,7 +2,11 @@
 
 ## Padong
 
+<<<<<<< HEAD
 <p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
+=======
+![IMG](./assets/logo/PADONG_L.png)
+>>>>>>> doc: Add Padong logo
 
 Padong is a community platform that resolves information inequality among students in college life in the US.  Padong provides successful college life know-how through questions and answers to senior students who have experienced and felt directly, not formal information provided by schools. Also, you can use many functions with Padong by integrating functions of fragmented services that are useful for college life.
 

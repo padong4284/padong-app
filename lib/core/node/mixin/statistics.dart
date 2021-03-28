@@ -9,6 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:padong/core/node/common/bookmark.dart';
+import 'package:padong/core/node/common/like.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/deck/re_reply.dart';
 import 'package:padong/core/node/deck/reply.dart';
@@ -62,7 +64,7 @@ mixin Statistics on TitleNode {
     String _targetType = _likeOrBookmark == 0 ? 'like' : 'bookmark';
     bool isChecked = [this.isLiked, this.isBookmarked][_likeOrBookmark](me);
 
-    Map<String, dynamic> thisData = this.toJson();
+    Map<String, dynamic> thisData = new Map<String, dynamic>();//this.toJson();
     Map<String, dynamic> data = new Map<String, dynamic>();
     WriteBatch batch = PadongFB.getBatch();
 
@@ -74,9 +76,16 @@ mixin Statistics on TitleNode {
         'ownerId': me.id,
         'createdAt': DateTime.now().toIso8601String(),
       };
+
+      if(_targetType == 'like'){
+        data = Like.fromMap("", data).toJson();
+      } else if (_targetType == 'bookmark'){
+        data = Bookmark.fromMap("", data).toJson();
+      }
+
       thisData['${_targetType}s'] = FieldValue.arrayUnion([me.id]);
 
-      batch.set(PadongFB.getDocRef(_targetType), data);
+      batch.set(PadongFB.getDocRef(_targetType), data, SetOptions(merge: true));
       [this.likes, this.bookmarks][_likeOrBookmark].add(me.id);
     } else {
       List<DocumentSnapshot> target = await PadongFB.getDocsByRule(_targetType,
@@ -89,7 +98,7 @@ mixin Statistics on TitleNode {
       thisData['${_targetType}s'] = FieldValue.arrayRemove([me.id]);
       [this.likes, this.bookmarks][_likeOrBookmark].remove(me.id);
     }
-    batch.set(PadongFB.getDocRef(this.type, this.id), thisData);
+    batch.set(PadongFB.getDocRef(this.type, this.id), thisData, SetOptions(merge: true));
     await batch.commit();
   }
 

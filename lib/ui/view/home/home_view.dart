@@ -192,7 +192,7 @@ class HomeView extends StatelessWidget {
       context: context,
       applicationVersion: '1.0.0',
       applicationIcon: this.logoPADONG(),
-      applicationLegalese: 'Copyright 2021, PADONG, All Rights Reserved',
+      applicationLegalese: 'padong4284@gmail.com\nCopyright 2021, PADONG, All Rights Reserved',
     );
   }
 

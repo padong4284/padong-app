@@ -76,7 +76,7 @@ class _SignUpViewState extends State<SignUpView> {
             labelText: this._labels[2],
             errorText: this._errorTexts[2],
             onChanged: (repeat) => setState(() => this._errorTexts[2] =
-                repeat != this._controllers[1].text
+                !this._controllers[1].text.startsWith(repeat)
                     ? "Repeat Password doesn't match"
                     : null)),
         Input(

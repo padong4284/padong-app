@@ -121,7 +121,7 @@ class _ConfigureViewState extends State<ConfigureView> {
                   labelText: 'Repeat Password',
                   errorText: this._pwMatchError,
                   onChanged: (repeat) => setState(() => this._pwMatchError =
-                      repeat != this._controllers[0].text
+                  !this._controllers[1].text.startsWith(repeat)
                           ? "Repeat Password doesn't match"
                           : null)),
               Input(

@@ -32,20 +32,23 @@ class TopAppBar extends StatelessWidget implements PreferredSizeWidget {
         brightness: Brightness.light,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: InkWell(
-            onTap: () async => await Session.changeCurrentUniversity(
-                await University.getUniversityByName('PADONG')),
-            child: this.withClose
+        leading: this.withClose
                 ? Padding(
                     padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
                     child: SimpleButton('',
                         buttonSize: ButtonSize.LARGE,
                         onTap: () => PadongRouter.goBack(),
                         icon: Icon(Icons.close, size: 25)))
-                : Container(
-                    padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
-                    alignment: Alignment.center,
-                    child: Text(this.title,
+                : InkWell(
+                    onTap: () async {
+                      if (Session.currUniversity.title != 'PADONG')
+                        await Session.changeCurrentUniversity(
+                          await University.getUniversityByName('PADONG'));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(left: AppTheme.horizontalPadding),
+                      alignment: Alignment.center,
+                      child: Text(this.title,
                         style: AppTheme.getFont(
                             fontSize: AppTheme.fontSizes.large,
                             color: AppTheme.colors.semiPrimary)))),

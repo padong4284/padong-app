@@ -42,11 +42,22 @@ We want to help that step be filled with hope, like warm sunlight and beautiful 
 
 We create the PADONG, In this way, with hope for a beautiful world. We create a platform where everyone can share their own unique perspective and create an ocean of human waves. Through PADONG, we hope every human wave will create a beautiful ripple that will have a long-lasting impact on each other's lives.
 
-## Features
-
-**PADONG Introduction video:**
+## Introduction Video
 
 <p align="center"><a href="https://youtu.be/Fe-yTo1JdWU"><img src="./assets/png/thumbnail.png" alt="thumbnail"></a></p>
+
+## Features
+
+PADONG provides successful college life know-how from senior students who have experienced and felt directly, not formal information provided by schools. Also, you can use many features with PADONG by integrating functions of fragmented services that are useful for college life.
+
+For example,
+* Ask if your class schedule is doable to "[Reddit](https://www.reddit.com/)"
+* Search the location of a building with your classroom in "Google Map"
+* Purchase a used calculator in "[used marketplace page in Facebook](https://www.facebook.com/groups/199456403537988/)"
+* Search evaluations of professors in "[Rate My Professors](https://www.ratemyprofessors.com/)"
+* Look up classes and make a timetable at "[Courseoff](https://courseoff.com/)"
+
+Without having to use such fragmented services, PADONG provides such all services above in one application.
 
 **PADONG has 5 key features:**
 

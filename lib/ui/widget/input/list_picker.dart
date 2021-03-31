@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/view/not_found_view.dart';
 import 'package:padong/ui/widget/button/simple_button.dart';
 import 'package:padong/ui/widget/input/input.dart';
 

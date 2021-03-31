@@ -10,6 +10,7 @@
 ///*********************************************************************
 import 'dart:io';
 import 'dart:async';
+import 'package:crypto/crypto.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,20 +22,22 @@ import 'package:padong/ui/widget/button/switch_button.dart';
 final ImagePicker _picker = ImagePicker();
 
 class ImageUploader extends StatefulWidget {
+  final String storePath;
   final Function(String imgURL) onTapOk;
 
-  ImageUploader(this.onTapOk);
+  ImageUploader(this.onTapOk, {this.storePath});
 
   @override
   _ImageUploaderState createState() => _ImageUploaderState();
 
   static Function getImageFromUser(
-      BuildContext context, Function(String imgURL) onTapOk) {
+      BuildContext context, Function(String imgURL) onTapOk,
+      {String storePath}) {
     return () => showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return ImageUploader(onTapOk);
+          return ImageUploader(onTapOk, storePath: storePath);
         });
   }
 }
@@ -119,10 +122,10 @@ class _ImageUploaderState extends State<ImageUploader> {
 
   Future<void> _uploadImageWith(Function(String) onTapOk) async {
     if (this._image == null) return;
-    List<String> _temp = this._image.path.split('/');
-    String fileName = _temp[_temp.length - 1];
     Reference firebaseStorageRef = // TODO: identical image file name
-        FirebaseStorage.instance.ref().child('image/$fileName');
+        FirebaseStorage.instance.ref().child('image/${
+          widget.storePath ?? sha256.convert(await this._image.readAsBytes())
+        }');
     UploadTask uploadTask = firebaseStorageRef.putFile(File(this._image.path));
     await uploadTask.whenComplete(() => uploadTask.snapshot.ref
         .getDownloadURL()

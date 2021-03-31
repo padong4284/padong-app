@@ -209,7 +209,7 @@ class _ConfigureViewState extends State<ConfigureView> {
         this.user.profileImageURL = image;
         this.user.update();
       });
-    });
+    }, storePath: this.user.id);
   }
 
   void onTabOk() async {

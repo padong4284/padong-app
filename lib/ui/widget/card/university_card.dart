@@ -10,11 +10,9 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/common/university.dart';
-import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/validator.dart';
 import 'package:padong/ui/theme/app_theme.dart';
-import 'package:padong/ui/widget/card/base_card.dart';
 import 'package:padong/util/img_supporter/svg_wrapper.dart';
 
 class UniversityCard extends StatelessWidget {

@@ -11,7 +11,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/schedule/event.dart';
-import 'package:padong/core/node/schedule/lecture.dart';
 import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';

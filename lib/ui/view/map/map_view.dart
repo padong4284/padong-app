@@ -263,4 +263,9 @@ class _MapViewState extends State<MapView> {
             2;
     return 12742 * asin(sqrt(a));
   }
+
+  void dispose() {
+    super.dispose();
+    this.positionStream.cancel();
+  }
 }

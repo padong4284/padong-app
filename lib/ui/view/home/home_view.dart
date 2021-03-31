@@ -192,7 +192,7 @@ class HomeView extends StatelessWidget {
   void showAboutPadong(BuildContext context) {
     showAboutDialog(
       context: context,
-      applicationVersion: '1.0.0',
+      applicationVersion: '0.0.1 Beta',
       applicationIcon: this.logoPADONG(),
       applicationLegalese:
           'padong4284@gmail.com\nCopyright 2021, PADONG, All Rights Reserved',

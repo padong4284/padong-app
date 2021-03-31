@@ -214,7 +214,9 @@ As a result, we realized that each use case could be represented in a tree struc
 
 Each node has the parent node’s Id, and can access children using its own Id. This can be used in ways such as fetching posts from a bulletin board or fetching change logs from a wiki. Any use case similar to this can be abstracted with the getChildren function. Other CRUD business logics are also abstracted as methods inside the node. This allows each subclass of Node to focus on its own responsibility.
 
-We chose Firestore to manage the data of Node. Because 1) Data isn’t simply stored, it can be organized into collections depending on use cases, 2) Using flexible and complex queries, we can manipulate data while taking advantage of the characteristics of Node.
+We chose Firestore to manage the data of Node. Because 
+1) Data isn’t simply stored, it can be organized into collections depending on use cases, 
+2) Using flexible and complex queries, we can manipulate data while taking advantage of the characteristics of Node.
 
 ![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
 
@@ -239,11 +241,14 @@ Furthermore, not only lectures but also events will be shared,so that non-univer
 
 In addition, we are preparing to support local used trading by connecting the review system and chat that currently exists in PADONG and using Google Maps.We hope it helps people trade things in a sustainable way.
 
-We have made detailed monthly plans. The beta version will be uploaded to the store until March 31, the deadline for the Solution Challenge. 
-Then, by April, we will resolve all issues registered on GitHub.Since Flutter 2.0 supports Web Application, we can plan to expand to the web. 
-In May, we plan to add the second-hand trading service that is currently in development and strengthen the search engine. 
-In June, we plan to link the timetable and each university’s database. 
-From July, we will expand the service step by step while improving the service according to the feedback.
+We have made detailed monthly plans. 
+| Month | Plan |
+|:-----:|:----:|
+| March | The beta version will be uploaded to the store until March 31, the deadline for the Solution Challenge. |
+| April | We will resolve all issues registered on GitHub. <br> +Since Flutter 2.0 supports Web Application, we can plan to expand to the web. |
+| May   | We plan to add the second-hand trading service that is currently in development and strengthen the search engine. |
+| June  | We plan to link the timetable and each university’s database. |
+| July  | We will expand the service step by step while improving the service according to the feedback. |
 
 Ultimately, PADONG will create a world where no one is marginalized due to information inequalities.
 

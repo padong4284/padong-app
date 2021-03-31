@@ -37,6 +37,7 @@ class DateTimeRangePicker extends TimeRangePicker {
       separators: [':', ' ', ' ', ':'],
       titles: ['Start', ' ', 'End'],
       beforePick: this.pickDate,
+      formator: this.orderRange,
     );
   }
 

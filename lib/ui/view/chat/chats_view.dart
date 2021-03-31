@@ -13,7 +13,6 @@ import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
-import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/floating_bottom_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';

@@ -35,6 +35,7 @@ class ImageCard extends NodeBase {
                   height: 120,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       image: img != null
                           ? DecorationImage(
                               image: img,

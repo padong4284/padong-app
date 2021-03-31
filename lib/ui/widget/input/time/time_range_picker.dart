@@ -35,6 +35,7 @@ class TimeRangePicker extends TimeListPicker {
       initIdxs: this.getInitIdxs(),
       separators: [':', ' ', ' ', ':'],
       titles: ['Start', ' ', 'End'],
+      formator: this.orderRange,
     );
   }
 
@@ -54,5 +55,18 @@ class TimeRangePicker extends TimeListPicker {
       this.initFinishHour,
       30 ~/ this.minuteGap
     ];
+  }
+
+  String orderRange(String range){
+    List<String> _temp = range.split(' ');
+    int _idx = _temp.indexOf('~');
+    String timeA = _temp[_idx - 1];
+    String timeB = _temp[_idx + 1];
+
+    if(timeA.compareTo(timeB) > 0) {
+      _temp[_idx - 1] = timeB;
+      _temp[_idx + 1] = timeA;
+    }
+    return _temp.join(' ');
   }
 }

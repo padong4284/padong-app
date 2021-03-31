@@ -44,23 +44,25 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafePaddingTemplate(
-      appBar: TopAppBar('PADONG'),
-      floatingActionButtonGenerator: (isScrollingDown) =>
-          PadongButton(isScrollingDown: isScrollingDown),
-      children: [
-        UnivDoor(this.university),
-        SizedBox(height: 35),
-        TopBoards(this.university),
-        ...(this.university.id == 'PADONG'
-            ? this.univArea()
-            : this.aboutArea()),
-        ...this.questionArea(),
-        ...this.eventsArea(),
-        ...this.placesArea(),
-        ...this.padongArea(context),
-      ],
-    );
+    return WillPopScope(
+        onWillPop: () async => false,
+        child: SafePaddingTemplate(
+          appBar: TopAppBar('PADONG'),
+          floatingActionButtonGenerator: (isScrollingDown) =>
+              PadongButton(isScrollingDown: isScrollingDown),
+          children: [
+            UnivDoor(this.university),
+            SizedBox(height: 35),
+            TopBoards(this.university),
+            ...(this.university.id == 'PADONG'
+                ? this.univArea()
+                : this.aboutArea()),
+            ...this.questionArea(),
+            ...this.eventsArea(),
+            ...this.placesArea(),
+            ...this.padongArea(context),
+          ],
+        ));
   }
 
   List<Widget> aboutArea() {
@@ -190,9 +192,10 @@ class HomeView extends StatelessWidget {
   void showAboutPadong(BuildContext context) {
     showAboutDialog(
       context: context,
-      applicationVersion: '1.0.0',
+      applicationVersion: '0.0.1 Beta',
       applicationIcon: this.logoPADONG(),
-      applicationLegalese: 'Copyright 2021, PADONG, All Rights Reserved',
+      applicationLegalese:
+          'padong4284@gmail.com\nCopyright 2021, PADONG, All Rights Reserved',
     );
   }
 

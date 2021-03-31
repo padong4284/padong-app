@@ -40,7 +40,7 @@ class Node {
     this.createdAt = snapshot['createdAt'];
     this.modifiedAt = // not modified yet
         snapshot['modifiedAt'] != null
-            ? TimeManager.toDateTime(snapshot['createdAt'])
+            ? TimeManager.toDateTime(snapshot['modifiedAt'])
             : snapshot['createdAt'];
     this.deletedAt = snapshot['deletedAt'] == null
         ? null // It may not deleted

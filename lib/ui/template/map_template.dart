@@ -147,13 +147,17 @@ class _MapTemplateState extends State<MapTemplate> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(widget.focusBuilding.title,
-                          style: AppTheme.getFont(isBold: true),
-                          overflow: TextOverflow.ellipsis),
-                      Text(widget.focusBuilding.description,
-                          style: AppTheme.getFont(
-                              color: AppTheme.colors.fontPalette[3]),
-                          overflow: TextOverflow.ellipsis),
+                      Container(
+                          height: 20,
+                          child: Text(widget.focusBuilding.title,
+                              style: AppTheme.getFont(isBold: true),
+                              overflow: TextOverflow.ellipsis)),
+                      Container(
+                          height: 20,
+                          child: Text(widget.focusBuilding.description,
+                              style: AppTheme.getFont(
+                                  color: AppTheme.colors.fontPalette[3]),
+                              overflow: TextOverflow.ellipsis)),
                       BottomButtons(widget.focusBuilding, gap: 25)
                     ]),
               )),
@@ -176,8 +180,11 @@ class _MapTemplateState extends State<MapTemplate> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(widget.pinLocation.name,
-                          style: AppTheme.getFont(isBold: true)),
+                      Container(
+                          height: 50,
+                          child: Text(widget.pinLocation.name,
+                              overflow: TextOverflow.clip,
+                              style: AppTheme.getFont(isBold: true))),
                       SimpleButton(
                         ' Navigate',
                         icon: Icon(Icons.near_me_rounded,

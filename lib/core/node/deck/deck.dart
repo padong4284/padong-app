@@ -8,7 +8,6 @@
 ///*
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
-import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/node.dart';
 
 // parent: University

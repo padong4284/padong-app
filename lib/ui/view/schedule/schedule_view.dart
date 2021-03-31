@@ -96,12 +96,13 @@ class _ScheduleViewState extends State<ScheduleView> {
     widget.schedule.getMyEvents(Session.user).then((events) {
       this.thisWeekEvents = [];
       for (Event event in events)
-        for (TimeManager tm in event.times)
+        for (TimeManager tm in event.times) {
           if (tm.isToday())
             _timeline[tm.time] =
                 (_timeline[tm.time] ?? []) + [TimelineCard(event)];
-          else if (tm.isThisWeek() && !this.thisWeekEvents.contains(event))
+          if (tm.isThisWeek() && !this.thisWeekEvents.contains(event))
             this.thisWeekEvents.add(event);
+        }
       List<String> dots = _timeline.keys.toList();
       dots.sort();
       for(String dot in dots) this.todayTimeline[dot] = _timeline[dot];

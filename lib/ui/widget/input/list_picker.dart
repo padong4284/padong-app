@@ -29,6 +29,7 @@ class ListPicker extends StatefulWidget {
   final EdgeInsets margin;
   final Function beforePick;
   final TextEditingController controller;
+  final String Function(String) formator;
 
   ListPicker(this.controller,
       {this.hintText,
@@ -39,7 +40,8 @@ class ListPicker extends StatefulWidget {
       int initIdx,
       this.beforePick,
       this.looping = false,
-      this.margin})
+      this.margin,
+      this.formator})
       : assert(list != null && list.length > 0),
         assert(initIdx == null || list.length > initIdx),
         this.lists = <List>[list],
@@ -57,7 +59,8 @@ class ListPicker extends StatefulWidget {
       List<int> initIdxs,
       this.beforePick,
       this.looping = false,
-      this.margin})
+      this.margin,
+      this.formator})
       : assert(initIdxs == null || (lists.length == initIdxs.length)),
         assert(separators == null || (lists.length == separators.length + 1)),
         this.lists = lists,
@@ -125,7 +128,7 @@ class _ListPickerState extends State<ListPicker> {
                     children: List.generate(
                         len,
                         (listIdx) => Expanded(
-                                child: CupertinoPicker(
+                            child: CupertinoPicker(
                               looping: widget.looping,
                               itemExtent: 35,
                               scrollController: FixedExtentScrollController(
@@ -197,7 +200,8 @@ class _ListPickerState extends State<ListPicker> {
             (i != len - 1
                 ? (widget.separators != null ? widget.separators[i] : ' ')
                 : '');
-      widget.controller.text = current;
+      widget.controller.text = widget.formator != null
+          ? widget.formator(current) : current;
     });
   }
 }

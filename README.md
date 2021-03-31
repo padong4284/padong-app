@@ -1,85 +1,111 @@
 [English](./README.md) | [Korean](./README_KO.md)
 
-## Padong
+## PADONG
 
 <p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
 
-Padong is a community platform that resolves information inequality among students in college life in the US.  Padong provides successful college life know-how through questions and answers to senior students who have experienced and felt directly, not formal information provided by schools. Also, you can use many functions with Padong by integrating functions of fragmented services that are useful for college life.
+
+<p align="center">
+	<a href="https://github.com/padong4284/padong-app/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/padong4284/padong-app"></a>
+	<a href="https://github.com/padong4284/padong-app/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/padong4284/padong-app?color=success"></a>
+	<a href="https://github.com/padong4284/padong-app/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/padong4284/padong-app"></a>
+	<a href="https://github.com/padong4284/padong-app/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/padong4284/padong-app"></a>
+</p>
+
+PADONG is a community platform that resolves information inequality among students in college life in the US.
+
+
+## Vision
+
+‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).
+
+We believe in the value of each person's own color and sound, the ‘human wave’. It is what we call personality or perspective.
+
+Just like how different instruments make up an orchestra, Just like how different colors create a painter’s palette,We believe that different human waves complete the beautiful world.
+
+But sometimes differences lead to discrimination and inequality. Therefore, as if tuning instruments to prepare a great performance, as if combining colors to complete a masterpiece, we try to make a more beautiful world by understanding each other's differences through communication.
+
+## Mission
+
+PADONG chose the timing of tuning as the moment when we took the first step toward becoming an adult. 
+All members of the Developer Student Clubs will probably remember the moment we entered college. It is the moment when we meet people from various origins and collide with more diverse human waves.
+
+We want to help that step be filled with hope, like warm sunlight and beautiful sound. So the targets of PADONG are not only college students but also young adults who are not going to college or are preparing to go to college.
+
+We create the PADONG, In this way, with hope for a beautiful world. We create a platform where everyone can share their own unique perspective and create an ocean of human waves. Through PADONG, we hope every human wave will create a beautiful ripple that will have a long-lasting impact on each other's lives.
+
+## Introduction Video
+
+<p align="center"><a href="https://youtu.be/Fe-yTo1JdWU"><img src="./assets/png/thumbnail.png" alt="thumbnail"></a></p>
+
+## Features
+
+PADONG provides successful college life know-how from senior students who have experienced and felt directly, not formal information provided by schools. Also, you can use many features with PADONG by integrating functions of fragmented services that are useful for college life.
 
 For example,
-
 * Ask if your class schedule is doable to "[Reddit](https://www.reddit.com/)"
 * Search the location of a building with your classroom in "Google Map"
 * Purchase a used calculator in "[used marketplace page in Facebook](https://www.facebook.com/groups/199456403537988/)"
 * Search evaluations of professors in "[Rate My Professors](https://www.ratemyprofessors.com/)"
 * Look up classes and make a timetable at "[Courseoff](https://courseoff.com/)"
 
-Without having to use such fragmented services, Padong provides such all functions above in one application.
+Without having to use such fragmented services, PADONG provides such all services above in one application.
 
-## Motivation
-**Padong's Golden Circle**
-
-> **Why**
-> Each person has his or her own goodness and beauty.
->
-> **How**
-> Connect each goodness, each beauty, its own wave together.
->
-> **What**
-> Make the world more beautiful.
-
-Colleges in the US offer programs that new students can adapt to school life through orientation, advisor and etc, but the most helpful thing in practice is the senior students who have experienced and felt school life or classes in person. I've seen many cases where first-year students who just entered the U.S. university failed due to insufficient information and eventually dropped out due to class schedules that they couldn't handle. However, I was able to learn about the class of the professor who teaches well with the help of the Korean student council and have been successful academically because I could judge whether the lecture schedule is too much or not. Based on my experience, I came up with a platform called "Padong," which will connect experienced seniors to students who are having a hard time adjusting to school life.
-
-## Features
-
-**Padong Introduction video:**
-
-<p align="center"><a href="https://youtu.be/Fe-yTo1JdWU"><img src="./assets/png/thumbnail.png" alt="thumbnail"></a></p>
-
-**Padong has 5 key features:**
+**PADONG has 5 key features:**
 
 * Wiki
 
-  College students are able to log and manage information about their schools on Wiki; thus, they can be up to date with everything that’s going on, while building a stronger sense of community. At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.
+  We implemented Wiki using Markdown and Diff Algorithm(Least Common Substring). College students can log and manage information about their schools on Wiki; Thus, they can be up to date with everything that’s going on, while building a stronger sense of community. This will be a great help, especially for freshmen.
+  At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.
 
   <p align="center"><img src="./assets/gif/wiki.gif" alt="GIF"/></p>
 
 * Board
 
-  Students can share information and listen to each other's concerns using the Bulletin Board. On the Q&A Board, anyone can ask questions and receive answers. Everyone will be able to give each other insight by offering their own perspectives.
+  The Bulletin Board is a space to share information about school life. Users can create and manage their bulletin boards as needed, naturally creating an ecosystem where everyone can communicate and exchange information.
+  On the pre-made Q&A board, anyone can ask questions and get answers.Students from other schools, even outsiders, can use this Q&A board.At this point, Firebase Auth's email verification was used to confirm that the answerer is a student at that university.
 
   <p align="center"><img src="./assets/gif/board.gif" alt="GIF"/></p>
 
 * Timetable
 
-  Timetable allows people to manage their schedules and log their classes. Lectures operate similarly to Bulletin Boards; everyone can review the classes they take, ask questions, or even chat with other students.
+  Timetable allows students to manage their schedules and log their classes.Students can manage their week’s schedule and daily routine at a glance. We created our own Appending Input widget to register multiple time ranges for one event, making it easier to handle events that occur repeatedly (lectures, part-time jobs, etc.).
+  On the Lecture of Timetable, students can review the classes they take, ask questions or even chat with other students.
 
   <p align="center"><img src="./assets/gif/timetable.gif" alt="GIF"/></p>
 
 * Maps
 
-  By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. They can also pin their favorite locations and share them with others. Plus, students can find a way using pins.
+  By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. Thanks to the Google Maps API, we can get detailed geographic information around the campus.
+  Students can check the current location and find a way using the Maps. They can also pin their favorite locations and share them with others.It can be used to store a place of their own memories in the school.
 
   <p align="center"><img src="./assets/gif/map.gif" alt="GIF"/></p>
 
 * Chat
 
-  By tapping someone's profile and "be friend" button, you can send a request to befriend. If the one accepts your request, then you can chat with him or her and ask any questions you would like.
+  Real-time Chat is a channel which users can communicate directly. It can be used not only for a group chat room of lecture, but also for personal communication.
 
   <p align="center"><img src="./assets/gif/chat.gif" alt="GIF"/></p>
 
-## Tech/framework used
-- [Flutter](https://flutter.dev/)
-- [Firebase](https://firebase.google.com/)
+## Tech/Framework used
+### 🎨 Frontend
+| [Dart](https://dart.dev) | [Flutter](https://flutter.dev) |
+|:---:|:---:|
+|<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131438-2c1ff000-9258-11eb-992a-4e38ba63fe69.png" height="60px">|
+
+### 🏭 Backend and 🔌 Infra
+| [Dart](https://dart.dev) | [Firebase](https://firebase.google.com) | [Github](https://github.com/) |
+|:---:|:---:|:---:|
+|<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131697-815c0180-9258-11eb-9e55-2f64c7acdc73.png" height="60px">|<img src="https://user-images.githubusercontent.com/35912840/113132001-d8fa6d00-9258-11eb-9b53-e0f380da1343.png" height="60px"/>|
 
 ## Installation
 #### Prerequisite
 
 * Git: If you have not installed Git, you click [Git](https://git-scm.com/downloads) and install it.
 
-#### Install Padong
+#### Install PADONG
 
-To run Padong, two requirements below are needed to be installed.
+To run PADONG, two requirements below are needed to be installed.
 
 * [Android Studio](https://developer.android.com/studio)
 * [Flutter SDK](https://flutter.dev/docs/get-started/install)
@@ -144,21 +170,21 @@ To run Padong, two requirements below are needed to be installed.
    flutter doctor
    ```
 
-##### Clone and run Padong
+##### Clone and run PADONG
 
-1. Open a terminal and clone Padong project:
+1. Open a terminal and clone PADONG project:
 
    ```bash
    git clone https://github.com/padong4284/padong-flutter.git
    ```
 
-2. In Padong project directory, download dependencies by typing following command:
+2. In PADONG project directory, download dependencies by typing following command:
 
    ```bash
    flutter pub get
    ```
 
-3. Run **Android Studio**, click **open an existing project** and open Padong's project directory.
+3. Run **Android Studio**, click **open an existing project** and open PADONG's project directory.
 
 4. In **Android Studio**, click **File -> Settings -> Languages & Frameworks** and set **Flutter SDK path** as Flutter SDK directory you have cloned.
 
@@ -167,18 +193,76 @@ To run Padong, two requirements below are needed to be installed.
 
 ## How to use?
 
-1. Install APK or IPA file you built using Android Studio **or** Download **Padong** from App Store or Google Play.
+1. Install APK or IPA file you built using Android Studio **or** Download **PADONG** from App Store or Google Play.
 
-2. Run Padong app.
+2. Run PADONG app.
 
 3. Tap "Sign Up" button, fill out all required fields, and tap "->"(next) button on the screen.
 
-4. Then, you will be signed in! Enjoy Padong :)
+4. Then, you will be signed in! Enjoy PADONG :)
 
    <p align="center"><img src="./assets/gif/signup.gif" alt="GIF" width="40%" /></p>
+
+## Architecture
+
+![PADONG_SWARCH.jpg](./assets/jpg/PADONG_SWARCH.jpg)
+
+PADONG is designed based on the Clean Architecture that follows the SOLID principle. Before designing the architecture, we analyzed the commonalities between various use cases of PADONG. (Wiki, Board, Timetable, Map, Chat) 
+
+As a result, we realized that each use case could be represented in a tree structure. For example, the Board is a parent of Posts, and each Post has Replies as children. Based on this insight, we abstract all data structures into Node and implement use cases as interactions between nodes. So, we defined Node as the top-level component.
+
+Each node has the parent node’s Id, and can access children using its own Id. This can be used in ways such as fetching posts from a bulletin board or fetching change logs from a wiki. Any use case similar to this can be abstracted with the getChildren function. Other CRUD business logics are also abstracted as methods inside the node. This allows each subclass of Node to focus on its own responsibility.
+
+We chose Firestore to manage the data of Node. Because 
+1) Data isn’t simply stored, it can be organized into collections depending on use cases, 
+2) Using flexible and complex queries, we can manipulate data while taking advantage of the characteristics of Node.
+
+![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
+
+On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
+
+Flutter fits our purpose perfectly, and thanks to Dart is an object-oriented language, it was also suitable for implementing the Node system we designed.In addition, the documentation and ecosystem are excellent, so even though all team members are new to Flutter, we can quickly adapt and develop PADONG.
+
+Furthermore, thanks to Flutter’s rich features, it was possible to express oscillating waves and the rotating and spreading search button. And we can maintain a simple and unified design within various features.
+
+We were able to implement all the various features of the PADONG in just 6 weeks, thanks to Firebase, which has all the necessary infrastructure, and Flutter, which can implement both the Node system and widgets we designed.
+
+## Future
+
+PADONG is targeted at people in the transitional stage of adulthood. Because we hope that those people recognize the world beautifully and make a more beautiful world.
+
+Therefore, we have prepared a separate sign-up option for people who are not attending college or who are high school students. But this is not enough for the vision of PADONG.
+
+First, we will expand our users not only to universities in the US but also to universities around the world. After that, we intend to expand the targets. So, any group that shares the schedules, and manages the information about common interests can become the wave source. Such as high schools, companies, and local communities, etc.
+
+Internally, we plan to make a lecture database for each semester by linking the timetable with each university’s database. And we will reinforce the search service to manage data that will increase.
+Furthermore, not only lectures but also events will be shared,so that non-university communities can manage a common schedule.
+
+In addition, we are preparing to support local used trading by connecting the review system and chat that currently exists in PADONG and using Google Maps.We hope it helps people trade things in a sustainable way.
+
+We have made detailed monthly plans. 
+| Month | Plan |
+|:-----:|:----:|
+| March | The beta version will be uploaded to the store until March 31, the deadline for the Solution Challenge. |
+| April | We will resolve all issues registered on GitHub. <br> +Since Flutter 2.0 supports Web Application, we can plan to expand to the web. |
+| May   | We plan to add the second-hand trading service that is currently in development and strengthen the search engine. |
+| June  | We plan to link the timetable and each university’s database. |
+| July  | We will expand the service step by step while improving the service according to the feedback. |
+
+Ultimately, PADONG will create a world where no one is marginalized due to information inequalities.
+
+## PADONG Team Members
+|      Name     |      GitHub   |    Email    |
+|:-------------:|:-------------:|:-----------:|
+|**Taejun Jang**| <a href="https://github.com/jtjun"><img src="http://img.shields.io/badge/jtjun-655ced?style=social&logo=github"/></a> | <a href="mailto:jtjun7132@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=jtjun7132@gmail.com&color=00A1E0&style=flat-square&logo=gmail"></a> |
+|  Daewoong Ko  | <a href="https://github.com/kodw4284"><img src="http://img.shields.io/badge/kodw4284-655ced?style=social&logo=github"/></a> | <a href="mailto:kodw4284@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kodw4284@gmail.com&color=505560&style=flat-square&logo=gmail"></a> |
+|  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
+|  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
 
 ## Copyright
 
 Copyright (C) 2021-2021 Taejun Jang \<<padong4284@gmail.com>\> - All Rights Reserved.
 
 PADONG can not be copied and/or distributed without the express permission of Taejun Jang, Daewoong Ko, Hyunsik Kim, Seongbin Hong
+
+![Wave](./assets/gif/half-wave.gif)

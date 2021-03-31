@@ -188,7 +188,7 @@ To run Padong, two requirements below are needed to be installed.
 
 ## Architecture
 
-![PADONG_SWARCH.pdf](https://github.com/padong4284/padong-app/files/6216880/PADONG_SWARCH.pdf)
+![PADONG_SWARCH.jpg](./assets/jpg/PADONG_SWARCH.jpg)
 
 PADONG is designed based on the Clean Architecture that follows the SOLID principle. Before designing the architecture, we analyzed the commonalities between various use cases of PADONG. (Wiki, Board, Timetable, Map, Chat) 
 
@@ -198,7 +198,7 @@ Each node has the parent node’s Id, and can access children using its own Id. 
 
 We chose Firestore to manage the data of Node. Because 1) Data isn’t simply stored, it can be organized into collections depending on use cases, 2) Using flexible and complex queries, we can manipulate data while taking advantage of the characteristics of Node.
 
-![PADONG_TREE.pdf](https://github.com/padong4284/padong-flutter/files/6130838/PADONG_TREE.pdf)
+![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
 
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
 

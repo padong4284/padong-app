@@ -1,6 +1,6 @@
 [English](./README.md) | [Korean](./README_KO.md)
 
-## Padong
+## PADONG
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12,9 +12,16 @@
 <p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
 >>>>>>> doc: Compose 'Features' and 'How to use?' tab in README.md
 
-Padong is a community platform that resolves information inequality among students in college life in the US. Padong provides successful college life know-how through asking questions and receiving back answers from senior students who have experienced and felt directly in college life.
 
-College students make the most frequent use of the internet in their daily lives; they utilize different sources like Reddit, Quora, RateMyProfessors, Courseoff, and Facebook for various reasons. However, PADONG blends all of these together so everything is in one place. 
+<p align="center">
+	<a href="https://github.com/padong4284/padong-app/search?l=TSX&type=code"><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/padong4284/padong-app"></a>
+	<a href="https://github.com/padong4284/padong-app/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/padong4284/padong-app?color=success"></a>
+	<a href="https://github.com/padong4284/padong-app/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/padong4284/padong-app"></a>
+	<a href="https://github.com/padong4284/padong-app/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/padong4284/padong-app"></a>
+</p>
+
+PADONG is a community platform that resolves information inequality among students in college life in the US.
+
 
 ## Vision
 
@@ -37,11 +44,11 @@ We create the PADONG, In this way, with hope for a beautiful world. We create a 
 
 ## Features
 
-**Padong Introduction video:**
+**PADONG Introduction video:**
 
 <p align="center"><a href="https://youtu.be/Fe-yTo1JdWU"><img src="./assets/png/thumbnail.png" alt="thumbnail"></a></p>
 
-**Padong has 5 key features:**
+**PADONG has 5 key features:**
 
 * Wiki
 
@@ -86,9 +93,9 @@ We create the PADONG, In this way, with hope for a beautiful world. We create a 
 
 * Git: If you have not installed Git, you click [Git](https://git-scm.com/downloads) and install it.
 
-#### Install Padong
+#### Install PADONG
 
-To run Padong, two requirements below are needed to be installed.
+To run PADONG, two requirements below are needed to be installed.
 
 * [Android Studio](https://developer.android.com/studio)
 * [Flutter SDK](https://flutter.dev/docs/get-started/install)
@@ -153,21 +160,21 @@ To run Padong, two requirements below are needed to be installed.
    flutter doctor
    ```
 
-##### Clone and run Padong
+##### Clone and run PADONG
 
-1. Open a terminal and clone Padong project:
+1. Open a terminal and clone PADONG project:
 
    ```bash
    git clone https://github.com/padong4284/padong-flutter.git
    ```
 
-2. In Padong project directory, download dependencies by typing following command:
+2. In PADONG project directory, download dependencies by typing following command:
 
    ```bash
    flutter pub get
    ```
 
-3. Run **Android Studio**, click **open an existing project** and open Padong's project directory.
+3. Run **Android Studio**, click **open an existing project** and open PADONG's project directory.
 
 4. In **Android Studio**, click **File -> Settings -> Languages & Frameworks** and set **Flutter SDK path** as Flutter SDK directory you have cloned.
 
@@ -176,13 +183,13 @@ To run Padong, two requirements below are needed to be installed.
 
 ## How to use?
 
-1. Install APK or IPA file you built using Android Studio **or** Download **Padong** from App Store or Google Play.
+1. Install APK or IPA file you built using Android Studio **or** Download **PADONG** from App Store or Google Play.
 
-2. Run Padong app.
+2. Run PADONG app.
 
 3. Tap "Sign Up" button, fill out all required fields, and tap "->"(next) button on the screen.
 
-4. Then, you will be signed in! Enjoy Padong :)
+4. Then, you will be signed in! Enjoy PADONG :)
 
    <p align="center"><img src="./assets/gif/signup.gif" alt="GIF" width="40%" /></p>
 
@@ -229,13 +236,13 @@ From July, we will expand the service step by step while improving the service a
 
 Ultimately, PADONG will create a world where no one is marginalized due to information inequalities.
 
-## Padong Team Members
+## PADONG Team Members
 |      Name     |      GitHub   |    Email    |
 |:-------------:|:-------------:|:-----------:|
-|**Taejun Jang**| [jtjun](https://github.com/jtjun)     | jtjun7132@gmail.com |
-|  Daewoong Ko  | [kodw4284](https://github.com/kod4284)      | kodw4284@gmail.com |
-|  Hyunsik Kim  | [Devconf](https://github.com/Devconf)       | devconf5296@gmail.com |
-|  Sengbin Hung | [VertexToEdge](https://github.com/VertexToEdge)  | vertextoedge@gmail.com |
+|**Taejun Jang**| <a href="https://github.com/jtjun"><img src="http://img.shields.io/badge/jtjun-655ced?style=social&logo=github"/></a> | <a href="mailto:jtjun7132@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=jtjun7132@gmail.com&color=00A1E0&style=flat-square&logo=gmail"></a> |
+|  Daewoong Ko  | <a href="https://github.com/kodw4284"><img src="http://img.shields.io/badge/kodw4284-655ced?style=social&logo=github"/></a> | <a href="mailto:kodw4284@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kodw4284@gmail.com&color=505560&style=flat-square&logo=gmail"></a> |
+|  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
+|  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
 
 ## Copyright
 

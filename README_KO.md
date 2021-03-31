@@ -1,11 +1,6 @@
 [English](./README.md) | [Korean](./README_KO.md)
 
 ## 파동 (Padong)
-<<<<<<< HEAD
-
-<p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
-=======
->>>>>>> doc: Compose 'Features' and 'How to use?' tab in README.md
 
 <p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
 

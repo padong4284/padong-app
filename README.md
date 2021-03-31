@@ -12,6 +12,10 @@
 <p align="center"><img src="./assets/logo/PADONG_L.png" alt="IMG" width="50%" /></p>
 >>>>>>> doc: Compose 'Features' and 'How to use?' tab in README.md
 
+Padong is a community platform that resolves information inequality among students in college life in the US. Padong provides successful college life know-how through asking questions and receiving back answers from senior students who have experienced and felt directly in college life.
+
+College students make the most frequent use of the internet in their daily lives; they utilize different sources like Reddit, Quora, RateMyProfessors, Courseoff, and Facebook for various reasons. However, PADONG blends all of these together so everything is in one place. 
+
 ## Vision
 
 ‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).

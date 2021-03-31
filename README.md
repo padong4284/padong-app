@@ -95,9 +95,16 @@ Without having to use such fragmented services, PADONG provides such all service
 
   <p align="center"><img src="./assets/gif/chat.gif" alt="GIF"/></p>
 
-## Tech/framework used
-- [Flutter](https://flutter.dev/)
-- [Firebase](https://firebase.google.com/)
+## Tech/Framework used
+### 🎨 Frontend
+ | [Dart](https://dart.dev) | [Flutter](https://flutter.dev) |
+ |:---:|:---:|
+ |<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131438-2c1ff000-9258-11eb-992a-4e38ba63fe69.png" height="60px">|
+
+### 🏭 Backend and 🔌 Infra
+| [Dart](https://dart.dev) | [Firebase](https://firebase.google.com) | [Github](https://github.com/) |
+ |:---:|:---:|:---:|
+ |<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131697-815c0180-9258-11eb-9e55-2f64c7acdc73.png" height="60px">|<img src="https://user-images.githubusercontent.com/35912840/113132001-d8fa6d00-9258-11eb-9b53-e0f380da1343.png" height="60px"/>|
 
 ## Installation
 #### Prerequisite

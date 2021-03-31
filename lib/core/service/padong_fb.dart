@@ -94,7 +94,7 @@ class PadongFB {
     if (limit != null && limit > 0) query = query.limit(limit);
     if (startId != null) {
       DocumentSnapshot doc = await _db.collection(type).doc(startId).get();
-      if (doc != null && doc.exists) query = query.startAtDocument(doc);
+      if (doc != null && doc.exists) query = query.startAfterDocument(doc);
     }
     return await query.get().then((QuerySnapshot queryResult) {
       return <DocumentSnapshot>[...queryResult.docs];

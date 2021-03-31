@@ -15,14 +15,20 @@
 ## Vision
 
 ‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).
+
 We believe in the value of each person's own color and sound, the ‘human wave’. It is what we call personality or perspective.
+
 Just like how different instruments make up an orchestra, Just like how different colors create a painter’s palette,We believe that different human waves complete the beautiful world.
+
 But sometimes differences lead to discrimination and inequality. Therefore, as if tuning instruments to prepare a great performance, as if combining colors to complete a masterpiece, we try to make a more beautiful world by understanding each other's differences through communication.
 
 ## Mission
 
-PADONG chose the timing of tuning as the moment when we took the first step toward becoming an adult. All members of the Developer Student Clubs will probably remember the moment we entered college. It is the moment when we meet people from various origins and collide with more diverse human waves.
+PADONG chose the timing of tuning as the moment when we took the first step toward becoming an adult. 
+All members of the Developer Student Clubs will probably remember the moment we entered college. It is the moment when we meet people from various origins and collide with more diverse human waves.
+
 We want to help that step be filled with hope, like warm sunlight and beautiful sound. So the targets of PADONG are not only college students but also young adults who are not going to college or are preparing to go to college.
+
 We create the PADONG, In this way, with hope for a beautiful world. We create a platform where everyone can share their own unique perspective and create an ocean of human waves. Through PADONG, we hope every human wave will create a beautiful ripple that will have a long-lasting impact on each other's lives.
 
 ## Features
@@ -178,38 +184,54 @@ To run Padong, two requirements below are needed to be installed.
 
 ## Architecture
 
-[PADONG_SWARCH](https://tinyurl.com/PADONG-SWARCH)
+![PADONG_SWARCH.pdf](https://github.com/padong4284/padong-app/files/6216880/PADONG_SWARCH.pdf)
+
 PADONG is designed based on the Clean Architecture that follows the SOLID principle. Before designing the architecture, we analyzed the commonalities between various use cases of PADONG. (Wiki, Board, Timetable, Map, Chat) 
+
 As a result, we realized that each use case could be represented in a tree structure. For example, the Board is a parent of Posts, and each Post has Replies as children. Based on this insight, we abstract all data structures into Node and implement use cases as interactions between nodes. So, we defined Node as the top-level component.
+
 Each node has the parent node’s Id, and can access children using its own Id. This can be used in ways such as fetching posts from a bulletin board or fetching change logs from a wiki. Any use case similar to this can be abstracted with the getChildren function. Other CRUD business logics are also abstracted as methods inside the node. This allows each subclass of Node to focus on its own responsibility.
+
 We chose Firestore to manage the data of Node. Because 1) Data isn’t simply stored, it can be organized into collections depending on use cases, 2) Using flexible and complex queries, we can manipulate data while taking advantage of the characteristics of Node.
 
-[PADONG_TREE](https://tinyurl.com/PADONG-TREE)
+![PADONG_TREE.pdf](https://github.com/padong4284/padong-flutter/files/6130838/PADONG_TREE.pdf)
+
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
+
 Flutter fits our purpose perfectly, and thanks to Dart is an object-oriented language, it was also suitable for implementing the Node system we designed.In addition, the documentation and ecosystem are excellent, so even though all team members are new to Flutter, we can quickly adapt and develop PADONG.
+
 Furthermore, thanks to Flutter’s rich features, it was possible to express oscillating waves and the rotating and spreading search button. And we can maintain a simple and unified design within various features.
+
 We were able to implement all the various features of the PADONG in just 6 weeks, thanks to Firebase, which has all the necessary infrastructure, and Flutter, which can implement both the Node system and widgets we designed.
 
 ## Future
 
 PADONG is targeted at people in the transitional stage of adulthood. Because we hope that those people recognize the world beautifully and make a more beautiful world.
+
 Therefore, we have prepared a separate sign-up option for people who are not attending college or who are high school students. But this is not enough for the vision of PADONG.
+
 First, we will expand our users not only to universities in the US but also to universities around the world. After that, we intend to expand the targets. So, any group that shares the schedules, and manages the information about common interests can become the wave source. Such as high schools, companies, and local communities, etc.
+
 Internally, we plan to make a lecture database for each semester by linking the timetable with each university’s database. And we will reinforce the search service to manage data that will increase.
 Furthermore, not only lectures but also events will be shared,so that non-university communities can manage a common schedule.
+
 In addition, we are preparing to support local used trading by connecting the review system and chat that currently exists in PADONG and using Google Maps.We hope it helps people trade things in a sustainable way.
-We have made detailed monthly plans. The beta version will be uploaded to the store until March 31, the deadline for the Solution Challenge. Then, by April, we will resolve all issues registered on GitHub.Since Flutter 2.0 supports Web Application, we can plan to expand to the web. In May, we plan to add the second-hand trading service that is currently in development and strengthen the search engine. In June, we plan to link the timetable and each university’s database. From July, we will expand the service step by step while improving the service according to the feedback.
+
+We have made detailed monthly plans. The beta version will be uploaded to the store until March 31, the deadline for the Solution Challenge. 
+Then, by April, we will resolve all issues registered on GitHub.Since Flutter 2.0 supports Web Application, we can plan to expand to the web. 
+In May, we plan to add the second-hand trading service that is currently in development and strengthen the search engine. 
+In June, we plan to link the timetable and each university’s database. 
+From July, we will expand the service step by step while improving the service according to the feedback.
+
 Ultimately, PADONG will create a world where no one is marginalized due to information inequalities.
 
 ## Padong Team Members
-
-Taejun Jang
-
-Daewoong Ko
-
-Hyunsik Kim
-
-Sengbin Hung
+|      Name     |      GitHub   |    Email    |
+|:-------------:|:-------------:|:-----------:|
+|**Taejun Jang**| [jtjun](https://github.com/jtjun)     | jtjun7132@gmail.com |
+|  Daewoong Ko  | [kodw4284](https://github.com/kod4284)      | kodw4284@gmail.com |
+|  Hyunsik Kim  | [Devconf](https://github.com/Devconf)       | devconf5296@gmail.com |
+|  Sengbin Hung | [VertexToEdge](https://github.com/VertexToEdge)  | vertextoedge@gmail.com |
 
 ## Copyright
 

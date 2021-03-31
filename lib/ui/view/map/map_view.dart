@@ -54,6 +54,7 @@ class _MapViewState extends State<MapView> {
   }
 
   LatLng myLocation;
+  StreamSubscription<Position> positionStream;
   Building focusBuilding;
   Pin pinLocation;
 
@@ -158,6 +159,10 @@ class _MapViewState extends State<MapView> {
     }
     Position curr = await Geolocator.getCurrentPosition();
     this.myLocation = LatLng(curr.latitude, curr.longitude);
+    this.positionStream = Geolocator.getPositionStream().listen(
+            (Position curr) => setState(
+                () => this.myLocation = LatLng(curr.latitude, curr.longitude)
+            ));
   }
 
   Future<void> _initPinIcons() async {

@@ -44,19 +44,31 @@
 
 [![thumbnail](./assets/png/thumbnail.png?lastModify=1616833403)](https://youtu.be/Fe-yTo1JdWU)
 
-
-
 **파동은 크게 5가지의 특징으로 구성되어 있습니다.**
+  <table>
+        <tbody>
+          <tr>
+            <td colspan=4>
+              <br>
+                ✔위키(Wiki)
+              <br>
+            </td>
+          </tr>
+          <tr>
+              <td>
+                <img src="./assets/gif/wiki/wiki-compare.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="33%"> <img src="./assets/gif/board.gif" alt="GIF" style="zoom:67%;" /></td>
+              <td width="33%">최신 보안 기술 적용</td>
+              <td width="33%">최신 보안 기술 적용</td>
+          </tr>
+   </tbody>
+</table>
 
+  <img src="./assets/gif/wiki.gif" alt="GIF" style="zoom:67%;" />
 - :books:위키(Wiki)
 
   위키에서는 대학생들이 자신이 다니는 학교의 정보를 기록하고 관리할 수 있습니다. 이를 통해 자신의 학교에 대한 정보와 애교심을 얻을 수 있습니다. 나아가 고등학생들은 자신이 가고 싶은 대학의 생생한 정보를 얻을 수 있습니다.
-
-  
-
-  <img src="./assets/gif/wiki.gif" alt="GIF" style="zoom:67%;" />
-
-  
 
 - :memo:보드 (Board) 
 

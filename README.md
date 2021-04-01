@@ -15,7 +15,7 @@
 PADONG is a community platform that resolves information inequality among students in college life in the US.
 
 
-## Vision
+## :pushpin:Vision
 
 ‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).
 
@@ -57,27 +57,35 @@ Without having to use such fragmented services, PADONG provides such all service
 ### :books:Wiki
   <table>
         <tbody>
+		<tr>
+		      <td width="25%" colspan=3>
+			<p>We implemented Wiki using Markdown and Diff Algorithm(Least Common Substring). College students can log and manage information about their schools on Wiki; Thus, they can be up to date with everything that’s going on, while building a stronger sense of community. This will be a great help, especially for freshmen.
+	  At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.</p>
+		      </td>
+         	 </tr>
           <tr>
-              <td width="25%">
+              <td width="33%">
                 <img src="./assets/png/wiki.png" style="zoom:60%;" />
               </td>
-              <td width="25%">
+              <td width="33%">
                 <img src="./assets/gif/wiki/argue.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
+              <td width="33%">
                 <img src="./assets/gif/wiki/upload.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>We implemented Wiki using Markdown and Diff Algorithm(Least Common Substring). College students can log and manage information about their schools on Wiki; Thus, they can be up to date with everything that’s going on, while building a stronger sense of community. This will be a great help, especially for freshmen.
-  At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.</p>
-              </td>
-          </tr>
+	   </tr>
 	</tbody>
 </table>
 
 ### :memo:Board
   <table>
         <tbody>
+		<tr>
+		      <td width="25%" colspan=3>
+			<p>The Bulletin Board is a space to share information about school life. Users can create and manage their bulletin boards as needed, naturally creating an ecosystem where everyone can communicate and exchange information.
+  On the pre-made Q&A board, anyone can ask questions and get answers.Students from other schools, even outsiders, can use this Q&A board.At this point, Firebase Auth's email verification was used to confirm that the answerer is a student at that university.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/board.png" style="zoom:60%;" />
@@ -88,10 +96,6 @@ Without having to use such fragmented services, PADONG provides such all service
               <td width="25%">
                 <img src="./assets/gif/board/deck.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>  The Bulletin Board is a space to share information about school life. Users can create and manage their bulletin boards as needed, naturally creating an ecosystem where everyone can communicate and exchange information.
-  On the pre-made Q&A board, anyone can ask questions and get answers.Students from other schools, even outsiders, can use this Q&A board.At this point, Firebase Auth's email verification was used to confirm that the answerer is a student at that university.</p>
-              </td>
           </tr>
 	</tbody>
 </table>
@@ -99,6 +103,12 @@ Without having to use such fragmented services, PADONG provides such all service
 ### :clock2:Timetable
   <table>
         <tbody>
+		<tr>
+		      <td width="25%" colspan=3>
+			<p>Timetable allows students to manage their schedules and log their classes.Students can manage their week’s schedule and daily routine at a glance. We created our own Appending Input widget to register multiple time ranges for one event, making it easier to handle events that occur repeatedly (lectures, part-time jobs, etc.).
+  On the Lecture of Timetable, students can review the classes they take, ask questions or even chat with other students.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/timetable.png" style="zoom:60%;" />
@@ -109,10 +119,6 @@ Without having to use such fragmented services, PADONG provides such all service
               <td width="25%">
                 <img src="./assets/gif/schedule/rate.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>  Timetable allows students to manage their schedules and log their classes.Students can manage their week’s schedule and daily routine at a glance. We created our own Appending Input widget to register multiple time ranges for one event, making it easier to handle events that occur repeatedly (lectures, part-time jobs, etc.).
-  On the Lecture of Timetable, students can review the classes they take, ask questions or even chat with other students.</p>
-              </td>
           </tr>
 	</tbody>
 </table>
@@ -120,6 +126,12 @@ Without having to use such fragmented services, PADONG provides such all service
 ### :earth_asia:Maps
   <table>
         <tbody>
+				<tr>
+		      <td width="25%" colspan=3>
+			<p>By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. Thanks to the Google Maps API, we can get detailed geographic information around the campus.
+  Students can check the current location and find a way using the Maps. They can also pin their favorite locations and share them with others.It can be used to store a place of their own memories in the school.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/map.png" style="zoom:60%;" />
@@ -130,10 +142,6 @@ Without having to use such fragmented services, PADONG provides such all service
               <td width="25%">
                 <img src="./assets/gif/map/service.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>  By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. Thanks to the Google Maps API, we can get detailed geographic information around the campus.
-  Students can check the current location and find a way using the Maps. They can also pin their favorite locations and share them with others.It can be used to store a place of their own memories in the school.</p>
-              </td>
           </tr>
 	</tbody>
 </table>
@@ -141,6 +149,11 @@ Without having to use such fragmented services, PADONG provides such all service
 ### :speech_balloon:Chat
   <table>
         <tbody>
+						<tr>
+		      <td width="25%" colspan=3>
+			<p>Real-time Chat is a channel which users can communicate directly. It can be used not only for a group chat room of lecture, but also for personal communication.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/chat.png" style="zoom:60%;" />
@@ -150,9 +163,6 @@ Without having to use such fragmented services, PADONG provides such all service
               </td>
               <td width="25%">
                 <img src="./assets/gif/chat/friend.gif" alt="GIF" style="zoom:60%;" />
-              </td>
-              <td width="25%">
-                <p>Real-time Chat is a channel which users can communicate directly. It can be used not only for a group chat room of lecture, but also for personal communication.</p>
               </td>
           </tr>
    </tbody>
@@ -171,7 +181,7 @@ Without having to use such fragmented services, PADONG provides such all service
 |:---:|:---:|:---:|
 |<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131697-815c0180-9258-11eb-9e55-2f64c7acdc73.png" height="60px">|<img src="https://user-images.githubusercontent.com/35912840/113132001-d8fa6d00-9258-11eb-9b53-e0f380da1343.png" height="60px"/>|
 
-## Installation
+## :bank:Installation
 #### Prerequisite
 
 * Git: If you have not installed Git, you click [Git](https://git-scm.com/downloads) and install it.

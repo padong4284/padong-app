@@ -170,8 +170,8 @@ Without having to use such fragmented services, PADONG provides such all service
 
 
 
-## Tech/Framework used
-### 🎨 Frontend
+## ⚙️ Tech/Framework used
+### 🖌️ Frontend
 | [Dart](https://dart.dev) | [Flutter](https://flutter.dev) |
 |:---:|:---:|
 |<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131438-2c1ff000-9258-11eb-992a-4e38ba63fe69.png" height="60px">|

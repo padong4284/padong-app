@@ -53,15 +53,10 @@ Without having to use such fragmented services, PADONG provides such all service
 
 **PADONG has 5 key features:**
 
+
+### :books:Wiki
   <table>
         <tbody>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:books:Wiki</div>
-              <br>
-            </td>
-          </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/wiki.png" style="zoom:60%;" />
@@ -77,13 +72,12 @@ Without having to use such fragmented services, PADONG provides such all service
   At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.</p>
               </td>
           </tr>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:memo:Board</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :memo:Board
+  <table>
+        <tbody>
           <tr>
               <td width="25%">
                 <img src="./assets/png/board.png" style="zoom:60%;" />
@@ -99,13 +93,12 @@ Without having to use such fragmented services, PADONG provides such all service
   On the pre-made Q&A board, anyone can ask questions and get answers.Students from other schools, even outsiders, can use this Q&A board.At this point, Firebase Auth's email verification was used to confirm that the answerer is a student at that university.</p>
               </td>
           </tr>
-           <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:clock2:Timetable</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :clock2:Timetable
+  <table>
+        <tbody>
           <tr>
               <td width="25%">
                 <img src="./assets/png/timetable.png" style="zoom:60%;" />
@@ -121,13 +114,12 @@ Without having to use such fragmented services, PADONG provides such all service
   On the Lecture of Timetable, students can review the classes they take, ask questions or even chat with other students.</p>
               </td>
           </tr>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:earth_asia:Maps</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :earth_asia:Maps
+  <table>
+        <tbody>
           <tr>
               <td width="25%">
                 <img src="./assets/png/map.png" style="zoom:60%;" />
@@ -143,13 +135,12 @@ Without having to use such fragmented services, PADONG provides such all service
   Students can check the current location and find a way using the Maps. They can also pin their favorite locations and share them with others.It can be used to store a place of their own memories in the school.</p>
               </td>
           </tr>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:speech_balloon:Chat</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :speech_balloon:Chat
+  <table>
+        <tbody>
           <tr>
               <td width="25%">
                 <img src="./assets/png/chat.png" style="zoom:60%;" />

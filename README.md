@@ -53,39 +53,121 @@ Without having to use such fragmented services, PADONG provides such all service
 
 **PADONG has 5 key features:**
 
-* Wiki
+  <table>
+        <tbody>
+          <tr>
+            <td colspan=4>
+              <br>
+                <div align="center">:books:Wiki</div>
+              <br>
+            </td>
+          </tr>
+          <tr>
+              <td width="25%">
+                <img src="./assets/png/wiki.png" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/wiki/argue.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/wiki/upload.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <p>We implemented Wiki using Markdown and Diff Algorithm(Least Common Substring). College students can log and manage information about their schools on Wiki; Thus, they can be up to date with everything that’s going on, while building a stronger sense of community. This will be a great help, especially for freshmen.
+  At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.</p>
+              </td>
+          </tr>
+          <tr>
+            <td colspan=4>
+              <br>
+                <div align="center">:memo:Board</div>
+              <br>
+            </td>
+          </tr>
+          <tr>
+              <td width="25%">
+                <img src="./assets/png/board.png" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/board/board.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/board/deck.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <p>  The Bulletin Board is a space to share information about school life. Users can create and manage their bulletin boards as needed, naturally creating an ecosystem where everyone can communicate and exchange information.
+  On the pre-made Q&A board, anyone can ask questions and get answers.Students from other schools, even outsiders, can use this Q&A board.At this point, Firebase Auth's email verification was used to confirm that the answerer is a student at that university.</p>
+              </td>
+          </tr>
+           <tr>
+            <td colspan=4>
+              <br>
+                <div align="center">:clock2:Timetable</div>
+              <br>
+            </td>
+          </tr>
+          <tr>
+              <td width="25%">
+                <img src="./assets/png/timetable.png" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/schedule/event.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/schedule/rate.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <p>  Timetable allows students to manage their schedules and log their classes.Students can manage their week’s schedule and daily routine at a glance. We created our own Appending Input widget to register multiple time ranges for one event, making it easier to handle events that occur repeatedly (lectures, part-time jobs, etc.).
+  On the Lecture of Timetable, students can review the classes they take, ask questions or even chat with other students.</p>
+              </td>
+          </tr>
+          <tr>
+            <td colspan=4>
+              <br>
+                <div align="center">:earth_asia:Maps</div>
+              <br>
+            </td>
+          </tr>
+          <tr>
+              <td width="25%">
+                <img src="./assets/png/map.png" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/map/map.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/map/service.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <p>  By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. Thanks to the Google Maps API, we can get detailed geographic information around the campus.
+  Students can check the current location and find a way using the Maps. They can also pin their favorite locations and share them with others.It can be used to store a place of their own memories in the school.</p>
+              </td>
+          </tr>
+          <tr>
+            <td colspan=4>
+              <br>
+                <div align="center">:speech_balloon:Chat</div>
+              <br>
+            </td>
+          </tr>
+          <tr>
+              <td width="25%">
+                <img src="./assets/png/chat.png" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/chat/chat.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <img src="./assets/gif/chat/friend.gif" alt="GIF" style="zoom:60%;" />
+              </td>
+              <td width="25%">
+                <p>Real-time Chat is a channel which users can communicate directly. It can be used not only for a group chat room of lecture, but also for personal communication.</p>
+              </td>
+          </tr>
+   </tbody>
+</table>
 
-  We implemented Wiki using Markdown and Diff Algorithm(Least Common Substring). College students can log and manage information about their schools on Wiki; Thus, they can be up to date with everything that’s going on, while building a stronger sense of community. This will be a great help, especially for freshmen.
-  At the same time, high school students can get a college student’s perspective about the universities that they’d like to enroll in.
 
-  <p align="center"><img src="./assets/gif/wiki.gif" alt="GIF"/></p>
-
-* Board
-
-  The Bulletin Board is a space to share information about school life. Users can create and manage their bulletin boards as needed, naturally creating an ecosystem where everyone can communicate and exchange information.
-  On the pre-made Q&A board, anyone can ask questions and get answers.Students from other schools, even outsiders, can use this Q&A board.At this point, Firebase Auth's email verification was used to confirm that the answerer is a student at that university.
-
-  <p align="center"><img src="./assets/gif/board.gif" alt="GIF"/></p>
-
-* Timetable
-
-  Timetable allows students to manage their schedules and log their classes.Students can manage their week’s schedule and daily routine at a glance. We created our own Appending Input widget to register multiple time ranges for one event, making it easier to handle events that occur repeatedly (lectures, part-time jobs, etc.).
-  On the Lecture of Timetable, students can review the classes they take, ask questions or even chat with other students.
-
-  <p align="center"><img src="./assets/gif/timetable.gif" alt="GIF"/></p>
-
-* Maps
-
-  By using the Maps, students can check their favorite restaurants, parking lots, and hospitals within their campus. Thanks to the Google Maps API, we can get detailed geographic information around the campus.
-  Students can check the current location and find a way using the Maps. They can also pin their favorite locations and share them with others.It can be used to store a place of their own memories in the school.
-
-  <p align="center"><img src="./assets/gif/map.gif" alt="GIF"/></p>
-
-* Chat
-
-  Real-time Chat is a channel which users can communicate directly. It can be used not only for a group chat room of lecture, but also for personal communication.
-
-  <p align="center"><img src="./assets/gif/chat.gif" alt="GIF"/></p>
 
 ## Tech/Framework used
 ### 🎨 Frontend

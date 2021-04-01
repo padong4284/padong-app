@@ -45,37 +45,36 @@
 [![thumbnail](./assets/png/thumbnail.png?lastModify=1616833403)](https://youtu.be/Fe-yTo1JdWU)
 
 **파동은 크게 5가지의 특징으로 구성되어 있습니다.**
-
+### :books:Wiki
   <table>
         <tbody>
+		<tr>
+		      <td width="25%" colspan=3>
+			<p>위키에서는 대학생들이 자신이 다니는 학교의 정보를 기록하고 관리할 수 있습니다. 이를 통해 자신의 학교에 대한 정보와 애교심을 얻을 수 있습니다. 나아가 고등학생들은 자신이 가고 싶은 대학의 생생한 정보를 얻을 수 있습니다.</p>
+		      </td>
+         	 </tr>
           <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:books:위키(Wiki)</div>
-              <br>
-            </td>
-          </tr>
-          <tr>
-              <td width="25%">
+              <td width="33%">
                 <img src="./assets/png/wiki.png" style="zoom:60%;" />
               </td>
-              <td width="25%">
+              <td width="33%">
                 <img src="./assets/gif/wiki/argue.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
+              <td width="33%">
                 <img src="./assets/gif/wiki/upload.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>위키에서는 대학생들이 자신이 다니는 학교의 정보를 기록하고 관리할 수 있습니다. 이를 통해 자신의 학교에 대한 정보와 애교심을 얻을 수 있습니다. 나아가 고등학생들은 자신이 가고 싶은 대학의 생생한 정보를 얻을 수 있습니다.</p>
-              </td>
-          </tr>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:memo:보드 (Board)</div>
-              <br>
-            </td>
-          </tr>
+	   </tr>
+	</tbody>
+</table>
+
+### :memo:Board
+  <table>
+        <tbody>
+		<tr>
+		      <td width="25%" colspan=3>
+			<p>게시판에서는 대학생들끼리 정보를 공유하고 서로의 고민을 들어줄 수 있습니다. 별도로 만들어진 질문 게시판에서는 누구나 질문을 하고 각 대학교 학생들의 답변을 받을 수 있습니다. 각자 자신만의 관점들을 제시하면서 서로에게 다른 인사이트를 줄 것입니다.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/board.png" style="zoom:60%;" />
@@ -86,17 +85,18 @@
               <td width="25%">
                 <img src="./assets/gif/board/deck.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>게시판에서는 대학생들끼리 정보를 공유하고 서로의 고민을 들어줄 수 있습니다. 별도로 만들어진 질문 게시판에서는 누구나 질문을 하고 각 대학교 학생들의 답변을 받을 수 있습니다. 각자 자신만의 관점들을 제시하면서 서로에게 다른 인사이트를 줄 것입니다.</p>
-              </td>
           </tr>
-           <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:clock2:시간표 (Timetable)</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :clock2:Timetable
+  <table>
+        <tbody>
+		<tr>
+		      <td width="25%" colspan=3>
+			<p>시간표에서는 각자 자신의 이벤트를 관리하거나, 수강 중인 강의를 등록할 수 있습니다. 강의는 게시판과 비슷한 형식으로 운영되며,수강하고 있는 강의에 질문 및 리뷰를 남길 수 있고 수강생들끼리 채팅을 할 수도 있습니다.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/timetable.png" style="zoom:60%;" />
@@ -107,17 +107,18 @@
               <td width="25%">
                 <img src="./assets/gif/schedule/rate.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>시간표에서는 각자 자신의 이벤트를 관리하거나, 수강 중인 강의를 등록할 수 있습니다. 강의는 게시판과 비슷한 형식으로 운영되며,수강하고 있는 강의에 질문 및 리뷰를 남길 수 있고 수강생들끼리 채팅을 할 수도 있습니다.</p>
-              </td>
           </tr>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:earth_asia:맵 (Maps)</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :earth_asia:Maps
+  <table>
+        <tbody>
+				<tr>
+		      <td width="25%" colspan=3>
+			<p>지도에서는 학교내의 식당, 주차장, 병원 등 위치 정보를 확인 할 수 있습니다. 나아가 자신만의 pin 을 지정하고 등록하고 공유할 수 있습니다.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/map.png" style="zoom:60%;" />
@@ -128,17 +129,18 @@
               <td width="25%">
                 <img src="./assets/gif/map/service.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>지도에서는 학교내의 식당, 주차장, 병원 등 위치 정보를 확인 할 수 있습니다. 나아가 자신만의 pin 을 지정하고 등록하고 공유할 수 있습니다.</p>
-              </td>
           </tr>
-          <tr>
-            <td colspan=4>
-              <br>
-                <div align="center">:speech_balloon:채팅 (Chat)</div>
-              <br>
-            </td>
-          </tr>
+	</tbody>
+</table>
+
+### :speech_balloon:Chat
+  <table>
+        <tbody>
+						<tr>
+		      <td width="25%" colspan=3>
+			<p>다른 사람의 프로필을 클릭하고 "be friend" 버튼을 클릭하여 친구요청을 보낼수있습니다. 상대방이 신구요청을 수락한다면 서로 채팅을 할 수 있게 되며 어떤 질문이든 할 수 있습니다.</p>
+		      </td>
+         	 </tr>
           <tr>
               <td width="25%">
                 <img src="./assets/png/chat.png" style="zoom:60%;" />
@@ -149,14 +151,9 @@
               <td width="25%">
                 <img src="./assets/gif/chat/friend.gif" alt="GIF" style="zoom:60%;" />
               </td>
-              <td width="25%">
-                <p>다른 사람의 프로필을 클릭하고 "be friend" 버튼을 클릭하여 친구요청을 보낼수있습니다. 상대방이 신구요청을 수락한다면 서로 채팅을 할 수 있게 되며 어떤 질문이든 할 수 있습니다.</p>
-              </td>
           </tr>
    </tbody>
 </table>
-
-
 
 
 ## :bulb:Class Diagram

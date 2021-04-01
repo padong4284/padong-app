@@ -15,7 +15,7 @@
 PADONG is a community platform that resolves information inequality among students in college life in the US.
 
 
-## :pushpin:Vision
+## :mag:Vision
 
 ‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).
 
@@ -25,7 +25,7 @@ Just like how different instruments make up an orchestra, Just like how differen
 
 But sometimes differences lead to discrimination and inequality. Therefore, as if tuning instruments to prepare a great performance, as if combining colors to complete a masterpiece, we try to make a more beautiful world by understanding each other's differences through communication.
 
-## Mission
+## :pushpin:Mission
 
 PADONG chose the timing of tuning as the moment when we took the first step toward becoming an adult. 
 All members of the Developer Student Clubs will probably remember the moment we entered college. It is the moment when we meet people from various origins and collide with more diverse human waves.
@@ -34,11 +34,11 @@ We want to help that step be filled with hope, like warm sunlight and beautiful 
 
 We create the PADONG, In this way, with hope for a beautiful world. We create a platform where everyone can share their own unique perspective and create an ocean of human waves. Through PADONG, we hope every human wave will create a beautiful ripple that will have a long-lasting impact on each other's lives.
 
-## Introduction Video
+## :tv:Introduction Video
 
 <p align="center"><a href="https://youtu.be/Fe-yTo1JdWU"><img src="./assets/png/thumbnail.png" alt="thumbnail"></a></p>
 
-## Features
+## :triangular_flag_on_post:Features
 
 PADONG provides successful college life know-how from senior students who have experienced and felt directly, not formal information provided by schools. Also, you can use many features with PADONG by integrating functions of fragmented services that are useful for college life.
 
@@ -182,18 +182,18 @@ Without having to use such fragmented services, PADONG provides such all service
 |<img src="https://user-images.githubusercontent.com/35912840/113131291-fda21500-9257-11eb-94cc-f0f6f2efb70d.png" height="60px"/>|<img src="https://user-images.githubusercontent.com/35912840/113131697-815c0180-9258-11eb-9e55-2f64c7acdc73.png" height="60px">|<img src="https://user-images.githubusercontent.com/35912840/113132001-d8fa6d00-9258-11eb-9b53-e0f380da1343.png" height="60px"/>|
 
 ## :bank:Installation
-#### Prerequisite
+#### :tropical_drink:Prerequisite
 
 * Git: If you have not installed Git, you click [Git](https://git-scm.com/downloads) and install it.
 
-#### Install PADONG
+#### :toolbox:Install PADONG
 
 To run PADONG, two requirements below are needed to be installed.
 
 * [Android Studio](https://developer.android.com/studio)
 * [Flutter SDK](https://flutter.dev/docs/get-started/install)
 
-##### Install Android Studio
+##### :toolbox:Install Android Studio
 
 1. Click the Android Studio link above, download and install.
 2. Run Android Studio and install Flutter plugin.
@@ -204,7 +204,7 @@ To run PADONG, two requirements below are needed to be installed.
    3. Search **Flutter** Plugin and install it.
    4. Restart **Android Studio application**.
 
-##### Install Flutter SDK
+##### :toolbox:Install Flutter SDK
 
 1. Download Flutter SDK from Git repository:
 
@@ -253,7 +253,7 @@ To run PADONG, two requirements below are needed to be installed.
    flutter doctor
    ```
 
-##### Clone and run PADONG
+##### :cd:Clone and run PADONG
 
 1. Open a terminal and clone PADONG project:
 
@@ -274,7 +274,7 @@ To run PADONG, two requirements below are needed to be installed.
 5. On **top bar in Android Studio**, select virtual device you would like to use and run by clicking **run icon**
    **Or** build by clicking **build -> Flutter -> build APK or build IOS** and move the build output to your smart phone and install it.
 
-## How to use?
+## :cake:How to use?
 
 1. Install APK or IPA file you built using Android Studio **or** Download **PADONG** from App Store or Google Play.
 
@@ -286,7 +286,7 @@ To run PADONG, two requirements below are needed to be installed.
 
    <p align="center"><img src="./assets/gif/signup.gif" alt="GIF" width="40%" /></p>
 
-## Architecture
+## :bulb:Architecture
 
 ![PADONG_SWARCH.jpg](./assets/jpg/PADONG_SWARCH.jpg)
 
@@ -300,6 +300,8 @@ We chose Firestore to manage the data of Node. Because
 1) Data isn’t simply stored, it can be organized into collections depending on use cases, 
 2) Using flexible and complex queries, we can manipulate data while taking advantage of the characteristics of Node.
 
+## :art:View Structure
+
 ![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
 
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
@@ -310,7 +312,7 @@ Furthermore, thanks to Flutter’s rich features, it was possible to express osc
 
 We were able to implement all the various features of the PADONG in just 6 weeks, thanks to Firebase, which has all the necessary infrastructure, and Flutter, which can implement both the Node system and widgets we designed.
 
-## Future
+## :white_check_mark:Future
 
 PADONG is targeted at people in the transitional stage of adulthood. Because we hope that those people recognize the world beautifully and make a more beautiful world.
 
@@ -334,7 +336,7 @@ We have made detailed monthly plans.
 
 Ultimately, PADONG will create a world where no one is marginalized due to information inequalities.
 
-## PADONG Team Members
+## :zap:PADONG Team Members
 |      Name     |      GitHub   |    Email    |
 |:-------------:|:-------------:|:-----------:|
 |**Taejun Jang**| <a href="https://github.com/jtjun"><img src="http://img.shields.io/badge/jtjun-655ced?style=social&logo=github"/></a> | <a href="mailto:jtjun7132@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=jtjun7132@gmail.com&color=00A1E0&style=flat-square&logo=gmail"></a> |
@@ -342,7 +344,7 @@ Ultimately, PADONG will create a world where no one is marginalized due to infor
 |  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
 |  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
 
-## Copyright
+## :copyright:Copyright
 
 Copyright (C) 2021-2021 Taejun Jang \<<padong4284@gmail.com>\> - All Rights Reserved.
 

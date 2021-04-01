@@ -18,7 +18,7 @@
 
 
 
-##  :pushpin:파동을 만들게 된 동기
+##  :pushpin: 파동을 만들게 된 동기
 
 **파동의 Golden Circle**
 
@@ -33,19 +33,19 @@
 
 미국 대학교는 OT, 어드바이저 등을 통하여 신입생들이 학교생활에 적응할 수 있는 프로그램들을 제공하지만 실질적으로 가장 도움이 되는 것은 학교생활이나 수업 들을 직접 경험하고 느껴본 상급생들입니다. 미국 대학교에서 유학생으로 생활하면서 막 입학한 1학년들이 부족한 정보로 인해 자신이 감당하지 못할 수업 스케줄 때문에 Fail 하고 결국 자퇴하는 경우를 여럿 보았습니다. 하지만 저는 한국 학생회의 상급생들을 도움을 받으면서 잘 가르치는 교수님의 수업을 알 수 있었고 강의 시간표가 무리한지 아닌지 판단할 수 있어서 학업적으로 성공해왔습니다. 이러한 저의 경험을 바탕으로 학교생활에 적응하기 힘들어하는 학생들에게 경험 많은 상급생들을 연결해 줄 플랫폼 "Padong"을 구상하게 되었습니다.
 
-## :hammer_and_wrench:사용한 기술과 프레임워크
+## :hammer_and_wrench: 사용한 기술과 프레임워크
 
 - [Flutter](https://flutter.dev/)
 - [Firebase](https://firebase.google.com/)
 
-## :triangular_flag_on_post:특징
+## :triangular_flag_on_post: 특징
 
 **파동 소개영상:**
 
 [![thumbnail](./assets/png/thumbnail.png?lastModify=1616833403)](https://youtu.be/Fe-yTo1JdWU)
 
 **파동은 크게 5가지의 특징으로 구성되어 있습니다.**
-### :books:Wiki
+### :books: Wiki
   <table>
         <tbody>
 		<tr>
@@ -67,7 +67,7 @@
 	</tbody>
 </table>
 
-### :memo:Board
+### :memo: Board
   <table>
         <tbody>
 		<tr>
@@ -89,7 +89,7 @@
 	</tbody>
 </table>
 
-### :clock2:Timetable
+### :clock2: Timetable
   <table>
         <tbody>
 		<tr>
@@ -111,7 +111,7 @@
 	</tbody>
 </table>
 
-### :earth_asia:Maps
+### :earth_asia: Maps
   <table>
         <tbody>
 				<tr>
@@ -156,7 +156,7 @@
 </table>
 
 
-## :bulb:Class Diagram
+## :bulb: Class Diagram
 
 ![class diagram](./assets/jpg/PADONG_SWARCH.jpg)
 
@@ -164,7 +164,7 @@
 
 (click to see original image)
 
-## :art:View Structure
+## :art: View Structure
 
 ![](./assets/jpg/PADONG_TREE.jpg)
 
@@ -172,20 +172,20 @@
 
 
 
-## :bank:설치방법
+## :bank: 설치방법
 
-#### :tropical_drink:미리 설치되어 있어야 할 것
+#### :tropical_drink: 미리 설치되어 있어야 할 것
 
 * Git: 깃(Git)이 설치되어 있지 않다면 해당 링크([Git](https://git-scm.com/downloads))를 클릭하여 설치합니다.
 
-#### :toolbox:파동 설치하기
+#### :toolbox: 파동 설치하기
 
 파동을 실행하기 위해서 두 가지의 프로그램이 설치되어야합니다.
 
 * [Android Studio](https://developer.android.com/studio)
 * [Flutter SDK](https://flutter.dev/docs/get-started/install)
 
-##### :toolbox:Android Studio 설치하기
+##### :toolbox: Android Studio 설치하기
 
 1. 위의 **Android Studio** 설치 링크를 클릭하여 다운로드 및 설치합니다.
 2. **Android Studio**를 설치하고. **Flutter** 플러그인을 설치합니다.
@@ -195,7 +195,7 @@
    3. **Flutter** 플러그인을 검색하고 설치합니다.
    4. **Android Studio**를 재시작 합니다.
 
-##### :toolbox:Flutter SDK 설치
+##### :toolbox: Flutter SDK 설치
 
 1. Git 레포지토리에서 Flutter SDK를 클론합니다:
 
@@ -244,7 +244,7 @@
    flutter doctor
    ```
 
-##### :cd:Padong 클론 및 실행
+##### :cd: Padong 클론 및 실행
 
 1. 터미널을 열고 아래의 명령어를 입력하여 파동 프로젝트를 클론합니다:
 
@@ -265,7 +265,7 @@
 5. **Android Studio** 상단바에서 원하는 가상 디바이스를 선택하고 실행 아이콘을 클릭하여 실행하거나,
    **build -> Flutter -> build APK or build IOS**를 클릭하여 빌드한뒤 빌드결과물을 스마트폰에 옮겨 설치합니다.
 
-## :cake:사용방법
+## :cake: 사용방법
 
 1. Android Studio를 사용하여 빌드한 APK or IPA 파일을 설치하거나 **파동(Padong)**을 App Store 혹은 Google Play에 검색하여 설치합니다.
 
@@ -277,7 +277,17 @@
 
    <p align="center"><img src="./assets/gif/signup.gif" alt="GIF" width="40%" /></p>
 
-## :copyright:Copyright
+
+## 🇰🇷 PADONG Team Members
+|      Name     |      GitHub   |    Email    |
+|:-------------:|:-------------:|:-----------:|
+|**Taejun Jang**| <a href="https://github.com/jtjun"><img src="http://img.shields.io/badge/jtjun-655ced?style=social&logo=github"/></a> | <a href="mailto:jtjun7132@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=jtjun7132@gmail.com&color=00A1E0&style=flat-square&logo=gmail"></a> |
+|  Daewoong Ko  | <a href="https://github.com/kodw4284"><img src="http://img.shields.io/badge/kodw4284-655ced?style=social&logo=github"/></a> | <a href="mailto:kodw4284@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kodw4284@gmail.com&color=505560&style=flat-square&logo=gmail"></a> |
+|  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
+|  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
+
+
+## :copyright: Copyright
 
 Copyright (C) 2021-2021 Taejun Jang \<<padong4284@gmail.com>\> - All Rights Reserved.
 

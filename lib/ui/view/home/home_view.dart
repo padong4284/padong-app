@@ -44,9 +44,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: SafePaddingTemplate(
+    return SafePaddingTemplate(
           appBar: TopAppBar('PADONG'),
           floatingActionButtonGenerator: (isScrollingDown) =>
               PadongButton(isScrollingDown: isScrollingDown),
@@ -62,7 +60,7 @@ class HomeView extends StatelessWidget {
             ...this.placesArea(),
             ...this.padongArea(context),
           ],
-        ));
+    );
   }
 
   List<Widget> aboutArea() {

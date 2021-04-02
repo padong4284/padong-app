@@ -31,23 +31,31 @@ class _InfinityScrollerState extends State<InfinityScroller> {
   @override
   Widget build(BuildContext context) {
     if (this._children.isEmpty){
-      if(this._isLoading) return Center(
-        child: Padding(padding:  const EdgeInsets.all(15),
-          child: CircularProgressIndicator(),)
-      );
+      if(this._isLoading) return this._loadingArea();
       else if (this._isError) return this._retryArea();
-    } else return Expanded(child: ListView.builder(
+    } else return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
       itemCount: this._children.length + (this._hasMore ? 1: 0),
       itemBuilder: (context, index) {
-        if (index == this._children.length - this._nextPageFlag)
+        if (this._hasMore && (index == this._children.length - this._nextPageFlag))
           this.fetchChildren();
         if (index == this._children.length) {
           if (this._isError) return this._retryArea();
+          else return this._loadingArea();
         }
         return widget.builder(this._children[index]);
       }
-    ));
+    );
     return Container();
+  }
+
+  Widget _loadingArea() {
+    return Center(
+        child: Padding(padding:  const EdgeInsets.all(15),
+          child: CircularProgressIndicator(),)
+    );
   }
 
   Widget _retryArea() {
@@ -67,7 +75,8 @@ class _InfinityScrollerState extends State<InfinityScroller> {
       List<Node> children = await widget.node.getChildren(
           widget.child,
           limit: widget.itemPerPage,
-          startAt: this._lastChild);
+          startAt: this._lastChild,
+          upToDate: true);
       setState(() {
         this._hasMore = children.length == widget.itemPerPage;
         this._isLoading = false;

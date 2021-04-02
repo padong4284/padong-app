@@ -21,6 +21,7 @@ import 'package:padong/ui/widget/button/floating_bottom_button.dart';
 import 'package:padong/ui/widget/button/padong_button.dart';
 import 'package:padong/ui/widget/component/no_data_message.dart';
 import 'package:padong/ui/widget/component/title_header.dart';
+import 'package:padong/ui/widget/container/infinity_scroller.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/padong_markdown.dart';
 import 'package:padong/ui/widget/tile/node/post_tile.dart';
@@ -65,6 +66,11 @@ class _BoardViewState extends State<BoardView> {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: NoticeTile(widget.board)),
           TitleHeader('Posts'),
+          InfinityScroller(
+              widget.board,
+              Post(),
+              builder: (post) => PostTile(post as Post))
+          /*
           PadongFutureBuilder(
               future: widget.board.getChildren(Post(), upToDate: true),
               builder: (posts) => Column(children: <Widget>[
@@ -73,6 +79,7 @@ class _BoardViewState extends State<BoardView> {
                         : SizedBox.shrink(),
                     ...posts.map((post) => PostTile(post))
                   ]))
+          */
         ]);
   }
 }

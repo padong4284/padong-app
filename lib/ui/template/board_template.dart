@@ -73,18 +73,26 @@ class BoardTemplate extends StatelessWidget {
               onPressed: this.onPressMore ?? () {}),
           ...(this.actions ?? [])
         ]),
-        children: [
+        children: [],
+        stackChildren: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
-            child: PadongMarkdown(this.board.description),
-          ),
-          ...(this.center ?? []),
-          TitleHeader(this.postsMessage),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppTheme.horizontalPadding),
+            child:
           InfinityScroller(
               this.board,
               this.post,
               builder: (post) => PostTile(post as Post),
-              emptyMessage: this.emptyMessage),
+              emptyMessage: this.emptyMessage,
+              preWidgets: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10.0),
+                  child: PadongMarkdown(this.board.description),
+                ),
+                ...(this.center ?? []),
+                TitleHeader(this.postsMessage)
+              ],
+          )),
         ]);
   }
 }

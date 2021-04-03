@@ -27,6 +27,7 @@ class SafePaddingTemplate extends StatefulWidget {
   final Widget background;
   final bool isReversed;
   final ScrollController scrollController;
+  final ScrollController stackScrollController;
 
   const SafePaddingTemplate(
       {this.appBar,
@@ -38,6 +39,7 @@ class SafePaddingTemplate extends StatefulWidget {
       this.background,
       this.isReversed = false,
       this.scrollController,
+      this.stackScrollController,
       this.title = ''})
       : assert((floatingBottomBar == null) ||
             (floatingBottomBarGenerator == null)),
@@ -59,16 +61,19 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
   void initState() {
     super.initState();
     this._scrollController = widget.scrollController ?? ScrollController();
-    this._scrollController.addListener(() {
-      setState(() {
-        this.isScrollingDown =
-            (this._scrollController.position.userScrollDirection ==
-                ScrollDirection.reverse);
-        if (MainViewState.setMainScrollingDown != null)
-          MainViewState.setMainScrollingDown(this.isScrollingDown);
-      });
-    });
+    this.addHideListener(this._scrollController);
+    if (widget.stackScrollController != null)
+      this.addHideListener(widget.stackScrollController);
     this.setRendered();
+  }
+
+  void addHideListener(ScrollController controller) {
+    controller.addListener(() => setState(() {
+          this.isScrollingDown = (controller.position.userScrollDirection ==
+              ScrollDirection.reverse);
+          if (MainViewState.setMainScrollingDown != null)
+            MainViewState.setMainScrollingDown(this.isScrollingDown);
+        }));
   }
 
   void setRendered() async {
@@ -110,7 +115,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                               widget.title.length > 0
                                   ? this.topTitle()
                                   : SizedBox.shrink(),
-                              ...widget.children,
+                              ...(widget.children ?? []),
                               widget.isBottomBar
                                   ? SizedBox(height: 30)
                                   : SizedBox.shrink()

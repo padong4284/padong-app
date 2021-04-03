@@ -17,6 +17,7 @@ import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
+import 'package:padong/ui/widget/container/infinity_scroller.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
 import 'package:padong/ui/widget/tile/chat_balloon.dart';
 
@@ -30,19 +31,23 @@ class ChatRoomView extends StatefulWidget {
 }
 
 class _ChatRoomViewState extends State<ChatRoomView> {
+  Stream messageStream;
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     PadongRouter.refresh = this.updateUnread;
+    widget.chatRoom
+        .getMessageStream()
+        .then((stream) => setState(() => this.messageStream = stream));
   }
 
   @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
       isReversed: true,
-      scrollController: this._scrollController,
+      stackScrollController: this._scrollController,
       appBar: BackAppBar(title: widget.chatRoom.title, isClose: true, actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
@@ -63,29 +68,46 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                   duration: const Duration(milliseconds: 500),
                 );
           }),
-      children: [
-        StreamBuilder(
-            stream: widget.chatRoom.getMessageStream(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
-              } else {
-                List<Message> messages = <Message>[
-                  ...snapshot.data.docs.reversed
-                      .map((doc) => Message.fromMap(doc.id, doc.data()))
-                ];
-                int len = messages.length;
-                return Column(
-                    children: List.generate(
-                        len,
-                        (idx) => ChatBalloon(
-                              messages[idx],
-                              prev: idx > 0 ? messages[idx - 1] : null,
-                              next: idx < len - 1 ? messages[idx + 1] : null,
-                            )));
-              }
-            }),
-        SizedBox(height: 45)
+      stackChildren: [
+        Padding(
+            padding: const EdgeInsets.only(
+              bottom: 70,
+              left: AppTheme.horizontalPadding,
+              right: AppTheme.horizontalPadding,
+            ),
+            child: InfinityScroller(widget.chatRoom, Message(),
+                seriesBuilder: (message, next, prev) =>
+                    ChatBalloon(message, prev: prev, next: next),
+                isReversed: true,
+                endPadding: 0,
+                emptyMessage: '',
+                scrollController: this._scrollController,
+                preWidgets: [
+                  StreamBuilder(
+                      stream: this.messageStream,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return SizedBox.shrink();
+                        } else {
+                          List<Message> messages = <Message>[
+                            ...snapshot.data.docs.map(
+                                (doc) => Message.fromMap(doc.id, doc.data()))
+                          ];
+                          int len = messages.length;
+                          return Column(
+                              children: List.generate(
+                                  len,
+                                  (idx) => ChatBalloon(
+                                        messages[idx],
+                                        prev:
+                                            idx > 0 ? messages[idx - 1] : null,
+                                        next: idx < len - 1
+                                            ? messages[idx + 1]
+                                            : null,
+                                      )));
+                        }
+                      })
+                ]))
       ],
     );
   }

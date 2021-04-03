@@ -137,7 +137,7 @@ class _ProfileViewState extends State<ProfileView> {
                             '/chatroom?id=${_chatRoom.id}', _chatRoom);
                       else
                         PadongRouter.routeURL(
-                            '/chat?id=${widget.user}.id}&type=user',
+                            '/chat?id=${widget.user}.id}&type=user&isDirectTo=true',
                             widget.user);
                     },
                     icon: Icon(Icons.mode_comment_outlined,

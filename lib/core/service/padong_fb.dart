@@ -101,11 +101,15 @@ class PadongFB {
     }).catchError((e) => null);
   }
 
-  static Stream<QuerySnapshot> getQueryStreamByRule(String type,
-      {Query Function(Query) rule, int limit = 30}) {
+  static Future<Stream<QuerySnapshot>> getQueryStreamByRule(String type,
+      {Query Function(Query) rule, int limit = 30, String startId}) async {
     Query query = _db.collection(type).where('deletedAt', isNull: true);
     if (rule != null) query = rule(query);
     if (limit != null && limit > 0) query = query.limit(limit);
+    if (startId != null) {
+      DocumentSnapshot doc = await _db.collection(type).doc(startId).get();
+      if (doc != null && doc.exists) query = query.startAfterDocument(doc);
+    }
     return query.snapshots();
   }
 }

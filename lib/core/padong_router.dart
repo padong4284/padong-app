@@ -127,7 +127,8 @@ class PadongRouter {
             pageBuilder: (_, __, ___) => ChatRoomView(args['node']),
             direction: 2);
       case '/chat':
-        return slideRouter(pageBuilder: (_, __, ___) => ChatView(args['node']));
+        return slideRouter(pageBuilder: (_, __, ___) => ChatView(
+            args['node'], isDirectTo: args['isDirectTo'] != null));
 
       case '/profile':
         return slideRouter(

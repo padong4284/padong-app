@@ -49,7 +49,9 @@ class MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     // Register Context
     PadongRouter.registerContext(this.context);
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async => false,
+    child: Scaffold(
         floatingActionButton: Visibility(
             visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
             child: PadongButton(isScrollingDown: this.isScrollingDown, noShadow: true)),
@@ -58,6 +60,6 @@ class MainViewState extends State<MainView> {
             setSelectedIdx: (int idx) => setState(() {
                   this._selectedIdx = idx;
                 })),
-        body: this.pages[this._selectedIdx]);
+        body: this.pages[this._selectedIdx]));
   }
 }

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/node.dart';
+import 'package:padong/core/node/nodes.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';
@@ -28,8 +29,9 @@ import 'package:padong/ui/widget/tile/friend_tile.dart';
 
 class ChatView extends StatefulWidget {
   final Node node;
+  final bool isDirectTo;
 
-  ChatView(this.node);
+  ChatView(this.node, {this.isDirectTo = false});
 
   _ChatViewState createState() => _ChatViewState();
 }
@@ -47,6 +49,10 @@ class _ChatViewState extends State<ChatView> {
     Session.user
         .getFriends()
         .then((_friends) => setState(() => this.friends = _friends));
+    if(widget.isDirectTo) {
+      this.inviteFriend(widget.node);
+      this.onTabOk();
+    }
   }
 
   @override

@@ -74,7 +74,6 @@ class BoardTemplate extends StatelessWidget {
             onPressed: this.onPressMore ?? () {}),
         ...(this.actions ?? [])
       ]),
-      children: [],
       stackChildren: [
         Padding(
             padding: const EdgeInsets.symmetric(

@@ -115,7 +115,7 @@ class _SafePaddingTemplateState extends State<SafePaddingTemplate> {
                               widget.title.length > 0
                                   ? this.topTitle()
                                   : SizedBox.shrink(),
-                              ...widget.children,
+                              ...(widget.children ?? []),
                               widget.isBottomBar
                                   ? SizedBox(height: 30)
                                   : SizedBox.shrink()

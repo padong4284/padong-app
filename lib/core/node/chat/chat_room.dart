@@ -78,13 +78,13 @@ class ChatRoom extends TitleNode with Notification {
     return await this.update();
   }
 
-  Stream<QuerySnapshot> getMessageStream() {
-    return PadongFB.getQueryStreamByRule(
+  Future<Stream<QuerySnapshot>> getMessageStream() async {
+    return await PadongFB.getQueryStreamByRule(
       Message().type,
       rule: (query) => query
           .where("parentId", isEqualTo: this.id)
-          .orderBy("createdAt", descending: true),
-      limit: 30,
+          .orderBy("createdAt", descending: false),
+      startId: this.lastMessage.id
     );
   }
 

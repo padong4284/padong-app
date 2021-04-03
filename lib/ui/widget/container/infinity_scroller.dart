@@ -10,6 +10,8 @@ class InfinityScroller extends StatefulWidget {
   final String emptyMessage;
   final List<Widget> preWidgets;
   final ScrollController scrollController;
+  final bool isReversed;
+  final double endPadding;
 
   InfinityScroller(
     this.node,
@@ -19,6 +21,8 @@ class InfinityScroller extends StatefulWidget {
     this.emptyMessage = 'Nothing to Show You',
     this.preWidgets,
     this.scrollController,
+    this.isReversed = false,
+    this.endPadding = 50,
   });
 
   @override
@@ -52,24 +56,25 @@ class _InfinityScrollerState extends State<InfinityScroller> {
       ]);
     } else
       return ListView.builder(
+          reverse: widget.isReversed,
           scrollDirection: Axis.vertical,
           controller: widget.scrollController,
-          itemCount: 1 + this._children.length + (this._hasMore ? 1 : 0),
+          itemCount: 2 + this._children.length,
           itemBuilder: (context, index) {
             if (this._hasMore &&
                 (index == this._children.length - this._nextPageFlag))
               this.fetchChildren();
             if (index == 0)
               return Column(children: [...(widget.preWidgets ?? [])]);
-            else if (index == this._children.length) {
+            else if (index == this._children.length + 1) {
               if (this._isError)
                 return this._retryArea();
               else if (this._hasMore)
                 return this._loadingArea();
               else
-                return SizedBox(height: 50);
+                return SizedBox(height: widget.endPadding);
             }
-            return widget.builder(this._children[index]);
+            return widget.builder(this._children[index - 1]);
           });
   }
 
@@ -94,7 +99,6 @@ class _InfinityScrollerState extends State<InfinityScroller> {
   }
 
   Future<void> fetchChildren() async {
-    print('fetch ${this._children.length}');
     try {
       List<Node> children = await widget.node.getChildren(widget.child,
           limit: widget.itemPerPage, startAt: this._lastChild, upToDate: true);

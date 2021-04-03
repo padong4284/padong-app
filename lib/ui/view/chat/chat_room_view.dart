@@ -38,9 +38,9 @@ class _ChatRoomViewState extends State<ChatRoomView> {
   void initState() {
     super.initState();
     PadongRouter.refresh = this.updateUnread;
-    widget.chatRoom.getMessageStream().then(
-        (stream) => setState(() => this.messageStream = stream)
-    );
+    widget.chatRoom
+        .getMessageStream()
+        .then((stream) => setState(() => this.messageStream = stream));
   }
 
   @override
@@ -70,42 +70,44 @@ class _ChatRoomViewState extends State<ChatRoomView> {
           }),
       stackChildren: [
         Padding(
-          padding: const EdgeInsets.only(
-            bottom: 70,
-            left: AppTheme.horizontalPadding,
-            right: AppTheme.horizontalPadding,
-          ),
-          child: InfinityScroller(
-            widget.chatRoom,
-            Message(),
-            builder: (message) => ChatBalloon(message),
-            isReversed: true,
-            endPadding: 0,
-            scrollController: this._scrollController,
-            preWidgets: [
-              StreamBuilder(
-                  stream: this.messageStream,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    } else {
-                      List<Message> messages = <Message>[
-                        ...snapshot.data.docs
-                            .map((doc) => Message.fromMap(doc.id, doc.data()))
-                      ];
-                      int len = messages.length;
-                      return Column(
-                          children: List.generate(
-                              len,
+            padding: const EdgeInsets.only(
+              bottom: 70,
+              left: AppTheme.horizontalPadding,
+              right: AppTheme.horizontalPadding,
+            ),
+            child: InfinityScroller(widget.chatRoom, Message(),
+                seriesBuilder: (message, next, prev) =>
+                    ChatBalloon(message, prev: prev, next: next),
+                isReversed: true,
+                endPadding: 0,
+                emptyMessage: '',
+                scrollController: this._scrollController,
+                preWidgets: [
+                  StreamBuilder(
+                      stream: this.messageStream,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return SizedBox.shrink();
+                        } else {
+                          List<Message> messages = <Message>[
+                            ...snapshot.data.docs.map(
+                                (doc) => Message.fromMap(doc.id, doc.data()))
+                          ];
+                          int len = messages.length;
+                          return Column(
+                              children: List.generate(
+                                  len,
                                   (idx) => ChatBalloon(
-                                messages[idx],
-                                prev: idx > 0 ? messages[idx - 1] : null,
-                                next: idx < len - 1 ? messages[idx + 1] : null,
-                              )));
-                    }
-                  }),
-            ],
-        ))
+                                        messages[idx],
+                                        prev:
+                                            idx > 0 ? messages[idx - 1] : null,
+                                        next: idx < len - 1
+                                            ? messages[idx + 1]
+                                            : null,
+                                      )));
+                        }
+                      })
+                ]))
       ],
     );
   }

@@ -6,6 +6,7 @@ class InfinityScroller extends StatefulWidget {
   final Node node;
   final Node child;
   final Widget Function(Node) builder;
+  final Widget Function(Node, Node, Node) seriesBuilder;
   final int itemPerPage;
   final String emptyMessage;
   final List<Widget> preWidgets;
@@ -16,14 +17,15 @@ class InfinityScroller extends StatefulWidget {
   InfinityScroller(
     this.node,
     this.child, {
-    @required this.builder,
+    this.builder,
+    this.seriesBuilder,
     this.itemPerPage = 20,
     this.emptyMessage = 'Nothing to Show You',
     this.preWidgets,
     this.scrollController,
     this.isReversed = false,
     this.endPadding = 50,
-  });
+  }): assert((builder != null) ^ (seriesBuilder != null));
 
   @override
   _InfinityScrollerState createState() => _InfinityScrollerState();
@@ -46,14 +48,16 @@ class _InfinityScrollerState extends State<InfinityScroller> {
   @override
   Widget build(BuildContext context) {
     if (this._children.isEmpty) {
-      return Column(children: [
-        ...(widget.preWidgets ?? []),
-        this._isLoading
-            ? this._loadingArea()
-            : (this._isError
+      return ListView(
+          reverse: widget.isReversed,
+          children: [
+            ...(widget.preWidgets ?? []),
+            this._isLoading
+                ? this._loadingArea()
+                : (this._isError
                 ? this._retryArea()
                 : NoDataMessage(widget.emptyMessage, height: 100))
-      ]);
+          ]);
     } else
       return ListView.builder(
           reverse: widget.isReversed,
@@ -73,8 +77,13 @@ class _InfinityScrollerState extends State<InfinityScroller> {
                 return this._loadingArea();
               else
                 return SizedBox(height: widget.endPadding);
-            }
-            return widget.builder(this._children[index - 1]);
+            } // index is start from 1
+            int len = this._children.length;
+            return widget.seriesBuilder != null
+                ? widget.seriesBuilder(this._children[index - 1],
+                        index > 1 ? this._children[index - 2] : null,
+                        index < len ? this._children[index] : null)
+                : widget.builder(this._children[index - 1]);
           });
   }
 

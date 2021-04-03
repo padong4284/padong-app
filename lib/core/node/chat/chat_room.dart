@@ -84,7 +84,7 @@ class ChatRoom extends TitleNode with Notification {
       rule: (query) => query
           .where("parentId", isEqualTo: this.id)
           .orderBy("createdAt", descending: false),
-      startId: this.lastMessage.id
+      startId: this.lastMessage?.id
     );
   }
 

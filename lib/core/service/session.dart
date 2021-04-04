@@ -1,3 +1,4 @@
+import 'dart:convert';
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -9,14 +10,18 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'dart:developer';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/padong_auth.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/common/university.dart';
+import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
+import 'package:http/http.dart' as http;
 
 class Session {
   static User user;
@@ -169,5 +174,46 @@ class Session {
       user.isVerified = emailVerified;
       await user.update();
     }
+  }
+
+  static Future<Map<String, dynamic>> _getAdminInfo(String id) async {
+    DocumentSnapshot document = await PadongFB.getDoc('admin', id);
+    return document?.data();
+  }
+
+  static Future<bool> sendReport(String title, String body, List<String> labels) async {
+    Map<String, dynamic> adminInfo = await _getAdminInfo('github');
+    if (adminInfo == null)
+      return false;
+
+    var client = http.Client();
+    try {
+      String token = adminInfo['token'];
+      String issueUrl = adminInfo['issueUrl'];
+      var uriResponse = await client.post(Uri.parse(issueUrl),
+          body: json.encode({
+            'title': title,
+            'body': body,
+            'labels': labels,
+          }),
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+            'Authorization': "token $token"
+          }
+      );
+      if (uriResponse.statusCode == 201)
+        return true;
+      else
+        return false;
+    } finally {
+      client.close();
+    }
+  }
+
+  static Future<bool> makeNewUniversityIssue(String email, String university) async {
+    String title = 'Request to add a new university from $email';
+    String body = 'Email from: $email\nUniversity: $university';
+    List<String> labels = ['request'];
+    return await sendReport(title, body, labels);
   }
 }

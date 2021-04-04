@@ -1,3 +1,13 @@
+///*********************************************************************
+///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
+///* All Rights Reserved.
+///* This file is part of PADONG.
+///*
+///* PADONG can not be copied and/or distributed without the express
+///* permission of Taejun Jang, Daewoong Ko, Hyunsik Kim, Seongbin Hong
+///*
+///* Github [https://github.com/padong4284]
+///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/node.dart';
 import 'package:padong/ui/widget/component/no_data_message.dart';
@@ -137,6 +147,7 @@ class _InfinityScrollerState extends State<InfinityScroller> {
 
   Future<void> _refresh() async {
     this._lastChild = null;
+    this._children = [];
     await this.fetchChildren();
   }
 }

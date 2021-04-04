@@ -47,6 +47,13 @@ class _InfinityScrollerState extends State<InfinityScroller> {
 
   @override
   Widget build(BuildContext context) {
+    return RefreshIndicator(
+        onRefresh: this._refresh,
+        child: this._listArea(),
+    );
+  }
+
+  Widget _listArea() {
     if (this._children.isEmpty) {
       return ListView(
           reverse: widget.isReversed,
@@ -126,5 +133,10 @@ class _InfinityScrollerState extends State<InfinityScroller> {
           this._isLoading = false;
         });
     }
+  }
+
+  Future<void> _refresh() async {
+    this._lastChild = null;
+    await this.fetchChildren();
   }
 }

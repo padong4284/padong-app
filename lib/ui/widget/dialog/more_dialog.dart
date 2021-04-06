@@ -65,9 +65,31 @@ class MoreDialog extends StatelessWidget {
   static String _capitalize(String str) =>
       str[0].toUpperCase() + str.substring(1).toLowerCase();
 
-  void edit() {}
+  void edit() {
+    // TODO: redirect to edit page
+  }
 
-  void delete() {}
+  void delete() async {
+    String result;
+    if(await this.node.delete()) result = 'Delete Completed';
+    else result = 'Delete Failed';
+    print(result); //FIXME
+  }
 
-  void report() {}
+  void report() async {
+    String result;
+    String email = Session.user.userEmails[0];
+    String title = 'Report about ${this.node.type} ${this.node.id}';
+    String body = 'From: $email\n${this._textController.text}';
+    if(await Session.sendReport(title, body, ['report']))
+      result = 'Report Success, We will reply to $email';
+    else result = 'Report Failed, Please retry again.';
+    print(result); //FIXME
+  }
+
+  void popResultMessage(BuildContext context, String message, {int goBack = 1}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)));
+    for (int _ = 0; _ < goBack; _++) Navigator.pop(context);
+  }
 }

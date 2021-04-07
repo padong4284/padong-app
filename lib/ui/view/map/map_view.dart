@@ -38,7 +38,6 @@ class _MapViewState extends State<MapView> {
   List<Building> buildings = [];
   List<bool> isSelected = List.generate(SERVICE_CODES.length, (_) => false);
 
-  String _mapStyle;
   Map<String, BitmapDescriptor> pinIcons = {};
   List<BitmapDescriptor> markerIcons = [];
   Completer<GoogleMapController> _controller = Completer();
@@ -68,9 +67,6 @@ class _MapViewState extends State<MapView> {
     super.initState();
     widget.mappa.getChildren(Building()).then((_buildings) =>
         setState(() => this.buildings = <Building>[..._buildings]));
-    rootBundle.loadString('assets/map_style.json').then((style) {
-      this._mapStyle = style;
-    });
     this._markers['center'] = {};
     this._markers['pin'] = {};
     for (int code in SERVICE_CODES)
@@ -119,7 +115,8 @@ class _MapViewState extends State<MapView> {
   }
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    controller.setMapStyle(this._mapStyle);
+    controller
+        .setMapStyle(await rootBundle.loadString('assets/map_style.json'));
     await this._initPinIcons();
     Building center = await Session.currUniversity.getChild(Building());
     setState(() {
@@ -160,9 +157,8 @@ class _MapViewState extends State<MapView> {
     Position curr = await Geolocator.getCurrentPosition();
     this.myLocation = LatLng(curr.latitude, curr.longitude);
     this.positionStream = Geolocator.getPositionStream().listen(
-            (Position curr) => setState(
-                () => this.myLocation = LatLng(curr.latitude, curr.longitude)
-            ));
+        (Position curr) => setState(
+            () => this.myLocation = LatLng(curr.latitude, curr.longitude)));
   }
 
   Future<void> _initPinIcons() async {

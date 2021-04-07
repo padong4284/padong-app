@@ -63,9 +63,15 @@ class MapTemplate extends StatefulWidget {
 
 class _MapTemplateState extends State<MapTemplate> {
   bool hideCards = false;
+  List<BuildingCard> buildingCards = [];
 
   @override
   Widget build(BuildContext context) {
+    if (widget.buildings.isNotEmpty && this.buildingCards.isEmpty)
+      setState(() => this.buildingCards = List.generate(
+          min(10, widget.buildings.length),
+          (idx) => BuildingCard(widget.buildings[idx])));
+
     return SafePaddingTemplate(
       floatingBottomBar: this.bottomBuildingCards(),
       floatingActionButtonGenerator: (isScrollingDown) => PadongButton(
@@ -107,10 +113,7 @@ class _MapTemplateState extends State<MapTemplate> {
   }
 
   Widget bottomBuildingCards() {
-    if (widget.hideCards)
-      setState(() {
-        this.hideCards = true;
-      });
+    if (widget.hideCards) setState(() => this.hideCards = true);
     return widget.buildings.isNotEmpty
         ? GestureDetector(
             onVerticalDragUpdate: (detail) => setState(() {
@@ -121,11 +124,9 @@ class _MapTemplateState extends State<MapTemplate> {
                     0.0, this.hideCards ? 113.0 : 0, 0.0),
                 duration: Duration(milliseconds: 150),
                 height: 150,
-                child: HorizontalScroller(height: 150, children: [
-                  ...List.generate(min(10, widget.buildings.length),
-                      (idx) => BuildingCard(widget.buildings[idx])),
-                  SizedBox(width: 60)
-                ])))
+                child: HorizontalScroller(
+                    height: 150,
+                    children: [...this.buildingCards, SizedBox(width: 60)])))
         : SizedBox.shrink();
   }
 

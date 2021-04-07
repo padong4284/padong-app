@@ -223,15 +223,15 @@ class _BaseSignViewState extends State<BaseSignView>
                             })),
               Padding(
                   padding: const EdgeInsets.only(right: 45, bottom: 40),
-                  child: widget.isSignIn
-                      ? SimpleButton('Forgot Password?',
-                          color: AppTheme.colors.semiPrimary,
-                          buttonSize: ButtonSize.REGULAR,
-                          onTap: () => ForgotDialog.show(context))
-                      : SimpleButton('No Your University?',
-                          color: AppTheme.colors.semiPrimary,
-                          buttonSize: ButtonSize.REGULAR,
-                          onTap: () => NoUnivDialog.show(context))),
+                  child: SimpleButton(
+                      widget.isSignIn
+                          ? 'Forgot Password?'
+                          : 'No Your University?',
+                      color: AppTheme.colors.semiPrimary,
+                      buttonSize: ButtonSize.REGULAR,
+                      onTap: widget.isSignIn
+                          ? () => ForgotDialog.show(context)
+                          : () => NoUnivDialog.show(context))),
             ]));
   }
 

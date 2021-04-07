@@ -152,7 +152,10 @@ class _SignUpViewState extends State<SignUpView> {
 
     if (pw != rePw) // with real-time matching
       return this._setErrorText(2, "Repeat Password doesn't match");
-    if (!Validator.pwIsValid(pw, this._setErrorText)) return false;
+    if (!Validator.isValidPW(pw, this._setErrorText)) return false;
+
+    if (!Validator.isValid(Validator.emailRule, email))
+      return this._setErrorText(6, 'Pleas Check An Email.');
 
 
     SignUpResult result =
@@ -161,7 +164,7 @@ class _SignUpViewState extends State<SignUpView> {
       for (TextEditingController controller in this._controllers)
         controller.text = '';
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please check verified email ($email)')));
+          SnackBar(content: Text('Please check email for verification ($email)')));
       return true;
     } else if(result == SignUpResult.InvalidUniversityEmail){
       return this._setErrorText(6, "Wrong University Email Address");

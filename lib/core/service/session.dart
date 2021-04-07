@@ -213,8 +213,7 @@ class Session {
     }
   }
 
-  static Future<bool> makeNewUniversityIssue(
-      String email, String university) async {
+  static Future<bool> sendUnivRequest(String email, String university) async {
     String title = 'Request to add a new university $university';
     String body = 'From: $email\nUniversity: $university';
     return await sendReport(title, body, ['request']);

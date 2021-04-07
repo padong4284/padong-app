@@ -32,7 +32,7 @@ class Validator {
     return (matchResult.start == 0 && matchResult.end == data.length);
   }
 
-  static bool pwIsValid(
+  static bool isValidPW(
       String pw, bool Function(int idx, String errorText) setErrorText) {
     if (pw.length < 8) return setErrorText(1, "The length must 8 or more.");
     if (!specialChar.hasMatch(pw) &&

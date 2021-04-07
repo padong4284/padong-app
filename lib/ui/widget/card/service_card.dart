@@ -40,11 +40,13 @@ class ServiceCard extends StatelessWidget {
       Icon(serviceToIcon(this.service.serviceCode),
           color: AppTheme.colors.primary, size: 19),
       SizedBox(width: 5),
-      Text(this.service.title,
-          style: AppTheme.getFont(
-              fontSize: AppTheme.fontSizes.mlarge,
-              color: AppTheme.colors.support,
-              isBold: true))
+      Expanded(
+          child: Text(this.service.title,
+              overflow: TextOverflow.visible,
+              style: AppTheme.getFont(
+                  fontSize: AppTheme.fontSizes.mlarge,
+                  color: AppTheme.colors.support,
+                  isBold: true)))
     ]);
   }
 }

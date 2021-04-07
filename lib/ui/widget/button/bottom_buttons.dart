@@ -36,11 +36,15 @@ class BottomButtons extends StatefulWidget {
 
 class _BottomButtonsState extends State<BottomButtons> {
   bool isReply;
+  List<int> bottoms;
   List<bool> isClickeds = [false, false, false]; // likes, replies, bookmarks
 
   @override
   void initState() {
     super.initState();
+    widget.node
+        .getStatisticsWithoutMe(Session.user)
+        .then((bottoms) => setState(() => this.bottoms = bottoms));
     this.isReply = widget.node is Reply || widget.node is ReReply;
     if (!this.isReply)
       BottomButtons.update = (int idx) {
@@ -65,62 +69,65 @@ class _BottomButtonsState extends State<BottomButtons> {
 
   @override
   Widget build(BuildContext context) {
-    return PadongFutureBuilder(
-        future: widget.node.getStatisticsWithoutMe(Session.user),
-        builder: (bottoms) {
-          if (widget.hides != null)
-            for (int idx in widget.hides) bottoms[idx] = null;
-          return Stack(children: [
-            SizedBox(width: 500, height: 30),
-            ...[0, 1, 2]
-                .map((idx) => bottoms[idx] == null
-                    ? null
-                    : Positioned(
-                        left: widget.left + widget.gap * this.getGapIdx(idx),
-                        bottom: 2,
-                        child: ToggleIconButton(
-                          UnClickIcons[idx],
-                          toggleIcon: ClickIcons[idx],
-                          size: 16,
-                          initEveryTime: true,
-                          defaultColor: AppTheme.colors.support,
-                          toggleColor: ClickColors[idx],
-                          disabled: idx == 1,
-                          isToggled: this.isClickeds[idx],
-                          alignment: Alignment.bottomCenter,
-                          onPressed: () {
-                            if (idx == 0) {
-                              widget.node.updateLiked(Session.user);
-                              if (!this.isReply &&
-                                  BackAppBar.updateLikeBookmark != null)
-                                BackAppBar.updateLikeBookmark(0);
-                            } else if (idx == 2) {
-                              widget.node.updateBookmarked(Session.user);
-                              if (!this.isReply &&
-                                  BackAppBar.updateLikeBookmark != null)
-                                BackAppBar.updateLikeBookmark(1);
-                            }
-                            if (mounted)
-                              setState(() {
-                                this.isClickeds[idx] = !this.isClickeds[idx];
-                              });
-                          },
-                        )))
-                .where((element) => element != null),
-            ...[0, 1, 2]
-                .map((idx) => bottoms[idx] == null
-                    ? null
-                    : Positioned(
-                        left:
-                            widget.left + 20 + widget.gap * this.getGapIdx(idx),
-                        bottom: 1,
-                        child: getNumText(idx, bottoms)))
-                .where((element) => element != null)
-          ]);
-        });
+    if (this.bottoms == null)
+      return Center(
+          child: Container(
+        width: 15,
+        height: 15,
+        margin: const EdgeInsets.only(top: 10),
+        child: CircularProgressIndicator(),
+      ));
+    if (widget.hides != null)
+      for (int idx in widget.hides) this.bottoms[idx] = null;
+    return Stack(children: [
+      SizedBox(width: 500, height: 30),
+      ...[0, 1, 2]
+          .map((idx) => this.bottoms[idx] == null
+              ? null
+              : Positioned(
+                  left: widget.left + widget.gap * this.getGapIdx(idx),
+                  bottom: 2,
+                  child: ToggleIconButton(
+                    UnClickIcons[idx],
+                    toggleIcon: ClickIcons[idx],
+                    size: 16,
+                    initEveryTime: true,
+                    defaultColor: AppTheme.colors.support,
+                    toggleColor: ClickColors[idx],
+                    disabled: idx == 1,
+                    isToggled: this.isClickeds[idx],
+                    alignment: Alignment.bottomCenter,
+                    onPressed: () {
+                      if (idx == 0) {
+                        widget.node.updateLiked(Session.user);
+                        if (!this.isReply &&
+                            BackAppBar.updateLikeBookmark != null)
+                          BackAppBar.updateLikeBookmark(0);
+                      } else if (idx == 2) {
+                        widget.node.updateBookmarked(Session.user);
+                        if (!this.isReply &&
+                            BackAppBar.updateLikeBookmark != null)
+                          BackAppBar.updateLikeBookmark(1);
+                      }
+                      if (mounted)
+                        setState(() {
+                          this.isClickeds[idx] = !this.isClickeds[idx];
+                        });
+                    },
+                  )))
+          .where((element) => element != null),
+      ...[0, 1, 2]
+          .map((idx) => this.bottoms[idx] == null
+              ? null
+              : Positioned(
+                  left: widget.left + 20 + widget.gap * this.getGapIdx(idx),
+                  bottom: 1,
+                  child: getNumText(idx, this.bottoms)))
+          .where((element) => element != null)
+    ]);
   }
 
-  Text getNumText(idx, bottoms) {
+  Text getNumText(int idx, List<int> bottoms) {
     return Text(
         (bottoms[idx] + (idx != 1 && this.isClickeds[idx] ? 1 : 0)).toString(),
         style: TextStyle(

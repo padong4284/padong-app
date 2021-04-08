@@ -217,9 +217,11 @@ class _ConfigureViewState extends State<ConfigureView> {
 
   void onTabOk() async {
     await Session.refreshUser();
-    this.user = Session.user;
-    this.isVerified = this.user.isVerified;
-    this.setState(() {});
+
+    this.setState(() {
+      this.user = Session.user;
+      this.isVerified = this.user.isVerified;
+    });
 
     if (this._controllers[0].text == this._controllers[1].text &&
         this._controllers[0].text.isNotEmpty)
@@ -271,7 +273,10 @@ class _ConfigureViewState extends State<ConfigureView> {
     if (univUpdated) {
       Session.userUniversity = university;
       Session.changeCurrentUniversity(university);
-    } else
+    } else if(Session.user == null){
+        return; //already Navigation set Home
+    } else{
       PadongRouter.goBack();
+    }
   }
 }

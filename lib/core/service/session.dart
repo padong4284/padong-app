@@ -74,7 +74,7 @@ class Session {
 
     if (!Validator.universityEmailVerification(univ, email) &&
         university != "PADONG") {
-      return SignUpResult.invalidUniversityEmail;
+      return SignUpResult.InvalidUniversityEmail;
     }
 
     SignUpResult result = await PadongAuth.signUp(email, pw);
@@ -86,7 +86,7 @@ class Session {
         'ownerId': uid,
         'name': name,
         'userId': userId,
-        'isVerified': true,
+        'isVerified': false,
         'university': university,
         'entranceYear': entranceYear,
         'userEmails': [email],
@@ -95,8 +95,8 @@ class Session {
         'lectureIds': <String>[],
       }).set(uid);
       await _registerUser(user, univ);
-    } else if (result == SignUpResult.emailAlreadyInUse) {
-      return SignUpResult.emailAlreadyInUse;
+    } else if (result == SignUpResult.EmailAlreadyInUse) {
+      return SignUpResult.EmailAlreadyInUse;
     }
     return result;
   }

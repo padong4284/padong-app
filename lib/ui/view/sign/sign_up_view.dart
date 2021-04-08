@@ -152,6 +152,7 @@ class _SignUpViewState extends State<SignUpView> {
       return this._setErrorText(2, "Repeat Password doesn't match");
     if (!Validator.pwIsValid(pw, this._setErrorText)) return false;
 
+
     SignUpResult result =
         await Session.signUpUser(id, pw, name, email, univName, entranceYear);
     if (result == SignUpResult.success) {
@@ -160,13 +161,14 @@ class _SignUpViewState extends State<SignUpView> {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Please check verified email ($email)')));
       return true;
+    } else if(result == SignUpResult.InvalidUniversityEmail){
+      return this._setErrorText(6, "Wrong University Email Address");
     }
 
     List codes = {
       SignUpResult.IdAlreadyInUse: [0, "ID already in used"],
-      SignUpResult.weak_password: [1, "Password is too weak."],
-      SignUpResult.emailAlreadyInUse: [6, "Email already in used"],
-      SignUpResult.invalidUniversityEmail: [6, "Email is not University Email"],
+      SignUpResult.WeakPassword: [1, "Password is too weak."],
+      SignUpResult.EmailAlreadyInUse: [6, "Email already in used"],
       SignUpResult.UniversityNotFound: [4, "University not found"],
     }[result];
     if (codes != null) return this._setErrorText(codes[0], codes[1]);

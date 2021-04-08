@@ -10,9 +10,7 @@
 ///*********************************************************************
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
-import 'package:padong/core/shared/validator.dart';
 
 class PadongAuth {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -20,9 +18,7 @@ class PadongAuth {
   static Future<bool> isEmailVerified() async {
     if (_auth.currentUser == null) throw Exception('No Current User');
     await _auth.currentUser.reload();
-    bool isUniversityEmail = Validator.universityEmailVerification(
-        Session.currUniversity, _auth.currentUser.email);
-    return _auth.currentUser.emailVerified && isUniversityEmail;
+    return _auth.currentUser.emailVerified ;
   }
 
   static Future<String> getEmail() async {
@@ -67,9 +63,9 @@ class PadongAuth {
       await _auth.createUserWithEmailAndPassword(email: email, password: pw);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password')
-        return SignUpResult.weak_password;
+        return SignUpResult.WeakPassword;
       else if (e.code == 'email-already-in-use')
-        return SignUpResult.emailAlreadyInUse;
+        return SignUpResult.EmailAlreadyInUse;
       log(e.toString());
       return SignUpResult.failed;
     } catch (e) {

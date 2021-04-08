@@ -48,17 +48,17 @@ class _ConfigureViewState extends State<ConfigureView> {
           univs.sort();
           this.universityList = univs;
         }));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    () async{
+    () async {
       await Session.refreshUser();
       this.setState(() {
         this.user = Session.user;
         this.isVerified = this.user.isVerified;
       });
     }();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafePaddingTemplate(
         appBar: BackAppBar(
           isClose: true,
@@ -128,7 +128,7 @@ class _ConfigureViewState extends State<ConfigureView> {
                   labelText: 'Repeat Password',
                   errorText: this._pwMatchError,
                   onChanged: (repeat) => setState(() => this._pwMatchError =
-                  !this._controllers[1].text.startsWith(repeat)
+                      !this._controllers[1].text.startsWith(repeat)
                           ? "Repeat Password doesn't match"
                           : null)),
               Input(

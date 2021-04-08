@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -71,7 +72,8 @@ class Session {
     University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
-    if (!Validator.universityEmailVerification(univ, email) && university != "PADONG"){
+    if (!Validator.universityEmailVerification(univ, email) &&
+        university != "PADONG") {
       return SignUpResult.invalidUniversityEmail;
     }
 
@@ -154,8 +156,7 @@ class Session {
   static Future<ResetPasswordResult> sendResetPasswordEmail(
       String id, String email) async {
     User targetUser = await User.getByUserId(id);
-    if (targetUser == null)
-      return ResetPasswordResult.InvalidUser;
+    if (targetUser == null) return ResetPasswordResult.InvalidUser;
     if (!targetUser.userEmails.contains(email))
       return ResetPasswordResult.InvalidEmail;
 
@@ -186,10 +187,10 @@ class Session {
     return document?.data();
   }
 
-  static Future<bool> sendReport(String title, String body, List<String> labels) async {
+  static Future<bool> sendReport(
+      String title, String body, List<String> labels) async {
     Map<String, dynamic> adminInfo = await _getAdminInfo('github');
-    if (adminInfo == null)
-      return false;
+    if (adminInfo == null) return false;
 
     var client = http.Client();
     try {
@@ -204,8 +205,7 @@ class Session {
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
             'Authorization': "token $token"
-          }
-      );
+          });
       if (uriResponse.statusCode == 201)
         return true;
       else
@@ -215,7 +215,8 @@ class Session {
     }
   }
 
-  static Future<bool> makeNewUniversityIssue(String email, String university) async {
+  static Future<bool> makeNewUniversityIssue(
+      String email, String university) async {
     String title = 'Request to add a new university from $email';
     String body = 'Email from: $email\nUniversity: $university';
     List<String> labels = ['request'];

@@ -113,6 +113,7 @@ class User extends Node {
   Future<List<Board>> getMyBoards(User me) async {
     if (me._myBoards == null) {
       me._myBoards = [];
+
       /// FIXME: not possible with current node system.
       /// make new type of Node getChildren by Reply, Like, Bookmark
     }

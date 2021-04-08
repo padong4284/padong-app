@@ -108,7 +108,7 @@ class _SignUpViewState extends State<SignUpView> {
         )
       ],
       onTapEnter: () async {
-        if(await TermsDialog.show(context)) return this.onSignUp();
+        if (await TermsDialog.show(context)) return this.onSignUp();
         return false;
       },
     );

@@ -43,7 +43,7 @@ class Validator {
     return true;
   }
 
-  static bool universityEmailVerification(University univ, String email){
+  static bool universityEmailVerification(University univ, String email) {
     bool result = univ.domains?.any((e) => Validator.isValid(RegExp(e), email));
     return result ?? false;
   }

@@ -20,7 +20,8 @@ class PadongAuth {
   static Future<bool> isEmailVerified() async {
     if (_auth.currentUser == null) throw Exception('No Current User');
     await _auth.currentUser.reload();
-    bool isUniversityEmail = Validator.universityEmailVerification(Session.currUniversity,_auth.currentUser.email);
+    bool isUniversityEmail = Validator.universityEmailVerification(
+        Session.currUniversity, _auth.currentUser.email);
     return _auth.currentUser.emailVerified && isUniversityEmail;
   }
 

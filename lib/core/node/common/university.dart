@@ -36,7 +36,7 @@ class University extends TitleNode {
       : this.emblemImgURL = snapshot['emblemImgURL'],
         this.location = LatLng.fromJson(snapshot['location']),
         this.address = snapshot['address'],
-        this.domains = snapshot['domains'] ?? [],
+        this.domains = (snapshot['domains'] ?? []).cast<String>(),
         super.fromMap(id, snapshot);
 
   @override

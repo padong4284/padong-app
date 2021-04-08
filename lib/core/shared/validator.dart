@@ -10,6 +10,8 @@
 ///*********************************************************************
 // check validation of user input with RefExp
 
+import 'package:padong/core/node/common/university.dart';
+
 class Validator {
   static RegExp idRule = new RegExp(r"[a-z0-9.]{6,30}");
 
@@ -39,6 +41,11 @@ class Validator {
       return setErrorText(
           1, "Use combination of letters, numbers, and symbols");
     return true;
+  }
+
+  static bool universityEmailVerification(University univ, String email){
+    bool result = univ.domains?.any((e) => Validator.isValid(RegExp(e), email));
+    return result ?? false;
   }
 
   static isWikiSvg(String data) => isValid(checkWikiSvg, data);

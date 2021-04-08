@@ -52,6 +52,13 @@ class _ConfigureViewState extends State<ConfigureView> {
 
   @override
   Widget build(BuildContext context) {
+    () async{
+      await Session.refreshUser();
+      this.setState(() {
+        this.user = Session.user;
+        this.isVerified = this.user.isVerified;
+      });
+    }();
     return SafePaddingTemplate(
         appBar: BackAppBar(
           isClose: true,

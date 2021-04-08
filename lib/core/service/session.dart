@@ -22,6 +22,7 @@ import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:http/http.dart' as http;
+import 'package:padong/core/shared/validator.dart';
 
 class Session {
   static User user;
@@ -70,7 +71,7 @@ class Session {
     University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
-    if (!univ.verifyEmail(email) && university != "Padong"){
+    if (!Validator.universityEmailVerification(univ, email) && university != "PADONG"){
       return SignUpResult.invalidUniversityEmail;
     }
 
@@ -83,7 +84,7 @@ class Session {
         'ownerId': uid,
         'name': name,
         'userId': userId,
-        'isVerified': false,
+        'isVerified': true,
         'university': university,
         'entranceYear': entranceYear,
         'userEmails': [email],

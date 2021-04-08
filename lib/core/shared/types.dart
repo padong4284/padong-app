@@ -141,6 +141,7 @@ enum SignUpResult {
   emailAlreadyInUse,
   IdAlreadyInUse,
   UniversityNotFound,
+  invalidUniversityEmail,
 }
 
 enum SignInResult {

@@ -70,6 +70,10 @@ class Session {
     University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
+    if (!univ.verifyEmail(email) && university != "Padong"){
+      return SignUpResult.invalidUniversityEmail;
+    }
+
     SignUpResult result = await PadongAuth.signUp(email, pw);
     if (result == SignUpResult.success) {
       String uid = await PadongAuth.getUid();

@@ -166,6 +166,7 @@ class _SignUpViewState extends State<SignUpView> {
       SignUpResult.IdAlreadyInUse: [0, "ID already in used"],
       SignUpResult.weak_password: [1, "Password is too weak."],
       SignUpResult.emailAlreadyInUse: [6, "Email already in used"],
+      SignUpResult.invalidUniversityEmail: [6, "Email is not University Email"],
       SignUpResult.UniversityNotFound: [4, "University not found"],
     }[result];
     if (codes != null) return this._setErrorText(codes[0], codes[1]);

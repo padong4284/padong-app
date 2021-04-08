@@ -17,12 +17,14 @@ import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:padong/core/service/padong_fb.dart';
+import 'package:padong/core/shared/validator.dart';
 
 // parent: PADONG (one and only)
 class University extends TitleNode {
   String emblemImgURL;
   LatLng location;
   String address;
+  List<String> domains;
 
   Cover cover;
   Deck deck;
@@ -35,6 +37,7 @@ class University extends TitleNode {
       : this.emblemImgURL = snapshot['emblemImgURL'],
         this.location = LatLng.fromJson(snapshot['location']),
         this.address = snapshot['address'],
+        this.domains = snapshot['domains'] ?? [],
         super.fromMap(id, snapshot);
 
   @override
@@ -46,6 +49,7 @@ class University extends TitleNode {
       ...super.toJson(),
       'emblemImgURL': this.emblemImgURL,
       'location': this.location.toJson(),
+      'domains': this.domains ?? [],
       'address': this.address,
     };
   }
@@ -76,5 +80,9 @@ class University extends TitleNode {
             .where('parentId', isEqualTo: 'PADONG')
             .orderBy("createdAt", descending: true)).then((docs) =>
         <Board>[...docs.map((doc) => Board.fromMap(doc.id, doc.data()))]);
+  }
+
+  bool verifyEmail(String email){
+    return this.domains.any((e) => Validator.isValid(RegExp(e), email));//this.domains.any((e) => Validator.isValid(RegExp(e), email));
   }
 }

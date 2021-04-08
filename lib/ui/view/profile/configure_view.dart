@@ -217,10 +217,9 @@ class _ConfigureViewState extends State<ConfigureView> {
 
   void onTabOk() async {
     await Session.refreshUser();
-    this.setState(() {
-      this.user = Session.user;
-      this.isVerified = this.user.isVerified;
-    });
+    this.user = Session.user;
+    this.isVerified = this.user.isVerified;
+    this.setState(() {});
 
     if (this._controllers[0].text == this._controllers[1].text &&
         this._controllers[0].text.isNotEmpty)

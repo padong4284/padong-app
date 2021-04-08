@@ -50,13 +50,6 @@ class _ConfigureViewState extends State<ConfigureView> {
           univs.sort();
           this.universityList = univs;
         }));
-    () async {
-      await Session.refreshUser();
-      this.setState(() {
-        this.user = Session.user;
-        this.isVerified = this.user.isVerified;
-      });
-    }();
   }
 
   @override
@@ -223,6 +216,13 @@ class _ConfigureViewState extends State<ConfigureView> {
   }
 
   void onTabOk() async {
+    Session.refreshUser().then((e) async {
+      this.setState(() {
+        this.user = Session.user;
+        this.isVerified = this.user.isVerified;
+      });
+    });
+
     if (this._controllers[0].text == this._controllers[1].text &&
         this._controllers[0].text.isNotEmpty)
       Session.updateUserPassword(this._controllers[0].text);
@@ -251,8 +251,8 @@ class _ConfigureViewState extends State<ConfigureView> {
           this.user.university = univName;
           univUpdated = true;
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Please Retry Again')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Please Retry Again')));
           return;
         }
       }

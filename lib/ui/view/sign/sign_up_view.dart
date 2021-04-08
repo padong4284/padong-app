@@ -104,7 +104,9 @@ class _SignUpViewState extends State<SignUpView> {
           margin: EdgeInsets.only(top: 8.0),
           labelText: this._labels[6],
           errorText: this._errorTexts[6],
-          onChanged: this._initError,
+          onChanged: (e){
+            _setErrorText();
+          },
         )
       ],
       onTapEnter: () async {

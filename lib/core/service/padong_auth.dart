@@ -21,12 +21,6 @@ class PadongAuth {
     return _auth.currentUser.emailVerified ;
   }
 
-  static Future<String> getEmail() async {
-    if (_auth.currentUser == null) throw Exception('No Current User');
-    await _auth.currentUser.reload();
-    return _auth.currentUser.email;
-  }
-
   static Future<String> getUid() async {
     if (_auth.currentUser == null) throw Exception('No Current User');
     await _auth.currentUser.reload();

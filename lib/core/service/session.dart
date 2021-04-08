@@ -174,7 +174,7 @@ class Session {
     return ResetPasswordResult.Success;
   }
 
-  static void refreshUser() async {
+  static Future<void> refreshUser() async {
     bool emailVerified = await PadongAuth.isEmailVerified();
     if (user.isVerified != emailVerified) {
       user.isVerified = emailVerified;

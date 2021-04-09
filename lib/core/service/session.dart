@@ -72,8 +72,7 @@ class Session {
     University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
-    if (!Validator.universityEmailVerification(univ, email) &&
-        university != "PADONG") {
+    if (!Validator.universityEmailVerification(univ, email)) {
       return SignUpResult.InvalidUniversityEmail;
     }
 

@@ -148,7 +148,9 @@ class _ConfigureViewState extends State<ConfigureView> {
                       controller: this._controllers[5],
                       errorText: _emailVerificationError,
                       margin: EdgeInsets.only(top: 10.0),
-                      labelText: 'Email'),
+                      labelText: 'Email',
+                      onChanged: (e) => this
+                          .setState(() => this._emailVerificationError = null)),
               this.verifyButton(),
               Container(
                   width: 150,
@@ -273,9 +275,9 @@ class _ConfigureViewState extends State<ConfigureView> {
     if (univUpdated) {
       Session.userUniversity = university;
       Session.changeCurrentUniversity(university);
-    } else if(Session.user == null){
-        return; //already Navigation set Home
-    } else{
+    } else if (Session.user == null) {
+      return; //already Navigation set Home
+    } else {
       PadongRouter.goBack();
     }
   }

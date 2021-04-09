@@ -22,6 +22,20 @@
 
 **파동의 Golden Circle**
 
+<p align="center"></p>
+<table>
+        <tbody>
+		<tr>
+			<td>
+                		<a href="https://play.google.com/store/apps/details?id=app.padong"><img src="https://moonlight-stream.org/images/google-play-badge.png" width="200px" /></a>
+              		</td>
+              <td>
+                <a href=""><img src="https://moonlight-stream.org/images/App_Store_Badge_135x40.svg" width="200px" /></a>
+              </td>
+	   </tr>
+	</tbody>
+</table>
+
 >**Why**
 >사람마다 저마다의 선, 아름다움이 있다.
 >

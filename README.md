@@ -310,8 +310,13 @@ We chose Firestore to manage the data of Node. Because
 
 ![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
 
-[![PADONG_DESIGN_XD.png](./assets/png/xd-image.png "Padong Design XD")](https://tinyurl.com/xd-padong)
-<p align="center"> (Click to see XD on web browser) </p>
+<p align="center">
+	<a href="https://tinyurl.com/xd-padong">
+		<img src="./assets/png/xd-image.png" />
+	</a>
+	(Click to see XD on web browser)
+</p>
+
 
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
 

@@ -19,6 +19,8 @@ PADONG is a community platform that resolves information inequality among studen
 		<img src="./assets/png/google-play-badge.png" width="200px" />
 	</a>
 </p>
+
+
 ## :mag: Vision
 
 ‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).
@@ -280,7 +282,7 @@ To run PADONG, two requirements below are needed to be installed.
 
 ## :cake: How to use?
 
-1. Install APK or IPA file you built using Android Studio **or** Download **PADONG** from App Store or Google Play.
+1. Install APK or IPA file you built using Android Studio **or** Download **PADONG** from [Google Play](https://play.google.com/store/apps/details?id=app.padong).
 
 2. Run PADONG app.
 
@@ -308,6 +310,7 @@ We chose Firestore to manage the data of Node. Because
 
 ![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
 
+![https://tinyurl.com/xd-padong](./assets/png/xd-image.png)
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
 
 Flutter fits our purpose perfectly, and thanks to Dart is an object-oriented language, it was also suitable for implementing the Node system we designed.In addition, the documentation and ecosystem are excellent, so even though all team members are new to Flutter, we can quickly adapt and develop PADONG.

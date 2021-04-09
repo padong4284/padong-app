@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -22,6 +23,7 @@ import 'package:padong/core/service/padong_fb.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:http/http.dart' as http;
+import 'package:padong/core/shared/validator.dart';
 
 class Session {
   static User user;
@@ -70,6 +72,10 @@ class Session {
     University univ = await University.getUniversityByName(university);
     if (univ == null) return SignUpResult.UniversityNotFound;
 
+    if (!Validator.universityEmailVerification(univ, email)) {
+      return SignUpResult.InvalidUniversityEmail;
+    }
+
     SignUpResult result = await PadongAuth.signUp(email, pw);
     if (result == SignUpResult.success) {
       String uid = await PadongAuth.getUid();
@@ -88,8 +94,8 @@ class Session {
         'lectureIds': <String>[],
       }).set(uid);
       await _registerUser(user, univ);
-    } else if (result == SignUpResult.emailAlreadyInUse) {
-      return SignUpResult.emailAlreadyInUse;
+    } else if (result == SignUpResult.EmailAlreadyInUse) {
+      return SignUpResult.EmailAlreadyInUse;
     }
     return result;
   }
@@ -149,8 +155,7 @@ class Session {
   static Future<ResetPasswordResult> sendResetPasswordEmail(
       String id, String email) async {
     User targetUser = await User.getByUserId(id);
-    if (targetUser == null)
-      return ResetPasswordResult.InvalidUser;
+    if (targetUser == null) return ResetPasswordResult.InvalidUser;
     if (!targetUser.userEmails.contains(email))
       return ResetPasswordResult.InvalidEmail;
 
@@ -168,7 +173,7 @@ class Session {
     return ResetPasswordResult.Success;
   }
 
-  static void refreshUser() async {
+  static Future<void> refreshUser() async {
     bool emailVerified = await PadongAuth.isEmailVerified();
     if (user.isVerified != emailVerified) {
       user.isVerified = emailVerified;
@@ -181,10 +186,10 @@ class Session {
     return document?.data();
   }
 
-  static Future<bool> sendReport(String title, String body, List<String> labels) async {
+  static Future<bool> sendReport(
+      String title, String body, List<String> labels) async {
     Map<String, dynamic> adminInfo = await _getAdminInfo('github');
-    if (adminInfo == null)
-      return false;
+    if (adminInfo == null) return false;
 
     var client = http.Client();
     try {
@@ -199,8 +204,7 @@ class Session {
           headers: {
             HttpHeaders.contentTypeHeader: "application/json",
             'Authorization': "token $token"
-          }
-      );
+          });
       if (uriResponse.statusCode == 201)
         return true;
       else
@@ -210,7 +214,8 @@ class Session {
     }
   }
 
-  static Future<bool> makeNewUniversityIssue(String email, String university) async {
+  static Future<bool> makeNewUniversityIssue(
+      String email, String university) async {
     String title = 'Request to add a new university from $email';
     String body = 'Email from: $email\nUniversity: $university';
     List<String> labels = ['request'];

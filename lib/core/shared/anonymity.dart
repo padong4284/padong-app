@@ -11,18 +11,17 @@
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
-class Anonymity{
-  static String SHA256(String target){
+class Anonymity {
+  static String SHA256(String target) {
     List<int> bytes = utf8.encode(target);
     return sha256.convert(bytes).toString();
   }
 
-  static Map<String,dynamic> MaskingOwnerId(Map<String,dynamic> target){
-    if((target["anonymity"] ?? false) == true){
-      target["ownerId"] =  SHA256(target["parentId"] + target["ownerId"]);
+  static Map<String, dynamic> MaskingOwnerId(Map<String, dynamic> target) {
+    if ((target["anonymity"] ?? false) == true) {
+      target["ownerId"] = SHA256(target["parentId"] + target["ownerId"]);
     }
 
     return target;
   }
-
 }

@@ -137,10 +137,11 @@ String roleToString(ROLE role) => {
 enum SignUpResult {
   success,
   failed,
-  weak_password,
-  emailAlreadyInUse,
+  WeakPassword,
+  EmailAlreadyInUse,
   IdAlreadyInUse,
   UniversityNotFound,
+  InvalidUniversityEmail,
 }
 
 enum SignInResult {

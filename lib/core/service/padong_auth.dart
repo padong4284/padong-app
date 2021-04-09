@@ -57,9 +57,9 @@ class PadongAuth {
       await _auth.createUserWithEmailAndPassword(email: email, password: pw);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password')
-        return SignUpResult.weak_password;
+        return SignUpResult.WeakPassword;
       else if (e.code == 'email-already-in-use')
-        return SignUpResult.emailAlreadyInUse;
+        return SignUpResult.EmailAlreadyInUse;
       log(e.toString());
       return SignUpResult.failed;
     } catch (e) {

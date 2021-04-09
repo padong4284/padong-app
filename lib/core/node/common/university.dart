@@ -23,6 +23,7 @@ class University extends TitleNode {
   String emblemImgURL;
   LatLng location;
   String address;
+  List<String> domains;
 
   Cover cover;
   Deck deck;
@@ -35,6 +36,7 @@ class University extends TitleNode {
       : this.emblemImgURL = snapshot['emblemImgURL'],
         this.location = LatLng.fromJson(snapshot['location']),
         this.address = snapshot['address'],
+        this.domains = (snapshot['domains'] ?? []).cast<String>(),
         super.fromMap(id, snapshot);
 
   @override
@@ -46,6 +48,7 @@ class University extends TitleNode {
       ...super.toJson(),
       'emblemImgURL': this.emblemImgURL,
       'location': this.location.toJson(),
+      'domains': this.domains ?? [],
       'address': this.address,
     };
   }

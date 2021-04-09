@@ -13,6 +13,7 @@ import 'package:padong/core/node/common/university.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
+import 'package:padong/core/shared/validator.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -31,6 +32,7 @@ class _ConfigureViewState extends State<ConfigureView> {
   bool isVerified;
   User user;
   String _pwMatchError;
+  String _emailVerificationError;
   List<TextEditingController> _controllers;
   List<String> universityList = ['Please Wait...'];
 
@@ -121,7 +123,7 @@ class _ConfigureViewState extends State<ConfigureView> {
                   labelText: 'Repeat Password',
                   errorText: this._pwMatchError,
                   onChanged: (repeat) => setState(() => this._pwMatchError =
-                  !this._controllers[1].text.startsWith(repeat)
+                      !this._controllers[1].text.startsWith(repeat)
                           ? "Repeat Password doesn't match"
                           : null)),
               Input(
@@ -144,8 +146,11 @@ class _ConfigureViewState extends State<ConfigureView> {
                   ? this.lockedInput(this.user.userEmails[0])
                   : Input(
                       controller: this._controllers[5],
+                      errorText: _emailVerificationError,
                       margin: EdgeInsets.only(top: 10.0),
-                      labelText: 'Email'),
+                      labelText: 'Email',
+                      onChanged: (e) =>
+                          setState(() => this._emailVerificationError = null)),
               this.verifyButton(),
               Container(
                   width: 150,
@@ -213,6 +218,13 @@ class _ConfigureViewState extends State<ConfigureView> {
   }
 
   void onTabOk() async {
+    await Session.refreshUser();
+
+    this.setState(() {
+      this.user = Session.user;
+      this.isVerified = this.user.isVerified;
+    });
+
     if (this._controllers[0].text == this._controllers[1].text &&
         this._controllers[0].text.isNotEmpty)
       Session.updateUserPassword(this._controllers[0].text);
@@ -240,18 +252,33 @@ class _ConfigureViewState extends State<ConfigureView> {
           this.user.parentId = university.id;
           this.user.university = univName;
           univUpdated = true;
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Please Retry Again')));
+          return;
         }
       }
       if (email.isNotEmpty && !this.user.userEmails.contains(email)) {
-        await Session.changeUserEmail(email, context);
-        isUpdated = false; // user.update() is already called
+        if (Validator.universityEmailVerification(
+            university ?? Session.currUniversity, email)) {
+          await Session.changeUserEmail(email, context);
+          isUpdated = false; // user.update() is already called
+        } else {
+          this.setState(() {
+            this._emailVerificationError = "Wrong University Email Address";
+          });
+          return;
+        }
       }
     }
     if (isUpdated || univUpdated) await this.user.update();
     if (univUpdated) {
       Session.userUniversity = university;
       Session.changeCurrentUniversity(university);
-    } else
+    } else if (Session.user == null) {
+      return; //already Navigation set Home
+    } else {
       PadongRouter.goBack();
+    }
   }
 }

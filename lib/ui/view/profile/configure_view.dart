@@ -149,8 +149,8 @@ class _ConfigureViewState extends State<ConfigureView> {
                       errorText: _emailVerificationError,
                       margin: EdgeInsets.only(top: 10.0),
                       labelText: 'Email',
-                      onChanged: (e) => this
-                          .setState(() => this._emailVerificationError = null)),
+                      onChanged: (e) =>
+                          setState(() => this._emailVerificationError = null)),
               this.verifyButton(),
               Container(
                   width: 150,

@@ -45,7 +45,7 @@ class Validator {
 
   static bool universityEmailVerification(University univ, String email) {
     if (!isValid(emailRule, email)) return false;
-    if (univ.title == "PADONG") return false;
+    if (univ.title == "PADONG") return true;
     assert(univ != null);
     bool result = univ.domains.any((e) => Validator.isValid(RegExp(e), email));
     return result;

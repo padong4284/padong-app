@@ -14,6 +14,12 @@
 
 PADONG is a community platform that resolves information inequality among students in college life in the US.
 
+<p align="center">
+	<a href="https://play.google.com/store/apps/details?id=app.padong">
+		<img src="./assets/png/google-play-badge.png" width="200px" />
+	</a>
+</p>
+
 
 ## :mag: Vision
 
@@ -276,7 +282,7 @@ To run PADONG, two requirements below are needed to be installed.
 
 ## :cake: How to use?
 
-1. Install APK or IPA file you built using Android Studio **or** Download **PADONG** from App Store or Google Play.
+1. Install APK or IPA file you built using Android Studio or Download **PADONG** from [Google Play](https://play.google.com/store/apps/details?id=app.padong).
 
 2. Run PADONG app.
 
@@ -303,6 +309,14 @@ We chose Firestore to manage the data of Node. Because
 ## :art: View Structure
 
 ![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
+
+<p align="center">
+	<a href="https://tinyurl.com/xd-padong">
+		<img src="./assets/png/xd-image.png" />
+	</a>
+	(Click to see XD on web browser)
+</p>
+
 
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
 
@@ -351,3 +365,7 @@ Copyright (C) 2021-2021 Taejun Jang \<<padong4284@gmail.com>\> - All Rights Rese
 PADONG can not be copied and/or distributed without the express permission of Taejun Jang, Daewoong Ko, Hyunsik Kim, Seongbin Hong
 
 ![Wave](./assets/gif/half-wave.gif)
+
+## License
+
+Google Play and the Google Play logo are trademarks of Google LLC.

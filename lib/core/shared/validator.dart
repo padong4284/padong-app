@@ -44,9 +44,11 @@ class Validator {
   }
 
   static bool universityEmailVerification(University univ, String email) {
-    if (univ.title != "PADONG") return false;
-    bool result = univ.domains?.any((e) => Validator.isValid(RegExp(e), email));
-    return result ?? false;
+    if (!isValid(emailRule, email)) return false;
+    if (univ.title == "PADONG") return false;
+    assert(univ != null);
+    bool result = univ.domains.any((e) => Validator.isValid(RegExp(e), email));
+    return result;
   }
 
   static isWikiSvg(String data) => isValid(checkWikiSvg, data);

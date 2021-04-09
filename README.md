@@ -14,20 +14,11 @@
 
 PADONG is a community platform that resolves information inequality among students in college life in the US.
 
-<p align="center"></p>
-<table>
-        <tbody>
-		<tr>
-			<td>
-                		<a href="https://play.google.com/store/apps/details?id=app.padong"><img src="https://moonlight-stream.org/images/google-play-badge.png" width="200px" /></a>
-              		</td>
-              <td>
-                <a href=""><img src="https://moonlight-stream.org/images/App_Store_Badge_135x40.svg" width="200px" /></a>
-              </td>
-	   </tr>
-	</tbody>
-</table>
-
+<p align="center">
+	<a href="https://play.google.com/store/apps/details?id=app.padong">
+		<img src="./assets/png/google-play-badge.png" width="200px" />
+	</a>
+</p>
 ## :mag: Vision
 
 ‘PADONG’ means wave in Korean. We are looking to solve ‘10. Reduced Inequalities’ in [United Nations Sustainable Development Goals](https://www.un.org/sustainabledevelopment/).
@@ -356,6 +347,10 @@ Ultimately, PADONG will create a world where no one is marginalized due to infor
 |  Daewoong Ko  | <a href="https://github.com/kod4284"><img src="http://img.shields.io/badge/kod4284-655ced?style=social&logo=github"/></a> | <a href="mailto:kodw4284@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kodw4284@gmail.com&color=505560&style=flat-square&logo=gmail"></a> |
 |  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
 |  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
+
+## License
+
+Google Play and the Google Play logo are trademarks of Google LLC.
 
 ## :copyright:Copyright
 

@@ -174,7 +174,7 @@
 <p align="center"> (click to see original image) </p>
 
 [![PADONG_DESIGN_XD.png](./assets/png/xd-image.png "Padong Design XD")](https://tinyurl.com/xd-padong)
-<p align="center"> (Click to see XD on webbrowser) </p>
+<p align="center"> (Click to see XD on web browser) </p>
 
 
 ## :bank: 설치방법

@@ -166,10 +166,7 @@
 ## :bulb: Class Diagram
 
 ![class diagram](./assets/jpg/PADONG_SWARCH.jpg)
-
-
-
-(click to see original image)
+<p align="center"> (click to see original image) </p>
 
 ## :art: View Structure
 

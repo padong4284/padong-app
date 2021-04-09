@@ -174,11 +174,10 @@
 ## :art: View Structure
 
 ![](./assets/jpg/PADONG_TREE.jpg)
-
-![https://tinyurl.com/xd-padong](./assets/png/xd-image.png)
-
 (click to see original image)
 
+[![PADONG_DESIGN_XD.png](./assets/png/xd-image.png "Padong Design XD")](https://tinyurl.com/xd-padong)
+<p align="center"> (Click to see XD on webbrowser) </p>
 
 
 ## :bank: 설치방법

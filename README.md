@@ -310,7 +310,9 @@ We chose Firestore to manage the data of Node. Because
 
 ![PADONG_TREE.jpg](./assets/jpg/PADONG_TREE.jpg)
 
-![https://tinyurl.com/xd-padong](./assets/png/xd-image.png)
+[![PADONG_DESIGN_XD.png](./assets/png/xd-image.png "Padong Design XD")](https://tinyurl.com/xd-padong)
+<p align="center"> (Click to see XD on webbrowser) </p>
+
 On the other hand, in the user interface area, it was important to provide native performance while supporting multiple platforms.Because, the vision of PADONG is a more beautiful world that solves Reduced Inequalities. And the way to realize the vision is that many people share their own perspectives and understand each other.So, PADONG should be available to as many people as possible.
 
 Flutter fits our purpose perfectly, and thanks to Dart is an object-oriented language, it was also suitable for implementing the Node system we designed.In addition, the documentation and ecosystem are excellent, so even though all team members are new to Flutter, we can quickly adapt and develop PADONG.

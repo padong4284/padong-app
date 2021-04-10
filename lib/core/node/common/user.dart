@@ -95,9 +95,9 @@ class User extends Node {
 
   Future<List<User>> getFriends() async {
     if (this.friendIds.isEmpty) return [];
-    return await PadongFB.getDocsByRule('user',
-        rule: (query) =>
-            query.where(PadongFB.documentId, whereIn: this.friendIds)).then(
+    return await PadongFB.getDocsByRule('user', whereIn: {
+      PadongFB.documentId: this.friendIds
+    }).then(
         (docs) => docs.map((doc) => User.fromMap(doc.id, doc.data())).toList());
   }
 
@@ -129,9 +129,8 @@ class User extends Node {
     for (DocumentSnapshot p in myParticipants) chatRoomIds.add(p['parentId']);
     if (chatRoomIds.isEmpty) return [];
     return await PadongFB.getDocsByRule(ChatRoom().type,
-        rule: (query) =>
-            query.where(PadongFB.documentId, whereIn: chatRoomIds)).then(
-        (docs) =>
+            whereIn: {PadongFB.documentId: chatRoomIds})
+        .then((docs) =>
             docs.map((doc) => ChatRoom.fromMap(doc.id, doc.data())).toList());
   }
 }

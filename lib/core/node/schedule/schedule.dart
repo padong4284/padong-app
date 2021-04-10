@@ -26,10 +26,11 @@ class Schedule extends Node {
   Future<List<Lecture>> getMyLectures(User me) async {
     if (me.lectureIds.isEmpty) return [];
     return await PadongFB.getDocsByRule('lecture',
-        rule: (query) => query
-            .where('parentId', isEqualTo: this.id)
-            .where(PadongFB.documentId, whereIn: me.lectureIds)).then((docs) =>
-        <Lecture>[...docs.map((doc) => Lecture.fromMap(doc.id, doc.data()))]);
+            rule: (query) => query.where('parentId', isEqualTo: this.id),
+            whereIn: {PadongFB.documentId: me.lectureIds})
+        .then((docs) => <Lecture>[
+              ...docs.map((doc) => Lecture.fromMap(doc.id, doc.data()))
+            ]);
   }
 
   Future<List<Event>> getMyEvents(User me) async {

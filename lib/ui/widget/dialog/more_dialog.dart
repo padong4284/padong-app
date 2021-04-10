@@ -10,6 +10,7 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/title_node.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
@@ -22,14 +23,16 @@ class MoreDialog extends StatelessWidget {
   final bool isMine;
   final TitleNode node;
   final _textController = TextEditingController();
+  final String editUrl;
 
-  MoreDialog(this.node) : this.isMine = node.ownerId == Session.user.id;
+  MoreDialog(this.node, [this.editUrl])
+      : this.isMine = node.ownerId == Session.user.id;
 
-  static void show(BuildContext context, TitleNode node) {
+  static void show(BuildContext context, TitleNode node, {String editUrl}) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return MoreDialog(node);
+          return MoreDialog(node, editUrl);
         });
   }
 
@@ -54,7 +57,7 @@ class MoreDialog extends StatelessWidget {
 
   List<Widget> actions(BuildContext context) {
     return [
-      this.isMine && (this.node.type == 'post') && false // TODO: edit
+      this.isMine && (this.editUrl != null) // TODO: edit
           ? Button('Edit', onTap: this.edit, color: AppTheme.colors.support)
           : SizedBox.shrink(),
       SizedBox(height: this.isMine ? 5 : 0),
@@ -71,7 +74,9 @@ class MoreDialog extends StatelessWidget {
       str[0].toUpperCase() + str.substring(1).toLowerCase();
 
   void edit() {
-    // TODO: redirect to edit page
+    PadongRouter.routeURL(
+        '/${this.editUrl}?id=${this.node.id}&type=${this.node.type}',
+        this.node);
   }
 
   void delete(BuildContext context) async {

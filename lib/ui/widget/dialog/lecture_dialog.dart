@@ -26,7 +26,7 @@ class LectureDialog extends MoreDialog {
 
   LectureDialog(this.lecture)
       : this.isEntered = Session.user.lectureIds.contains(lecture.id),
-        super(lecture);
+        super(lecture, 'update');
 
   static void show(BuildContext context, Lecture lecture) {
     showDialog(
@@ -39,9 +39,6 @@ class LectureDialog extends MoreDialog {
   @override
   List<Widget> actions(BuildContext context) {
     return [
-      this.isMine
-          ? Button('Edit', onTap: this.edit, color: AppTheme.colors.support)
-          : SizedBox.shrink(),
       ...super.actions(context),
       SizedBox(height: this.isMine ? 5 : 0),
       Button(this.isEntered ? 'Get Out' : 'Enter',
@@ -61,10 +58,5 @@ class LectureDialog extends MoreDialog {
         content: Text(
             'Get ${this.isEntered ? 'Out' : 'In'} the ${this.lecture.title}')));
     PadongRouter.goBack();
-  }
-
-  void edit() {
-    PadongRouter.routeURL(
-        '/update&id=${this.lecture.id}&type=lecture', this.lecture);
   }
 }

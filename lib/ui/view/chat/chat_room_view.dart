@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/chat/message.dart';
 import 'package:padong/core/padong_router.dart';
+import 'package:padong/core/service/padong_notification.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/template/safe_padding_template.dart';
@@ -38,6 +39,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
   void initState() {
     super.initState();
     PadongRouter.refresh = this.updateUnread;
+    PadongNotification.currentChatRoomId = widget.chatRoom.id;
     widget.chatRoom
         .getMessageStream()
         .then((stream) => setState(() => this.messageStream = stream));
@@ -110,6 +112,12 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                 ]))
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    PadongNotification.currentChatRoomId = null;
   }
 
   void updateUnread() async {

@@ -9,6 +9,7 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/service/padong_notification.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/view/sign/base_sign_view.dart';
@@ -66,6 +67,7 @@ class _SignInViewState extends State<SignInView> {
     if (result == SignInResult.success) {
       this._idController.text = '';
       this._pwController.text = '';
+      PadongNotification.registerNotification();
       return true;
     }
 

@@ -17,6 +17,7 @@ import 'package:padong/ui/widget/button/button.dart';
 import 'package:padong/ui/widget/dialog/base_dialog.dart';
 import 'package:padong/ui/widget/input/input.dart';
 
+// Post, Reply, ReReply,
 class MoreDialog extends StatelessWidget {
   final bool isMine;
   final TitleNode node;
@@ -55,9 +56,9 @@ class MoreDialog extends StatelessWidget {
         this.isMine
             ? Button('Delete',
                 shadow: false,
-                onTap: this.delete,
+                onTap: () => this.delete(context),
                 borderColor: AppTheme.colors.pointRed)
-            : Button('Report', onTap: this.report)
+            : Button('Report', onTap: () => this.report(context))
       ],
     );
   }
@@ -69,27 +70,27 @@ class MoreDialog extends StatelessWidget {
     // TODO: redirect to edit page
   }
 
-  void delete() async {
-    String result;
-    if(await this.node.delete()) result = 'Delete Completed';
-    else result = 'Delete Failed';
-    print(result); //FIXME
+  void delete(BuildContext context) async {
+    if (await this.node.delete())
+      this.popResultMessage(context, 'Delete Completed', 2);
+    else
+      this.popResultMessage(context, 'Delete Failed', 0);
   }
 
-  void report() async {
-    String result;
+  void report(BuildContext context) async {
     String email = Session.user.userEmails[0];
     String title = 'Report about ${this.node.type} ${this.node.id}';
     String body = 'From: $email\n${this._textController.text}';
-    if(await Session.sendReport(title, body, ['report']))
-      result = 'Report Success, We will reply to $email';
-    else result = 'Report Failed, Please retry again.';
-    print(result); //FIXME
+    if (await Session.sendReport(title, body, ['report']))
+      this.popResultMessage(context, 'Report Success, We will reply to $email');
+    else
+      this.popResultMessage(context, 'Report Failed, Please retry.', 0);
   }
 
-  void popResultMessage(BuildContext context, String message, {int goBack = 1}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)));
+  void popResultMessage(BuildContext context, String message,
+      [int goBack = 1]) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
     for (int _ = 0; _ < goBack; _++) Navigator.pop(context);
   }
 }

@@ -18,13 +18,16 @@ import 'package:padong/util/time_manager.dart';
 class TimelineCard extends StatelessWidget {
   final bool isLecture;
   final Event event;
+  final TimeManager timeManager;
 
-  TimelineCard(this.event) : this.isLecture = (event.type == 'lecture');
+  TimelineCard(this.event, {this.timeManager})
+      : this.isLecture = (event.type == 'lecture');
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () => PadongRouter.routeURL('/event?id=${this.event.id}&type=${this.event.type}', this.event),
+        onTap: () => PadongRouter.routeURL(
+            '/event?id=${this.event.id}&type=${this.event.type}', this.event),
         child: BaseCard(children: [
           Text(this.isLecture ? 'Lecture' : 'Event',
               style: AppTheme.getFont(color: AppTheme.colors.fontPalette[3])),
@@ -42,7 +45,7 @@ class TimelineCard extends StatelessWidget {
       style: AppTheme.getFont(color: AppTheme.colors.primary));
 
   String getTerm() {
-    TimeManager tm = this.event.times[0];
+    TimeManager tm = this.timeManager ?? this.event.times[0];
     return tm.range + (tm.dMin > 0 ? ' (${tm.dMin}min)' : ' All day');
   }
 }

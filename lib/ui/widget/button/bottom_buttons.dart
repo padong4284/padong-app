@@ -42,9 +42,9 @@ class _BottomButtonsState extends State<BottomButtons> {
   @override
   void initState() {
     super.initState();
-    widget.node
-        .getStatisticsWithoutMe(Session.user)
-        .then((bottoms) => setState(() => this.bottoms = bottoms));
+    widget.node.getStatisticsWithoutMe(Session.user).then((bottoms) {
+      if (mounted) setState(() => this.bottoms = bottoms);
+    });
     this.isReply = widget.node is Reply || widget.node is ReReply;
     if (!this.isReply)
       BottomButtons.update = (int idx) {

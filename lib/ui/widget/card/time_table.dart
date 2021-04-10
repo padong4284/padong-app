@@ -89,6 +89,7 @@ class _TimeTableState extends State<TimeTable> {
   }
 
   Widget getBlock(Event lecture, TimeManager tm) {
+    if (tm.weekday > 5) return SizedBox.shrink();
     return Positioned(
         left: 31 + blockWidth * (tm.weekday - 1),
         top: 31 + 42 * (tm.hour - this.startHour + tm.minute / 60),

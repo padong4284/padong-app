@@ -47,7 +47,8 @@ class RailView extends StatelessWidget {
     Map<String, List<Widget>> timeline = {};
     for (Event event in events)
       for (TimeManager tm in event.times)
-        temp[tm.date] = (temp[tm.date] ?? []) + [TimelineCard(event)];
+        temp[tm.date] =
+            (temp[tm.date] ?? []) + [TimelineCard(event, timeManager: tm)];
 
     for (String date in temp.keys.toList()..sort()) timeline[date] = temp[date];
     return timeline;

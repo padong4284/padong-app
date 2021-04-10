@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/deck/post.dart';
-import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';

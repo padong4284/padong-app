@@ -17,7 +17,6 @@ import 'package:padong/ui/shared/button_properties.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
-import 'package:padong/ui/widget/padong_future_builder.dart';
 
 class BottomButtons extends StatefulWidget {
   final Statistics node;

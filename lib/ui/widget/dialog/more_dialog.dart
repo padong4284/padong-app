@@ -49,7 +49,7 @@ class MoreDialog extends StatelessWidget {
                 type: InputType.PLAIN)
       ],
       actions: [
-        this.isMine
+        this.isMine && (this.node.type == 'post') && false // TODO: edit
             ? Button('Edit', onTap: this.edit, color: AppTheme.colors.support)
             : SizedBox.shrink(),
         SizedBox(height: this.isMine ? 5 : 0),

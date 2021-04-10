@@ -9,7 +9,6 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'padong_fb.dart';
@@ -17,6 +16,7 @@ import 'session.dart';
 
 class PadongNotification {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static String currentChatRoomId;
 
   static void _configLocalNotification() {
     var initializationSettingsAndroid = new AndroidInitializationSettings('noti_filled_icon');
@@ -45,9 +45,11 @@ class PadongNotification {
           android: androidPlatformChannelSpecifics,
           iOS: iOSPlatformChannelSpecifics
       );
-      flutterLocalNotificationsPlugin.show(
-        0, message.notification.title, message.notification.body, platformChannelSpecifics,
-      );
+      if (message.data['chatRoomId'] != currentChatRoomId && message.data['userId'] != Session.user.userId) {
+        flutterLocalNotificationsPlugin.show(
+          0, message.notification.title, message.notification.body, platformChannelSpecifics,
+        );
+      }
     });
   }
 

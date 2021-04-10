@@ -78,7 +78,7 @@ class _ForgotDialogState extends State<ForgotDialog> {
       setState(() => this._emailError = 'Please check Email');
     else if (result == ResetPasswordResult.Failed)
       setState(() =>
-          this._emailError = 'Sorry, Sending email failed, Please try again.');
+          this._emailError = 'Sorry, Email sending failed, Please try again.');
     else {
       Navigator.pop(context); // Success
       ScaffoldMessenger.of(context)

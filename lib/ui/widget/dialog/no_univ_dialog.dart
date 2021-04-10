@@ -44,7 +44,7 @@ class _NoUnivDialogState extends State<NoUnivDialog> {
                   fontSize: AppTheme.fontSizes.large, isBold: true))),
       Input(
           controller: this._emailController,
-          labelText: 'Email',
+          labelText: 'Your Email',
           errorText: emailError,
           onChanged: (_) => setState(() => this.emailError = null),
       ),

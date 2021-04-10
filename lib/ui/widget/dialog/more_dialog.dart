@@ -48,19 +48,23 @@ class MoreDialog extends StatelessWidget {
                 isMultiline: true,
                 type: InputType.PLAIN)
       ],
-      actions: [
-        this.isMine && (this.node.type == 'post') && false // TODO: edit
-            ? Button('Edit', onTap: this.edit, color: AppTheme.colors.support)
-            : SizedBox.shrink(),
-        SizedBox(height: this.isMine ? 5 : 0),
-        this.isMine
-            ? Button('Delete',
-                shadow: false,
-                onTap: () => this.delete(context),
-                borderColor: AppTheme.colors.pointRed)
-            : Button('Report', onTap: () => this.report(context))
-      ],
+      actions: this.actions(context),
     );
+  }
+
+  List<Widget> actions(BuildContext context) {
+    return [
+      this.isMine && (this.node.type == 'post') && false // TODO: edit
+          ? Button('Edit', onTap: this.edit, color: AppTheme.colors.support)
+          : SizedBox.shrink(),
+      SizedBox(height: this.isMine ? 5 : 0),
+      this.isMine
+          ? Button('Delete',
+              shadow: false,
+              onTap: () => this.delete(context),
+              borderColor: AppTheme.colors.pointRed)
+          : Button('Report', onTap: () => this.report(context))
+    ];
   }
 
   static String _capitalize(String str) =>

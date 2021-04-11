@@ -60,11 +60,12 @@ class _TimeTableState extends State<TimeTable> {
     for (Event lecture in events) {
       this.colorSet[lecture.id] =
           backColors[this.colorSet.length % backColors.length];
-      for (TimeManager tm in lecture.times) {
-        this.lectureAndTMs.add([lecture, tm]);
-        this.startHour = min(this.startHour, tm.hour);
-        this.endHour = max(this.endHour, tm.hour + 1 + tm.dMin ~/ 60);
-      }
+      for (TimeManager tm in lecture.times)
+        if (tm.weekday <= 5) {
+          this.lectureAndTMs.add([lecture, tm]);
+          this.startHour = min(this.startHour, tm.hour);
+          this.endHour = max(this.endHour, tm.hour + 1 + tm.dMin ~/ 60);
+        }
     }
   }
 
@@ -94,8 +95,8 @@ class _TimeTableState extends State<TimeTable> {
         left: 31 + blockWidth * (tm.weekday - 1),
         top: 31 + 42 * (tm.hour - this.startHour + tm.minute / 60),
         child: InkWell(
-          onTap: () =>
-              PadongRouter.routeURL('/${lecture.type}?id=${lecture.id}', lecture),
+          onTap: () => PadongRouter.routeURL(
+              '/${lecture.type}?id=${lecture.id}', lecture),
           child: SizedBox(
               width: blockWidth - 2,
               height: 42 * (tm.dMin / 60),

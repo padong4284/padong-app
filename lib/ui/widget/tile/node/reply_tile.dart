@@ -9,8 +9,11 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/deck/reply.dart';
 import 'package:padong/ui/theme/app_theme.dart';
+import 'package:padong/ui/widget/dialog/argue_dialog.dart';
+import 'package:padong/ui/widget/dialog/more_dialog.dart';
 import 'package:padong/ui/widget/tile/node/node_tile.dart';
 
 class ReplyTile extends NodeTile {
@@ -25,5 +28,13 @@ class ReplyTile extends NodeTile {
   @override
   Widget bottomArea(BuildContext context, {List<int> hides}) {
     return super.bottomArea(context, hides: [2]);
+  }
+
+  @override
+  void moreCallback(BuildContext context) {
+    if (this.node.type == 'argue')
+      ArgueDialog.show(context, this.node as Argue);
+    else
+      MoreDialog.show(context, this.node);
   }
 }

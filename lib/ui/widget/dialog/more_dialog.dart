@@ -18,7 +18,7 @@ import 'package:padong/ui/widget/button/button.dart';
 import 'package:padong/ui/widget/dialog/base_dialog.dart';
 import 'package:padong/ui/widget/input/input.dart';
 
-// Post, Reply, ReReply,
+// Post, Reply, ReReply, Argue
 class MoreDialog extends StatelessWidget {
   final bool isMine;
   final TitleNode node;
@@ -57,7 +57,7 @@ class MoreDialog extends StatelessWidget {
 
   List<Widget> actions(BuildContext context) {
     return [
-      this.isMine && (this.editUrl != null) // TODO: edit
+      this.isMine && (this.editUrl != null)
           ? Button('Edit', onTap: this.edit, color: AppTheme.colors.support)
           : SizedBox.shrink(),
       SizedBox(height: this.isMine ? 5 : 0),

@@ -65,13 +65,16 @@ class _MapTemplateState extends State<MapTemplate> {
   bool hideCards = false;
   List<BuildingCard> buildingCards = [];
 
+  void initBuildingCards() async {
+    setState(() => this.buildingCards = List.generate(
+        min(10, widget.buildings.length),
+            (idx) => BuildingCard(widget.buildings[idx])));
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.buildings.isNotEmpty && this.buildingCards.isEmpty)
-      setState(() => this.buildingCards = List.generate(
-          min(10, widget.buildings.length),
-          (idx) => BuildingCard(widget.buildings[idx])));
-
+      this.initBuildingCards();
     return SafePaddingTemplate(
       floatingBottomBar: this.bottomBuildingCards(),
       floatingActionButtonGenerator: (isScrollingDown) => PadongButton(

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/re_reply.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -53,7 +54,14 @@ class _ArgueViewState extends State<ArgueView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    PadongRouter.refresh = null;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    PadongRouter.refresh = this.getArgues;
     return SafePaddingTemplate(
         floatingBottomBar: BottomSender(BottomSenderType.ARGUE,
             onSubmit: this.sendArgue,
@@ -86,7 +94,6 @@ class _ArgueViewState extends State<ArgueView> {
               this.scrollToReply(argue.id);
             },
             child: Container(
-                // TODO: close argue
                 key: this.argueKeys[argue.id],
                 color: this.readyReReply[argue.id]
                     ? AppTheme.colors.semiPrimary

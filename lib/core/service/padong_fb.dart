@@ -33,7 +33,7 @@ class PadongFB {
 
   static Future<bool> setDoc(String type, String id, Map data) async {
     data.remove('id');
-    if (await PadongFB.getDoc("node", id) == null)
+    if (await PadongFB.getDoc(type, id) == null)
       data['createdAt'] = FieldValue.serverTimestamp();
 
     return await _db

@@ -43,8 +43,18 @@ import 'package:padong/ui/view/sign/sign_up_view.dart';
 import 'package:padong/util/animation_routers.dart';
 
 class PadongRouter {
+  static List<Function()> _refreshes;
+
   static BuildContext context;
-  static Function() refresh;
+
+  static Function() get refresh => _refreshes.removeLast();
+
+  static set refresh(Function() callback) {
+    if (callback == null)
+      _refreshes.removeLast();
+    else
+      _refreshes.add(callback);
+  }
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final Map<String, dynamic> args =
@@ -127,8 +137,9 @@ class PadongRouter {
             pageBuilder: (_, __, ___) => ChatRoomView(args['node']),
             direction: 2);
       case '/chat':
-        return slideRouter(pageBuilder: (_, __, ___) => ChatView(
-            args['node'], isDirectTo: args['isDirectTo'] != null));
+        return slideRouter(
+            pageBuilder: (_, __, ___) =>
+                ChatView(args['node'], isDirectTo: args['isDirectTo'] != null));
 
       case '/profile':
         return slideRouter(

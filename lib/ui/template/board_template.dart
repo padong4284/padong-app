@@ -11,7 +11,6 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/deck/post.dart';
-import 'package:padong/core/node/schedule/schedule.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
@@ -59,13 +58,10 @@ class BoardTemplate extends StatelessWidget {
           ? (isScrollingDown) => FloatingBottomButton(
               title: this.writeMessage[0].toUpperCase() +
                   this.writeMessage.substring(1).toLowerCase(),
-              onTap: () {
-                // register refresh to update
-                PadongRouter.refresh = () => this.setState(() {});
+              onTap: () =>
                 PadongRouter.routeURL(
                     '${this.writeMessage.toLowerCase()}?id=${this.board.id}&type=${this.board.type}',
-                    this.board);
-              },
+                    this.board),
               isScrollingDown: isScrollingDown)
           : null,
       appBar: BackAppBar(title: this.board.title, actions: [

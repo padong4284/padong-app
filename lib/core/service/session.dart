@@ -190,7 +190,6 @@ class Session {
       String title, String body, List<String> labels) async {
     Map<String, dynamic> adminInfo = await _getAdminInfo('github');
     if (adminInfo == null) return false;
-
     var client = http.Client();
     try {
       String token = adminInfo['token'];
@@ -214,11 +213,9 @@ class Session {
     }
   }
 
-  static Future<bool> makeNewUniversityIssue(
-      String email, String university) async {
-    String title = 'Request to add a new university from $email';
-    String body = 'Email from: $email\nUniversity: $university';
-    List<String> labels = ['request'];
-    return await sendReport(title, body, labels);
+  static Future<bool> sendUnivRequest(String email, String university) async {
+    String title = 'Request to add a new university $university';
+    String body = 'From: $email\nUniversity: $university';
+    return await sendReport(title, body, ['request']);
   }
 }

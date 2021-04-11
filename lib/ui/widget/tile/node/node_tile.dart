@@ -45,8 +45,4 @@ class NodeTile extends NodeBase {
         color: AppTheme.colors.lightSupport,
         margin: const EdgeInsets.only(top: 5));
   }
-
-  void moreCallback() {
-    // TODO: Click more button " ... "
-  }
 }

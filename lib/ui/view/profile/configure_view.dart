@@ -21,6 +21,7 @@ import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/button.dart';
 import 'package:padong/ui/widget/button/profile_button.dart';
 import 'package:padong/ui/widget/dialog/image_uploader.dart';
+import 'package:padong/ui/widget/dialog/user_dialog.dart';
 import 'package:padong/ui/widget/input/input.dart';
 import 'package:padong/ui/widget/input/list_picker.dart';
 
@@ -46,7 +47,8 @@ class _ConfigureViewState extends State<ConfigureView> {
     this._controllers[3].text = this.user.university;
     this._controllers[4].text = this.user.entranceYear.toString();
     this._controllers[5].text = this.user.userEmails[0];
-    University.getUnivList().then((univs) => setState(() {
+    University.getUnivList().then((univs) =>
+        setState(() {
           univs.sort();
           this.universityList = univs;
         }));
@@ -66,16 +68,7 @@ class _ConfigureViewState extends State<ConfigureView> {
           ],
         ),
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            SizedBox(
-                width: 32,
-                height: 20,
-                child: IconButton(
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () {}, // TODO: more dialog
-                    icon: Icon(Icons.more_horiz_rounded,
-                        color: AppTheme.colors.support))),
-          ]),
+          // this.moreButton(),
           Container(
               margin: const EdgeInsets.only(top: 10, left: 5, bottom: 20),
               alignment: Alignment.center,
@@ -97,13 +90,35 @@ class _ConfigureViewState extends State<ConfigureView> {
         ]);
   }
 
+  Widget moreButton() {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      SizedBox(
+          width: 32,
+          height: 20,
+          child: IconButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () => UserDialog.show(context, this.user),
+              icon: Icon(Icons.more_horiz_rounded,
+                  color: AppTheme.colors.support))),
+    ]);
+  }
+
   Widget configures(BuildContext context) {
-    double paddingBottom = MediaQuery.of(context).padding.bottom;
+    double paddingBottom = MediaQuery
+        .of(context)
+        .padding
+        .bottom;
     return Container(
         alignment: Alignment.center,
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: Container(
-            width: MediaQuery.of(context).size.width -
+            width: MediaQuery
+                .of(context)
+                .size
+                .width -
                 2 * (AppTheme.horizontalPadding + 30),
             child: Column(children: [
               this.lockedInput(this.user.userId),
@@ -112,7 +127,8 @@ class _ConfigureViewState extends State<ConfigureView> {
                   controller: this._controllers[0],
                   margin: EdgeInsets.only(top: 10.0),
                   labelText: 'Password',
-                  onChanged: (_) => setState(() {
+                  onChanged: (_) =>
+                      setState(() {
                         this._controllers[1].text = '';
                         this._pwMatchError = null;
                       })),
@@ -122,7 +138,9 @@ class _ConfigureViewState extends State<ConfigureView> {
                   margin: EdgeInsets.only(top: 10.0),
                   labelText: 'Repeat Password',
                   errorText: this._pwMatchError,
-                  onChanged: (repeat) => setState(() => this._pwMatchError =
+                  onChanged: (repeat) =>
+                      setState(() =>
+                      this._pwMatchError =
                       !this._controllers[1].text.startsWith(repeat)
                           ? "Repeat Password doesn't match"
                           : null)),
@@ -133,9 +151,9 @@ class _ConfigureViewState extends State<ConfigureView> {
               this.isVerified
                   ? this.lockedInput(this.user.university)
                   : ListPicker(this._controllers[3],
-                      margin: EdgeInsets.only(top: 10.0),
-                      labelText: 'University',
-                      list: this.universityList),
+                  margin: EdgeInsets.only(top: 10.0),
+                  labelText: 'University',
+                  list: this.universityList),
               ListPicker(
                 this._controllers[4],
                 margin: EdgeInsets.only(top: 10.0),
@@ -145,12 +163,12 @@ class _ConfigureViewState extends State<ConfigureView> {
               this.isVerified
                   ? this.lockedInput(this.user.userEmails[0])
                   : Input(
-                      controller: this._controllers[5],
-                      errorText: _emailVerificationError,
-                      margin: EdgeInsets.only(top: 10.0),
-                      labelText: 'Email',
-                      onChanged: (e) =>
-                          setState(() => this._emailVerificationError = null)),
+                  controller: this._controllers[5],
+                  errorText: _emailVerificationError,
+                  margin: EdgeInsets.only(top: 10.0),
+                  labelText: 'Email',
+                  onChanged: (e) =>
+                      setState(() => this._emailVerificationError = null)),
               this.verifyButton(),
               Container(
                   width: 150,
@@ -176,9 +194,9 @@ class _ConfigureViewState extends State<ConfigureView> {
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           this.isVerified
               ? Padding(
-                  padding: const EdgeInsets.only(right: 5),
-                  child: Icon(Icons.verified_rounded,
-                      size: 22, color: AppTheme.colors.base))
+              padding: const EdgeInsets.only(right: 5),
+              child: Icon(Icons.verified_rounded,
+                  size: 22, color: AppTheme.colors.base))
               : SizedBox.shrink(),
           Text(this.isVerified ? 'Verified' : 'Please Verify Email',
               style: AppTheme.getFont(
@@ -199,7 +217,7 @@ class _ConfigureViewState extends State<ConfigureView> {
             borderRadius: const BorderRadius.all(Radius.circular(13.0)),
             boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)]),
         child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(text,
               style: AppTheme.getFont(
                   color: AppTheme.colors.primary,
@@ -219,7 +237,6 @@ class _ConfigureViewState extends State<ConfigureView> {
 
   void onTabOk() async {
     await Session.refreshUser();
-
     this.setState(() {
       this.user = Session.user;
       this.isVerified = this.user.isVerified;
@@ -234,6 +251,7 @@ class _ConfigureViewState extends State<ConfigureView> {
     University university;
     String name = this._controllers[2].text;
     int year = int.tryParse(this._controllers[4].text);
+
     if (name.isNotEmpty && name != this.user.name) {
       this.user.name = name;
       isUpdated = true;
@@ -263,12 +281,10 @@ class _ConfigureViewState extends State<ConfigureView> {
             university ?? Session.currUniversity, email)) {
           await Session.changeUserEmail(email, context);
           isUpdated = false; // user.update() is already called
-        } else {
-          this.setState(() {
+        } else
+          return this.setState(() {
             this._emailVerificationError = "Wrong University Email Address";
           });
-          return;
-        }
       }
     }
     if (isUpdated || univUpdated) await this.user.update();
@@ -277,8 +293,7 @@ class _ConfigureViewState extends State<ConfigureView> {
       Session.changeCurrentUniversity(university);
     } else if (Session.user == null) {
       return; //already Navigation set Home
-    } else {
+    } else
       PadongRouter.goBack();
-    }
   }
 }

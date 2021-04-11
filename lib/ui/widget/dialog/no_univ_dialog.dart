@@ -9,6 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/service/session.dart';
+import 'package:padong/core/shared/validator.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/button.dart';
 import 'package:padong/ui/widget/dialog/base_dialog.dart';
@@ -27,15 +29,9 @@ class NoUnivDialog extends StatefulWidget {
 }
 
 class _NoUnivDialogState extends State<NoUnivDialog> {
-  TextEditingController _univController;
-  TextEditingController _emailController;
-
-  @override
-  void initState() {
-    super.initState();
-    _univController = TextEditingController();
-    _emailController = TextEditingController();
-  }
+  String emailError;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _univController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,22 +42,32 @@ class _NoUnivDialogState extends State<NoUnivDialog> {
           child: Text('Your University',
               style: AppTheme.getFont(
                   fontSize: AppTheme.fontSizes.large, isBold: true))),
-      Input(controller: this._univController, labelText: 'University'),
+      Input(
+          controller: this._emailController,
+          labelText: 'Your Email',
+          errorText: emailError,
+          onChanged: (_) => setState(() => this.emailError = null),
+      ),
       SizedBox(height: 10),
-      Input(controller: this._emailController, labelText: 'Email')
+      Input(controller: this._univController, labelText: 'University'),
     ], actions: [
-      Button('Request', onTap: () async => await resetPW(context))
+      Button('Request', onTap: () async => await requestUniv(context))
     ]);
   }
 
-  Future<void> resetPW(BuildContext context) async {
+  Future<void> requestUniv(BuildContext context) async {
+    String result;
     String university = this._univController.text;
     String email = this._emailController.text;
 
-    // TODO: send email to padong4284@gmail.com
+    if (!Validator.isValid(Validator.emailRule, email))
+      return setState(() => this.emailError = 'Please Check An Email.');
 
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('We will send the response to $email')));
+    if (await Session.sendUnivRequest(email, university)) {
+      result = 'We will reply to $email';
+      Navigator.pop(context);
+    } else
+      result = 'Failed, Please retry again';
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result)));
   }
 }

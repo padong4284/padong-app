@@ -17,7 +17,6 @@ import 'package:padong/ui/shared/button_properties.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/button/toggle_icon_button.dart';
-import 'package:padong/ui/widget/padong_future_builder.dart';
 
 class BottomButtons extends StatefulWidget {
   final Statistics node;
@@ -42,9 +41,9 @@ class _BottomButtonsState extends State<BottomButtons> {
   @override
   void initState() {
     super.initState();
-    widget.node
-        .getStatisticsWithoutMe(Session.user)
-        .then((bottoms) => setState(() => this.bottoms = bottoms));
+    widget.node.getStatisticsWithoutMe(Session.user).then((bottoms) {
+      if (mounted) setState(() => this.bottoms = bottoms);
+    });
     this.isReply = widget.node is Reply || widget.node is ReReply;
     if (!this.isReply)
       BottomButtons.update = (int idx) {

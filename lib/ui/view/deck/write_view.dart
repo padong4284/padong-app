@@ -11,10 +11,12 @@
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/deck/post.dart';
+import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/template/markdown_editor_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/padong_bottom_bar.dart';
+import 'package:padong/ui/widget/dialog/ask_notice_dialog.dart';
 
 class WriteView extends StatelessWidget {
   final Board board;
@@ -29,7 +31,7 @@ class WriteView extends StatelessWidget {
       withAnonym: true,
       topArea: this.pipLevel(),
       contentHint: this.board.rule,
-      onSubmit: this.createPost,
+      onSubmit: (data) => this.createPost(data, context),
     );
   }
 
@@ -56,15 +58,15 @@ class WriteView extends StatelessWidget {
     ]);
   }
 
-  void createPost(Map data) async {
-    // TODO: if user is owner of this board, ask isNotice
-    // with dialog
+  void createPost(Map data, BuildContext context) async {
+    bool isNotice = (this.board.ownerId == Session.user.id) &&
+        (await AskNoticeDialog.show(context));
     await Post.fromMap('', {
       ...data,
       'parentId': this.board.id,
       'pip': pipToString(this.board.pip),
       'anonymity': TipInfo.isAnonym,
-      'isNotice': false,
+      'isNotice': isNotice,
     }).create();
   }
 }

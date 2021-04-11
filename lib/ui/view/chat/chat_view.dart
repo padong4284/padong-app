@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/chat/chat_room.dart';
 import 'package:padong/core/node/common/user.dart';
 import 'package:padong/core/node/node.dart';
-import 'package:padong/core/node/nodes.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/constants.dart';
 import 'package:padong/core/shared/types.dart';

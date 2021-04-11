@@ -1,3 +1,5 @@
+import 'dart:math';
+
 ///*********************************************************************
 ///* Copyright (C) 2021-2021 Taejun Jang <padong4284@gmail.com>
 ///* All Rights Reserved.
@@ -31,7 +33,7 @@ class PadongFB {
 
   static Future<bool> setDoc(String type, String id, Map data) async {
     data.remove('id');
-    if (await PadongFB.getDoc("node", id) == null)
+    if (await PadongFB.getDoc(type, id) == null)
       data['createdAt'] = FieldValue.serverTimestamp();
 
     return await _db
@@ -88,6 +90,30 @@ class PadongFB {
   }
 
   static Future<List<DocumentSnapshot>> getDocsByRule(String type,
+      {Query Function(Query) rule,
+      int limit,
+      String startId,
+      Map<dynamic, List<String>> whereIn}) async {
+    if (whereIn != null) {
+      List<DocumentSnapshot> result = [];
+      for (var key in whereIn.keys) {
+        int len = whereIn[key].length;
+        for (int i = 0; i * 10 < len; i++)
+          result += await _getDocsByRule(
+            type,
+            limit: limit,
+            startId: startId,
+            rule: (query) => (rule != null ? rule(query) : query).where(key,
+                whereIn: whereIn[key].sublist(10 * i, min(10 * (i + 1), len))),
+          );
+      }
+      return result;
+    }
+    return await _getDocsByRule(type,
+        rule: rule, limit: limit, startId: startId);
+  }
+
+  static Future<List<DocumentSnapshot>> _getDocsByRule(String type,
       {Query Function(Query) rule, int limit, String startId}) async {
     Query query = _db.collection(type).where('deletedAt', isNull: true);
     if (rule != null) query = rule(query);

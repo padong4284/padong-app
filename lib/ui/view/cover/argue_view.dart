@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/cover/argue.dart';
 import 'package:padong/core/node/cover/wiki.dart';
 import 'package:padong/core/node/deck/re_reply.dart';
+import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
 import 'package:padong/core/shared/types.dart';
 import 'package:padong/ui/shared/types.dart';
@@ -50,6 +51,13 @@ class _ArgueViewState extends State<ArgueView> {
   void initState() {
     super.initState();
     this.getArgues();
+    PadongRouter.refresh = this.getArgues;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    PadongRouter.refresh = null;
   }
 
   @override
@@ -86,7 +94,6 @@ class _ArgueViewState extends State<ArgueView> {
               this.scrollToReply(argue.id);
             },
             child: Container(
-                // TODO: close argue
                 key: this.argueKeys[argue.id],
                 color: this.readyReReply[argue.id]
                     ? AppTheme.colors.semiPrimary

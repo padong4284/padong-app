@@ -19,6 +19,7 @@ import 'package:padong/ui/template/safe_padding_template.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/bar/back_app_bar.dart';
 import 'package:padong/ui/widget/container/infinity_scroller.dart';
+import 'package:padong/ui/widget/dialog/chat_room_dialog.dart';
 import 'package:padong/ui/widget/input/bottom_sender.dart';
 import 'package:padong/ui/widget/tile/chat_balloon.dart';
 
@@ -53,7 +54,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       appBar: BackAppBar(title: widget.chatRoom.title, isClose: true, actions: [
         IconButton(
             icon: Icon(Icons.more_horiz, color: AppTheme.colors.support),
-            onPressed: () {}) // TODO: more dialog
+            onPressed: () => ChatRoomDialog.show(context, widget.chatRoom))
       ]),
       floatingBottomBar: BottomSender(BottomSenderType.CHAT,
           msgController: widget._msgController,

@@ -30,6 +30,12 @@ class ChatsView extends StatefulWidget {
 
 class _ChatsViewState extends State<ChatsView> {
   @override
+  void initState() {
+    super.initState();
+    PadongRouter.refresh = () => setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafePaddingTemplate(
         floatingActionButtonGenerator: (isScrollingDown) =>

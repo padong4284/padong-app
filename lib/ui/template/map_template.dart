@@ -68,7 +68,7 @@ class _MapTemplateState extends State<MapTemplate> {
   void initBuildingCards() async {
     setState(() => this.buildingCards = List.generate(
         min(10, widget.buildings.length),
-            (idx) => BuildingCard(widget.buildings[idx])));
+        (idx) => BuildingCard(widget.buildings[idx])));
   }
 
   @override

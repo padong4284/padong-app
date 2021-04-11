@@ -21,8 +21,6 @@ import 'package:padong/core/shared/types.dart';
 class ChatRoom extends TitleNode with Notification {
   Message lastMessage;
 
-  Participant myParticipant;
-
   Future<List<User>> get participants async {
     List<User> result = [];
     List<Participant> _participants = <Participant>[
@@ -94,8 +92,8 @@ class ChatRoom extends TitleNode with Notification {
   }
 
   static String oneToOne(User user1, User user2) {
-    bool _1front = user1.id.compareTo(user2.id) < 0;
-    return (_1front ? [user1.id, user2.id] : [user2.id, user1.id]).join('');
+    bool _is1front = user1.id.compareTo(user2.id) < 0;
+    return (_is1front ? [user1.id, user2.id] : [user2.id, user1.id]).join('');
   }
 
   static Future<ChatRoom> getById(String chatRoomId) async {

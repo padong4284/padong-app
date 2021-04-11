@@ -51,6 +51,7 @@ class _ArgueViewState extends State<ArgueView> {
   void initState() {
     super.initState();
     this.getArgues();
+    PadongRouter.refresh = this.getArgues;
   }
 
   @override
@@ -61,7 +62,6 @@ class _ArgueViewState extends State<ArgueView> {
 
   @override
   Widget build(BuildContext context) {
-    PadongRouter.refresh = this.getArgues;
     return SafePaddingTemplate(
         floatingBottomBar: BottomSender(BottomSenderType.ARGUE,
             onSubmit: this.sendArgue,

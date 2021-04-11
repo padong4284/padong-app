@@ -43,11 +43,14 @@ import 'package:padong/ui/view/sign/sign_up_view.dart';
 import 'package:padong/util/animation_routers.dart';
 
 class PadongRouter {
-  static List<Function()> _refreshes;
+  static List<Function()> _refreshes = [];
 
   static BuildContext context;
 
-  static Function() get refresh => _refreshes.removeLast();
+  static Function() get refresh => _refreshes.isEmpty ? () {} : _refreshes.last;
+
+  static Function() get _refresh =>
+      _refreshes.isEmpty ? () {} : _refreshes.removeLast();
 
   static set refresh(Function() callback) {
     if (callback == null)
@@ -190,8 +193,7 @@ class PadongRouter {
   }
 
   static goBack() {
+    PadongRouter._refresh();
     Navigator.pop(PadongRouter.context);
-    if (refresh != null) refresh();
-    refresh = null;
   }
 }

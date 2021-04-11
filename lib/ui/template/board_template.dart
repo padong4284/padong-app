@@ -58,13 +58,10 @@ class BoardTemplate extends StatelessWidget {
           ? (isScrollingDown) => FloatingBottomButton(
               title: this.writeMessage[0].toUpperCase() +
                   this.writeMessage.substring(1).toLowerCase(),
-              onTap: () {
-                // register refresh to update
-                PadongRouter.refresh = () => this.setState(() {});
+              onTap: () =>
                 PadongRouter.routeURL(
                     '${this.writeMessage.toLowerCase()}?id=${this.board.id}&type=${this.board.type}',
-                    this.board);
-              },
+                    this.board),
               isScrollingDown: isScrollingDown)
           : null,
       appBar: BackAppBar(title: this.board.title, actions: [

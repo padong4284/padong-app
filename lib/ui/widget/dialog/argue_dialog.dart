@@ -44,10 +44,11 @@ class ArgueDialog extends MoreDialog {
   void toggleClosed(BuildContext context) async {
     this.argue.isClosed = !this.argue.isClosed;
     if (await this.argue.update()) {
+      PadongRouter.refresh();
       this.popResultMessage(context,
-          'You ${this.argue.isClosed ? 'Close' : 'Reopen'} the Argue', 0);
-      PadongRouter.goBack();
-    } else
+          'You ${this.argue.isClosed ? 'Close' : 'Reopen'} the Argue', 1);
+    }
+    else
       this.popResultMessage(
           context, 'Failed to close argue. Please try again.', 0);
   }

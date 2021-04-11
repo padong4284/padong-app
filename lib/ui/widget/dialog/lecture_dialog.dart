@@ -10,15 +10,11 @@
 ///*********************************************************************
 import 'package:flutter/material.dart';
 import 'package:padong/core/node/schedule/lecture.dart';
-import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
-import 'package:padong/ui/shared/types.dart';
 import 'package:padong/ui/theme/app_theme.dart';
 import 'package:padong/ui/widget/button/button.dart';
-import 'package:padong/ui/widget/dialog/base_dialog.dart';
 import 'package:padong/ui/widget/dialog/more_dialog.dart';
-import 'package:padong/ui/widget/input/input.dart';
 
 class LectureDialog extends MoreDialog {
   final Lecture lecture;

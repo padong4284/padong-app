@@ -34,7 +34,7 @@ class SafePaddingTemplate extends StatefulWidget {
       this.floatingActionButtonGenerator,
       floatingBottomBar,
       floatingBottomBarGenerator,
-      @required this.children,
+      this.children,
       this.stackChildren,
       this.background,
       this.isReversed = false,

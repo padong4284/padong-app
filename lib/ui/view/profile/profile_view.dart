@@ -22,6 +22,7 @@ import 'package:padong/ui/widget/button/profile_button.dart';
 import 'package:padong/ui/widget/card/photo_card.dart';
 import 'package:padong/ui/widget/component/title_header.dart';
 import 'package:padong/ui/widget/container/horizontal_scroller.dart';
+import 'package:padong/ui/widget/dialog/more_dialog.dart';
 import 'package:padong/ui/widget/padong_future_builder.dart';
 import 'package:padong/ui/widget/tile/board_list.dart';
 
@@ -123,7 +124,7 @@ class _ProfileViewState extends State<ProfileView> {
             SizedBox(
                 width: 32,
                 child: IconButton(
-                    onPressed: () {}, // TODO: more dialog
+                    onPressed: () => MoreDialog.show(context, widget.user),
                     icon: Icon(Icons.more_horiz_rounded,
                         color: AppTheme.colors.support))),
             SizedBox(

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:padong/core/node/deck/board.dart';
 import 'package:padong/core/node/deck/post.dart';
 import 'package:padong/ui/template/board_template.dart';
+import 'package:padong/ui/widget/dialog/more_dialog.dart';
 import 'package:padong/ui/widget/tile/notice_tile.dart';
 
 class BoardView extends StatefulWidget {
@@ -26,15 +27,15 @@ class _BoardViewState extends State<BoardView> {
   @override
   Widget build(BuildContext context) {
     return BoardTemplate(
-        widget.board,
-        Post(),
-        setState,
-        onPressMore: () {}, // TODO: more dialog
-        center: [
-          Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: NoticeTile(widget.board)),
-        ],
+      widget.board,
+      Post(),
+      setState,
+      onPressMore: () => MoreDialog.show(context, widget.board),
+      center: [
+        Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: NoticeTile(widget.board)),
+      ],
     );
   }
 }

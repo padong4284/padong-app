@@ -9,6 +9,8 @@
 ///* Github [https://github.com/padong4284]
 ///*********************************************************************
 import 'package:flutter/material.dart';
+import 'package:padong/core/node/common/user.dart';
+import 'package:padong/core/node/node.dart';
 import 'package:padong/core/node/title_node.dart';
 import 'package:padong/core/padong_router.dart';
 import 'package:padong/core/service/session.dart';
@@ -21,14 +23,14 @@ import 'package:padong/ui/widget/input/input.dart';
 // Post, Reply, ReReply, Argue
 class MoreDialog extends StatelessWidget {
   final bool isMine;
-  final TitleNode node;
+  final Node node;
   final _textController = TextEditingController();
   final String editUrl;
 
   MoreDialog(this.node, [this.editUrl])
       : this.isMine = node.ownerId == Session.user.id;
 
-  static void show(BuildContext context, TitleNode node, {String editUrl}) {
+  static void show(BuildContext context, Node node, {String editUrl}) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -39,9 +41,7 @@ class MoreDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseDialog(
-      topTitle: this.node.title.isNotEmpty
-          ? this.node.title
-          : _capitalize(this.node.type),
+      topTitle: this.getTitle(),
       children: [
         this.isMine
             ? SizedBox.shrink()
@@ -53,6 +53,15 @@ class MoreDialog extends StatelessWidget {
       ],
       actions: this.actions(context),
     );
+  }
+
+  String getTitle() {
+    if (this.node is TitleNode) {
+      TitleNode tNode = this.node as TitleNode;
+      if (tNode.title.isNotEmpty) return tNode.title;
+    }
+    if (this.node is User) return (this.node as User).userId;
+    return _capitalize(this.node.type);
   }
 
   List<Widget> actions(BuildContext context) {

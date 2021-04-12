@@ -262,6 +262,6 @@ class _MapViewState extends State<MapView> {
 
   void dispose() {
     super.dispose();
-    this.positionStream.cancel();
+    this.positionStream?.cancel();
   }
 }

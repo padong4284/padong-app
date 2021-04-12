@@ -6,6 +6,8 @@
     <string>NO</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>PADONG</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,7 +33,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Application needs to access your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Need to access your photo library to select a photo add and update profile picture</string>
+	<string>Need to access your photo library to select a photo add and update profile picture</string
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

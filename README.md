@@ -18,6 +18,9 @@ PADONG is a community platform that resolves information inequality among studen
 	<a href="https://play.google.com/store/apps/details?id=app.padong">
 		<img src="./assets/png/google-play-badge.png" width="200px" />
 	</a>
+	<a href="https://apps.apple.com/kr/app/padong/id1562611102">
+		<img src="./assets/png/app-store-badge.png" width="200px" />
+	</a>
 </p>
 
 

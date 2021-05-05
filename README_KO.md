@@ -8,8 +8,10 @@
 	<a href="https://play.google.com/store/apps/details?id=app.padong">
 		<img src="./assets/png/google-play-badge.png" width="200px" />
 	</a>
+	<a href="https://apps.apple.com/kr/app/padong/id1562611102">
+		<img src="./assets/png/app-store-badge.png" width="200px" />
+	</a>
 </p>
-
 
 파동은 궁극적으로 미국 대학에 발생하는 정보 불평등을 해소하기 위한 대학 커뮤니티 플랫폼입니다. 파동은 학교에서 제공하는 형식적인 정보가 아니라 소통의장을 통해 직접 경험하고 느낀 상급생들에게 질문과 답변을 통해서 성공적인 대학생활의 노하우를 제공합니다. 또한 기존에 파편화된 서비스들의 기능들을 통합한 서비스를 제공함으로써 파동 앱 하나로 누릴 수 있습니다. 
 
@@ -276,7 +278,7 @@
 
 ## :cake: 사용방법
 
-1. Android Studio를 사용하여 빌드한 APK or IPA 파일을 설치하거나 **파동(Padong)** 을 [Google Play](https://play.google.com/store/apps/details?id=app.padong)에 검색하여 설치합니다.
+1. Android Studio를 사용하여 빌드한 APK or IPA 파일을 설치하거나 **파동(Padong)** 을 [Google Play](https://play.google.com/store/apps/details?id=app.padong)또는 [App Store](https://apps.apple.com/kr/app/padong/id1562611102)에 검색하여 설치합니다.
 
 2. 파동앱을 실행합니다.
 
@@ -295,7 +297,8 @@
 |  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
 |  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
 
-## 🎫License
+## 🎫Legal
+Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.
 
 Google Play and the Google Play logo are trademarks of Google LLC.
 

@@ -18,6 +18,9 @@ PADONG is a community platform that resolves information inequality among studen
 	<a href="https://play.google.com/store/apps/details?id=app.padong">
 		<img src="./assets/png/google-play-badge.png" width="200px" />
 	</a>
+	<a href="https://apps.apple.com/kr/app/padong/id1562611102">
+		<img src="./assets/png/app-store-badge.png" width="200px" />
+	</a>
 </p>
 
 
@@ -282,7 +285,7 @@ To run PADONG, two requirements below are needed to be installed.
 
 ## :cake: How to use?
 
-1. Install APK or IPA file you built using Android Studio or Download **PADONG** from [Google Play](https://play.google.com/store/apps/details?id=app.padong).
+1. Install APK or IPA file you built using Android Studio or Download **PADONG** from [Google Play](https://play.google.com/store/apps/details?id=app.padong) or [App Store](https://apps.apple.com/kr/app/padong/id1562611102).
 
 2. Run PADONG app.
 
@@ -358,7 +361,8 @@ Ultimately, PADONG will create a world where no one is marginalized due to infor
 |  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
 |  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
 
-## 🎫License
+## 🎫Legal
+Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.
 
 Google Play and the Google Play logo are trademarks of Google LLC.
 

@@ -285,7 +285,7 @@ To run PADONG, two requirements below are needed to be installed.
 
 ## :cake: How to use?
 
-1. Install APK or IPA file you built using Android Studio or Download **PADONG** from [Google Play](https://play.google.com/store/apps/details?id=app.padong).
+1. Install APK or IPA file you built using Android Studio or Download **PADONG** from [Google Play](https://play.google.com/store/apps/details?id=app.padong) or [App Store](https://apps.apple.com/kr/app/padong/id1562611102).
 
 2. Run PADONG app.
 

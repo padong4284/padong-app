@@ -95,6 +95,7 @@ class _InfinityScrollerState extends State<InfinityScroller> {
               else
                 return SizedBox(height: widget.endPadding);
             } // index is start from 1
+            if (this._children.isEmpty) return SizedBox.shrink();
             int len = this._children.length;
             return widget.seriesBuilder != null
                 ? widget.seriesBuilder(this._children[index - 1],

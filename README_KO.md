@@ -290,12 +290,12 @@
 
 
 ## 🇰🇷 PADONG Team Members
-|      Name     |      GitHub   |    Email    |
-|:-------------:|:-------------:|:-----------:|
-|**Taejun Jang**| <a href="https://github.com/jtjun"><img src="http://img.shields.io/badge/jtjun-655ced?style=social&logo=github"/></a> | <a href="mailto:jtjun7132@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=jtjun7132@gmail.com&color=00A1E0&style=flat-square&logo=gmail"></a> |
-|  Daewoong Ko  | <a href="https://github.com/kod4284"><img src="http://img.shields.io/badge/kod4284-655ced?style=social&logo=github"/></a> | <a href="mailto:kodw4284@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kodw4284@gmail.com&color=505560&style=flat-square&logo=gmail"></a> |
-|  Hyunsik Kim  | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
-|  Sengbin Hung | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
+|      Name      |      GitHub   |    Email    |
+|:--------------:|:-------------:|:-----------:|
+|**Taejun Jang** | <a href="https://github.com/jtjun"><img src="http://img.shields.io/badge/jtjun-655ced?style=social&logo=github"/></a> | <a href="mailto:jtjun7132@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=jtjun7132@gmail.com&color=00A1E0&style=flat-square&logo=gmail"></a> |
+|  Daewoong Ko   | <a href="https://github.com/kod4284"><img src="http://img.shields.io/badge/kod4284-655ced?style=social&logo=github"/></a> | <a href="mailto:kodw4284@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kodw4284@gmail.com&color=505560&style=flat-square&logo=gmail"></a> |
+|  Hyunsik Kim   | <a href="https://github.com/Devconf"><img src="http://img.shields.io/badge/Devconf-655ced?style=social&logo=github"/></a> | <a href="mailto:devconf5296@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=devconf5296@gmail.com&color=C0E0F0&style=flat-square&logo=gmail"></a> |
+|  Seongbin Hong | <a href="https://github.com/VertexToEdge"><img src="http://img.shields.io/badge/VertexToEdge-655ced?style=social&logo=github"/></a> | <a href="mailto:vertextoedge@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=vertextoedge@gmail.com&color=9095A0&style=flat-square&logo=gmail"></a> |
 
 ## 🎫Legal
 Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc.
